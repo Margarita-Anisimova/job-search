@@ -1,16 +1,29 @@
 import * as React from 'react';
-import { Route } from 'react-router';
 import Layout from './components/Layout';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
+import Registration from './components/Registration';
+import Account from './components/Account';
+
 
 import './custom.css'
+import { useState } from 'react';
+import NavMenu from './components/NavMenu';
 
-export default () => (
-    <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
-    </Layout>
-);
+function App() {
+
+    const [accountType, setAccountType] = useState('noRegistered')
+    return (
+        <BrowserRouter>
+            <NavMenu accountType={accountType} setAccountType={setAccountType} />
+            <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/registration' element={<Registration setAccountType={setAccountType} />} />
+                <Route path='/account' element={<Account accountType={accountType} />} />
+                {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
+            </Routes>
+        </BrowserRouter>
+    );
+}
+
+export default App;
