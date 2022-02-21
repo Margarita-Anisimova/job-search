@@ -14,7 +14,7 @@ export class Check extends Component {
     }
 
     async getData() {
-        const response = await fetch('set');
+        const response = await fetch('Todo');
         const data = await response.json();
         this.setState({ collection: data, loading: false });
     }

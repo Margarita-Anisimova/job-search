@@ -1,4 +1,3 @@
-using EFDataApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,10 +22,9 @@ namespace job_search
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationContext>(options =>
-                           options.UseSqlServer(connection));
-
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddDbContext<EFTodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddTransient<ITodoRepository, EFTodoRepository>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -34,6 +32,7 @@ namespace job_search
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
