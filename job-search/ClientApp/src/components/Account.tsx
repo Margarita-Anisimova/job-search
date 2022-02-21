@@ -3,14 +3,14 @@ import React from "react";
 import { useState } from "react";
 import VacancyResponses from './VacancyResponses';
 import ResumeResponses from './ResumeResponses';
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Account(props: { accountType: string }) {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     function start() {
         if (props.accountType === 'noRegistered') {
-            // navigate('/')
+            navigate('/')
         }
     }
 
