@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from './components/Layout';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from './components/Home';
 import Registration from './components/Registration';
 import Account from './components/Account';
@@ -16,12 +16,12 @@ function App() {
     return (
         <BrowserRouter>
             <NavMenu accountType={accountType} setAccountType={setAccountType} />
-            <Routes>
+            <Switch>
                 <Route path='/' element={<Home />} />
                 <Route path='/registration' element={<Registration setAccountType={setAccountType} />} />
                 <Route path='/account' element={<Account accountType={accountType} />} />
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
-            </Routes>
+            </Switch>
         </BrowserRouter>
     );
 }
