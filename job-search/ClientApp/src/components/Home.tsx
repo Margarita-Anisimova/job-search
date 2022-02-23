@@ -5,6 +5,8 @@ import Vacancy from './Vacancy';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import './Home.css';
+
 
 export default function Home() {
 
@@ -15,21 +17,22 @@ export default function Home() {
   }
 
   return (
+    <div className="home_container">
+      <p className="home-title">Работа найдется для каждого</p>
+      <section>
+        <input value='Найти' />
+        <button onClick={() => setState({ state: 'resume' })}>
+          Вакансии
+        </button>
+        <button onClick={() => setState({ state: 'vacancy' })}>
+          Резюме
+        </button>
+      </section>
+      <section>
+        {createList()}
+      </section>
 
-
-    <div>
-      Главная страница
-      <input value='Найти'>
-      </input>
-      <button onClick={() => setState({ state: 'resume' })}>
-        Вакансии
-      </button>
-      <button onClick={() => setState({ state: 'vacancy' })}>
-        Резюме
-      </button>
-      {createList()}
-
-    </div>
+    </div >
   );
 }
 

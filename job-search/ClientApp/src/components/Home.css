@@ -1,0 +1,13 @@
+.home-title {
+    font-size: 30px;
+}
+
+.home_container {
+    position: relative;
+    top: 20vh;
+    left: 20vw;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+}

@@ -6,36 +6,36 @@ import './NavMenu.css';
 export default function NavMenu(props: { accountType: string; setAccountType: any; }) {
 
     function nuvButton() {
+
+        return (
+            <div className='navigate'>
+                <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
+                <div className='sections_container'>
+                    <NavLink className='navigate_item' tag={Link} to="/"> Работадателям</NavLink>
+                    <NavLink className='navigate_item' tag={Link} to="/"> Соискателям</NavLink>
+                </div>
+                {createNavigateItems()}
+            </div>)
+    }
+
+
+    function createNavigateItems() {
         if (props.accountType === 'noRegistered') {
             return (
-                <div className='navigate'>
-                    <NavItem>
-                        <NavLink tag={Link} to="/">Главная</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} to="/registration">Вход</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} to="/registration">Регистрация</NavLink>
-                    </NavItem>
-                </div>
-            )
+                <div className='reg_container'>
+                    <NavLink className='navigate_item' tag={Link} to="/registration">Вход</NavLink>
+                    <NavLink className='navigate_item' tag={Link} to="/registration">Регистрация</NavLink>
+                </div>)
         } else {
             return (
-                <div className='navigate'>
-                    <NavItem>
-                        <NavLink tag={Link} to="/">Главная</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} to="/account">Личный кабинет</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink onClick={() => props.setAccountType('noRegistered')} to='/' tag={Link} >Выход</NavLink>
-                    </NavItem>
-                </div>
-            )
+                <div className='reg_container'>
+                    <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
+                    <NavLink className='navigate_item' onClick={() => props.setAccountType('noRegistered')} to='/' tag={Link} >Выход</NavLink>
+                </div>)
         }
     }
+
+
 
     return (
         <div className="menu">

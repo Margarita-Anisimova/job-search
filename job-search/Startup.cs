@@ -24,7 +24,9 @@ namespace job_search
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddDbContext<EFTodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:MargaritaConnection"]));
-            // services.AddDbContext<EFTodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:MarinaConnection"]));
+            //services.AddDbContext<EFTodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:MarinaConnection"]));
+
+
             // services.AddTransient<ITodoRepository, EFTodoRepository>();
             services.AddControllersWithViews();
 

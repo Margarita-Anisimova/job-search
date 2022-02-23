@@ -14,6 +14,7 @@ import NavMenu from './components/NavMenu';
 function App() {
 
     const [accountType, setAccountType] = useState('noRegistered')
+
     return (
         // <Check></Check>
         <BrowserRouter>
