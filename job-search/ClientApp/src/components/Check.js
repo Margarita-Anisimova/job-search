@@ -14,7 +14,7 @@ export class Check extends Component {
     }
 
     async getData() {
-        const response = await fetch('Todo');
+        const response = await fetch('Table_1');
         const data = await response.json();
         this.setState({ collection: data, loading: false });
     }
@@ -22,7 +22,7 @@ export class Check extends Component {
     render() {
         let contents = this.state.loading
             ? <div>Загрузка</div>
-            : <div>{this.state.collection[0]}</div>
+            : <div>Элементы</div>
         return (
             <div>
                 <h2>Мои наборы</h2>

@@ -23,8 +23,9 @@ namespace job_search
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddDbContext<EFTodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddTransient<ITodoRepository, EFTodoRepository>();
+            services.AddDbContext<EFTodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:MargaritaConnection"]));
+            // services.AddDbContext<EFTodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:MarinaConnection"]));
+            // services.AddTransient<ITodoRepository, EFTodoRepository>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

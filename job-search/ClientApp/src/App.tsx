@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Registration from './components/Registration';
 import Account from './components/Account';
+import { Check } from './components/Check';
 
 
 import './custom.css'
@@ -14,6 +15,7 @@ function App() {
 
     const [accountType, setAccountType] = useState('noRegistered')
     return (
+        // <Check></Check>
         <BrowserRouter>
             <NavMenu accountType={accountType} setAccountType={setAccountType} />
             <Routes>
