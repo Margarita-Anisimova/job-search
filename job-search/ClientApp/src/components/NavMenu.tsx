@@ -3,7 +3,7 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
-export default function NavMenu(props: { accountType: string; setAccountType: any; }) {
+export default function NavMenu(props: { accountType: string; setAccountType: any; pageType: string; setPageType: any; }) {
 
     function nuvButton() {
 
@@ -11,8 +11,8 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
             <div className='navigate'>
                 <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
                 <div className='sections_container'>
-                    <NavLink className='navigate_item' tag={Link} to="/"> Работадателям</NavLink>
-                    <NavLink className='navigate_item' tag={Link} to="/"> Соискателям</NavLink>
+                    <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
+                    <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
                 </div>
                 {createNavigateItems()}
             </div>)
@@ -24,7 +24,7 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
             return (
                 <div className='reg_container'>
                     <NavLink className='navigate_item' tag={Link} to="/registration">Вход</NavLink>
-                    <NavLink className='navigate_item' tag={Link} to="/registration">Регистрация</NavLink>
+                    {/* <NavLink className='navigate_item' tag={Link} to="/registration">Регистрация</NavLink> */}
                 </div>)
         } else {
             return (
