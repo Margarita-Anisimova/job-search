@@ -14,3 +14,22 @@ export type ResumesType = {
     city: string;
     experience: string;
 }
+
+export type WorkExpirienceType = {
+    company: string;
+    post: string;
+    workStart: string;
+    workEnd: string;
+    responsibilities: string;
+    achievements: string;
+}
+
+export type EducationType = {
+    edlevel: string;
+    university: string;
+    faculty: string;
+    specialization: string;
+    edForm: string;
+    edStart: string;
+    edEnd: string;
+}

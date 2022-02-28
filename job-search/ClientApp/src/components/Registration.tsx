@@ -9,11 +9,10 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
 
     const [formType, setFormType] = useState('authoriz')
     const [formInfo, setformInfo] = useState({ info: { email: '', password: '' } })
-    let userType = 'applicant';
     // authoriz
     //'registr'
 
-    function handle(e: any) {
+    function handler(e: any) {
         setformInfo({ info: { ...formInfo.info, [e.target.name]: e.target.value } });
 
     }
@@ -70,22 +69,15 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
                 <h3>{formType === 'authoriz' ? 'Вход' : 'Регистрация'}</h3>
                 <label className='label_for_input'>
                     Email
-                    <input value={formInfo.info.email} name='email' onChange={(e) => handle(e)} required type="email"></input>
+                    <input value={formInfo.info.email} name='email' onChange={(e) => handler(e)} required type="email"></input>
                 </label>
                 <label className='label_for_input'>
                     Пароль
-                    <input value={formInfo.info.password} name='password' onChange={(e) => handle(e)} required type="password"></input>
+                    <input value={formInfo.info.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}
                 <NavLink onClick={(e) => checkForm(e)} className='submit_button'
                     tag={Link} to="/">{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </NavLink>
-
-                {/* <NavItem style={{ listStyle: 'none' }}>
-                    <NavLink onClick={() => props.setAccountType('applicant')} tag={Link} to="/">Зарегистрироваться как соискатель</NavLink>
-                </NavItem>
-                <NavItem style={{ listStyle: 'none' }}>
-                    <NavLink onClick={() => props.setAccountType('employer')} tag={Link} to="/">Зарегистрироваться как работодатель</NavLink>
-                </NavItem> */}
             </form>
         </div >
     );

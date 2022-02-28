@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Registration from './components/Registration';
 import Account from './components/Account';
+import Resume from './components/resumeForm/Resume';
 import { Check } from './components/Check';
 
 
@@ -24,6 +25,7 @@ function App() {
                 <Route path='/' element={<Home pageType={pageType} accountType={accountType} />} />
                 <Route path='/registration' element={<Registration setAccountType={setAccountType} setPageType={setPageType} />} />
                 <Route path='/account' element={<Account accountType={accountType} />} />
+                <Route path='/resume' element={<Resume />} />
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>
         </BrowserRouter>
