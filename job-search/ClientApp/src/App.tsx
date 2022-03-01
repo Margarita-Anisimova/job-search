@@ -23,6 +23,9 @@ function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='/registration' element={<Registration setAccountType={setAccountType} />} />
                 <Route path='/account' element={<Account accountType={accountType} />} />
+
+                {/* <Route path='/check' element={<Check />} /> */}
+
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>
         </BrowserRouter>
