@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+
 
 namespace job_search.Models
 {
@@ -29,6 +31,7 @@ namespace job_search.Models
         public string phone {get; set; }
         [Required]
         public string email {get; set; }
+
     }
 }
 
