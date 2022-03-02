@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using job_search.Models;
 
 namespace job_search
 {
@@ -7,7 +8,9 @@ namespace job_search
     {
         public EFTodoDBContext(DbContextOptions<EFTodoDBContext> options) : base(options)
         { }
-        public DbSet<TodoItem> TodoItems { get; set; }
-        public DbSet<Table_1> Table_1 { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Education_ref> education_ref { get; set; }
+
+        // public DbSet<Company> Companies { get; set; }
     }
 }

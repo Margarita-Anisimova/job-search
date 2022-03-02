@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using job_search;
+using job_search.Models;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("[controller]")]
@@ -14,9 +15,10 @@ public class Table_1Controller : Controller
 
 
     [HttpGet]
-    public IEnumerable<Table_1> Get()
+    public IEnumerable<User> Get()
     {
-        return Context.Table_1;
+        // var r = Context.users;
+        return Context.users; //
 
     }
 
