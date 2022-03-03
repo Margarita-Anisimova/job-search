@@ -1,13 +1,66 @@
 .home-title {
     font-size: 30px;
+    font-weight: 500;
 }
 
 .home_container {
     position: relative;
     top: 20vh;
-    left: 20vw;
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
+    font-family: var(--userfont);
+}
+
+/* SEARCH */
+.search {
+    padding-bottom: 20px;
+}
+
+.search__form {
+    color: var(--text);
+    font-weight: 400;
+    font-size: 15px;
+    padding: 6px 20px 8px;
+    border: 1px solid var(--accent);
+}
+
+.search__form--prof {
+    border-radius: 5px 0 0 5px;
+    min-width: 475px;
+}
+
+.search__form--city {
+    min-width: 160px;
+    border-left: none;
+    border-radius: 0;
+}
+
+.search__form--button {
+	border-radius: 0 5px 5px 0;
+}
+.search__form--button:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: var(--accent-light);
+}
+.search__form--button:active {
+	background-color: var(--accent-dark);
+}
+
+.btn-filter {
+    outline: none;
+	background-color: #fff;
+	color: var(--dark);
+    border: 1px solid var(--text-light);
+	border-radius: 5px;
+
+	padding: 8px 20px;
+	font-weight: 400;
+	font-size: 14px;
+	text-decoration: none;
+    margin-right: 20px;
+}
+
+/* Vacancy Resume */
+.search__result {
+    /* margin-top: 40px; */
+    margin: 40px 0;
 }

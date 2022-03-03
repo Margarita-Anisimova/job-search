@@ -1,6 +1,41 @@
-.card_container {
-    border: 2px black solid;
+.card__container {
+    border: 1px var(--text-light) solid;
+    border-radius: 5px;
     width: 50vw;
-    margin: 20px 0 20px 0;
-    padding: 10px
+    margin: 30px 0 30px 0;
+    padding: 20px;
+    font-size: 17px;
+    color: var(--text);
+}
+
+p {
+    margin: 5px;
+}
+
+.card__title {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.card__subtitle {
+    font-family: roboto-wt;
+    font-weight: 400;
+    color: var(--accent);
+}
+
+.card__desc {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.card__address {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-light);
+}
+
+.card__btn {
+    font-style: 16px;
+    padding: 10px 20px;
+    margin-top: 15px;
 }

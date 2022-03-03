@@ -62,7 +62,7 @@ export default function Education() {
     return (
         <section className="section">
             <h5>Образование</h5>
-            <label >
+            <label className="education" >
                 <input onChange={() => sethasEducation(!hasEducation)} type='checkbox'></input>
                 Нет образования
             </label>
@@ -70,7 +70,7 @@ export default function Education() {
             {hasEducation ?
                 <div>
                     <label> Уровень образования</label>
-                    <select name='educatLevel'>
+                    <select className="edu_level" name='educatLevel'>
                         <option>Среднее</option>
                         <option>Незаконченное высшее</option>
                         <option>Высшее</option>
@@ -86,15 +86,15 @@ export default function Education() {
                             <label>Форма обучения</label>
                             <div>
                                 <div className="edForm_radio">
-                                    <input required id="edForm_radio-1" onChange={(e) => handlerRadio(e)} type="radio" name={"edForm " + i} value="full-time" defaultChecked />
+                                    <input className="radio_input" required id="edForm_radio-1" onChange={(e) => handlerRadio(e)} type="radio" name={"edForm " + i} value="full-time" defaultChecked />
                                     <label htmlFor="edForm_radio-1">Очная</label>
                                 </div>
                                 <div className="edForm_radio">
-                                    <input required id="edForm_radio-2" onChange={(e) => handlerRadio(e)} type="radio" name={"edForm " + i} value="part-time" />
+                                    <input className="radio_input" required id="edForm_radio-2" onChange={(e) => handlerRadio(e)} type="radio" name={"edForm " + i} value="part-time" />
                                     <label htmlFor="edForm_radio-2">Заочная</label>
                                 </div>
                                 <div className="edForm_radio">
-                                    <input required id="edForm_radio-3" onChange={(e) => handlerRadio(e)} type="radio" name={"edForm " + i} value="full-time_part-time" />
+                                    <input className="radio_input" required id="edForm_radio-3" onChange={(e) => handlerRadio(e)} type="radio" name={"edForm " + i} value="full-time_part-time" />
                                     <label htmlFor="edForm_radio-3">Очно-заочная</label>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ export default function Education() {
                         </div>
 
                     )}
-                    <button type='button' onClick={addExpirience}> Добавить учебное заведение</button>
+                    <button className="btn_add" type='button' onClick={addExpirience}> Добавить учебное заведение</button>
                 </div>
                 : null}
         </section >)

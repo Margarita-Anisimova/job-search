@@ -42,12 +42,12 @@ function Resume() {
                         <label>Пол</label>
                         <div>
                             <div className="gender_radio">
-                                <input onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="men" defaultChecked />
-                                <label htmlFor="gender_radio-1">Муж</label>
+                                <input className="radio_input" onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="men" defaultChecked />
+                                <label htmlFor="gender_radio-1">Мужской</label>
                             </div>
                             <div className="gender_radio">
-                                <input onChange={(e) => handler(e)} required id="gender_radio-2" type="radio" name="gender" value="women" />
-                                <label htmlFor="gender_radio-2">Жен</label>
+                                <input className="radio_input" onChange={(e) => handler(e)} required id="gender_radio-2" type="radio" name="gender" value="women" />
+                                <label htmlFor="gender_radio-2">Женский</label>
                             </div>
                         </div>
                     </div>

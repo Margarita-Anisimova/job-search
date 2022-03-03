@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import '../custom.css';
 
 export default function NavMenu(props: { accountType: string; setAccountType: any; pageType: string; setPageType: any; }) {
 
@@ -9,13 +10,18 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
 
         return (
             <div className='navigate'>
-                <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
-                <div className='sections_container'>
-                    <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
-                    <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
+                <div className='container'>
+                    <div className='row'>
+                        <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
+                        <div className='sections_container'>
+                            <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
+                            <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
+                        </div>
+                        {createNavigateItems()}
+                    </div>
                 </div>
-                {createNavigateItems()}
-            </div>)
+            </div>
+        )
     }
 
 

@@ -26,15 +26,15 @@ export default function Desired_Position() {
                 <label>Переезд</label>
                 <div>
                     <div className="move_radio">
-                        <input onChange={(e) => posthandler(e)} required id="move_radio-1" type="radio" name="move" value="yes" defaultChecked />
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="move_radio-1" type="radio" name="move" value="yes" defaultChecked />
                         <label htmlFor="move_radio-1">Возможен</label>
                     </div>
                     <div className="move_radio">
-                        <input onChange={(e) => posthandler(e)} required id="move_radio-2" type="radio" name="move" value="no" />
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="move_radio-2" type="radio" name="move" value="no" />
                         <label htmlFor="move_radio-2">Невозможен</label>
                     </div>
                     <div className="move_radio">
-                        <input onChange={(e) => posthandler(e)} required id="move_radio-3" type="radio" name="move" value="desirable" />
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="move_radio-3" type="radio" name="move" value="desirable" />
                         <label htmlFor="move_radio-3">Желателен</label>
                     </div>
                 </div>
@@ -42,7 +42,7 @@ export default function Desired_Position() {
                 <div className='chart_block'>
 
                     <label htmlFor="chart1">
-                        <input id="chart1" type='checkbox'></input>
+                        <input className="checkbox_input" id="chart1" type='checkbox'></input>
                         Полный рабочий день
                     </label>
                     <label htmlFor="chart2"> <input name='work_chart' id="chart2" type='checkbox'></input>Гибкий</label>
@@ -63,7 +63,6 @@ export default function Desired_Position() {
                     </label>
                     <label >
                         <input type='checkbox'></input>
-
                         Стажировка
                     </label>
                     <label >

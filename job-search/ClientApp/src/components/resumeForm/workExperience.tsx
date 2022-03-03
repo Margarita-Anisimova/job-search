@@ -40,7 +40,7 @@ export default function WorkExperience() {
     return (
         <section>
             <h5>Опыт работы</h5>
-            <label >
+            <label className="work_exp" >
                 <input onChange={() => sethasWorkExpirience(!hasWorkExpirience)} type='checkbox'></input>
                 Без опыта работы
             </label>
@@ -68,7 +68,7 @@ export default function WorkExperience() {
                         </div>
 
                     )}
-                    <button type='button' onClick={addExpirience}> Добавить опыт работы</button>
+                    <button className="btn_add" type='button' onClick={addExpirience}> Добавить опыт работы</button>
                 </div>
                 : null}
         </section >)

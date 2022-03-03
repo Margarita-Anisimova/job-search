@@ -10,6 +10,9 @@ import registerServiceWorker from './registerServiceWorker';
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
+// import "./libs/bootstrap/css/bootstrap-reboot.min.css";
+// import "./libs/bootstrap/css/bootstrap-grid.min.css";
+
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
 const history = createBrowserHistory({ basename: baseUrl });

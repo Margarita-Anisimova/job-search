@@ -2,6 +2,8 @@ import * as React from 'react';
 import ListResults from './ListResults';
 import { useState, useEffect } from 'react';
 import './Home.css';
+import '../custom.css';
+
 import { VacancyType, ResumesType } from './types'
 
 export default function Home(props: { accountType: string; pageType: string }) {
@@ -74,25 +76,28 @@ export default function Home(props: { accountType: string; pageType: string }) {
   })
 
   return (
-    <div className="home_container">
+    <div className="home_container container">
       <p className="home-title">Работа найдется для каждого</p>
 
       {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>}
-      <section>
-        <input placeholder='Введите профессию' />
-        <input placeholder='Город' />
+      <section className='search'>
+        <input className='search__form search__form--prof' placeholder='Введите профессию' />
+        <input className='search__form search__form--city' placeholder='Город' />
 
-        <button onClick={getResult}>
+        <button className='button search__form--button' onClick={getResult}>
           {props.pageType === 'resumes' ? 'Найти резюме' : 'Найти работу'}
         </button>
       </section>
-      <button>
+
+      <button className='btn-filter'>
         Фильтры
       </button>
-      <button>
+
+      <button className='btn-filter'>
         Сортировать по
       </button>
-      <section>
+
+      <section className='search__result'>
         <ListResults results={props.pageType === 'resumes' ? resumes : vacancies}></ListResults>
       </section>
 

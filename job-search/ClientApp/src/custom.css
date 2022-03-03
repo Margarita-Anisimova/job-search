@@ -1,4 +1,4 @@
-/* Provide sufficient contrast against white background */
+/* Provide sufficient contrast against white background
 a {
   color: #0366d6;
 }
@@ -11,4 +11,82 @@ code {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.container{
+  width: 100%;
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+} */
+
+:root {
+	--accent: #F88500;
+
+	--accent-light: #ff8d09;
+	--accent-dark: #f38506;
+
+	--gutter: 20px;
+	--text: #333;
+	--dark: #202328;
+	--deep: #171A1A;
+	--dark-header: #6F7A8B;
+	--dark-div: #2D3038;
+	--light-bg: #FAFAFA;
+	--light-disabled: #E4E6E8;
+	--light-div: #E7E7E8;
+	--middle-gray: rgba(111, 122, 139, 0.75);
+	--text-light: #999999;
+	--regular-text: 16px;
+	--small-text: 14px;
+	--lineheight: 1.75;
+	--userfont: raleway-wt, sans-serif;
+	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+	--radius: 5px;
+	--radius-style: 5px 5px;
+	--transition: .25s ease-out;
+	--address: #989DA5;
+}
+
+/* BOOTSTRAP SETTINGS SECTION */
+
+/* gutter 20px (10px + 10px). Comment this code for default gutter start at 1.5rem (24px) wide. */
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { --bs-gutter-x: .625rem; }
+.row, .row > * { --bs-gutter-x: 1.25rem; }
+
+/* FONTS LOAD SECTION */
+
+@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-300.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 300; font-style: normal; }
+@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-500.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 500; font-style: normal; }
+@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-600.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 600; font-style: normal; }
+@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-700.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 700; font-style: normal; }
+@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-800.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 800; font-style: normal; }
+@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-900.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 900; font-style: normal; }
+@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-regular.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 400; font-style: normal; }
+
+@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-300.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 300; font-style: normal; }
+@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-500.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 500; font-style: normal; }
+@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-700.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 700; font-style: normal; }
+
+/* GENERAL CSS SETTINGS */
+
+::placeholder { color: #666; }
+::selection { background-color: var(--accent); color: #fff; }
+input, textarea { outline: none; }
+/* input:focus:required:invalid, textarea:focus:required:invalid { border-color: red; }
+input:required:valid, textarea:required:valid { border-color: green; } */
+
+.button {
+	outline: none;
+	border: none;
+	background-color: var(--accent);
+	color: #fff;
+	border-radius: 5px;
+	display: inline-block;
+	padding: 9px 40px;
+	font-weight: 500;
+	font-size: 14px;
+	position: relative;
+	letter-spacing: .25px;
+	text-decoration: none;
 }
