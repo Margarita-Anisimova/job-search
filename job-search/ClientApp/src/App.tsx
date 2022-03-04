@@ -3,9 +3,10 @@ import Layout from './components/Layout';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Registration from './components/Registration';
-import Account from './components/Account';
+import Account from './components/account/Account';
 import Resume from './components/resumeForm/Resume';
 import { Check } from './components/Check';
+import './App.css';
 
 
 import './custom.css'
@@ -28,6 +29,7 @@ function App() {
                 <Route path='/resume' element={<Resume />} />
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>
+
         </BrowserRouter>
     );
 }

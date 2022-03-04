@@ -9,6 +9,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import './App.css';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
@@ -21,7 +22,13 @@ let persistor = persistStore(store);
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <div className="content">
+                <App />
+            </div>
+            <div className='footer' >
+                <p>Все права защищены.</p>
+                <address>Адресс</address>
+            </div>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root'));

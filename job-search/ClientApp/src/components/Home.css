@@ -3,9 +3,7 @@
 }
 
 .home_container {
-    position: relative;
-    top: 20vh;
-    left: 20vw;
+    margin: 20vh 0 0 20vw;
     /* display: flex;
     justify-content: center;
     align-items: center;

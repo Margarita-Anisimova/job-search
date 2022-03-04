@@ -13,15 +13,15 @@ export default function Skills() {
     }
 
     const [skills, setSkills] = useState([]);
-    const [skillsList, setSkillsList] = useState([]);
-    const selectionList = ['Специализация', ...Object.keys(skillsLib)];
-    const [selection, setSelection] = useState(false)
+    // const [skillsList, setSkillsList] = useState([]);
+    // const selectionList = ['Специализация', ...Object.keys(skillsLib)];
+    // const [selection, setSelection] = useState(false)
 
 
 
-    function close() {
-        setSelection(false);
-    }
+    // function close() {
+    //     setSelection(false);
+    // }
 
     function addItem(e: any) {
         let arr = skills.slice()
@@ -34,23 +34,33 @@ export default function Skills() {
         if (key === 13) {
             let a = document.querySelectorAll('.inputForSkill')[0];
             addItem(a)
+            a.value = '';
         }
+    }
+
+    function delSkill(e: any) {
+        let arr = skills.slice()
+        arr.splice(e.target.id, 1)
+        setSkills(arr)
     }
 
     return (
         <section className='skills_container'>
             <h5>Профессиональные навыки</h5>
+
             <div className='slected_skills_container'>
-                {skills.map((e) =>
-                    <span className="skillItem">{e}</span>
+                {skills.map((e, i) =>
+                    <span id={i.toString()} onDoubleClick={(e) => delSkill(e)} className="skillItem">
+                        {e}
+                    </span>
                 )}
             </div>
 
-            <button className='selectionButton' onClick={(e) => setSelection(!selection)} type='button'>Подобрать навык</button>
+            {/* <button className='selectionButton' onClick={(e) => setSelection(!selection)} type='button'>Подобрать навык</button> */}
 
             <input className='inputForSkill' onKeyDown={(e) => keypress(e.keyCode)} type='text'></input>
 
-            {selection ?
+            {/* {selection ?
                 <div className='selectionWindow'>
                     <button type="button" onClick={() => close()} className="closeButton">X</button>
                     <select onChange={(e) => setSkillsList(skillsLib[e.target.value])} className='selectiondatalist' id="list1">
@@ -63,7 +73,7 @@ export default function Skills() {
                     </div>
 
                 </div>
-                : null}
+                : null} */}
 
         </section >)
 }
