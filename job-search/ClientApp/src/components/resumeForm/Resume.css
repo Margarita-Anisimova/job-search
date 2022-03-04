@@ -44,7 +44,7 @@ textarea {
 }
 
 .edu_level {
-    margin-left: 10px;
+    /* margin-left: 10px; */
     border-radius: 5px;
     border: 1px solid #999;
     padding: 3px;

@@ -1,0 +1,36 @@
+h4 {
+    margin: 60px 0 0 0;
+    text-align: center;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.vacancy_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.vacancy_container {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.part-1,
+.part-2,
+.part-3,
+.part-4 {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    /* grid-template-rows: repeat(3, 1fr); */
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+}
+

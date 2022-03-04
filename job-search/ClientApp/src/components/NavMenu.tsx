@@ -36,7 +36,11 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
             return (
                 <div className='reg_container'>
                     {/*временно, создать кнопку*/}
-                    {props.accountType === 'applicant' ? <NavLink className='navigate_item' tag={Link} to="/resume">Создать резюме</NavLink> : null}
+                    {props.accountType === 'applicant' ? 
+                        <NavLink className='navigate_item' tag={Link} to="/resume">Создать резюме</NavLink> : 
+                        <NavLink className='navigate_item' tag={Link} to="/vacancy">Создать вакансию</NavLink>}
+
+                    <NavLink className='navigate_item' tag={Link} to="/company">Создать компанию</NavLink>
 
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
                     <NavLink className='navigate_item' onClick={() => props.setAccountType('noRegistered')} to='/' tag={Link} >Выход</NavLink>

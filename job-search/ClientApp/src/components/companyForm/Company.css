@@ -1,0 +1,20 @@
+.title {
+    margin: 60px 0 50px 0;
+    text-align: center;
+}
+
+.part {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.company_container {
+    display: flex;
+    justify-content: center;
+}
+
+.company_form {
+    display: flex;
+    flex-direction: column;
+}
