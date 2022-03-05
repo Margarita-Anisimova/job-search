@@ -104,3 +104,43 @@
     grid-template-columns: 1fr 1fr;
     text-align: center;
 }
+
+.back_button {
+    background: transparent;
+    text-align: left;
+    border: 0;
+    padding: 0;
+    position: absolute;
+    top: 0px;
+    margin: 20px;
+    left: 0px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.confirmEmail {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: rgba(241, 231, 212, 0.877);
+}
+
+.code_confirm_button {
+    margin-top: 20px;
+    border-radius: 5px;
+    background: rgb(235, 194, 82);
+}
+
+.confirmLabel {
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}

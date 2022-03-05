@@ -28,11 +28,20 @@ namespace job_search.Models
         [Required]
         public string l_name { get; set; }
 
-        [Required]
         public string phone_number { get; set; }
         [Required]
-        public int user_type { get; set; }
+        public string user_type { get; set; }
 
+
+        public User(string email, string password, string f_name, string l_name, string phone_number, string user_type)
+        {
+            this.email = email;
+            this.password = password;
+            this.f_name = f_name;
+            this.l_name = l_name;
+            this.phone_number = phone_number;
+            this.user_type = user_type;
+        }
         // public virtual ICollection<Company> Companies { get; set; }
 
         // +Resumes
