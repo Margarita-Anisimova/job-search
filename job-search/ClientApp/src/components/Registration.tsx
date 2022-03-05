@@ -1,15 +1,15 @@
-
 import React from "react";
 import { useState, useEffect } from "react";
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './Registration.css';
+import { useNavigate } from 'react-router-dom'
 
 function Registration(props: { setAccountType: any; setPageType: any }) {
-
+    const navigate = useNavigate();
     const [formType, setFormType] = useState('authoriz')
     const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
-    let userType = '';
+    const [code, setcode] = useState('');
 
     function handler(e: any) {
         setformInfo({ ...formInfo, [e.target.name]: e.target.value });
@@ -24,6 +24,12 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
         setformInfo({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
         setFormType('authoriz')
     }
+
+    useEffect(() => {
+        // document.querySelectorAll('.errormessage')[0].style.display = 'none';
+        document.querySelectorAll('.usererrormessage')[0].style.display = 'none';
+        document.querySelectorAll('.emailerrormessage')[0].style.display = 'none';
+    })
 
     function checkrepeated_password(e) {
         let input = document.getElementsByName('password')[0];
@@ -57,7 +63,7 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
                     </label>
                     <label className='label_for_input'>
                         Номер телефона
-                        <input value={formInfo.phoneNumber} onChange={(e) => handler(e)} title='Номер телефона должен состоять из 11 цифр' required name='phoneNumber' pattern="[0-9]{11}" type="phoneNumber"></input>
+                        <input value={formInfo.phoneNumber} onChange={(e) => handler(e)} title='Номер телефона должен состоять из 11 цифр' name='phoneNumber' pattern="[0-9]{11}" type="phoneNumber"></input>
                     </label>
                     <div className="form_radio_btn">
                         <input required id="radio-1" type="radio" name="radio" value="applicant" defaultChecked />
@@ -78,11 +84,62 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
         let form = document.querySelectorAll("form")[0]
         if (!form.checkValidity()) {
             form.reportValidity();
-            e.preventDefault();
         } else if (formType === 'registr') {
-            let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
+            confirm()
+
+        } else {
+            getUser();
+
+        }
+        e.preventDefault();
+    }
+
+    async function getUser() {
+        const response = await fetch(`user/${formInfo.email}/${formInfo.password}`);
+        const data = await response.json();
+        if (!data.error) {
+            navigate('/');
+        } else {
+            document.querySelectorAll('.usererrormessage')[0].style.display = 'block';
+        }
+
+    }
+
+    async function confirm() {
+        const response = await fetch(`code/${formInfo.email}`);
+        const codeFromServer = await response.json();
+        if (codeFromServer.error) {
+            document.querySelectorAll('.emailerrormessage')[0].style.display = 'block';
+        } else {
+            setcode(codeFromServer.code);
+            setFormType('confirmEmail')
+        }
+
+    }
+
+    async function postNewUser() {
+        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
+        await fetch('user', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ ...formInfo, user_type: userType.value })
+        });
+    }
+
+    function chechConfirmCode() {
+        let code_input = document.querySelectorAll('.code_input')[0];
+        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
+        if (code == code_input.value) {
             props.setAccountType(userType.value);
             props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
+            postNewUser();
+            navigate('/');
+        } else {
+            document.querySelectorAll('.errormessage')[0].style.display = 'block';
+
         }
     }
 
@@ -101,7 +158,8 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
                         <label htmlFor="radio_title-2">Регистрация</label>
                     </div>
                 </div>
-
+                <p style={{ color: 'red', display: 'none' }} className='confirmLabel usererrormessage'>Не верный email или пароль</p>
+                <p style={{ color: 'red', display: 'none' }} className='confirmLabel emailerrormessage'>Пользователь с таким email уже есть</p>
                 <label className='label_for_input'>
                     Email
                     <input value={formInfo.email} onChange={(e) => handler(e)} name='email' required type="email"></input>
@@ -114,6 +172,16 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
                 <NavLink onClick={(e) => checkForm(e)} className='submit_button'
                     tag={Link} to="/">{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </NavLink>
 
+                {formType === 'confirmEmail'
+                    ? <div className='confirmEmail'>
+                        <button onClick={(e) => setFormType('registr')} className='back_button' >Назад</button>
+                        <p className='confirmLabel'>Код подтверждения отправлен на почту</p>
+
+                        <input autoFocus className='code_input' placeholder='Введите код'></input>
+                        <button type='button' onClick={chechConfirmCode} className='code_confirm_button'>Подтвердить</button>
+                        <p style={{ color: 'red', display: 'none' }} className='confirmLabel errormessage'>Неверный код! Попробуйте ещё раз</p>
+                    </div>
+                    : null}
             </form>
         </div >
     );
