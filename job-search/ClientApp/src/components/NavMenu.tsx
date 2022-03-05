@@ -25,6 +25,7 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
     }
 
 
+
     function createNavigateItems() {
         if (props.accountType === 'noRegistered') {
             return (
@@ -43,6 +44,7 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
                     <NavLink className='navigate_item' tag={Link} to="/company">Создать компанию</NavLink>
 
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
+
                     <NavLink className='navigate_item' onClick={() => props.setAccountType('noRegistered')} to='/' tag={Link} >Выход</NavLink>
                 </div>)
         }

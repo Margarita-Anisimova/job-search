@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './Registration.css';
@@ -8,20 +8,30 @@ import './Registration.css';
 function Registration(props: { setAccountType: any; setPageType: any }) {
 
     const [formType, setFormType] = useState('authoriz')
-    const [formInfo, setformInfo] = useState({ info: { email: '', password: '' } })
-    // authoriz
-    //'registr'
+    const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
+    let userType = '';
 
     function handler(e: any) {
-        setformInfo({ info: { ...formInfo.info, [e.target.name]: e.target.value } });
+        setformInfo({ ...formInfo, [e.target.name]: e.target.value });
 
     }
 
-
     function set_RegistrationForm() {
-
-        setformInfo({ info: { email: '', password: '' } })
+        setformInfo({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
         setFormType('registr')
+    }
+    function set_AuthorizForm() {
+        setformInfo({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
+        setFormType('authoriz')
+    }
+
+    function checkrepeated_password(e) {
+        let input = document.getElementsByName('password')[0];
+        if (e.target.value !== input.value) {
+            e.target.setCustomValidity('Не соответствует паролю')
+        } else {
+            e.target.setCustomValidity('')
+        }
     }
 
     function createRegistForm() {
@@ -35,7 +45,19 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
                 <div>
                     <label className='label_for_input'>
                         Повторите пароль
-                        <input required type="password"></input>
+                        <input onInput={(e) => checkrepeated_password(e)} name='repeated_password' required type="password"></input>
+                    </label>
+                    <label className='label_for_input'>
+                        Фамилия
+                        <input value={formInfo.l_name} onChange={(e) => handler(e)} name='l_name' required type="text"></input>
+                    </label>
+                    <label className='label_for_input'>
+                        Имя
+                        <input value={formInfo.f_name} onChange={(e) => handler(e)} name='f_name' required type="text"></input>
+                    </label>
+                    <label className='label_for_input'>
+                        Номер телефона
+                        <input value={formInfo.phoneNumber} onChange={(e) => handler(e)} title='Номер телефона должен состоять из 11 цифр' required name='phoneNumber' pattern="[0-9]{11}" type="phoneNumber"></input>
                     </label>
                     <div className="form_radio_btn">
                         <input required id="radio-1" type="radio" name="radio" value="applicant" defaultChecked />
@@ -63,21 +85,35 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
             props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
         }
     }
+
     return (
         <div className='register_page'>
             <form className='register_container'>
-                <h3>{formType === 'authoriz' ? 'Вход' : 'Регистрация'}</h3>
+                {/* <h3>{formType === 'authoriz' ? 'Вход' : 'Регистрация'}</h3> */}
+                <div className='registrForm_title'>
+                    <div className="registrForm_title_but">
+                        <input onClick={set_AuthorizForm} required id="radio_title-1" type="radio" name="radio_title" value="authoriz" defaultChecked={formType === 'authoriz' ? true : false} />
+                        <label htmlFor="radio_title-1">Вход</label>
+                    </div>
+
+                    <div className="registrForm_title_but">
+                        <input onClick={set_RegistrationForm} required id="radio_title-2" type="radio" name="radio_title" value="registr" checked={formType === 'authoriz' ? false : true} />
+                        <label htmlFor="radio_title-2">Регистрация</label>
+                    </div>
+                </div>
+
                 <label className='label_for_input'>
                     Email
-                    <input value={formInfo.info.email} name='email' onChange={(e) => handler(e)} required type="email"></input>
+                    <input value={formInfo.email} onChange={(e) => handler(e)} name='email' required type="email"></input>
                 </label>
                 <label className='label_for_input'>
                     Пароль
-                    <input value={formInfo.info.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
+                    <input value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}
                 <NavLink onClick={(e) => checkForm(e)} className='submit_button'
                     tag={Link} to="/">{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </NavLink>
+
             </form>
         </div >
     );

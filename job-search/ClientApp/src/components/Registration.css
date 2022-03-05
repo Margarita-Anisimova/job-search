@@ -1,15 +1,18 @@
 .register_page {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 10vh;
 }
 
 .register_container {
+    position: relative;
     display: flex;
     flex-direction: column;
     /* border: 2px black solid; */
     box-shadow: 0 0 15px rgb(165, 162, 162);
     padding: 30px;
+    padding-top: 50px;
+    background-color: rgb(255, 233, 193);
 }
 
 .set_registr {
@@ -37,7 +40,7 @@
 
 .form_radio_btn {
     display: inline-block;
-    margin: 5px 10px;
+    margin: 5px 5px;
 }
 
 .form_radio_btn input[type=radio] {
@@ -47,18 +50,58 @@
 .form_radio_btn label {
     display: inline-block;
     cursor: pointer;
-    padding: 0px 15px;
+    padding: 0px 10px;
     line-height: 34px;
     border: 1px solid #999;
     border-radius: 6px;
+    background: #f8f6f3;
     user-select: none;
 }
 
 .form_radio_btn input[type=radio]:checked+label {
-    background: #ffe0a6;
+    background: orange;
 }
 
-.form_radio_btn input[type=radio]:disabled+label {
+
+/* .form_radio_btn input[type=radio]:disabled+label {
     background: #efefef;
     color: #666;
+} */
+
+.registrForm_title_but input[type=radio] {
+    display: none;
+}
+
+.registrForm_title_but {
+    display: inline-block;
+}
+
+.registrForm_title_but label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px 15px;
+    line-height: 34px;
+    width: 100%;
+    user-select: none;
+    background: rgba(161, 160, 157, 0.795);
+}
+
+.registrForm_title_but input[type=radio]:checked+label {
+    background-color: rgb(255, 233, 193);
+}
+
+
+/* 
+.registrForm_title_but input[type=radio]:disabled+label {
+    background: #e9e7e7;
+} */
+
+.registrForm_title {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
 }

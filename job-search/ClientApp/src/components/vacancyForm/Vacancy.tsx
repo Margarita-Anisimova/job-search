@@ -24,33 +24,33 @@ function Vacancy() {
 
     return (
         <div>
-        <h4>Добавление вакансии</h4>
-        <div className="vacancy_container">
+            <h4>Добавление вакансии</h4>
+            <div className="vacancy_container">
 
-            <form className="vacancy_form">
+                <form className="vacancy_form">
 
-                <Desired_Applicant></Desired_Applicant>
-                <About_Work></About_Work>
-                <section >
-                    <h5>Место работы</h5>
+                    <Desired_Applicant></Desired_Applicant>
+                    <About_Work></About_Work>
+                    <section >
+                        <h5>Место работы</h5>
 
-                    <div className='part part-3'>
-                        {createTextInputs(commonInfoInputs, handler)}
-                    </div>
-                </section>
+                        <div className='part part-3'>
+                            {createTextInputs(commonInfoInputs, handler)}
+                        </div>
+                    </section>
 
-                <section >
-                    <h5>Дополнительное описание</h5>
+                    <section >
+                        <h5>Дополнительное описание</h5>
 
-                    <div className='part-4'>
-                        <label>Дополнительное описание</label>
-                        <textarea name="vacancy_description" value = {commonInfo.vacancy_description} onChange={(e) => handler(e) }></textarea>
-                    </div>
-                </section>
+                        <div className='part-4'>
+                            <label>Дополнительное описание</label>
+                            <textarea name="vacancy_description" value={commonInfo.vacancy_description} onChange={(e) => handler(e)}></textarea>
+                        </div>
+                    </section>
 
-            </form>
+                </form>
 
-        </div>
+            </div>
         </div>
     );
 }
