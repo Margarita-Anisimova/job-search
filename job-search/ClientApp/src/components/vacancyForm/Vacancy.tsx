@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createTextInputs, createSelectsContainer } from '../resumeForm/createFunction';
 import Desired_Applicant from "./Desired_Applicant";
 import About_Work from "./About_Work";
-import 'D:/1/job-search/job-search/ClientApp/src/custom.css';
+// import '../../custom.css';
 import './Vacancy.css';
 
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import './Vacancy.css';
 import { createTextInputs, createSelect } from '../resumeForm/createFunction';
-import 'D:/1/job-search/job-search/ClientApp/src/custom.css';
+// import '../../custom.css';
 
 
 export default function About_Work() {
@@ -19,8 +19,8 @@ export default function About_Work() {
     const postInfoInputs = [
         { tag: 'salary', name: 'Зарплата', value: about_workInfo.salary }];
 
-    
-    
+
+
 
     return (
         <section>
@@ -64,14 +64,14 @@ export default function About_Work() {
 
 
                 <label>Обязанности</label>
-                <textarea name="responsibilities" value = {about_workInfo.responsibilities} onChange={(e) => posthandler(e) }></textarea>
-                
+                <textarea name="responsibilities" value={about_workInfo.responsibilities} onChange={(e) => posthandler(e)}></textarea>
+
                 <label>Требования</label>
-                <textarea name="requirements" value = {about_workInfo.requirements} onChange={(e) => posthandler(e) }></textarea>
+                <textarea name="requirements" value={about_workInfo.requirements} onChange={(e) => posthandler(e)}></textarea>
 
 
 
-                
+
 
             </div>
         </section>
