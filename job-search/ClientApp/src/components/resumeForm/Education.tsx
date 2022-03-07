@@ -84,7 +84,7 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
                         <div id={i.toString()} className='partition-4'>
                             {i != 0 ? <button type="button" onClick={() => deleteItem(i)} className="deleteItemButton">X</button> : null}
 
-                            {createTextInputs([{ tag: 'institution', name: 'Учебное заведение', value: props.resumeInfo.education[i].university },
+                            {createTextInputs([{ tag: 'institution', name: 'Учебное заведение', value: props.resumeInfo.education[i].institution },
                             { tag: 'faculty', name: 'Факультет', value: props.resumeInfo.education[i].faculty },
                             { tag: 'specialization', name: 'Специальность', value: props.resumeInfo.education[i].specialization },], handler)}
                             <label>Форма обучения</label>

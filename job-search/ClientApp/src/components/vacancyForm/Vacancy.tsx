@@ -18,7 +18,8 @@ function Vacancy(props: { company: CompanyType, setCompany: any }) {
 
     let location = useLocation();
     const id = location.pathname.split('/')[2]
-    const [commonInfo, setCommonInfo] = props.company.vacancies[id] || useState<VacancyType>(createEmptyVacancy());
+    let r = props.company.vacancies[parseInt(id)]
+    const [commonInfo, setCommonInfo] = r ? useState<VacancyType>(r) : useState<VacancyType>(createEmptyVacancy());
 
     function handler(e: any) {
         setCommonInfo({ ...commonInfo, [e.target.name]: e.target.value });

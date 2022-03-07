@@ -12,7 +12,7 @@ export function createEmptyAccount(): AccountType {
         user_id: 0
     }
 }
-
+//'noRegistered',
 export function createEmptyResume(): ResumeType {
     return {
         user_id: 0,

@@ -9,7 +9,7 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CompanyProfile from "./CompanyProfile";
 
-export default function Profile(props: { account: AccountType, resume: ResumeType, company: CompanyType }) {
+export default function Profile(props: { account: AccountType, resume: ResumeType, company: CompanyType, setCompany: any }) {
 
     const navigate = useNavigate();
 
@@ -50,14 +50,14 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                                 <p>{props.resume.desired_salary}</p>
 
                                 <div className="resumeButtons">
-                                    <button className="resumeButton">Редактировать</button>
-                                    <button className="resumeButton">Удалить</button>
+                                    <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
+                                    <button className="resumeButton">Скрыть</button>
                                 </div>
                             </div>
                             : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
                         }
                     </div>
-                    : <CompanyProfile company={props.company}></CompanyProfile>}
+                    : <CompanyProfile setCompany={props.setCompany} company={props.company}></CompanyProfile>}
         </div >
     );
 }

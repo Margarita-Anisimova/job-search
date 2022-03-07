@@ -8,7 +8,7 @@ import MyResponses from "./myResponses";
 import { AccountType, ResumeType, CompanyType } from '../types';
 import Profile from "./Profile";
 
-function Account(props: { account: AccountType, resume: ResumeType, company: CompanyType }) {
+function Account(props: { account: AccountType, resume: ResumeType, company: CompanyType, setCompany: any }) {
 
     type PageType = 'profile' | 'resumeResponses' | 'myResponses';
 
@@ -26,7 +26,7 @@ function Account(props: { account: AccountType, resume: ResumeType, company: Com
     function createPage() {
         switch (page) {
             case 'profile': {
-                return <Profile account={props.account} resume={props.resume} company={props.company}></Profile >
+                return <Profile setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
             }
             case 'resumeResponses': {
                 return (<ResumeResponses></ResumeResponses>)

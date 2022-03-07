@@ -55,11 +55,11 @@ export default function Desired_Position(props: { resumeInfo: ResumeType, setRes
                 </div>
                 <label>График работы</label>
                 <div className='chart_block'>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input> Полный рабочий день</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="2" type='checkbox'></input>Гибкий</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="3" type='checkbox'></input>Удаленная работа</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Сменный</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="5" type='checkbox'></input>Вахтовая</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="0" type='checkbox'></input> Полный рабочий день</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input>Гибкий</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="2" type='checkbox'></input>Удаленная работа</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="3" type='checkbox'></input>Сменный</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Вахтовая</label>
                 </div>
             </div>
         </section>
@@ -67,7 +67,7 @@ export default function Desired_Position(props: { resumeInfo: ResumeType, setRes
 
     function addTolist(e: any) {
         let arr = props.resumeInfo.work_type.slice()
-        arr[e.id] = !arr[e.id];
+        arr[e.target.id] = !arr[e.target.id];
         props.setResumeInfo({ ...props.resumeInfo, work_type: arr })
     }
 }
