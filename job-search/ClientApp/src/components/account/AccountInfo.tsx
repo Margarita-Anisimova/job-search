@@ -20,7 +20,7 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
     })
 
     function handler(e: any) {
-        if (props.account[e.target.name])
+        if (typeof props.account[e.target.name] !== 'undefined')
             props.setAccount({ ...props.account, [e.target.name]: e.target.value });
         else {
             props.setResume({ ...props.resume, [e.target.name]: e.target.value });
@@ -48,8 +48,8 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
     }
 
     const commonInfoInputs = props.account.user_type == 'employer' ?
-        [{ tag: 'f_name', name: 'Фамилия', value: props.account.l_name },
-        { tag: 'name', name: 'Имя', value: props.account.f_name },]
+        [{ tag: 'l_name', name: 'Фамилия', value: props.account.l_name },
+        { tag: 'f_name', name: 'Имя', value: props.account.f_name },]
         :
         [{ tag: 'l_name', name: 'Фамилия', value: props.account.l_name },
         { tag: 'f_name', name: 'Имя', value: props.account.f_name },
