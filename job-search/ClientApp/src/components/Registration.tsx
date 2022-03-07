@@ -92,7 +92,7 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
             props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
             postNewUser();
             userType.value === "applicant" ?
-                navigate('/resume')
+                navigate('/accountInfo')
                 : navigate('/company');
         } else {
             document.querySelectorAll('.errormessage')[0].style.display = 'block';
@@ -166,7 +166,7 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
                     <input value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}
-                <button onClick={(e) => checkForm(e)} className='submit_button'>{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </button>
+                <button onClick={(e) => checkForm(e)} type='button' className='submit_button'>{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </button>
 
                 {formType === 'confirmEmail'
                     ? <div className='confirmEmail'>

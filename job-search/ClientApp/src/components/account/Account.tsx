@@ -5,10 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import ResumeResponses from "./resumeResponses";
 import "./Account.css"
 import MyResponses from "./myResponses";
-import { AccountType } from '../types';
+import { AccountType, ResumeType } from '../types';
 import Profile from "./Profile";
 
-function Account(props: { account: AccountType }) {
+function Account(props: { account: AccountType, resume: ResumeType }) {
+
     type PageType = 'profile' | 'resumeResponses' | 'myResponses';
 
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Account(props: { account: AccountType }) {
     function createPage() {
         switch (page) {
             case 'profile': {
-                return <Profile account={props.account} resume={props.resume} company={props.company} vacancies={props.vacancies}></Profile >
+                return <Profile account={props.account} resume={props.resume} ></Profile >
             }
             case 'resumeResponses': {
                 return (<ResumeResponses></ResumeResponses>)

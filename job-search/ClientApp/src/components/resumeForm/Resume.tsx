@@ -14,10 +14,10 @@ import { ResumeType } from '../types';
 import { createEmptyResume } from '../../exportFunctions';
 
 
-function Resume(props: { account: AccountType, resume: ResumeType }) {
+function Resume(props: { setResume: any, resume: ResumeType }) {
     // добавить обработчики для выборок ????
     const navigate = useNavigate();
-    const [resumeInfo, setResumeInfo] = useState(createEmptyResume());
+    const [resumeInfo, setResumeInfo] = useState(props.resume);
 
 
     useEffect(() => {
@@ -27,7 +27,7 @@ function Resume(props: { account: AccountType, resume: ResumeType }) {
     })
 
     function save() {
-
+        props.setResume(resumeInfo)
     }
 
     return (
@@ -38,8 +38,6 @@ function Resume(props: { account: AccountType, resume: ResumeType }) {
                 <WorkExperience resumeInfo={resumeInfo} setResumeInfo={setResumeInfo}></WorkExperience>
                 <Education resumeInfo={resumeInfo} setResumeInfo={setResumeInfo}></Education>
                 <Skills resumeInfo={resumeInfo} setResumeInfo={setResumeInfo}></Skills>
-
-
                 <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
             </form>
         </div >

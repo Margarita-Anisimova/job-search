@@ -13,14 +13,34 @@ export type ResumeType = {
     birth_date: string;
     desired_position: string;
     desired_salary: string;
-    work_type: string[];
+    work_type: boolean[];
     ready_move: string;
-    skills: string;
+    skills: any;
     profession: string;
     city: string;
     citizenship: string;
     education: EducationType[];
     workExperience: WorkExpirienceType[];
+}
+
+
+export type EducationType = {
+    edlevel: string;
+    university: string;
+    faculty: string;
+    specialization: string;
+    edForm: string;
+    edStart: string;
+    edEnd: string;
+}
+
+export type WorkExpirienceType = {
+    company: string;
+    post: string;
+    workStart: string;
+    workEnd: string;
+    responsibilities: string;
+    achievements: string;
 }
 
 
@@ -37,26 +57,6 @@ export type VacancyType = {
 
 }
 
-
-
-export type WorkExpirienceType = {
-    company: string;
-    post: string;
-    workStart: string;
-    workEnd: string;
-    responsibilities: string;
-    achievements: string;
-}
-
-export type EducationType = {
-    edlevel: string;
-    university: string;
-    faculty: string;
-    specialization: string;
-    edForm: string;
-    edStart: string;
-    edEnd: string;
-}
 
 
 

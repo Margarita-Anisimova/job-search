@@ -11,7 +11,7 @@ import AccountInfo from './components/account/AccountInfo'
 import './App.css';
 import { createEmptyAccount, createEmptyResume } from './exportFunctions';
 
-import { AccountType } from './components/types';
+import { AccountType, ResumeType } from './components/types';
 
 
 import './custom.css'
@@ -24,7 +24,7 @@ function App() {
     // const [accountType, setAccountType] = useState('noRegistered')
     const [pageType, setPageType] = useState('vacancies')
     const [account, setAccount] = useState<AccountType>(createEmptyAccount())
-    const [resume, setResume] = useState<AccountType>(createEmptyAccount())
+    const [resume, setResume] = useState<ResumeType>(createEmptyResume())
 
     return (
         // <Check></Check> 
@@ -33,9 +33,9 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home pageType={pageType} accountType={account.user_type} />} />
                 <Route path='/registration' element={<Registration setResume={setResume} setAccount={setAccount} setPageType={setPageType} accountType={account.user_type} />} />
-                <Route path='/account' element={<Account account={account} />} />
-                <Route path='/accountInfo' element={<AccountInfo setAccount={setAccount} account={account} />} />
-                <Route path='/resume' element={<Resume account={account} resume={createEmptyResume()} />} />
+                <Route path='/account' element={<Account account={account} resume={resume} />} />
+                <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
+                <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
                 <Route path='/vacancy' element={<Vacancy />} />
                 <Route path='/company' element={<Company account={account} />} />
 

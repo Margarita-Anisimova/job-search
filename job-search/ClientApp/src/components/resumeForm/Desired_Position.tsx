@@ -4,19 +4,29 @@ import { useState } from "react";
 import './Resume.css';
 import { createTextInputs, createSelect } from '../account/createFunction'
 import { ResumeType } from '../types';
+import { useEffect } from "react";
 
 export default function Desired_Position(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
-    let [desired_positionInfo, setdesired_positionInfo] = useState({ desired_position: '', profession: '', desired_salary: '', ready_move: '', work_type: [] });
+    // let [desired_positionInfo, setdesired_positionInfo] = useState({ desired_position: '', profession: '', desired_salary: '', ready_move: '', work_type: [] });
+
+    useEffect(() => {
+        let a = document.getElementsByName('ready_move')
+        for (let i = 0; i < a.length; i++) {
+            if (a[i].value === props.resumeInfo.ready_move) {
+                a[i].defaultChecked = true;
+                break;
+            }
+        }
+        a = document.getElementsByName('work_type')
+        for (let i = 0; i < a.length; i++) {
+            if (props.resumeInfo.work_type[i] === true) {
+                a[i].defaultChecked = true;
+            }
+        }
+    })
 
     function posthandler(e: any) {
-        if (e.target.name === 'work_type') {
-            // setdesired_psositionInfo({ ...desired_positionInfo, work_type: e.target.value });
-            // props.resumeInfo.work_type = e.target.value
-            return
-        } else {
-            // setdesired_positionInfo({ ...desired_positionInfo, [e.target.name]: e.target.value });
-            props.setResumeInfo({ ...props.resumeInfo, [e.target.name]: e.target.value });
-        }
+        props.setResumeInfo({ ...props.resumeInfo, [e.target.name]: e.target.value });
     }
 
     const postInfoInputs = [{ tag: 'desired_position', name: 'Должность', value: props.resumeInfo.desired_position },
@@ -45,13 +55,19 @@ export default function Desired_Position(props: { resumeInfo: ResumeType, setRes
                 </div>
                 <label>График работы</label>
                 <div className='chart_block'>
-                    <label> <input onChange={(e) => posthandler(e)} name='work_type' id="work_type_1" type='checkbox'></input> Полный рабочий день</label>
-                    <label> <input onChange={(e) => posthandler(e)} name='work_type' id="work_type_2" type='checkbox'></input>Гибкий</label>
-                    <label> <input onChange={(e) => posthandler(e)} name='work_type' id="work_type_3" type='checkbox'></input>Удаленная работа</label>
-                    <label> <input onChange={(e) => posthandler(e)} name='work_type' id="work_type_4" type='checkbox'></input>Сменный</label>
-                    <label> <input onChange={(e) => posthandler(e)} name='work_type' id="work_type_5" type='checkbox'></input>Вахтовая</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input> Полный рабочий день</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="2" type='checkbox'></input>Гибкий</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="3" type='checkbox'></input>Удаленная работа</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Сменный</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="5" type='checkbox'></input>Вахтовая</label>
                 </div>
             </div>
         </section>
     )
+
+    function addTolist(e: any) {
+        let arr = props.resumeInfo.work_type.slice()
+        arr[e.id] = !arr[e.id];
+        props.setResumeInfo({ ...props.resumeInfo, work_type: arr })
+    }
 }

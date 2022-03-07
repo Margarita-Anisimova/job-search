@@ -22,7 +22,7 @@ export function createSelect(start: number, end: number) {
 type DateSelect = {
     name: string;
     tag: string;
-    selectNames: string[];
+    selectNames: { name: string; value: string }[];
 }
 
 export function createSelectsContainer(dateSelect: DateSelect, handler: any) {
@@ -33,7 +33,7 @@ export function createSelectsContainer(dateSelect: DateSelect, handler: any) {
 
     dateSelect.selectNames.map((e, i) => {
         a.push(
-            <select onChange={(e) => handler(e)} name={e} className='dataselect'>
+            <select onChange={(e) => handler(e)} name={e.name} value={e.value} className='dataselect'>
                 {createSelect(ranges[i][0], ranges[i][1])}
             </select>)
     })

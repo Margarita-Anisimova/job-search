@@ -8,9 +8,17 @@ import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export default function Profile(props: { account: AccountType, resume: ResumeType, company: CompanyType, vacancies: VacancyType[] }) {
+export default function Profile(props: { account: AccountType, resume: ResumeType }) {
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        let a = props.resume
+    })
+
+    function getAge() {
+        return (new Date()).getFullYear() - props.resume.birth_date.split(':')[2]
+    }
 
     return (
         <div className='pofile_container'>
@@ -20,7 +28,7 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                     <p>{props.account.l_name + ' ' + props.account.f_name}</p>
                     {props.account.user_type != 'employer' ?
                         <>
-                            <p>{props.account.age ? props.account.age + ' лет' : null}</p>
+                            <p>{getAge() ? getAge() + ' лет' : null}</p>
                             <p>{props.resume.city ? props.resume.city : null}</p>
                             <p>{props.resume.citizenship ? 'Гражданство ' + props.resume.citizenship : null}</p>
                         </> : null}
@@ -32,19 +40,19 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
             </div>
             <div className="user_resumes_container">
                 <p><b>Резюме</b></p>
-                <div className="resumeCard">
-                    {/* <p style={{ color: 'orange', fontSize: '20px' }}>{resume.name}</p>
-                    <p>{resume.salary}</p>
-                    <p>{resume.updated}</p> */}
+                {props.resume.profession ?
+                    <div className="resumeCard">
+                        <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.desired_position}</p>
+                        <p>{props.resume.desired_salary}</p>
 
-                    <div className="resumeButtons">
-                        <button className="resumeButton">Редактировать</button>
-                        <button className="resumeButton">Удалить</button>
+                        <div className="resumeButtons">
+                            <button className="resumeButton">Редактировать</button>
+                            <button className="resumeButton">Удалить</button>
+                        </div>
                     </div>
-                </div>
-
+                    : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
+                }
             </div>
-
         </div >
     );
 }

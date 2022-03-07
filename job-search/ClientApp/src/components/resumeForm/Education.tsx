@@ -1,45 +1,46 @@
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './Resume.css';
-import { createTextInputs, createSelect } from '../account/createFunction'
+import { createTextInputs, createSelectsContainer } from '../account/createFunction'
 import { EducationType } from '../types'
 import { ResumeType } from '../types';
 
 export default function Education(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
     //нужно ли обновление при скрытии???
     //добавить запрет на добавление если не заполнено 1ы
-    const [education, setEducation] = useState<EducationType[]>(
-        [{
-            edlevel: '',
-            university: '',
-            faculty: '',
-            specialization: '',
-            edForm: '',
-            edStart: '',
-            edEnd: '',
-        }]
-    );
 
     const [hasEducation, sethasEducation] = useState(true)
 
     function handler(e: any) {
-        let arr = education.slice()
+        let arr = props.resumeInfo.education.slice()
         let id = e.target.parentElement.id || e.target.parentElement.parentElement.id
         arr[id][e.target.name] = e.target.value;
-        setEducation(arr);
+        props.setResumeInfo({ ...props.resumeInfo, education: arr });
     }
+
+    useEffect(() => {
+        for (let i = 0; i < props.resumeInfo.education.length; i++) {
+            let a = document.getElementsByName('edForm ' + i)
+            for (let j = 0; j < a.length; j++) {
+                if (a[j].value === props.resumeInfo.education[i].edForm) {
+                    a[j].defaultChecked = true;
+                    return;
+                }
+            }
+        }
+    })
 
 
     function handlerRadio(e: any) {
         let [name, id] = e.target.name.split(' ');
-        let arr = education.slice()
+        let arr = props.resumeInfo.education.slice()
         arr[id][name] = e.target.value;
-        setEducation(arr);
+        props.setResumeInfo({ ...props.resumeInfo, education: arr });
     }
 
     function addExpirience() {
-        let arr = education.slice();
+        let arr = props.resumeInfo.education.slice();
         arr.push({
             edlevel: '',
             university: '',
@@ -49,16 +50,14 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
             edStart: '',
             edEnd: '',
         })
-        setEducation(arr)
+        props.setResumeInfo({ ...props.resumeInfo, education: arr });
     }
 
     function deleteItem(i: number) {
-        let arr = education.slice()
+        let arr = props.resumeInfo.education.slice();
         arr.splice(i, 1)
-        setEducation(arr)
+        props.setResumeInfo({ ...props.resumeInfo, education: arr });
     }
-
-
 
     return (
         <section className="section">
@@ -77,13 +76,13 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
                         <option>Высшее</option>
                         <option>Среднее профессиональное</option>
                     </select>
-                    {education.map((e, i) =>
+                    {props.resumeInfo.education.map((e, i) =>
                         <div id={i.toString()} className='partition-4'>
                             {i != 0 ? <button type="button" onClick={() => deleteItem(i)} className="deleteItemButton">X</button> : null}
 
-                            {createTextInputs([{ tag: 'university', name: 'Учебное заведение', value: education[i].university },
-                            { tag: 'faculty', name: 'Факультет', value: education[i].faculty },
-                            { tag: 'specialization', name: 'Специальность', value: education[i].specialization },], handler)}
+                            {createTextInputs([{ tag: 'university', name: 'Учебное заведение', value: props.resumeInfo.education[i].university },
+                            { tag: 'faculty', name: 'Факультет', value: props.resumeInfo.education[i].faculty },
+                            { tag: 'specialization', name: 'Специальность', value: props.resumeInfo.education[i].specialization },], handler)}
                             <label>Форма обучения</label>
                             <div>
                                 <div className="edForm_radio">
@@ -99,15 +98,16 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
                                     <label htmlFor="edForm_radio-3">Очно-заочная</label>
                                 </div>
                             </div>
-                            <label>Период обучения</label>
-                            <div className="edPeriod">
-                                <select name='edStart' onChange={(e) => handler(e)} className='dataselect'>
-                                    {createSelect(1990, 2022)}
-                                </select>
-                                <select name='edEnd' onChange={(e) => handler(e)} className='dataselect'>
-                                    {createSelect(1990, 2022)}
-                                </select>
-                            </div>
+                            {createSelectsContainer({
+                                name: 'Начало обучения',
+                                tag: 'selectContainer edStart',
+                                selectNames: [{ name: 'edStart', value: props.resumeInfo.education[i].edStart }]
+                            }, handler)}
+                            {createSelectsContainer({
+                                name: 'Год выпуска',
+                                tag: 'selectContainer edEnd',
+                                selectNames: [{ name: 'edEnd', value: props.resumeInfo.education[i].edEnd }]
+                            }, handler)}
                         </div>
 
                     )}

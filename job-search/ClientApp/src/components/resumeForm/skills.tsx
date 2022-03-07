@@ -7,27 +7,25 @@ import { EducationType } from '../types'
 import { ResumeType } from '../types';
 
 export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
-    const skillsLib = {
-        backend: ['C#', 'Pyton', 'Java'],
-        frontend: ['JavaScript', 'HTML', 'React', 'CSS'],
-        android: ['Android Studio', 'Java'],
-    }
-
-    const [skills, setSkills] = useState([]);
+    // const skillsLib = {
+    //     backend: ['C#', 'Pyton', 'Java'],
+    //     frontend: ['JavaScript', 'HTML', 'React', 'CSS'],
+    //     android: ['Android Studio', 'Java'],
+    // }
     // const [skillsList, setSkillsList] = useState([]);
     // const selectionList = ['Специализация', ...Object.keys(skillsLib)];
     // const [selection, setSelection] = useState(false)
-
-
-
     // function close() {
     //     setSelection(false);
     // }
 
+    // const [skills, setSkills] = useState([]);
+
     function addItem(e: any) {
-        let arr = skills.slice()
-        arr.push(e.value)
-        setSkills(arr);
+        let arr = {}
+        Object.assign(arr, props.resumeInfo.skills);
+        arr[e.value] = e.value
+        props.setResumeInfo({ ...props.resumeInfo, skills: arr });
 
     }
 
@@ -40,9 +38,10 @@ export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: a
     }
 
     function delSkill(e: any) {
-        let arr = skills.slice()
-        arr.splice(e.target.id, 1)
-        setSkills(arr)
+        let arr = {}
+        Object.assign(arr, props.resumeInfo.skills);
+        delete arr[e.target.innerText]
+        props.setResumeInfo({ ...props.resumeInfo, skills: arr });
     }
 
     return (
@@ -50,7 +49,7 @@ export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: a
             <h5>Профессиональные навыки</h5>
 
             <div className='slected_skills_container'>
-                {skills.map((e, i) =>
+                {Object.keys(props.resumeInfo.skills).map((e, i) =>
                     <span id={i.toString()} onDoubleClick={(e) => delSkill(e)} className="skillItem">
                         {e}
                     </span>

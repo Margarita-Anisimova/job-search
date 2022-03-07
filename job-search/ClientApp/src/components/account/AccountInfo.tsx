@@ -9,29 +9,49 @@ import { useNavigate } from 'react-router-dom'
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 
 
-function AccountInfo(props: { account: AccountType, resume: ResumeType }) {
+function AccountInfo(props: { setResume: any, setAccount: any, account: AccountType, resume: ResumeType }) {
     const navigate = useNavigate();
+    const [birth_date, setbirth_date] = useState(props.resume.birth_date.split(':'))
 
     useEffect(() => {
-        if (props.account.user_type === 'noRegistered') {
-            navigate('/')
-        }
+        // if (props.account.user_type === 'noRegistered') {
+        //     navigate('/')
+        // }
     })
 
     function handler(e: any) {
-        props.setAccount({ ...props.account, [e.target.name]: e.target.value });
+        if (props.account[e.target.name])
+            props.setAccount({ ...props.account, [e.target.name]: e.target.value });
+        else {
+            props.setResume({ ...props.resume, [e.target.name]: e.target.value });
+        }
+    }
+
+    function handlerData(e: any) {
+        let r = birth_date.slice();
+        switch (e.target.name) {
+            case 'birth_day':
+                r[0] = e.target.value;
+                break
+            case 'birth_year':
+                r[2] = e.target.value;
+                break
+            case 'birth_month':
+                r[1] = e.target.value;
+        }
+        setbirth_date(r);
     }
 
     function save() {
-
+        props.setResume({ ...props.resume, birth_date: birth_date.join(':') })
     }
 
     const commonInfoInputs = props.account.user_type == 'employer' ?
         [{ tag: 'f_name', name: 'Фамилия', value: props.account.l_name },
         { tag: 'name', name: 'Имя', value: props.account.f_name },]
         :
-        [{ tag: 'f_name', name: 'Фамилия', value: props.account.l_name },
-        { tag: 'name', name: 'Имя', value: props.account.f_name },
+        [{ tag: 'l_name', name: 'Фамилия', value: props.account.l_name },
+        { tag: 'f_name', name: 'Имя', value: props.account.f_name },
         { tag: 'city', name: 'Город', value: props.resume.city },
         { tag: 'citizenship', name: 'Гражданство', value: props.resume.citizenship },]
 
@@ -49,7 +69,13 @@ function AccountInfo(props: { account: AccountType, resume: ResumeType }) {
                     <div className='partition-1'>
                         {createTextInputs(commonInfoInputs, handler)}
 
-                        {createSelectsContainer({ name: 'Дата рождения', tag: 'selectContainer burth', selectNames: ['birth_year', 'birth_month', 'birth_day'] }, handler)}
+                        {createSelectsContainer({
+                            name: 'Дата рождения',
+                            tag: 'selectContainer burth',
+                            selectNames: [{ name: 'birth_year', value: birth_date[2] },
+                            { name: 'birth_month', value: birth_date[1] },
+                            { name: 'birth_day', value: birth_date[0] }]
+                        }, handlerData)}
 
                         {props.account.user_type != 'employer' ? <label>Пол</label> : null}
                         {props.account.user_type != 'employer' ?
@@ -71,7 +97,7 @@ function AccountInfo(props: { account: AccountType, resume: ResumeType }) {
                         {createTextInputs(contacts, handler)}
                     </div>
                 </section>
-                <NavLink tag={Link} to="/account">Сохранить</NavLink>
+                <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
             </form>
         </div >
     );

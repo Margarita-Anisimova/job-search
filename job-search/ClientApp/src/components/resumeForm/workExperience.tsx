@@ -9,33 +9,28 @@ import { ResumeType } from '../types';
 export default function WorkExperience(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
     //нужно ли обновление при скрытии???
     //добавить запрет на добавление если не заполнено 1ы
-    const [expirience, setExpirience] = useState<WorkExpirienceType[]>(
-        [{
-            company: '', post: '', workStart: '', workEnd: '', responsibilities: '', achievements: '',
-        }]
-    );
 
     const [hasWorkExpirience, sethasWorkExpirience] = useState(true)
 
     function handler(e: any) {
-        let arr = expirience.slice()
+        let arr = props.resumeInfo.workExperience.slice()
         let id = e.target.parentElement.id || e.target.parentElement.parentElement.id
         arr[id][e.target.name] = e.target.value;
-        setExpirience(arr);
+        props.setResumeInfo({ ...props.resumeInfo, workExperience: arr });
     }
 
     function addExpirience() {
-        let arr = expirience.slice();
+        let arr = props.resumeInfo.workExperience.slice();
         arr.push({
             company: '', post: '', workStart: '', workEnd: '', responsibilities: '', achievements: '',
         })
-        setExpirience(arr)
+        props.setResumeInfo({ ...props.resumeInfo, workExperience: arr });
     }
 
     function deleteItem(i: number) {
-        let arr = expirience.slice()
+        let arr = props.resumeInfo.workExperience.slice()
         arr.splice(i, 1)
-        setExpirience(arr)
+        props.setResumeInfo({ ...props.resumeInfo, workExperience: arr });
     }
 
     return (
@@ -47,25 +42,25 @@ export default function WorkExperience(props: { resumeInfo: ResumeType, setResum
             </label>
             {hasWorkExpirience ?
                 <div>
-                    {expirience.map((e, i) =>
+                    {props.resumeInfo.workExperience.map((e, i) =>
                         <div id={i.toString()} className='partition-3'>
                             {i != 0 ? <button type="button" onClick={() => deleteItem(i)} className="deleteItemButton">X</button> : null}
-                            {createTextInputs([{ tag: 'company', name: 'Компания', value: expirience[i].company },
-                            { value: expirience[i].post, name: 'Должность', tag: 'post' }], handler)}
+                            {createTextInputs([{ tag: 'company', name: 'Компания', value: props.resumeInfo.workExperience[i].company },
+                            { value: props.resumeInfo.workExperience[i].post, name: 'Должность', tag: 'post' }], handler)}
                             {createSelectsContainer({
                                 name: 'Начало работы',
                                 tag: 'selectContainer workStart',
-                                selectNames: ['workStart']
+                                selectNames: [{ name: 'workStart', value: props.resumeInfo.workExperience[i].workStart }]
                             }, handler)}
                             {createSelectsContainer({
                                 name: 'Окончание работы',
                                 tag: 'selectContainer workEnd',
-                                selectNames: ['workEnd']
+                                selectNames: [{ name: 'workEnd', value: props.resumeInfo.workExperience[i].workEnd }]
                             }, handler)}
                             <label>Обязанности</label>
-                            <textarea onChange={(e) => handler(e)} name="responsibilities" value={expirience[i].responsibilities} ></textarea>
+                            <textarea onChange={(e) => handler(e)} name="responsibilities" value={props.resumeInfo.workExperience[i].responsibilities} ></textarea>
                             <label>Достижения</label>
-                            <textarea onChange={(e) => handler(e)} name='achievements' value={expirience[i].achievements} ></textarea>
+                            <textarea onChange={(e) => handler(e)} name='achievements' value={props.resumeInfo.workExperience[i].achievements} ></textarea>
                         </div>
 
                     )}
