@@ -13,7 +13,8 @@ namespace job_search.Models
 
         [ForeignKey("user_id")]
         public User User { get; set; }
-        [Key]
+        
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int company_id { get; set; }
 
         [Required]
@@ -25,10 +26,24 @@ namespace job_search.Models
         [Required]
         public string description { get; set; }
 
+        [Required]
+        public string contact_face { get; set; }
+
         [DataType(DataType.PhoneNumber)]
         [Required]
         public string phone { get; set; }
         [Required]
         public string email { get; set; }
+
+        public Company(string fullname, string city, string description, string contact_face, string phone, string email)
+        {
+            this.fullname = fullname;
+            this.city = city;
+            this.description = description;
+            this.contact_face = contact_face;
+            this.contact_face = contact_face;
+            this.phone = phone;
+            this.email = email;
+        }
     }
 }

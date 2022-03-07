@@ -3,6 +3,10 @@ import { useState } from 'react';
 import './ListResults.css';
 import '../custom.css';
 import { VacancyType, ResumesType } from './types'
+import { NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
+
 
 export default function ListResults(props: { results: VacancyType[] | ResumesType[] }) {
 
@@ -12,7 +16,8 @@ export default function ListResults(props: { results: VacancyType[] | ResumesTyp
                 return props.results.map((result) => {
                     return (
                         <div className="card__container">
-                            <p className='card__title'>{result.name}</p>
+                            <NavLink className='card__title' tag={Link} to="/resumecard">{result.name}</NavLink>
+                            {/* <p className='card__title'>{result.name}</p> */}
                             <p className='card__subtitle'>Опыт {result.experience}</p>
                             <p className='card__desc'>{result.profession}</p>
                             <p className='card__address'>{result.city}</p>
@@ -26,7 +31,8 @@ export default function ListResults(props: { results: VacancyType[] | ResumesTyp
                     return (
 
                         <div className="card__container">
-                            <p className='card__title'>{result.name}</p>
+                            <NavLink className='card__title' tag={Link} to="/vacancycard">{result.name}</NavLink>
+                            {/* <p className='card__title'>{result.name}</p> */}
                             <p className='card__subtitle'>{result.salary}</p>
                             <p className='card__desc'>{result.description}</p>
                             <p className='card__address'>{result.adress}</p>

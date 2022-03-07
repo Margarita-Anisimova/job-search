@@ -16,6 +16,9 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
                         <div className='sections_container'>
                             <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
                             <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
+
+                            <NavLink className='navigate_item' tag={Link} to="/companies"> Компании</NavLink>
+
                         </div>
                         {createNavigateItems()}
                     </div>

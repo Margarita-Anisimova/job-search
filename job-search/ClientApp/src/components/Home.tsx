@@ -71,15 +71,16 @@ export default function Home(props: { accountType: string; pageType: string }) {
     setdata({ collection: data, loading: false });
   }
 
-  // useEffect(() => {
-  //   getData()
-  // })
+  useEffect(() => {
+    getData()
+  })
 
   return (
     <div className="home_container container">
       <p className="home-title">Работа найдется для каждого</p>
 
-      {/* {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>} */}
+      {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>}
+
       <section className='search'>
         <input className='search__form search__form--prof' placeholder='Введите профессию' />
         <input className='search__form search__form--city' placeholder='Город' />

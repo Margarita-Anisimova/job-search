@@ -90,3 +90,8 @@ input:required:valid, textarea:required:valid { border-color: green; } */
 	letter-spacing: .25px;
 	text-decoration: none;
 }
+
+.button:hover {
+    text-decoration: none;
+    background-color: var(--accent-light);
+}

@@ -11,14 +11,16 @@ export default function ResumeResponses() {
         <div className='pofile_container'>
 
             {resumeResponses.map((e) => {
-                return <div className="responseCard">
-                    <p>Название компании</p>
-                    <p>Текст</p>
+                return (
+                    <div className="responseCard">
+                        <p>Название компании</p>
+                        <p>Текст</p>
 
-                    <div className="resumeButtons">
-                        <button className="resumeButton">Удалить</button>
+                        <div className="resumeButtons">
+                            <button className="resumeButton">Удалить</button>
+                        </div>
                     </div>
-                </div>
+                );
             })}
         </div>
     );

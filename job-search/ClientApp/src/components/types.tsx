@@ -7,6 +7,15 @@ export type VacancyType = {
     description: string;
 }
 
+export type CompanyType = {
+    fullname: string;
+    city: string;
+    description: string;
+    contact_face: string;
+    phone: string;
+    email: string;
+}
+
 export type ResumesType = {
     type: 'resume'
     name: string;

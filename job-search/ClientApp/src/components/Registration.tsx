@@ -112,7 +112,8 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
             document.querySelectorAll('.emailerrormessage')[0].style.display = 'block';
         } else {
             setcode(codeFromServer.code);
-            setFormType('confirmEmail')
+            setFormType('confirmEmail');
+            console.log(codeFromServer.code);
         }
 
     }

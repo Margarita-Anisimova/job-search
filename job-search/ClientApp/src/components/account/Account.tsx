@@ -37,7 +37,7 @@ function Account(props: { accountType: string }) {
     }
 
     return (
-        <div>
+        <div className="container">
             <div className='accountMenu'>
                 <button onClick={() => setPage('profile')}>Профиль</button>
                 <button onClick={() => setPage('resumeResponses')}>{props.accountType === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>

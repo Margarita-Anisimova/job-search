@@ -9,16 +9,25 @@ import Vacancy from './components/vacancyForm/Vacancy';
 import { Check } from './components/Check';
 import './App.css';
 
+import { VacancyType, ResumesType, CompanyType } from './components/types'
+
+
 
 import './custom.css'
 import { useState } from 'react';
 import NavMenu from './components/NavMenu';
 import Company from './components/companyForm/Company';
+import VacancyCard from './components/VacancyCard';
+import CopmaniesList from './components/CompaniesList';
+import CompanyCard from './components/CompanyCard';
 
 function App() {
 
     const [accountType, setAccountType] = useState('noRegistered')
     const [pageType, setPageType] = useState('vacancies')
+
+    const [company, setcompany] = useState([])
+
 
     return (
         // <Check></Check>
@@ -31,6 +40,12 @@ function App() {
                 <Route path='/resume' element={<Resume />} />
                 <Route path='/vacancy' element={<Vacancy />} />
                 <Route path='/company' element={<Company />} />
+
+                <Route path='/vacancycard' element={<VacancyCard />} />
+                <Route path='/companies' element={<CopmaniesList />} />
+
+                <Route path='/companycard' element={<CompanyCard results={company} />} />
+
 
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>
