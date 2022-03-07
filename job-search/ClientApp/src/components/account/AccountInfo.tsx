@@ -11,7 +11,7 @@ import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 
 function AccountInfo(props: { setResume: any, setAccount: any, account: AccountType, resume: ResumeType }) {
     const navigate = useNavigate();
-    const [birth_date, setbirth_date] = useState(props.resume.birth_date.split(':'))
+    const [birth_date, setbirth_date] = props.account.user_type === 'applicant' ? useState(props.resume.birth_date.split(':')) : useState([''])
 
     useEffect(() => {
         // if (props.account.user_type === 'noRegistered') {
@@ -43,7 +43,8 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
     }
 
     function save() {
-        props.setResume({ ...props.resume, birth_date: birth_date.join(':') })
+        if (props.account.user_type === 'applicant')
+            props.setResume({ ...props.resume, birth_date: birth_date.join(':') })
     }
 
     const commonInfoInputs = props.account.user_type == 'employer' ?
@@ -69,13 +70,13 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
                     <div className='partition-1'>
                         {createTextInputs(commonInfoInputs, handler)}
 
-                        {createSelectsContainer({
+                        {props.account.user_type != 'employer' ? createSelectsContainer({
                             name: 'Дата рождения',
                             tag: 'selectContainer burth',
                             selectNames: [{ name: 'birth_year', value: birth_date[2] },
                             { name: 'birth_month', value: birth_date[1] },
                             { name: 'birth_day', value: birth_date[0] }]
-                        }, handlerData)}
+                        }, handlerData) : null}
 
                         {props.account.user_type != 'employer' ? <label>Пол</label> : null}
                         {props.account.user_type != 'employer' ?

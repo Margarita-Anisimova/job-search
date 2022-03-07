@@ -22,7 +22,12 @@ export default function WorkExperience(props: { resumeInfo: ResumeType, setResum
     function addExpirience() {
         let arr = props.resumeInfo.workExperience.slice();
         arr.push({
-            company: '', post: '', workStart: '', workEnd: '', responsibilities: '', achievements: '',
+            work_experience_id: 0,
+            company: '',
+            post: '',
+            date_start: '1950',
+            date_end: '1950',
+            experience_description: '',
         })
         props.setResumeInfo({ ...props.resumeInfo, workExperience: arr });
     }
@@ -49,18 +54,17 @@ export default function WorkExperience(props: { resumeInfo: ResumeType, setResum
                             { value: props.resumeInfo.workExperience[i].post, name: 'Должность', tag: 'post' }], handler)}
                             {createSelectsContainer({
                                 name: 'Начало работы',
-                                tag: 'selectContainer workStart',
-                                selectNames: [{ name: 'workStart', value: props.resumeInfo.workExperience[i].workStart }]
+                                tag: 'selectContainer date_start',
+                                selectNames: [{ name: 'date_start', value: props.resumeInfo.workExperience[i].date_start }]
                             }, handler)}
                             {createSelectsContainer({
                                 name: 'Окончание работы',
-                                tag: 'selectContainer workEnd',
-                                selectNames: [{ name: 'workEnd', value: props.resumeInfo.workExperience[i].workEnd }]
+                                tag: 'selectContainer date_end',
+                                selectNames: [{ name: 'date_end', value: props.resumeInfo.workExperience[i].date_end }]
                             }, handler)}
-                            <label>Обязанности</label>
-                            <textarea onChange={(e) => handler(e)} name="responsibilities" value={props.resumeInfo.workExperience[i].responsibilities} ></textarea>
-                            <label>Достижения</label>
-                            <textarea onChange={(e) => handler(e)} name='achievements' value={props.resumeInfo.workExperience[i].achievements} ></textarea>
+                            <label>Достижения и обязанности</label>
+                            <textarea onChange={(e) => handler(e)} name="experience_description" value={props.resumeInfo.workExperience[i].experience_description} ></textarea>
+
                         </div>
 
                     )}

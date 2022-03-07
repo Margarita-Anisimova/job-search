@@ -1,19 +1,22 @@
-export function createEmptyAccount() {
+
+import { AccountType, ResumeType } from './components/types';
+
+export function createEmptyAccount(): AccountType {
     return {
         email: '',
         f_name: '',
         l_name: '',
         phoneNumber: '',
         user_type: 'noRegistered',
-        citizenship: '',
-        city: '',
         gender: '',
         user_id: 0
     }
 }
 
-export function createEmptyResume() {
+export function createEmptyResume(): ResumeType {
     return {
+        user_id: 0,
+        resume_id: 0,
         birth_date: '',
         desired_position: '',
         desired_salary: '',
@@ -23,22 +26,23 @@ export function createEmptyResume() {
         profession: '',
         city: '',
         citizenship: '',
+        education_level: '',
         education: [{
-            edlevel: '',
-            university: '',
+            education_id: 0,
+            institution: '',
             faculty: '',
             specialization: '',
-            edForm: 'full-time',
-            edStart: '1950',
-            edEnd: '1950',
+            resume_id: 0,
+            education_type: 'full-time',
+            graduation_year: '1950',
         }],
         workExperience: [{
+            work_experience_id: 0,
             company: '',
             post: '',
-            workStart: '1950',
-            workEnd: '1950',
-            responsibilities: '',
-            achievements: '',
+            date_start: '1950',
+            date_end: '1950',
+            experience_description: '',
         }],
     }
 }

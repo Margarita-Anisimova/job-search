@@ -23,7 +23,7 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
         for (let i = 0; i < props.resumeInfo.education.length; i++) {
             let a = document.getElementsByName('edForm ' + i)
             for (let j = 0; j < a.length; j++) {
-                if (a[j].value === props.resumeInfo.education[i].edForm) {
+                if (a[j].value === props.resumeInfo.education[i].education_type) {
                     a[j].defaultChecked = true;
                     return;
                 }
@@ -42,13 +42,13 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
     function addExpirience() {
         let arr = props.resumeInfo.education.slice();
         arr.push({
-            edlevel: '',
-            university: '',
+            education_id: 0,
+            institution: '',
             faculty: '',
             specialization: '',
-            edForm: '',
-            edStart: '',
-            edEnd: '',
+            resume_id: 0,
+            education_type: 'full-time',
+            graduation_year: '1950',
         })
         props.setResumeInfo({ ...props.resumeInfo, education: arr });
     }
@@ -57,6 +57,10 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
         let arr = props.resumeInfo.education.slice();
         arr.splice(i, 1)
         props.setResumeInfo({ ...props.resumeInfo, education: arr });
+    }
+
+    function changeEdLevel(e) {
+        props.setResumeInfo({ ...props.resumeInfo, education_level: e.target.value });
     }
 
     return (
@@ -70,7 +74,7 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
             {hasEducation ?
                 <div>
                     <label> Уровень образования</label>
-                    <select className="edu_level" name='educatLevel'>
+                    <select className="edu_level" name='education_level' onChange={(e) => changeEdLevel(e)} value={props.resumeInfo.education_level}>
                         <option>Среднее</option>
                         <option>Незаконченное высшее</option>
                         <option>Высшее</option>
@@ -80,7 +84,7 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
                         <div id={i.toString()} className='partition-4'>
                             {i != 0 ? <button type="button" onClick={() => deleteItem(i)} className="deleteItemButton">X</button> : null}
 
-                            {createTextInputs([{ tag: 'university', name: 'Учебное заведение', value: props.resumeInfo.education[i].university },
+                            {createTextInputs([{ tag: 'institution', name: 'Учебное заведение', value: props.resumeInfo.education[i].university },
                             { tag: 'faculty', name: 'Факультет', value: props.resumeInfo.education[i].faculty },
                             { tag: 'specialization', name: 'Специальность', value: props.resumeInfo.education[i].specialization },], handler)}
                             <label>Форма обучения</label>
@@ -99,14 +103,9 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
                                 </div>
                             </div>
                             {createSelectsContainer({
-                                name: 'Начало обучения',
-                                tag: 'selectContainer edStart',
-                                selectNames: [{ name: 'edStart', value: props.resumeInfo.education[i].edStart }]
-                            }, handler)}
-                            {createSelectsContainer({
                                 name: 'Год выпуска',
-                                tag: 'selectContainer edEnd',
-                                selectNames: [{ name: 'edEnd', value: props.resumeInfo.education[i].edEnd }]
+                                tag: 'selectContainer graduation_year',
+                                selectNames: [{ name: 'graduation_year', value: props.resumeInfo.education[i].graduation_year }]
                             }, handler)}
                         </div>
 
