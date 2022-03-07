@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CompanyProfile from "./CompanyProfile";
 
-export default function Profile(props: { account: AccountType, resume: ResumeType }) {
+export default function Profile(props: { account: AccountType, resume: ResumeType, company: CompanyType }) {
 
     const navigate = useNavigate();
 
@@ -38,21 +39,25 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
 
                 <NavLink tag={Link} to='/accountInfo'> Редактировать профиль</NavLink>
             </div>
-            <div className="user_resumes_container">
-                <p><b>Резюме</b></p>
-                {props.resume.profession ?
-                    <div className="resumeCard">
-                        <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.desired_position}</p>
-                        <p>{props.resume.desired_salary}</p>
+            {
+                //вынести в отдельный компанент ????
+                props.account.user_type != 'employer' ?
+                    <div className="user_resumes_container">
+                        <p><b>Резюме</b></p>
+                        {props.resume.profession ?
+                            <div className="resumeCard">
+                                <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.desired_position}</p>
+                                <p>{props.resume.desired_salary}</p>
 
-                        <div className="resumeButtons">
-                            <button className="resumeButton">Редактировать</button>
-                            <button className="resumeButton">Удалить</button>
-                        </div>
+                                <div className="resumeButtons">
+                                    <button className="resumeButton">Редактировать</button>
+                                    <button className="resumeButton">Удалить</button>
+                                </div>
+                            </div>
+                            : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
+                        }
                     </div>
-                    : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
-                }
-            </div>
+                    : <CompanyProfile company={props.company}></CompanyProfile>}
         </div >
     );
 }

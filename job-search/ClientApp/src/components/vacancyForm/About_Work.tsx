@@ -1,26 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import './Vacancy.css';
 import { createTextInputs, createSelect } from '../account/createFunction';
+import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 // import '../../custom.css';
 
 
-export default function About_Work() {
-    let [about_workInfo, setabout_workInfo] = useState(
-        {
-            salary: '', requirements: '', responsibilities: '',
-        }
-    );
+export default function About_Work(props: { vacansy: VacancyType, setVacansy: any }) {
+    // let [about_workInfo, setabout_workInfo] = useState(
+    //     {
+    //         salary: '', requirements: '', responsibilities: '',
+    //     }
+    // );
 
     function posthandler(e: any) {
-        setabout_workInfo({ ...about_workInfo, [e.target.name]: e.target.value });
+        props.setVacansy({ ...props.vacansy, [e.target.name]: e.target.value });
     }
 
     const postInfoInputs = [
-        { tag: 'salary', name: 'Зарплата', value: about_workInfo.salary }];
+        { tag: 'salary', name: 'Зарплата', value: props.vacansy.salary }];
 
 
-
+    useEffect(() => {
+        let a = document.getElementsByName('work_type')
+        for (let i = 0; i < a.length; i++) {
+            if (a[i].value === props.vacansy.work_type) {
+                a[i].defaultChecked = true;
+                break;
+            }
+        }
+    })
 
     return (
         <section>
@@ -29,45 +38,34 @@ export default function About_Work() {
                 {createTextInputs(postInfoInputs, posthandler)}
 
                 <label>График работы</label>
-                <div className='chart_block'>
-
-                    <label htmlFor="chart1">
-                        <input className="checkbox_input" id="chart1" type='checkbox'></input>
-                        Полный рабочий день
-                    </label>
-                    <label htmlFor="chart2"> <input name='work_chart' id="chart2" type='checkbox'></input>Гибкий</label>
-
-                    <label htmlFor="chart3"> <input name='work_chart' id="chart3" type='checkbox'></input>Удаленная работа</label>
-
-                    <label htmlFor="chart4"> <input name='work_chart' id="chart4" type='checkbox'></input>Сменный</label>
+                <div>
+                    <div className="work_type">
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="work_type-1" type="radio" name="work_type" value="Полный рабочий день" defaultChecked />
+                        <label htmlFor="work_type-1">Полный рабочий день</label>
+                    </div>
+                    <div className="work_type">
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="work_type-2" type="radio" name="work_type" value="Гибкий" />
+                        <label htmlFor="work_type-2">Гибкий</label>
+                    </div>
+                    <div className="work_type">
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="work_type-3" type="radio" name="work_type" value="Удаленная работа" />
+                        <label htmlFor="work_type-3">Удаленная работа</label>
+                    </div>
+                    <div className="work_type">
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="work_type-4" type="radio" name="work_type" value="Сменный" />
+                        <label htmlFor="work_type-4">Сменный</label>
+                    </div>
+                    <div className="work_type">
+                        <input className="radio_input" onChange={(e) => posthandler(e)} required id="work_type-4" type="radio" name="work_type" value="Вахтовая" />
+                        <label htmlFor="work_type-4">Вахтовая</label>
+                    </div>
                 </div>
-
-                <label>Тип занятости</label>
-                <div className='busyness_block'>
-                    <label >
-                        <input type='checkbox'></input>
-                        Полная
-                    </label>
-                    <label >
-                        <input type='checkbox'></input>
-                        Вахтовая
-                    </label>
-                    <label >
-                        <input type='checkbox'></input>
-                        Стажировка
-                    </label>
-                    <label >
-                        <input type='checkbox'></input>
-                        Временная работа
-                    </label>
-                </div>
-
 
                 <label>Обязанности</label>
-                <textarea name="responsibilities" value={about_workInfo.responsibilities} onChange={(e) => posthandler(e)}></textarea>
+                <textarea name="responsibilities" value={props.vacansy.responsibilities} onChange={(e) => posthandler(e)}></textarea>
 
                 <label>Требования</label>
-                <textarea name="requirements" value={about_workInfo.requirements} onChange={(e) => posthandler(e)}></textarea>
+                <textarea name="requirements" value={props.vacansy.requirements} onChange={(e) => posthandler(e)}></textarea>
 
 
 

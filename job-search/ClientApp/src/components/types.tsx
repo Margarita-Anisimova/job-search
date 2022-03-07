@@ -47,23 +47,30 @@ export type WorkExpirienceType = {
 }
 
 export type CompanyType = {
+    user_id: number;
+    company_id: number;
     fullname: string;
     city: string;
     description: string;
     contact_face: string;
     phone: string;
     email: string;
+    vacancies: VacancyType[]
 }
 
-
-
 export type VacancyType = {
-    type: 'vacancy'
-    name: string;
+    vacancy_id: number;
+    company_id: number;
+    vacancy_name: string;
+    position: string;
+    profession: string;
+    work_experience: string;
+    education_type: string;
     salary: string;
-    adress: string;
-    description: string;
-
+    work_type: string;
+    work_address: string;
+    responsibilities: string;
+    requirements: string;
 }
 
 

@@ -1,5 +1,5 @@
 
-import { AccountType, ResumeType } from './components/types';
+import { AccountType, ResumeType, CompanyType, VacancyType } from './components/types';
 
 export function createEmptyAccount(): AccountType {
     return {
@@ -7,7 +7,7 @@ export function createEmptyAccount(): AccountType {
         f_name: '',
         l_name: '',
         phoneNumber: '',
-        user_type: 'noRegistered',
+        user_type: 'employer',
         gender: '',
         user_id: 0
     }
@@ -46,3 +46,37 @@ export function createEmptyResume(): ResumeType {
         }],
     }
 }
+
+export function createEmptyCompany(): CompanyType {
+    return {
+        user_id: 0,
+        company_id: 0,
+        fullname: '',
+        city: '',
+        description: '',
+        contact_face: '',
+        phone: '',
+        email: '',
+        vacancies: []
+    }
+}
+
+
+export function createEmptyVacancy(): VacancyType {
+    return {
+        vacancy_id: 0,
+        company_id: 0,
+        vacancy_name: '',
+        position: '',
+        profession: '',
+        work_experience: 'без опыта',
+        education_type: 'Среднее',
+        salary: '',
+        work_type: 'Гибкий',
+        work_address: '',
+        responsibilities: '',
+        requirements: '',
+    }
+}
+
+

@@ -2,25 +2,29 @@ import React from "react";
 import { useState } from "react";
 import { createTextInputs, createSelectsContainer } from '../account/createFunction';
 import './Company.css';
+import { NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-function Company() {
+import { CompanyType } from '../types';
 
-    const [commonInfo, setCommonInfo] = useState(
-        {
-            fullname: '', city: '', description: '', phone: '', email: ''
-        }
-    );
+function Company(props: { company: CompanyType, setCompany: any }) {
+
+    // const [commonInfo, setCommonInfo] = useState(
+    //     {
+    //         fullname: '', city: '', description: '', phone: '', email: ''
+    //     }
+    // );
 
 
     function handler(e: any) {
-        setCommonInfo({ ...commonInfo, [e.target.name]: e.target.value });
+        props.setCompany({ ...props.company, [e.target.name]: e.target.value });
     }
 
     const commonInfoInputs = [
-        { tag: 'fullname', name: 'Название компании', value: commonInfo.fullname },
-        { tag: 'city', name: 'Город', value: commonInfo.city },
-        { tag: 'phone', name: 'Телефон', value: commonInfo.phone },
-        { tag: 'email', name: 'Электронная почта', value: commonInfo.email },
+        { tag: 'fullname', name: 'Название компании', value: props.company.fullname },
+        { tag: 'city', name: 'Город', value: props.company.city },
+        { tag: 'phone', name: 'Телефон', value: props.company.phone },
+        { tag: 'email', name: 'Электронная почта', value: props.company.email },
     ]
 
     return (
@@ -32,12 +36,11 @@ function Company() {
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
                             <label>Дополнительное описание</label>
-                            <textarea name="description" value={commonInfo.description} onChange={(e) => handler(e)}></textarea>
+                            <textarea name="description" value={props.company.description} onChange={(e) => handler(e)}></textarea>
                         </div>
                     </section>
-
+                    <NavLink tag={Link} to="/account">Сохранить</NavLink>
                 </form>
-
             </div>
         </div>
 
