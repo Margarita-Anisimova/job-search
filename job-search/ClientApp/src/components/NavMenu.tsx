@@ -3,8 +3,10 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import '../custom.css';
+import { AccountType } from './types';
 
-export default function NavMenu(props: { accountType: string; setAccountType: any; pageType: string; setPageType: any; }) {
+
+export default function NavMenu(props: { account: AccountType, setAccount: any; setPageType: any; }) {
 
     function nuvButton() {
 
@@ -27,7 +29,7 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
 
 
     function createNavigateItems() {
-        if (props.accountType === 'noRegistered') {
+        if (props.account.user_type === 'noRegistered') {
             return (
                 <div className='reg_container'>
                     <NavLink className='navigate_item' tag={Link} to="/registration">Вход</NavLink>
@@ -37,15 +39,17 @@ export default function NavMenu(props: { accountType: string; setAccountType: an
             return (
                 <div className='reg_container'>
                     {/*временно, создать кнопку*/}
-                    {props.accountType === 'applicant' ? 
-                        <NavLink className='navigate_item' tag={Link} to="/resume">Создать резюме</NavLink> : 
-                        <NavLink className='navigate_item' tag={Link} to="/vacancy">Создать вакансию</NavLink>}
+                    {/* {props.account.user_type === 'applicant' ?
+                        <NavLink className='navigate_item' tag={Link} to="/resume">Создать резюме</NavLink> :
+                        <span>
+                            <NavLink className='navigate_item' tag={Link} to="/vacancy">Создать вакансию</NavLink>
+                            <NavLink className='navigate_item' tag={Link} to="/company">Создать компанию</NavLink></span>} */}
 
-                    <NavLink className='navigate_item' tag={Link} to="/company">Создать компанию</NavLink>
+
 
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
 
-                    <NavLink className='navigate_item' onClick={() => props.setAccountType('noRegistered')} to='/' tag={Link} >Выход</NavLink>
+                    <NavLink className='navigate_item' onClick={() => props.setAccount({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '', user_type: 'noRegistered' })} to='/' tag={Link} >Выход</NavLink>
                 </div>)
         }
     }

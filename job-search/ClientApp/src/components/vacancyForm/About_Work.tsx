@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import './Vacancy.css';
-import { createTextInputs, createSelect } from '../resumeForm/createFunction';
+import { createTextInputs, createSelect } from '../account/createFunction';
 // import '../../custom.css';
 
 

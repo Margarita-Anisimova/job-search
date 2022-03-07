@@ -4,8 +4,9 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './Registration.css';
 import { useNavigate } from 'react-router-dom'
+import { createEmptyAccount } from '../exportFunctions'
 
-function Registration(props: { setAccountType: any; setPageType: any }) {
+function Registration(props: { setResume: any, setAccount: any; setPageType: any, accountType: string }) {
     const navigate = useNavigate();
     const [formType, setFormType] = useState('authoriz')
     const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
@@ -13,25 +14,22 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
 
     function handler(e: any) {
         setformInfo({ ...formInfo, [e.target.name]: e.target.value });
-
     }
 
-    function set_RegistrationForm() {
+    function set_FormType(type: string) {
         setformInfo({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
-        setFormType('registr')
-    }
-    function set_AuthorizForm() {
-        setformInfo({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
-        setFormType('authoriz')
+        setFormType(type)
     }
 
     useEffect(() => {
-        // document.querySelectorAll('.errormessage')[0].style.display = 'none';
+        if (props.accountType != 'noRegistered') {
+            navigate('/')
+        }
         document.querySelectorAll('.usererrormessage')[0].style.display = 'none';
         document.querySelectorAll('.emailerrormessage')[0].style.display = 'none';
     })
 
-    function checkrepeated_password(e) {
+    function checkrepeated_password(e: any) {
         let input = document.getElementsByName('password')[0];
         if (e.target.value !== input.value) {
             e.target.setCustomValidity('Не соответствует паролю')
@@ -40,9 +38,71 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
         }
     }
 
+    function checkForm(e: any) {
+        let form = document.querySelectorAll("form")[0]
+        !form.checkValidity()
+            ? form.reportValidity()
+            : formType === 'registr'
+                ? confirm()
+                : getUser()
+    }
+
+    async function getUser() {
+        const response = await fetch(`user/${formInfo.email}/${formInfo.password}`);
+        const data = await response.json();
+        delete data.user.password;
+        if (!data.error) {
+            props.setAccount(data.user)
+            navigate('/');
+        } else {
+            document.querySelectorAll('.usererrormessage')[0].style.display = 'block';
+        }
+    }
+
+    async function confirm() {
+        const response = await fetch(`code/${formInfo.email}`);
+        const codeFromServer = await response.json();
+        if (codeFromServer.error) {
+            document.querySelectorAll('.emailerrormessage')[0].style.display = 'block';
+        } else {
+            setcode(codeFromServer.code);
+            setFormType('confirmEmail')
+            console.log(codeFromServer.code)
+        }
+
+    }
+
+    async function postNewUser() {
+        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
+        await fetch('user', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ ...formInfo, user_type: userType.value })
+        });
+    }
+
+    function chechConfirmCode() {
+        let code_input = document.querySelectorAll('.code_input')[0];
+        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
+        if (code == code_input.value) {
+            props.setAccount({ ...createEmptyAccount(), ...formInfo, user_type: userType.value })
+            props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
+            postNewUser();
+            userType.value === "applicant" ?
+                navigate('/resume')
+                : navigate('/company');
+        } else {
+            document.querySelectorAll('.errormessage')[0].style.display = 'block';
+
+        }
+    }
+
     function createRegistForm() {
         if (formType === 'authoriz') {
-            return <button className='set_registr' type='button' onClick={set_RegistrationForm}>
+            return <button className='set_registr' type='button' onClick={() => set_FormType('registr')}>
                 Еще нет аккаунта? Зарегистрироваться
             </button>
         }
@@ -80,81 +140,18 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
 
     }
 
-    function checkForm(e: any) {
-        let form = document.querySelectorAll("form")[0]
-        if (!form.checkValidity()) {
-            form.reportValidity();
-        } else if (formType === 'registr') {
-            confirm()
-
-        } else {
-            getUser();
-
-        }
-        e.preventDefault();
-    }
-
-    async function getUser() {
-        const response = await fetch(`user/${formInfo.email}/${formInfo.password}`);
-        const data = await response.json();
-        if (!data.error) {
-            navigate('/');
-        } else {
-            document.querySelectorAll('.usererrormessage')[0].style.display = 'block';
-        }
-
-    }
-
-    async function confirm() {
-        const response = await fetch(`code/${formInfo.email}`);
-        const codeFromServer = await response.json();
-        if (codeFromServer.error) {
-            document.querySelectorAll('.emailerrormessage')[0].style.display = 'block';
-        } else {
-            setcode(codeFromServer.code);
-            setFormType('confirmEmail')
-        }
-
-    }
-
-    async function postNewUser() {
-        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
-        await fetch('user', {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: "same-origin",
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ ...formInfo, user_type: userType.value })
-        });
-    }
-
-    function chechConfirmCode() {
-        let code_input = document.querySelectorAll('.code_input')[0];
-        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
-        if (code == code_input.value) {
-            props.setAccountType(userType.value);
-            props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
-            postNewUser();
-            navigate('/');
-        } else {
-            document.querySelectorAll('.errormessage')[0].style.display = 'block';
-
-        }
-    }
-
     return (
         <div className='register_page'>
             <form className='register_container'>
                 {/* <h3>{formType === 'authoriz' ? 'Вход' : 'Регистрация'}</h3> */}
                 <div className='registrForm_title'>
                     <div className="registrForm_title_but">
-                        <input onClick={set_AuthorizForm} required id="radio_title-1" type="radio" name="radio_title" value="authoriz" defaultChecked={formType === 'authoriz' ? true : false} />
+                        <input onClick={() => set_FormType('authoriz')} required id="radio_title-1" type="radio" name="radio_title" value="authoriz" defaultChecked={formType === 'authoriz' ? true : false} />
                         <label htmlFor="radio_title-1">Вход</label>
                     </div>
 
                     <div className="registrForm_title_but">
-                        <input onClick={set_RegistrationForm} required id="radio_title-2" type="radio" name="radio_title" value="registr" checked={formType === 'authoriz' ? false : true} />
+                        <input onClick={() => set_FormType('registr')} required id="radio_title-2" type="radio" name="radio_title" value="registr" checked={formType === 'authoriz' ? false : true} />
                         <label htmlFor="radio_title-2">Регистрация</label>
                     </div>
                 </div>
@@ -169,8 +166,7 @@ function Registration(props: { setAccountType: any; setPageType: any }) {
                     <input value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}
-                <NavLink onClick={(e) => checkForm(e)} className='submit_button'
-                    tag={Link} to="/">{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </NavLink>
+                <button onClick={(e) => checkForm(e)} className='submit_button'>{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </button>
 
                 {formType === 'confirmEmail'
                     ? <div className='confirmEmail'>

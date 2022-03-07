@@ -2,10 +2,11 @@
 import React from "react";
 import { useState } from "react";
 import './Resume.css';
-import { createTextInputs, createSelect } from './createFunction'
+import { createTextInputs, createSelect } from '../account/createFunction'
 import { EducationType } from '../types'
+import { ResumeType } from '../types';
 
-export default function Education() {
+export default function Education(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
     //нужно ли обновление при скрытии???
     //добавить запрет на добавление если не заполнено 1ы
     const [education, setEducation] = useState<EducationType[]>(

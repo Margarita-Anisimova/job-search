@@ -2,10 +2,11 @@
 import React from "react";
 import { useState } from "react";
 import './Resume.css';
-import { createTextInputs, createSelectsContainer } from './createFunction'
+import { createTextInputs, createSelectsContainer } from '../account/createFunction'
 import { WorkExpirienceType } from '../types'
+import { ResumeType } from '../types';
 
-export default function WorkExperience() {
+export default function WorkExperience(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
     //нужно ли обновление при скрытии???
     //добавить запрет на добавление если не заполнено 1ы
     const [expirience, setExpirience] = useState<WorkExpirienceType[]>(

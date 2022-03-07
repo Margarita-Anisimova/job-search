@@ -7,7 +7,11 @@ import Account from './components/account/Account';
 import Resume from './components/resumeForm/Resume';
 import Vacancy from './components/vacancyForm/Vacancy';
 import { Check } from './components/Check';
+import AccountInfo from './components/account/AccountInfo'
 import './App.css';
+import { createEmptyAccount, createEmptyResume } from './exportFunctions';
+
+import { AccountType } from './components/types';
 
 
 import './custom.css'
@@ -17,20 +21,23 @@ import Company from './components/companyForm/Company';
 
 function App() {
 
-    const [accountType, setAccountType] = useState('noRegistered')
+    // const [accountType, setAccountType] = useState('noRegistered')
     const [pageType, setPageType] = useState('vacancies')
+    const [account, setAccount] = useState<AccountType>(createEmptyAccount())
+    const [resume, setResume] = useState<AccountType>(createEmptyAccount())
 
     return (
-        // <Check></Check>
+        // <Check></Check> 
         <BrowserRouter>
-            <NavMenu accountType={accountType} pageType={pageType} setAccountType={setAccountType} setPageType={setPageType} />
+            <NavMenu account={account} setAccount={setAccount} setPageType={setPageType} />
             <Routes>
-                <Route path='/' element={<Home pageType={pageType} accountType={accountType} />} />
-                <Route path='/registration' element={<Registration setAccountType={setAccountType} setPageType={setPageType} />} />
-                <Route path='/account' element={<Account accountType={accountType} />} />
-                <Route path='/resume' element={<Resume />} />
+                <Route path='/' element={<Home pageType={pageType} accountType={account.user_type} />} />
+                <Route path='/registration' element={<Registration setResume={setResume} setAccount={setAccount} setPageType={setPageType} accountType={account.user_type} />} />
+                <Route path='/account' element={<Account account={account} />} />
+                <Route path='/accountInfo' element={<AccountInfo setAccount={setAccount} account={account} />} />
+                <Route path='/resume' element={<Resume account={account} resume={createEmptyResume()} />} />
                 <Route path='/vacancy' element={<Vacancy />} />
-                <Route path='/company' element={<Company />} />
+                <Route path='/company' element={<Company account={account} />} />
 
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>

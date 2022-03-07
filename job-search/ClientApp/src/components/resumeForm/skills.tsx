@@ -2,10 +2,11 @@
 import React from "react";
 import { useState } from "react";
 import './skills.css';
-import { createTextInputs, createSelect } from './createFunction'
+import { createTextInputs, createSelect } from '../account/createFunction'
 import { EducationType } from '../types'
+import { ResumeType } from '../types';
 
-export default function Skills() {
+export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
     const skillsLib = {
         backend: ['C#', 'Pyton', 'Java'],
         frontend: ['JavaScript', 'HTML', 'React', 'CSS'],

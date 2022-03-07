@@ -2,12 +2,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
-import Profile from "./Profile";
 import ResumeResponses from "./resumeResponses";
 import "./Account.css"
 import MyResponses from "./myResponses";
+import { AccountType } from '../types';
+import Profile from "./Profile";
 
-function Account(props: { accountType: string }) {
+function Account(props: { account: AccountType }) {
     type PageType = 'profile' | 'resumeResponses' | 'myResponses';
 
     const navigate = useNavigate();
@@ -15,16 +16,16 @@ function Account(props: { accountType: string }) {
     const [page, setPage] = useState<PageType>('profile');
 
 
-    // useEffect(() => {
-    //     if (props.accountType === 'noRegistered') {
-    //         navigate('/')
-    //     }
-    // })
+    useEffect(() => {
+        if (props.account.user_type === 'noRegistered') {
+            navigate('/')
+        }
+    })
 
     function createPage() {
         switch (page) {
             case 'profile': {
-                return (<Profile accountType={props.accountType}></Profile>)
+                return <Profile account={props.account} resume={props.resume} company={props.company} vacancies={props.vacancies}></Profile >
             }
             case 'resumeResponses': {
                 return (<ResumeResponses></ResumeResponses>)
@@ -40,8 +41,8 @@ function Account(props: { accountType: string }) {
         <div>
             <div className='accountMenu'>
                 <button onClick={() => setPage('profile')}>Профиль</button>
-                <button onClick={() => setPage('resumeResponses')}>{props.accountType === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
-                {props.accountType === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null}
+                <button onClick={() => setPage('resumeResponses')}>{props.account.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
+                {props.account.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null}
             </div>
             {createPage()}
         </div>

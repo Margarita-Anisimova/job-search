@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { createTextInputs, createSelectsContainer } from '../resumeForm/createFunction';
+import { createTextInputs, createSelectsContainer } from '../account/createFunction';
 import './Company.css';
 
 function Company() {
@@ -32,7 +32,7 @@ function Company() {
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
                             <label>Дополнительное описание</label>
-                        <textarea name="description" value = {commonInfo.description} onChange={(e) => handler(e) }></textarea>
+                            <textarea name="description" value={commonInfo.description} onChange={(e) => handler(e)}></textarea>
                         </div>
                     </section>
 
