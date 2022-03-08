@@ -30,5 +30,15 @@ namespace job_search.Models
         public string phone { get; set; }
         [Required]
         public string email { get; set; }
+
+        public Company(string fullname, string city, string description, string phone, string email, int user_id)
+        {
+            this.fullname = fullname;
+            this.city = city;
+            this.description = description;
+            this.phone = phone;
+            this.email = email;
+            this.user_id = user_id;
+        }
     }
 }

@@ -8,16 +8,25 @@ import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export default function Profile(props: { account: AccountType, resume: ResumeType }) {
+export default function Profile(props: { account: AccountType, resume: ResumeType, company: CompanyType }) {
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        let a = props.resume
+        let a = props.resume;
+        getCompany();
     })
 
     function getAge() {
         return (new Date()).getFullYear() - props.resume.birth_date.split(':')[2]
+    }
+
+    const [company, setcompany] = useState(props.company);
+
+    async function getCompany() {
+        const response = await fetch(`company/${props.account.user_id}`);
+        const data = await response.json();
+        setcompany(data);
     }
 
     return (
@@ -38,7 +47,8 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
 
                 <NavLink tag={Link} to='/accountInfo'> Редактировать профиль</NavLink>
             </div>
-            <div className="user_resumes_container">
+            {props.account.user_type != 'employer' ?
+                <div className="user_resumes_container">
                 <p><b>Резюме</b></p>
                 {props.resume.profession ?
                     <div className="resumeCard">
@@ -52,7 +62,25 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                     </div>
                     : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
                 }
-            </div>
+                </div>
+                :
+                <div className="user_company">
+                    <p><b>Моя компания</b></p>
+                    {company.fullname ?
+                        <div className="company_card">
+                            <p style={{ color: 'orange', fontSize: '20px' }}>{company.fullname}</p>
+                            <p>{company.city}</p>
+
+                            <div className="resumeButtons">
+                                <button className="resumeButton">Редактировать</button>
+                            </div>
+                        </div>
+                        : <NavLink tag={Link} to='/company'>Создать компанию</NavLink>
+                    }
+
+                </div>
+            }
+            
         </div >
     );
 }

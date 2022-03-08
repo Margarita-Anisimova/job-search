@@ -9,9 +9,9 @@ import Vacancy from './components/vacancyForm/Vacancy';
 import { Check } from './components/Check';
 import AccountInfo from './components/account/AccountInfo'
 import './App.css';
-import { createEmptyAccount, createEmptyResume } from './exportFunctions';
+import { createEmptyAccount, createEmptyCompany, createEmptyResume } from './exportFunctions';
 
-import { AccountType, ResumeType } from './components/types';
+import { AccountType, CompanyType, ResumeType } from './components/types';
 
 
 import './custom.css'
@@ -25,6 +25,7 @@ function App() {
     const [pageType, setPageType] = useState('vacancies')
     const [account, setAccount] = useState<AccountType>(createEmptyAccount())
     const [resume, setResume] = useState<ResumeType>(createEmptyResume())
+    const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
 
     return (
         // <Check></Check> 
@@ -33,11 +34,11 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home pageType={pageType} accountType={account.user_type} />} />
                 <Route path='/registration' element={<Registration setResume={setResume} setAccount={setAccount} setPageType={setPageType} accountType={account.user_type} />} />
-                <Route path='/account' element={<Account account={account} resume={resume} />} />
+                <Route path='/account' element={<Account account={account} resume={resume} company={company} />} />
                 <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
                 <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
                 <Route path='/vacancy' element={<Vacancy />} />
-                <Route path='/company' element={<Company account={account} />} />
+                <Route path='/company' element={<Company account={account} setCompany={setCompany} company={company} />} />
 
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>

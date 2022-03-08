@@ -1,3 +1,4 @@
+import internal from "assert";
 
 export type AccountType = {
     user_id: number;
@@ -47,10 +48,11 @@ export type WorkExpirienceType = {
 }
 
 export type CompanyType = {
+    company_id: number,
+    user_id: number,
     fullname: string;
     city: string;
     description: string;
-    contact_face: string;
     phone: string;
     email: string;
 }
