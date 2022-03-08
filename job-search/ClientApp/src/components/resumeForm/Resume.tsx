@@ -32,34 +32,23 @@ function Resume(props: {account: AccountType, setResume: any, resume: ResumeType
     })
 
     function save() {
-        props.setResume(resumeInfo, resumeInfo.user_id = props.account.user_id);
-
-        setformInfo(
-        {
-            user_id: resumeInfo.user_id,
-            city: resumeInfo.city,
-
-            citizenship: resumeInfo.citizenship, 
-            birth_date: resumeInfo.birth_date, 
-            desired_position: resumeInfo.desired_position,
-            desired_salary: resumeInfo.desired_salary, 
-            ready_move: resumeInfo.ready_move, 
-            skills:resumeInfo.skills, 
-            profession: resumeInfo.profession,
-        }
-        );
-        console.log(formInfo);
+        // setResumeInfo({resumeInfo.user_id: props.account.user_id})
+        props.setResume(resumeInfo, resumeInfo.user_id= props.account.user_id);
+        console.log(resumeInfo);
         postNewResume();
+        // postNewEducation();
     }
 
     async function postNewResume() {
-        await fetch('Resume', {
+        await fetch('ResumeType', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ ...formInfo })
+            body: JSON.stringify({ ...resumeInfo})
+
+            // body: JSON.stringify({ resumeInfo, user_id: props.account.user_id, city: props.resume.city })
         });
     }
 

@@ -20,6 +20,7 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
         return (new Date()).getFullYear() - props.resume.birth_date.split(':')[2]
     }
 
+
     return (
         <div className='pofile_container'>
             <div className="mainInfo">
