@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './Registration.css';
 import { useNavigate } from 'react-router-dom'
 import { createEmptyAccount } from '../exportFunctions'
+import Resume from "./resumeForm/Resume";
 
 function Registration(props: { setResume: any, setAccount: any; setPageType: any, accountType: string }) {
     const navigate = useNavigate();
@@ -53,6 +54,7 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
         delete data.user.password;
         if (!data.error) {
             props.setAccount(data.user)
+            // props.setResume(data.user.user_id)
             navigate('/');
         } else {
             document.querySelectorAll('.usererrormessage')[0].style.display = 'block';

@@ -35,7 +35,7 @@ function App() {
                 <Route path='/registration' element={<Registration setResume={setResume} setAccount={setAccount} setPageType={setPageType} accountType={account.user_type} />} />
                 <Route path='/account' element={<Account account={account} resume={resume} />} />
                 <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
-                <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
+                <Route path='/resume' element={<Resume account={account} setResume={setResume} resume={resume} />} />
                 <Route path='/vacancy' element={<Vacancy />} />
                 <Route path='/company' element={<Company account={account} />} />
 

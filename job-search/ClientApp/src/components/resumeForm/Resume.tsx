@@ -14,10 +14,15 @@ import { ResumeType } from '../types';
 import { createEmptyResume } from '../../exportFunctions';
 
 
-function Resume(props: { setResume: any, resume: ResumeType }) {
+function Resume(props: {account: AccountType, setResume: any, resume: ResumeType }) {
     // добавить обработчики для выборок ????
     const navigate = useNavigate();
     const [resumeInfo, setResumeInfo] = useState(props.resume);
+    const [educationInfo, setEducationInfo] = useState(resumeInfo.education);
+    const [workExperienceInfo, setWorkExperienceInfo] = useState(resumeInfo.workExperience);
+
+    const [formInfo, setformInfo] = useState({ user_id: 0, city: '', citizenship:'', birth_date: '', desired_position: '', desired_salary: '', ready_move: '', skills: '', profession: ''})
+    
 
 
     useEffect(() => {
@@ -27,7 +32,35 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
     })
 
     function save() {
-        props.setResume(resumeInfo)
+        props.setResume(resumeInfo, resumeInfo.user_id = props.account.user_id);
+
+        setformInfo(
+        {
+            user_id: resumeInfo.user_id,
+            city: resumeInfo.city,
+
+            citizenship: resumeInfo.citizenship, 
+            birth_date: resumeInfo.birth_date, 
+            desired_position: resumeInfo.desired_position,
+            desired_salary: resumeInfo.desired_salary, 
+            ready_move: resumeInfo.ready_move, 
+            skills:resumeInfo.skills, 
+            profession: resumeInfo.profession,
+        }
+        );
+        console.log(formInfo);
+        postNewResume();
+    }
+
+    async function postNewResume() {
+        await fetch('Resume', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ ...formInfo })
+        });
     }
 
     return (

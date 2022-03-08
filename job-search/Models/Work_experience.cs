@@ -8,7 +8,7 @@ namespace job_search.Models
 {
     public class Work_Experience
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int work_experience_id { get; set; }
         [Required]
         public string post { get; set; }
@@ -21,9 +21,19 @@ namespace job_search.Models
 
         [Required]
         public string experience_description { get; set; }
+        
+        [Required]
+        public int resume_id { get; set; }
         [ForeignKey("resume_id")]
         public Resume Resume { get; set; }
 
-
+        public Work_Experience(string post, string company, string date_start, string date_end, string experience_description, int resume_id){
+            this.post = post;
+            this.company = company;
+            this.date_start = date_start;
+            this.date_end = date_end;
+            this.experience_description = experience_description;
+            this.resume_id = resume_id;
+        }
     }
 }

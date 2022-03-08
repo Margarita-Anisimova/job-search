@@ -18,8 +18,7 @@ public class Table_1Controller : Controller
     public IEnumerable<User> Get()
     {
         // var r = Context.users;
-        return Context.users; //
-
+        return Context.users;
     }
 
 

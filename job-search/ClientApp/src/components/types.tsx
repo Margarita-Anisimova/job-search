@@ -44,6 +44,7 @@ export type WorkExpirienceType = {
     date_start: string;
     date_end: string;
     experience_description: string;
+    resume_id: number;
 }
 
 export type CompanyType = {

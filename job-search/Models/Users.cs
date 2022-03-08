@@ -34,8 +34,9 @@ namespace job_search.Models
         public string gender { get; set; }
 
 
-        public User(string email, string password, string f_name, string l_name, string phone_number, string user_type)
+        public User(int user_id, string email, string password, string f_name, string l_name, string phone_number, string user_type)
         {
+            this.user_id = user_id;
             this.email = email;
             this.password = password;
             this.f_name = f_name;
@@ -43,8 +44,5 @@ namespace job_search.Models
             this.phone_number = phone_number;
             this.user_type = user_type;
         }
-        // public virtual ICollection<Company> Companies { get; set; }
-
-        // +Resumes
     }
 }

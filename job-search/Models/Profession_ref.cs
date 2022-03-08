@@ -8,10 +8,14 @@ namespace job_search.Models
 {
     public class Profession_ref
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int profession_id { get; set; }
         [Required]
         public string profession { get; set; }
 
+        public Profession_ref(string profession)
+        {
+            this.profession = profession;
+        }
     }
 }
