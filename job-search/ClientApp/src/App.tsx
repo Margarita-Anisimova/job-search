@@ -9,9 +9,15 @@ import Vacancy from './components/vacancyForm/Vacancy';
 import { Check } from './components/Check';
 import AccountInfo from './components/account/AccountInfo'
 import './App.css';
+<<<<<<< HEAD
 import { createEmptyAccount, createEmptyResume, createEmptyCompany } from './exportFunctions';
 
 import { AccountType, ResumeType, CompanyType } from './components/types';
+=======
+import { createEmptyAccount, createEmptyCompany, createEmptyResume } from './exportFunctions';
+
+import { AccountType, CompanyType, ResumeType } from './components/types';
+>>>>>>> origin/db
 
 
 import './custom.css'
@@ -38,7 +44,7 @@ function App() {
                 <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
                 <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
                 <Route path='/vacancy/:number' element={<Vacancy company={company} setCompany={setCompany} />} />
-                <Route path='/company' element={<Company company={company} setCompany={setCompany} />} />
+                <Route path='/company' element={<Company account={account} company={company} setCompany={setCompany} />} />
 
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>

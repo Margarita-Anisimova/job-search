@@ -1,3 +1,4 @@
+import internal from "assert";
 
 export type AccountType = {
     user_id: number;
@@ -52,7 +53,6 @@ export type CompanyType = {
     fullname: string;
     city: string;
     description: string;
-    contact_face: string;
     phone: string;
     email: string;
     vacancies: VacancyType[]

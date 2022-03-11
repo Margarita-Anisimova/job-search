@@ -26,7 +26,11 @@ function Account(props: { account: AccountType, resume: ResumeType, company: Com
     function createPage() {
         switch (page) {
             case 'profile': {
+<<<<<<< HEAD
                 return <Profile setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
+=======
+                return <Profile account={props.account} resume={props.resume} company={props.company} ></Profile >
+>>>>>>> origin/db
             }
             case 'resumeResponses': {
                 return (<ResumeResponses></ResumeResponses>)

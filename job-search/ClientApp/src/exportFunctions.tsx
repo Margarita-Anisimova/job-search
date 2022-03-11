@@ -49,6 +49,7 @@ export function createEmptyResume(): ResumeType {
 
 export function createEmptyCompany(): CompanyType {
     return {
+<<<<<<< HEAD
         user_id: 0,
         company_id: 0,
         fullname: '',
@@ -80,3 +81,14 @@ export function createEmptyVacancy(): VacancyType {
 }
 
 
+=======
+        company_id: 0,
+        user_id: 0,
+        fullname: '',
+        city: '',
+        description: '',
+        phone: '',
+        email: '',
+    }
+}
+>>>>>>> origin/db
