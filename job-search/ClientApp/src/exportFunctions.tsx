@@ -7,12 +7,12 @@ export function createEmptyAccount(): AccountType {
         f_name: '',
         l_name: '',
         phoneNumber: '',
-        user_type: 'employer',
+        user_type: 'noRegistered',
         gender: '',
         user_id: 0
     }
 }
-//'noRegistered',
+//'noRegistered',employer
 export function createEmptyResume(): ResumeType {
     return {
         user_id: 0,
@@ -49,13 +49,11 @@ export function createEmptyResume(): ResumeType {
 
 export function createEmptyCompany(): CompanyType {
     return {
-<<<<<<< HEAD
         user_id: 0,
         company_id: 0,
         fullname: '',
         city: '',
         description: '',
-        contact_face: '',
         phone: '',
         email: '',
         vacancies: []
@@ -81,14 +79,3 @@ export function createEmptyVacancy(): VacancyType {
 }
 
 
-=======
-        company_id: 0,
-        user_id: 0,
-        fullname: '',
-        city: '',
-        description: '',
-        phone: '',
-        email: '',
-    }
-}
->>>>>>> origin/db

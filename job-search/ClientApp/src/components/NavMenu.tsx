@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import '../custom.css';
 import { AccountType } from './types';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeUser } from "../app/userStateReducer";
 
 
 export default function NavMenu(props: { account: AccountType, setAccount: any; setPageType: any; }) {
+
+    const userState = useSelector((state: any) => state.userState.userState)
+    const dispatch = useDispatch();
 
     function nuvButton() {
 
@@ -29,7 +34,7 @@ export default function NavMenu(props: { account: AccountType, setAccount: any; 
 
 
     function createNavigateItems() {
-        if (props.account.user_type === 'noRegistered') {
+        if (userState.user_type === 'noRegistered') {
             return (
                 <div className='reg_container'>
                     <NavLink className='navigate_item' tag={Link} to="/registration">Вход</NavLink>
@@ -49,12 +54,16 @@ export default function NavMenu(props: { account: AccountType, setAccount: any; 
 
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
 
-                    <NavLink className='navigate_item' onClick={() => props.setAccount({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '', user_type: 'noRegistered' })} to='/' tag={Link} >Выход</NavLink>
+                    <NavLink className='navigate_item' onClick={out} to='/' tag={Link} >Выход</NavLink>
                 </div>)
         }
     }
 
+    function out() {
+        props.setAccount({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '', user_type: 'noRegistered' })
+        dispatch(changeUser({ user_id: 0, user_type: 'noRegistered' }))
 
+    }
 
     return (
         <div className="menu">

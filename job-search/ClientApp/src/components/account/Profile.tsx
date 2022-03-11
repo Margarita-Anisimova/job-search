@@ -12,10 +12,10 @@ import CompanyProfile from "./CompanyProfile";
 export default function Profile(props: { account: AccountType, resume: ResumeType, company: CompanyType, setCompany: any }) {
 
     const navigate = useNavigate();
-
+    // const userState = useSelector((state: any) => state.userState.userState)
     useEffect(() => {
         let a = props.resume;
-        getCompany();
+        // getCompany();
     })
 
     function getAge() {

@@ -5,12 +5,20 @@ import { Link } from 'react-router-dom';
 import './Registration.css';
 import { useNavigate } from 'react-router-dom'
 import { createEmptyAccount } from '../exportFunctions'
+import { useDispatch, useSelector } from "react-redux";
+import { changeUser } from "../app/userStateReducer";
 
 function Registration(props: { setResume: any, setAccount: any; setPageType: any, accountType: string }) {
     const navigate = useNavigate();
     const [formType, setFormType] = useState('authoriz')
     const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
     const [code, setcode] = useState('');
+
+
+    //переменные для локального хранилища
+    const userState = useSelector((state: any) => state.userState.userState)
+    const dispatch = useDispatch();
+
 
     function handler(e: any) {
         setformInfo({ ...formInfo, [e.target.name]: e.target.value });
@@ -53,6 +61,7 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
         delete data.user.password;
         if (!data.error) {
             props.setAccount(data.user)
+            dispatch(changeUser({ user_id: data.user.user_id, user_type: data.user.user_type }))
             navigate('/');
         } else {
             document.querySelectorAll('.usererrormessage')[0].style.display = 'block';
@@ -91,6 +100,7 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
             props.setAccount({ ...createEmptyAccount(), ...formInfo, user_type: userType.value })
             props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
             postNewUser();
+            dispatch(changeUser({ user_id: 0, user_type: userType.value }))
             userType.value === "applicant" ?
                 navigate('/accountInfo')
                 : navigate('/company');
