@@ -10,6 +10,7 @@ namespace job_search
         { }
         public DbSet<User> users { get; set; }
         public DbSet<Company> companies { get; set; }
+        public DbSet<Vacancy> vacancies {get; set; }
         // public DbSet<Education_ref> education_ref { get; set; }
 
         // public DbSet<Company> Companies { get; set; }

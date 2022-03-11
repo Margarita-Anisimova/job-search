@@ -8,29 +8,29 @@ using job_search.Models;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("[controller]")]
-public class CompanyController : Controller
+public class VacancyController : Controller
 {
     private EFTodoDBContext Context;
 
-    public CompanyController(EFTodoDBContext db)
+    public VacancyController(EFTodoDBContext db)
     {
         this.Context = db;
     }
 
     [HttpPost]
     [Produces("application/json", "application/xml")]
-    public void Post([FromBody] Company data)
+    public void Post([FromBody] Vacancy data)
     {
-        this.Context.companies.Add(data);
+        this.Context.vacancies.Add(data);
         this.Context.SaveChanges();
     }
 
-    [Route("{user_id}")]
-    [HttpGet]
-    public Company Get(int user_id)
-    {
-        var a = this.Context.companies.Where((company) => company.user_id == user_id);
-        return a.First();
-    }
+    // [Route("{user_id}")]
+    // [HttpGet]
+    // public Company Get(int user_id)
+    // {
+    //     var a = this.Context.companies.Where((company) => company.user_id == user_id);
+    //     return a.First();
+    // }
 
 }

@@ -52,7 +52,8 @@ p {
 }
 
 .resumeCard,
-.responseCard {
+.responseCard,
+.company_card {
     border: 2px black solid;
     padding: 10px;
     width: 50%;

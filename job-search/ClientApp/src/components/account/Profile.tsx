@@ -14,7 +14,10 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
 
     useEffect(() => {
         let a = props.resume;
-        getCompany();
+        if (props.account.user_type != 'applicant' && !company.fullname){
+            getCompany();
+        }
+        
     })
 
     function getAge() {
@@ -65,7 +68,7 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                 </div>
                 :
                 <div className="user_company">
-                    <p><b>Моя компания</b></p>
+                    <p><b>Моя компания</b></p>                    
                     {company.fullname ?
                         <div className="company_card">
                             <p style={{ color: 'orange', fontSize: '20px' }}>{company.fullname}</p>
@@ -78,6 +81,8 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                         : <NavLink tag={Link} to='/company'>Создать компанию</NavLink>
                     }
 
+                    <p><b>Мои вакансии</b></p>
+                    <NavLink tag={Link} to='/vacancy'>Создать вакансию</NavLink>
                 </div>
             }
             

@@ -34,7 +34,6 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
     }
 
     async function postNewCompany() {
-        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
         await fetch('company', {
             method: 'POST',
             mode: 'cors',

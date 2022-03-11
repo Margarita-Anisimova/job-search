@@ -27,7 +27,8 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
     })
 
     function save() {
-        props.setResume(resumeInfo)
+        props.setResume(resumeInfo);
+        console.log(resumeInfo);
     }
 
     return (

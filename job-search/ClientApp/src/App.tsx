@@ -9,9 +9,9 @@ import Vacancy from './components/vacancyForm/Vacancy';
 import { Check } from './components/Check';
 import AccountInfo from './components/account/AccountInfo'
 import './App.css';
-import { createEmptyAccount, createEmptyCompany, createEmptyResume } from './exportFunctions';
+import { createEmptyAccount, createEmptyCompany, createEmptyResume, createEmptyVacancy } from './exportFunctions';
 
-import { AccountType, CompanyType, ResumeType } from './components/types';
+import { AccountType, CompanyType, ResumeType, VacancyType } from './components/types';
 
 
 import './custom.css'
@@ -26,6 +26,7 @@ function App() {
     const [account, setAccount] = useState<AccountType>(createEmptyAccount())
     const [resume, setResume] = useState<ResumeType>(createEmptyResume())
     const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
+    const [vacancy, setVacancy] = useState<VacancyType>(createEmptyVacancy())
 
     return (
         // <Check></Check> 
@@ -37,7 +38,7 @@ function App() {
                 <Route path='/account' element={<Account account={account} resume={resume} company={company} />} />
                 <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
                 <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
-                <Route path='/vacancy' element={<Vacancy />} />
+                <Route path='/vacancy' element={<Vacancy company={company} vacancy={vacancy} setVacancy={setVacancy} />} />
                 <Route path='/company' element={<Company account={account} setCompany={setCompany} company={company} />} />
 
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}

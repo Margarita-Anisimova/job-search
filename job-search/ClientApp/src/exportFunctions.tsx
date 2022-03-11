@@ -1,5 +1,5 @@
 
-import { AccountType, ResumeType, CompanyType } from './components/types';
+import { AccountType, ResumeType, CompanyType, VacancyType } from './components/types';
 
 export function createEmptyAccount(): AccountType {
     return {
@@ -56,5 +56,21 @@ export function createEmptyCompany(): CompanyType {
         description: '',
         phone: '',
         email: '',       
+    }
+}
+
+export function createEmptyVacancy(): VacancyType {
+    return {
+        vacancy_id: 0,
+        position: '',
+        profession: '',
+        work_experience: 'без опыта',
+        education: 'среднее',
+        salary: 0,
+        work_type: [false, false, false, false, false],
+        work_address: '',
+        responsibilities: '',
+        requirements: '',
+        company_id: 0,       
     }
 }

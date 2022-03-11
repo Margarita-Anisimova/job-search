@@ -5,22 +5,48 @@ import Desired_Applicant from "./Desired_Applicant";
 import About_Work from "./About_Work";
 // import '../../custom.css';
 import './Vacancy.css';
+import { CompanyType, VacancyType } from "../types";
+import { NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
-function Vacancy() {
+function Vacancy(props: {company: CompanyType, vacancy: VacancyType, setVacancy: any}) {
 
-    const [commonInfo, setCommonInfo] = useState(
-        {
-            work_address: '', vacancy_description: ''
-        }
-    );
+    const [vacancyInfo, setVacancyInfo] = useState(props.vacancy);
 
 
     function handler(e: any) {
-        setCommonInfo({ ...commonInfo, [e.target.name]: e.target.value });
+        setVacancyInfo({ ...vacancyInfo, [e.target.name]: e.target.value });
     }
 
-    const commonInfoInputs = [{ tag: 'work_address', name: 'Место работы', value: commonInfo.work_address },]
+    const commonInfoInputs = [{ tag: 'work_address', name: 'Место работы', value: vacancyInfo.work_address },]
+
+    function save() {
+        console.log(vacancyInfo);
+
+        preparedata();
+        props.setVacancy(vacancyInfo);
+        console.log(vacancyInfo);
+
+        // postNewVacancy();
+    }
+
+    function preparedata() {
+        setVacancyInfo({ ...vacancyInfo, salary: Number(vacancyInfo.salary)})
+        setVacancyInfo({ ...vacancyInfo, work_type: vacancyInfo.work_type.toString()})
+
+    }
+
+    async function postNewVacancy() {
+        await fetch('vacancy', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ ...vacancyInfo, company_id: props.company.company_id })
+        });
+    }
 
     return (
         <div>
@@ -29,24 +55,16 @@ function Vacancy() {
 
                 <form className="vacancy_form">
 
-                    <Desired_Applicant></Desired_Applicant>
-                    <About_Work></About_Work>
+                    <Desired_Applicant vacancyInfo={vacancyInfo} setVacancyInfo={setVacancyInfo}></Desired_Applicant>
+                    <About_Work vacancyInfo={vacancyInfo} setVacancyInfo={setVacancyInfo}></About_Work>
                     <section >
                         <h5>Место работы</h5>
-
                         <div className='part part-3'>
                             {createTextInputs(commonInfoInputs, handler)}
                         </div>
                     </section>
 
-                    <section >
-                        <h5>Дополнительное описание</h5>
-
-                        <div className='part-4'>
-                            <label>Дополнительное описание</label>
-                            <textarea name="vacancy_description" value={commonInfo.vacancy_description} onChange={(e) => handler(e)}></textarea>
-                        </div>
-                    </section>
+                    <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
 
                 </form>
 

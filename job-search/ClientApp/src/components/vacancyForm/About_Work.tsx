@@ -2,78 +2,46 @@ import React from "react";
 import { useState } from "react";
 import './Vacancy.css';
 import { createTextInputs, createSelect } from '../account/createFunction';
+import { VacancyType } from "../types";
 // import '../../custom.css';
 
 
-export default function About_Work() {
-    let [about_workInfo, setabout_workInfo] = useState(
-        {
-            salary: '', requirements: '', responsibilities: '',
-        }
-    );
+export default function About_Work(props: {vacancyInfo: VacancyType, setVacancyInfo: any}) {
 
     function posthandler(e: any) {
-        setabout_workInfo({ ...about_workInfo, [e.target.name]: e.target.value });
+        props.setVacancyInfo({ ...props.vacancyInfo, [e.target.name]: e.target.value });
     }
 
     const postInfoInputs = [
-        { tag: 'salary', name: 'Зарплата', value: about_workInfo.salary }];
-
-
-
+        { tag: 'salary', name: 'Зарплата', value: props.vacancyInfo.salary }];
 
     return (
         <section>
             <h5>О работе</h5>
             <div className='part part-2'>
                 {createTextInputs(postInfoInputs, posthandler)}
-
+                
                 <label>График работы</label>
                 <div className='chart_block'>
-
-                    <label htmlFor="chart1">
-                        <input className="checkbox_input" id="chart1" type='checkbox'></input>
-                        Полный рабочий день
-                    </label>
-                    <label htmlFor="chart2"> <input name='work_chart' id="chart2" type='checkbox'></input>Гибкий</label>
-
-                    <label htmlFor="chart3"> <input name='work_chart' id="chart3" type='checkbox'></input>Удаленная работа</label>
-
-                    <label htmlFor="chart4"> <input name='work_chart' id="chart4" type='checkbox'></input>Сменный</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input> Полный рабочий день</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="2" type='checkbox'></input>Гибкий</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="3" type='checkbox'></input>Удаленная работа</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Сменный</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="5" type='checkbox'></input>Вахтовая</label>
                 </div>
-
-                <label>Тип занятости</label>
-                <div className='busyness_block'>
-                    <label >
-                        <input type='checkbox'></input>
-                        Полная
-                    </label>
-                    <label >
-                        <input type='checkbox'></input>
-                        Вахтовая
-                    </label>
-                    <label >
-                        <input type='checkbox'></input>
-                        Стажировка
-                    </label>
-                    <label >
-                        <input type='checkbox'></input>
-                        Временная работа
-                    </label>
-                </div>
-
 
                 <label>Обязанности</label>
-                <textarea name="responsibilities" value={about_workInfo.responsibilities} onChange={(e) => posthandler(e)}></textarea>
+                <textarea name="responsibilities" value={props.vacancyInfo.responsibilities} onChange={(e) => posthandler(e)}></textarea>
 
                 <label>Требования</label>
-                <textarea name="requirements" value={about_workInfo.requirements} onChange={(e) => posthandler(e)}></textarea>
-
-
-
-
-
+                <textarea name="requirements" value={props.vacancyInfo.requirements} onChange={(e) => posthandler(e)}></textarea>
             </div>
         </section>
     )
+
+    function addTolist(e: any) {
+        let arr = props.vacancyInfo.work_type.slice()
+        arr[e.id] = !arr[e.id];
+        props.setVacancyInfo({ ...props.vacancyInfo, work_type: arr })
+    }
 }
