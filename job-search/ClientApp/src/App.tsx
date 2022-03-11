@@ -9,15 +9,9 @@ import Vacancy from './components/vacancyForm/Vacancy';
 import { Check } from './components/Check';
 import AccountInfo from './components/account/AccountInfo'
 import './App.css';
-<<<<<<< HEAD
 import { createEmptyAccount, createEmptyResume, createEmptyCompany } from './exportFunctions';
 
 import { AccountType, ResumeType, CompanyType } from './components/types';
-=======
-import { createEmptyAccount, createEmptyCompany, createEmptyResume } from './exportFunctions';
-
-import { AccountType, CompanyType, ResumeType } from './components/types';
->>>>>>> origin/db
 
 
 import './custom.css'
