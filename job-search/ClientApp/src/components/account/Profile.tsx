@@ -19,7 +19,7 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
     })
 
     function getAge() {
-        return (new Date()).getFullYear() - props.resume.birth_date.split(':')[2]
+        return (new Date()).getFullYear() - parseInt(props.resume.resumeInfo.birth_date.split(':')[2])
     }
 
     const [company, setcompany] = useState(props.company);
@@ -36,12 +36,12 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                 <img src={img} className='avatar'></img>
                 <div className="userDescription">
                     <p>{props.account.l_name + ' ' + props.account.f_name}</p>
-                    {props.account.user_type != 'employer' ?
+                    {/* {props.account.user_type != 'employer' ?
                         <>
                             <p>{getAge() ? getAge() + ' лет' : null}</p>
                             <p>{props.resume.city ? props.resume.city : null}</p>
                             <p>{props.resume.citizenship ? 'Гражданство ' + props.resume.citizenship : null}</p>
-                        </> : null}
+                        </> : null} */}
                     <p>{props.account.phoneNumber ? props.account.phoneNumber : null}</p>
                     <p>{props.account.email}</p>
                 </div>
@@ -53,10 +53,10 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                 props.account.user_type != 'employer' ?
                     <div className="user_resumes_container">
                         <p><b>Резюме</b></p>
-                        {props.resume.profession ?
+                        {props.resume.resumeInfo.profession_id ?
                             <div className="resumeCard">
-                                <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.desired_position}</p>
-                                <p>{props.resume.desired_salary}</p>
+                                <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.resumeInfo.desired_position}</p>
+                                <p>{props.resume.resumeInfo.desired_salary}</p>
 
                                 <div className="resumeButtons">
                                     <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>

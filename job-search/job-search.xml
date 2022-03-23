@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>job-search</name>
+    </assembly>
+    <members>
+        <member name="M:UserController.Get(System.String,System.String)">
+             <summary>
+             This is the API which will return a customer based on id
+             </summary>
+             <param name="email">Customer email</param>
+            <param name="password">Customer password</param>
+             <returns>A Customer</returns>
+        </member>
+    </members>
+</doc>

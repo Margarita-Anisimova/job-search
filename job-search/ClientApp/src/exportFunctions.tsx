@@ -8,29 +8,31 @@ export function createEmptyAccount(): AccountType {
         l_name: '',
         phoneNumber: '',
         user_type: 'noRegistered',
-        gender: '',
+        password: '',
         user_id: 0
     }
 }
 //'noRegistered',employer
 export function createEmptyResume(): ResumeType {
     return {
-        user_id: 0,
-        resume_id: 0,
-        birth_date: '',
-        desired_position: '',
-        desired_salary: '',
-        work_type: [false, false, false, false, false],
-        ready_move: 'yes',
-        skills: {},
-        profession: '',
-        city: '',
-        citizenship: '',
-        education_level: '',
+        resumeInfo: {
+            user_id: 0,
+            resume_id: 0,
+            birth_date: '::',
+            desired_position: '',
+            desired_salary: '',
+            work_type: [false, false, false, false, false],
+            ready_move: true,
+            skills: {},
+            profession_id: 0,
+            city: '',
+            citizenship: '',
+            education_level: '',
+            gender: 'female'
+        },
         education: [{
             education_id: 0,
             institution: '',
-            faculty: '',
             specialization: '',
             resume_id: 0,
             education_type: 'full-time',
@@ -39,6 +41,7 @@ export function createEmptyResume(): ResumeType {
         workExperience: [{
             work_experience_id: 0,
             company: '',
+            resume_id: 0,
             post: '',
             date_start: '1950',
             date_end: '1950',

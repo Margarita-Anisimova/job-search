@@ -21,6 +21,8 @@ namespace job_search.Models
 
         [Required]
         public string experience_description { get; set; }
+        [Required]
+        public int resume_id { get; set; }
         [ForeignKey("resume_id")]
         public Resume Resume { get; set; }
 

@@ -19,6 +19,7 @@ function Account(props: { account: AccountType, resume: ResumeType, company: Com
 
 
     useEffect(() => {
+
         // if (props.account.user_type === 'noRegistered') {
         //     navigate('/')
         // }

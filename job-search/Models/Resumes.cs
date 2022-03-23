@@ -19,23 +19,21 @@ namespace job_search.Models
         [Required]
         public string city { get; set; }
 
-        [Required]
+
         public string citizenship { get; set; }
 
-        [DataType(DataType.DateTime)]
         [Required]
         public string birth_date { get; set; }
         [Required]
         public string desired_position { get; set; }
 
+        public string desired_salary { get; set; }
 
-        public int desired_salary { get; set; }
+        public string work_type { get; set; }
 
-        public int work_type_id { get; set; }
-        [ForeignKey("work_type_id")]
-        public Work_type_ref Work_type_ref { get; set; }
+        public int ready_move { get; set; }
 
-        public string ready_move { get; set; }
+        public string gender { get; set; }
         public string skills { get; set; }
         [Required]
         public int profession_id { get; set; }

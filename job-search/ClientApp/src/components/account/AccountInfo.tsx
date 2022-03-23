@@ -7,17 +7,34 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
-
+import { useSelector } from "react-redux";
 
 function AccountInfo(props: { setResume: any, setAccount: any, account: AccountType, resume: ResumeType }) {
     const navigate = useNavigate();
-    const [birth_date, setbirth_date] = props.account.user_type === 'applicant' ? useState(props.resume.birth_date.split(':')) : useState([''])
 
+    const userState = useSelector((state: any) => state.userState.userState)
     useEffect(() => {
         // if (props.account.user_type === 'noRegistered') {
         //     navigate('/')
         // }
     })
+
+    // async function getUser() {
+
+    //     const data = await fetch(`user/${props.account.email}/${props.account.password}`)
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 return response.json()
+
+    //             } else if (response.status === 404) {
+    //                 document.querySelectorAll('.usererrormessage')[0].style.display = 'block'
+    //             }
+    //         })
+    //     // delete data.password;
+    //     props.setAccount(data)
+    //     dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
+    //     navigate('/');
+    // }
 
     function handler(e: any) {
         if (typeof props.account[e.target.name] !== 'undefined')
@@ -27,38 +44,26 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
         }
     }
 
-    function handlerData(e: any) {
-        let r = birth_date.slice();
-        switch (e.target.name) {
-            case 'birth_day':
-                r[0] = e.target.value;
-                break
-            case 'birth_year':
-                r[2] = e.target.value;
-                break
-            case 'birth_month':
-                r[1] = e.target.value;
-        }
-        setbirth_date(r);
-    }
-
-    function save() {
-        if (props.account.user_type === 'applicant')
-            props.setResume({ ...props.resume, birth_date: birth_date.join(':') })
-    }
-
-    const commonInfoInputs = props.account.user_type == 'employer' ?
-        [{ tag: 'l_name', name: 'Фамилия', value: props.account.l_name },
-        { tag: 'f_name', name: 'Имя', value: props.account.f_name },]
-        :
-        [{ tag: 'l_name', name: 'Фамилия', value: props.account.l_name },
-        { tag: 'f_name', name: 'Имя', value: props.account.f_name },
-        { tag: 'city', name: 'Город', value: props.resume.city },
-        { tag: 'citizenship', name: 'Гражданство', value: props.resume.citizenship },]
+    const commonInfoInputs =
+        [{ tag: 'l_name', name: 'Фамилия', value: props.account.l_name, required: true },
+        { tag: 'f_name', name: 'Имя', value: props.account.f_name, required: true },]
 
 
-    const contacts = [{ tag: 'email', name: 'Email', value: props.account.email },
+    const contacts = [{ tag: 'email', name: 'Email', value: props.account.email, required: true },
     { tag: 'phoneNumber', name: 'Номер телефона', value: props.account.phoneNumber },]
+
+
+    async function putChange() {
+        //проверки
+        const response = await fetch('user', {
+            method: 'PUT',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'text/json; charset=UTF-8' },
+            body: JSON.stringify({ ...props.account, user_id: userState.user_id, })
+        })
+    }
 
     return (
         <div className='resume_container'>
@@ -67,38 +72,15 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
                 <section >
                     <h5>Основная информация</h5>
 
-                    <div className='partition-1'>
+                    <div className='partition-mainInfo'>
                         {createTextInputs(commonInfoInputs, handler)}
-
-                        {props.account.user_type != 'employer' ? createSelectsContainer({
-                            name: 'Дата рождения',
-                            tag: 'selectContainer burth',
-                            selectNames: [{ name: 'birth_year', value: birth_date[2] },
-                            { name: 'birth_month', value: birth_date[1] },
-                            { name: 'birth_day', value: birth_date[0] }]
-                        }, handlerData) : null}
-
-                        {props.account.user_type != 'employer' ? <label>Пол</label> : null}
-                        {props.account.user_type != 'employer' ?
-                            <div>
-                                <div className="gender_radio">
-                                    <input className="radio_input" onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="men" defaultChecked />
-                                    <label htmlFor="gender_radio-1">Мужской</label>
-                                </div>
-                                <div className="gender_radio">
-                                    <input className="radio_input" onChange={(e) => handler(e)} required id="gender_radio-2" type="radio" name="gender" value="women" />
-                                    <label htmlFor="gender_radio-2">Женский</label>
-                                </div>
-                            </div>
-                            : null}
                     </div>
-
                     <h5>Контактная информация</h5>
-                    <div className='partition_contacts'>
+                    <div className='partition-mainInfo'>
                         {createTextInputs(contacts, handler)}
                     </div>
                 </section>
-                <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
+                <NavLink onClick={putChange} tag={Link} to="/account">Сохранить</NavLink>
             </form>
         </div >
     );

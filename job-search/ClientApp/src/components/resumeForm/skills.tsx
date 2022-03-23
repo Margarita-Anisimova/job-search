@@ -23,9 +23,9 @@ export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: a
 
     function addItem(e: any) {
         let arr = {}
-        Object.assign(arr, props.resumeInfo.skills);
+        Object.assign(arr, props.resumeInfo.resumeInfo.skills);
         arr[e.value] = e.value
-        props.setResumeInfo({ ...props.resumeInfo, skills: arr });
+        props.setResumeInfo({ ...props.resumeInfo, resumeInfo: { ...props.resumeInfo.resumeInfo, skills: arr } });
 
     }
 
@@ -39,9 +39,9 @@ export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: a
 
     function delSkill(e: any) {
         let arr = {}
-        Object.assign(arr, props.resumeInfo.skills);
+        Object.assign(arr, props.resumeInfo.resumeInfo.skills);
         delete arr[e.target.innerText]
-        props.setResumeInfo({ ...props.resumeInfo, skills: arr });
+        props.setResumeInfo({ ...props.resumeInfo, resumeInfo: { ...props.resumeInfo.resumeInfo, skills: arr } });
     }
 
     return (
@@ -49,7 +49,7 @@ export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: a
             <h5>Профессиональные навыки</h5>
 
             <div className='slected_skills_container'>
-                {Object.keys(props.resumeInfo.skills).map((e, i) =>
+                {Object.keys(props.resumeInfo.resumeInfo.skills).map((e, i) =>
                     <span id={i.toString()} onDoubleClick={(e) => delSkill(e)} className="skillItem">
                         {e}
                     </span>

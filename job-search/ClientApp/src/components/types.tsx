@@ -7,22 +7,26 @@ export type AccountType = {
     l_name: string;
     phoneNumber: string;
     user_type: string;
-    gender: string;
+
+    password: string;
 }
 
 export type ResumeType = {
-    user_id: number;
-    resume_id: number;
-    birth_date: string;
-    desired_position: string;
-    desired_salary: string;
-    work_type: boolean[];
-    ready_move: string;
-    skills: any;
-    profession: string;
-    city: string;
-    education_level: string;
-    citizenship: string;
+    resumeInfo: {
+        user_id: number;
+        resume_id: number;
+        birth_date: string;
+        desired_position: string;
+        desired_salary: string;
+        work_type: boolean[];
+        ready_move: boolean;
+        skills: {};
+        profession_id: number;
+        city: string;
+        education_level: string;
+        gender: 'male' | 'female';
+        citizenship: string;
+    }
     education: EducationType[];
     workExperience: WorkExpirienceType[];
 }
@@ -31,7 +35,6 @@ export type ResumeType = {
 export type EducationType = {
     education_id: number;
     institution: string;
-    faculty: string;
     specialization: string;
     education_type: string;
     resume_id: number;
@@ -45,6 +48,7 @@ export type WorkExpirienceType = {
     date_start: string;
     date_end: string;
     experience_description: string;
+    resume_id: number;
 }
 
 export type CompanyType = {

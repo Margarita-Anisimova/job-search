@@ -1,12 +1,12 @@
 
 import React from "react";
 
-export function createTextInputs(arr: { tag: string, name: string, value: string }[], handlerFunc: any) {
+export function createTextInputs(arr: { tag: string, name: string, value: string, required: boolean }[], handlerFunc: any) {
     let a: any[] = []
     arr.map((e) => {
         a.push(<label>{e.name}</label>)
         //  
-        a.push(<input value={e.value} onChange={(element) => handlerFunc(element)} name={e.tag} type='text'></input>)
+        a.push(<input value={e.value} required={e.required} onChange={(element) => handlerFunc(element)} name={e.tag} type='text'></input>)
     })
     return a;
 }

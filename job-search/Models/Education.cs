@@ -15,11 +15,11 @@ namespace job_search.Models
         [Required]
         public string graduation_year { get; set; }
         [Required]
-        public string education_type_id { get; set; }
-        [ForeignKey("education_type_id")]
-        public Education_ref education_ref { get; set; }
+        public string education_type { get; set; }
         [Required]
-        public string resume_id { get; set; }
+        public string specialization { get; set; }
+        [Required]
+        public int resume_id { get; set; }
         [ForeignKey("resume_id")]
         public Resume Resume { get; set; }
 

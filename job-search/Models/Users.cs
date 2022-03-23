@@ -31,7 +31,7 @@ namespace job_search.Models
         public string phone_number { get; set; }
         [Required]
         public string user_type { get; set; }
-        public string gender { get; set; }
+
 
 
         public User(string email, string password, string f_name, string l_name, string phone_number, string user_type)

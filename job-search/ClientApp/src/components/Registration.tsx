@@ -8,7 +8,7 @@ import { createEmptyAccount } from '../exportFunctions'
 import { useDispatch, useSelector } from "react-redux";
 import { changeUser } from "../app/userStateReducer";
 
-function Registration(props: { setResume: any, setAccount: any; setPageType: any, accountType: string }) {
+function Registration(props: { account: any, setResume: any, setAccount: any; setPageType: any, accountType: string }) {
     const navigate = useNavigate();
     const [formType, setFormType] = useState('authoriz')
     const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
@@ -56,16 +56,20 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
     }
 
     async function getUser() {
-        const response = await fetch(`user/${formInfo.email}/${formInfo.password}`);
-        const data = await response.json();
-        delete data.user.password;
-        if (!data.error) {
-            props.setAccount(data.user)
-            dispatch(changeUser({ user_id: data.user.user_id, user_type: data.user.user_type }))
-            navigate('/');
-        } else {
-            document.querySelectorAll('.usererrormessage')[0].style.display = 'block';
-        }
+
+        const data = await fetch(`user/${formInfo.email}/${formInfo.password}`)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+
+                } else if (response.status === 404) {
+                    document.querySelectorAll('.usererrormessage')[0].style.display = 'block'
+                }
+            })
+        // delete data.password;
+        props.setAccount(data)
+        dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
+        navigate('/');
     }
 
     async function confirm() {
@@ -83,14 +87,17 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
 
     async function postNewUser() {
         let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
-        await fetch('user', {
+        const response = await fetch('user', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify({ ...formInfo, user_type: userType.value })
-        });
+        })
+        const data = await response.json();
+        dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
+        //   props.setAccount({ ...props.account, user_id: data.user_id })
     }
 
     function chechConfirmCode() {
@@ -102,7 +109,7 @@ function Registration(props: { setResume: any, setAccount: any; setPageType: any
             postNewUser();
             dispatch(changeUser({ user_id: 0, user_type: userType.value }))
             userType.value === "applicant" ?
-                navigate('/accountInfo')
+                navigate('/resume')
                 : navigate('/company');
         } else {
             document.querySelectorAll('.errormessage')[0].style.display = 'block';

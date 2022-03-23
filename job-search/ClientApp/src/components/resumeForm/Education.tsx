@@ -60,7 +60,7 @@ export default function Education(props: { resumeInfo: ResumeType, setResumeInfo
     }
 
     function changeEdLevel(e) {
-        props.setResumeInfo({ ...props.resumeInfo, education_level: e.target.value });
+        props.setResumeInfo({ ...props.resumeInfo, resumeInfo: { ...props.resumeInfo.resumeInfo, education_level: e.target.value } });
     }
 
     return (

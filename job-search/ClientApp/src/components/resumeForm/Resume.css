@@ -20,14 +20,17 @@ textarea:focus {
 .partition-2,
 .partition-3,
 .partition-4,
-.partition_contacts {
+.partition-mainInfo {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 20px;
-    grid-template-rows: repeat(3, 1fr);
 }
 
-.partition_contacts {
+.partition-1 {
+    grid-template-rows: repeat(3, 1fr) 2fr;
+}
+
+.partition-mainInfo {
     grid-template-rows: repeat(2, 1fr);
 }
 
@@ -76,7 +79,7 @@ textarea {
 }
 
 .partition-2 {
-    grid-template-rows: repeat(3, 1fr) 3fr repeat(1, 4fr);
+    grid-template-rows: repeat(3, 1fr) 2fr 5fr;
 }
 
 
@@ -132,18 +135,14 @@ textarea {
     border: 6px solid #F88500;
 }
 
-.dataselect {
-    width: 100%;
-    margin: 0 2px;
+.data_container {
+    display: flex;
+    justify-content: center;
 }
 
 .selectContainer {
     display: flex;
     justify-content: center;
-}
-
-.burth_select {
-    padding: 0 5px;
 }
 
 .chart_block,
