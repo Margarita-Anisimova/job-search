@@ -26,6 +26,9 @@ namespace job_search.Models
         [ForeignKey("resume_id")]
         public Resume Resume { get; set; }
 
+        [NotMapped]
+        public string status { get; set; }
+
 
     }
 }

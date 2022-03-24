@@ -24,14 +24,13 @@ namespace job_search.Models
 
         [Required]
         public string birth_date { get; set; }
-        [Required]
         public string desired_position { get; set; }
 
         public string desired_salary { get; set; }
 
         public string work_type { get; set; }
 
-        public int ready_move { get; set; }
+        public bool ready_move { get; set; }
 
         public string gender { get; set; }
         public string skills { get; set; }

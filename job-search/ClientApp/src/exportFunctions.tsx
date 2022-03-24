@@ -1,5 +1,5 @@
 
-import { AccountType, ResumeType, CompanyType, VacancyType } from './components/types';
+import { AccountType, ResumeType, CompanyType, VacancyType, WorkExpirienceType, EducationType } from './components/types';
 
 export function createEmptyAccount(): AccountType {
     return {
@@ -13,10 +13,10 @@ export function createEmptyAccount(): AccountType {
     }
 }
 //'noRegistered',employer
-export function createEmptyResume(): ResumeType {
+export function createEmptyResume(user_id = 0): ResumeType {
     return {
         resumeInfo: {
-            user_id: 0,
+            user_id: user_id,
             resume_id: 0,
             birth_date: '::',
             desired_position: '',
@@ -27,28 +27,40 @@ export function createEmptyResume(): ResumeType {
             profession_id: 0,
             city: '',
             citizenship: '',
-            education_level: '',
+            education_level: 'Нет образования',
             gender: 'female'
         },
-        education: [{
-            education_id: 0,
-            institution: '',
-            specialization: '',
-            resume_id: 0,
-            education_type: 'full-time',
-            graduation_year: '1950',
-        }],
-        workExperience: [{
-            work_experience_id: 0,
-            company: '',
-            resume_id: 0,
-            post: '',
-            date_start: '1950',
-            date_end: '1950',
-            experience_description: '',
-        }],
+        education: [],
+        workExperience: [createEmptyWorkExperience()],
     }
 }
+
+export function createEmptyEducation(resume_id = 0): EducationType {
+    return {
+        education_id: 0,
+        institution: '',
+        specialization: '',
+        resume_id: resume_id,
+        education_type: 'full-time',
+        graduation_year: '',
+        status: 'add'
+    }
+}
+
+
+export function createEmptyWorkExperience(resume_id = 0): WorkExpirienceType {
+    return {
+        work_experience_id: 0,
+        company: '',
+        resume_id: resume_id,
+        post: '',
+        date_start: '',
+        date_end: '',
+        experience_description: '',
+        status: 'add'
+    }
+}
+
 
 export function createEmptyCompany(): CompanyType {
     return {

@@ -36,12 +36,6 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                 <img src={img} className='avatar'></img>
                 <div className="userDescription">
                     <p>{props.account.l_name + ' ' + props.account.f_name}</p>
-                    {/* {props.account.user_type != 'employer' ?
-                        <>
-                            <p>{getAge() ? getAge() + ' лет' : null}</p>
-                            <p>{props.resume.city ? props.resume.city : null}</p>
-                            <p>{props.resume.citizenship ? 'Гражданство ' + props.resume.citizenship : null}</p>
-                        </> : null} */}
                     <p>{props.account.phoneNumber ? props.account.phoneNumber : null}</p>
                     <p>{props.account.email}</p>
                 </div>

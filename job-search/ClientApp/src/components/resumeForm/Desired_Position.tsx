@@ -5,20 +5,22 @@ import './Resume.css';
 import { createTextInputs, createSelect } from '../account/createFunction'
 import { ResumeType } from '../types';
 import { useEffect } from "react";
+import Select from 'react-select';
 
 export default function Desired_Position(props: { resume: ResumeType, setResume: any }) {
 
 
     useEffect(() => {
         props.resume.resumeInfo.ready_move
-            ? document.getElementsByClassName('yes').defaultChecked = true
-            : document.getElementsByClassName('no').defaultChecked = true
+            ? document.getElementsByClassName('yes')[0].defaultChecked = true
+            : document.getElementsByClassName('no')[0].defaultChecked = true
         let a = document.getElementsByName('work_type')
         for (let i = 0; i < a.length; i++) {
-            if (props.resume.resumeInfo.work_type[i] === true) {
+            if (JSON.parse(props.resume.resumeInfo.work_type[i]) === true) {
                 a[i].defaultChecked = true;
             }
         }
+        document.getElementsByClassName('professions')[0].selectedIndex = props.resume.resumeInfo.profession_id
     })
 
     function posthandler(e: any) {
@@ -32,53 +34,27 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
     const postInfoInputs = [{ tag: 'desired_position', name: 'Должность', value: props.resume.resumeInfo.desired_position, required: false },]
 
     function handlerSelect(e: any) {
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, profession_id: e.target.selectedIndex + 1 } });
+        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, profession_id: e.target.selectedIndex } });
     }
 
-    let asd = ['Программист', 'Программист', 'Инженер', 'Повар', 'Программист', 'Повар',
-        'Инженер', 'Программист', 'Повар', 'Повар', 'Программист', 'Повар',
-        'Программист', 'Программист', 'Программист', 'Программист', 'Программист', 'Программист',
-        'Инженер', 'Программист', 'Программист', 'Повар', 'Инженер', 'Программист',]
+    let asd = ['', 'Программист', 'Повар', 'Инженер']
+
 
     return (
         <section >
             <h5>Желаемая должность</h5>
             <div className='partition-2'>
                 <label>Профессия</label>
-                <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" />
-                <datalist id="professions">
+                {/* <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" /> */}
+                <select required onChange={(e) => handlerSelect(e)} className="professions">
                     {asd.map((e) =>
-                        <option value={e} />
+                        <option>{e}</option>
                     )}
-                    {/* <option value="Программист" />
-                    <option value="Повар" />
-                    <option value="Инженер" />
-                    <option value="Преподаватель" />
-                    <option value="Программист" />
-                    <option value="Повар" />
-                    <option value="Инженер" />
-                    <option value="Преподаватель" />
-                    <option value="Программист" />
-                    <option value="Повар" />
-                    <option value="Инженер" />
-                    <option value="Преподаватель" />
-                    <option value="Программист" />
-                    <option value="Повар" />
-                    <option value="Инженер" />
-                    <option value="Преподаватель" /> */}
-                </datalist>
-                {/* <select onChange={(e) => handlerSelect(e)}>
-                    <option value='programer'>Выберете должность</option>
-                    <option value='programer'>Программист</option>
-                    <option value='programer'>Повар</option>
-                    <option value='programer'>Инженер</option>
-                    <option value='programer'>Преподаватель</option>
-                </select> */}
-
+                </select>
 
                 {createTextInputs(postInfoInputs, posthandler)}
                 <label>Зарплата</label>
-                <input value={props.resume.resumeInfo.desired_salary} required onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
+                <input value={props.resume.resumeInfo.desired_salary} onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
 
                 <label>Переезд</label>
                 <div>
@@ -93,14 +69,14 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
                 </div>
                 <label>График работы</label>
                 <div className='chart_block'>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="0" type='checkbox'></input> Полный рабочий день</label>
+                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="0" type='checkbox'></input>Полный рабочий день</label>
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input>Гибкий</label>
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="2" type='checkbox'></input>Удаленная работа</label>
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="3" type='checkbox'></input>Сменный</label>
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Вахтовая</label>
                 </div>
             </div>
-        </section>
+        </section >
     )
 
     function addTolist(e: any) {

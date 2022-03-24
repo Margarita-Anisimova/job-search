@@ -51,7 +51,7 @@ textarea {
     border: 2px #999 solid;
     border-radius: 10px 10px 10px 0;
     padding: 25px;
-    grid-template-rows: repeat(3, 0.5fr) 2fr repeat(1, 0.5fr);
+    grid-template-rows: repeat(2, 1fr) 3fr 1fr;
     position: relative;
 }
 
@@ -90,7 +90,7 @@ textarea {
     border: 2px #999 solid;
     border-radius: 10px 10px 10px 0;
     padding: 25px;
-    grid-template-rows: repeat(4, 0.5fr) repeat(1, 3fr);
+    grid-template-rows: repeat(3, 1fr) 5fr;
     position: relative;
 }
 
@@ -137,7 +137,15 @@ textarea {
 
 .data_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.data_input {
+    width: 100%;
+}
+
+.professions {
+    max-height: 40px;
 }
 
 .selectContainer {

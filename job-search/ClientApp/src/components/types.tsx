@@ -39,6 +39,7 @@ export type EducationType = {
     education_type: string;
     resume_id: number;
     graduation_year: string;
+    status: string;
 }
 
 export type WorkExpirienceType = {
@@ -49,6 +50,7 @@ export type WorkExpirienceType = {
     date_end: string;
     experience_description: string;
     resume_id: number;
+    status: string;
 }
 
 export type CompanyType = {

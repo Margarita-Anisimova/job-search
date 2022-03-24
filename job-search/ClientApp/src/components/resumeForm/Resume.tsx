@@ -16,6 +16,7 @@ import { createTextInputs, createSelectsContainer } from '../account/createFunct
 import { useSelector } from "react-redux";
 
 
+
 function Resume(props: { setResume: any, resume: ResumeType }) {
     // добавить обработчики для выборок ????
     const navigate = useNavigate();
@@ -24,11 +25,12 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
     //const [birth_date, setbirth_date] = userState.user_type === 'applicant' ? useState(props.resume.resumeInfo.birth_date.split(':')) : useState([''])
 
     useEffect(() => {
+
         // if (userState.user_type === 'noRegistered') {
         //     navigate('/')
         // }
 
-        document.getElementsByClassName(props.resume.resumeInfo.gender).defaultChecked = true;
+        document.getElementsByClassName(props.resume.resumeInfo.gender)[0].defaultChecked = true;
     })
 
     function handler(e: any) {
@@ -58,6 +60,8 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
         if (!a) {
             form.reportValidity()
             e.preventDefault()
+        } else {
+            postNewResume()
         }
     }
 
@@ -66,9 +70,8 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
             ...props.resume.resumeInfo, user_id: userState.user_id,
             work_type: props.resume.resumeInfo.work_type.join(','),
             skills: Object.keys(props.resume.resumeInfo.skills).join(','),
-            profession_ref: null,
-            ready_move: props.resume.resumeInfo.ready_move ? 1 : 0,
         }
+        props.setResume({ ...props.resume, education: props.resume.education.filter((e) => e.status != 'delete') })
         //{ resumeInfo: res, education: props.resume.education, workExperience: props.resume.workExperience })
         const response = await fetch('resume', {
             method: 'POST',
@@ -97,9 +100,9 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
                 <div className='partition-1'>
                     <label>Дата рождения</label>
                     <div className='data_container'>
-                        <input value={getDataPart(0)} required placeholder='День' onChange={handlerData} min='1' max='12' name='birth_day' type='number'></input>
-                        <input value={getDataPart(1)} required placeholder='Месяц' onChange={handlerData} min='1' max='31' name='birth_month' type='number'></input>
-                        <input value={getDataPart(2)} required placeholder='Год' onChange={handlerData} min={(new Date()).getFullYear() - 100} max={(new Date()).getFullYear() - 14} name='birth_year' type='number'></input>
+                        <input className='data_input' value={getDataPart(0)} required placeholder='День' onChange={handlerData} min='1' max='12' name='birth_day' type='number'></input>
+                        <input className='data_input' value={getDataPart(1)} required placeholder='Месяц' onChange={handlerData} min='1' max='31' name='birth_month' type='number'></input>
+                        <input className='data_input' value={getDataPart(2)} required placeholder='Год' onChange={handlerData} min={(new Date()).getFullYear() - 100} max={(new Date()).getFullYear() - 14} name='birth_year' type='number'></input>
                     </div>
 
                     {createTextInputs(commonInfoInputs, handler)}
@@ -116,8 +119,8 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
                     </div>
                 </div>
                 <Desired_Position resume={props.resume} setResume={props.setResume}></Desired_Position>
-                <WorkExperience resumeInfo={props.resume} setResumeInfo={props.setResume}></WorkExperience>
-                <Education resumeInfo={props.resume} setResumeInfo={props.setResume}></Education>
+                <WorkExperience resume={props.resume} setResume={props.setResume}></WorkExperience>
+                <Education resume={props.resume} setResume={props.setResume}></Education>
                 <Skills resumeInfo={props.resume} setResumeInfo={props.setResume}></Skills>
                 {/* <button>Сохранить</button> */}
                 <NavLink onClick={(e) => save(e)} tag={Link} to="/account">Сохранить</NavLink>

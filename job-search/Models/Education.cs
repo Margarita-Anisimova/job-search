@@ -18,6 +18,8 @@ namespace job_search.Models
         public string education_type { get; set; }
         [Required]
         public string specialization { get; set; }
+        [NotMapped]
+        public string status { get; set; }
         [Required]
         public int resume_id { get; set; }
         [ForeignKey("resume_id")]

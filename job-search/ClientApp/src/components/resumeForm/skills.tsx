@@ -7,19 +7,6 @@ import { EducationType } from '../types'
 import { ResumeType } from '../types';
 
 export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
-    // const skillsLib = {
-    //     backend: ['C#', 'Pyton', 'Java'],
-    //     frontend: ['JavaScript', 'HTML', 'React', 'CSS'],
-    //     android: ['Android Studio', 'Java'],
-    // }
-    // const [skillsList, setSkillsList] = useState([]);
-    // const selectionList = ['Специализация', ...Object.keys(skillsLib)];
-    // const [selection, setSelection] = useState(false)
-    // function close() {
-    //     setSelection(false);
-    // }
-
-    // const [skills, setSkills] = useState([]);
 
     function addItem(e: any) {
         let arr = {}
