@@ -18,6 +18,8 @@ import './custom.css'
 import { useState } from 'react';
 import NavMenu from './components/NavMenu';
 import Company from './components/companyForm/Company';
+import ResumeCard from './components/ResumeCard';
+import VacancyCard from './components/VacancyCard';
 
 function App() {
 
@@ -39,6 +41,11 @@ function App() {
                 <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
                 <Route path='/vacancy/:number' element={<Vacancy company={company} setCompany={setCompany} />} />
                 <Route path='/company' element={<Company account={account} company={company} setCompany={setCompany} />} />
+
+                <Route path='/resumecard' element={<ResumeCard />} />
+                <Route path='/vacancycard' element={<VacancyCard />} />
+
+
 
                 {/* <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> */}
             </Routes>
