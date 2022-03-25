@@ -71,9 +71,23 @@ export default function Home(props: { accountType: string; pageType: string }) {
     setdata({ collection: data, loading: false });
   }
 
+  const city_filter_values = ['Екатернибург', 'Москва'];
+  let filters = {
+    city: '',
+    ready_move: false,
+    education_level: ''
+  }
   // useEffect(() => {
   //   getData()
   // })
+
+  function filterChanged(e) {
+    filters[e.target.name] = e.target.value;
+  }
+
+  function filterReadyMoveChanged() {
+    filters.ready_move = !filters.ready_move;
+  }
 
   return (
     <div className="home_container container">
@@ -93,6 +107,23 @@ export default function Home(props: { accountType: string; pageType: string }) {
         Фильтры
       </button>
 
+      <div className='filters'>
+        <label>Город</label>
+        <select onChange={filterChanged} className='city_filter'>
+          {city_filter_values.map((e) =>
+            <option>{e}</option>)
+          }
+        </select>
+        <label> Уровень образования</label>
+        <select onChange={filterChanged} className="edu_level" name='education_level'>
+          <option>Нет образования</option>
+          <option>Среднее</option>
+          <option>Незаконченное высшее</option>
+          <option>Высшее</option>
+          <option>Среднее профессиональное</option>
+        </select>
+        <label> <input name='ready_move' onChange={filterReadyMoveChanged} type='checkbox'></input>Готов к переезду</label>
+      </div>
       <button className='btn-filter'>
         Сортировать по
       </button>
