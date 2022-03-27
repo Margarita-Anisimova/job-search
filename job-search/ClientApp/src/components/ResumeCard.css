@@ -1,0 +1,174 @@
+.resumecard__container {
+    margin-top: 50px;
+    /* background-color: aqua; */
+}
+/* top */
+
+.resumecard__title {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.resumecard__title-img img {
+    max-width:140px;
+    max-height:140px;
+    scale: 0.5;
+}
+
+.user_name {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    padding-bottom: 20px;
+}
+
+.user_birthday, .user_city {
+    padding-bottom: 10px;
+}
+
+.resumecard__btn {
+    padding: 10px 40px;
+}
+
+.resumecard__btn-light {
+    outline: none;
+    background-color: #fff;
+    color: var(--dark);
+    border: 1px solid var(--text-light);
+    border-radius: 5px;
+    padding: 8px 40px;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.resumecard__title::after {
+    content: '';
+	width: 100%;
+	height: 1px;
+	background-color: #DAD9D9;
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+}
+
+
+/* Desired profession */
+.desired_profession {
+    position: relative;
+    padding: 30px 0;
+}
+
+.desired_profession::after {
+    content: '';
+	width: 100%;
+	height: 1px;
+	background-color: #DAD9D9;
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+}
+
+.desired_profession__name {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    padding-bottom: 10px;
+}
+
+.desired_profession__salary {
+    font-size: 20px;
+    color: var(--text);
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+.desired_profession__readymove,
+.desired_profession__work_type {
+    font-size: 16px;
+    font-weight: 400;
+    padding-bottom: 10px;
+}
+
+.desired_profession__work_type {
+    padding-bottom: 0;
+}
+
+/* Work experience */
+.work_experiences {
+    position: relative;
+    padding: 30px 0;
+}
+
+.work_experiences::after {
+    content: '';
+	width: 100%;
+	height: 1px;
+	background-color: #DAD9D9;
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+}
+
+.section_title {
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 30px;
+}
+
+.work_exp-post {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    padding-bottom: 15px;
+}
+
+.work_exp-company {
+    font-size: 16px;
+    padding-bottom: 20px;
+}
+
+.work_exp-desc_title {
+    font-size: 16px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+/* Education */
+
+.educations {
+    position: relative;
+    padding: 30px 0;
+}
+
+.educations::after {
+    content: '';
+	width: 100%;
+	height: 1px;
+	background-color: #DAD9D9;
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+}
+
+.edu-institution {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    padding-bottom: 15px;
+}
+
+.edu-specialization {
+    font-size: 16px;
+    padding-bottom: 15px;   
+}
+
+.edu-type {
+    font-size: 16px;
+}
+
+.skills {
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
