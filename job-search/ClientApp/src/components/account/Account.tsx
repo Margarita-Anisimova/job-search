@@ -8,7 +8,7 @@ import MyResponses from "./myResponses";
 import { AccountType, ResumeType, CompanyType } from '../types';
 import Profile from "./Profile";
 import { useSelector } from "react-redux";
-import { createEmptyResume } from '../../exportFunctions'
+import { createEmptyCompany, createEmptyResume } from '../../exportFunctions'
 
 function Account(props: { resume: ResumeType, setResume: any, account: AccountType, company: CompanyType, setCompany: any, }) {
 
@@ -25,11 +25,34 @@ function Account(props: { resume: ResumeType, setResume: any, account: AccountTy
     useEffect(() => {
         if (userState.user_type === 'applicant' && props.resume.resumeInfo.user_id !== userState.user_id) {
             getResume()
+        } else if (userState.user_type === 'employer' && props.company.companyInfo.user_id !== userState.user_id) {
+            getCompany();
         }
         // if (props.account.user_type === 'noRegistered') {
         //     navigate('/')
         // }
     })
+
+    async function getCompany() {
+        const data: CompanyType = await fetch(`company/${userState.user_id}`)
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+
+                } else if (response.status === 204) {
+                    return createEmptyCompany(userState.user_id);
+                }
+            })
+        await fd(data)
+        props.setCompany(data);
+
+    }
+
+    function fd(data: CompanyType) {
+        for (let e of data.vacancies) {
+            e.work_type = e.work_type.split(',')
+        }
+    }
 
     async function getResume() {
         const data = await fetch(`resume/${userState.user_id}`)

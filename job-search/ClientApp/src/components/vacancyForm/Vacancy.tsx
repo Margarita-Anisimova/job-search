@@ -17,20 +17,54 @@ import { createEmptyVacancy } from '../../exportFunctions'
 function Vacancy(props: { company: CompanyType, setCompany: any }) {
 
     let location = useLocation();
-    const id = location.pathname.split('/')[2]
-    let r = props.company.vacancies[parseInt(id)]
-    const [commonInfo, setCommonInfo] = r ? useState<VacancyType>(r) : useState<VacancyType>(createEmptyVacancy());
+    const id = parseInt(location.pathname.split('/')[2])
+    const [vacancy, setVacancy] = props.company.vacancies[id] ? useState(props.company.vacancies[id]) : useState(createEmptyVacancy(id, props.company.companyInfo.company_id))
+    // const [commonInfo, setCommonInfo] = r ? useState<VacancyType>(r) : useState<VacancyType>(createEmptyVacancy());
 
     function handler(e: any) {
-        setCommonInfo({ ...commonInfo, [e.target.name]: e.target.value });
+        setVacancy({ ...vacancy, [e.target.name]: e.target.value })
     }
-
-    const commonInfoInputs = [{ tag: 'work_address', name: 'Место работы', value: commonInfo.work_address },]
 
     function save() {
         let arr = props.company.vacancies.slice()
-        arr[id] = commonInfo;
+        arr[id] = vacancy
         props.setCompany({ ...props.company, vacancies: arr })
+        if (vacancy.vacancy_id === 0) {
+            postNewVacancy();
+        } else {
+            putVacancy();
+        }
+    }
+
+    async function postNewVacancy() {
+        let a = {
+            ...vacancy,
+            work_type: vacancy.work_type.join(','),
+        }
+        const response = await fetch('vacancy', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(a)
+        })
+    }
+
+
+    async function putVacancy() {
+        let a = {
+            ...vacancy,
+            work_type: vacancy.work_type.join(','),
+        }
+        const response = await fetch('vacancy', {
+            method: 'PUT',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(a)
+        })
     }
 
     return (
@@ -40,29 +74,21 @@ function Vacancy(props: { company: CompanyType, setCompany: any }) {
 
                 <form className="vacancy_form">
 
-                    <Desired_Applicant vacansy={commonInfo} setVacansy={setCommonInfo}></Desired_Applicant>
-                    <About_Work vacansy={commonInfo} setVacansy={setCommonInfo}></About_Work>
-                    <section >
-                        <h5>Место работы</h5>
-
-                        <div className='part part-3'>
-                            {createTextInputs(commonInfoInputs, handler)}
-                        </div>
-                    </section>
-
+                    <Desired_Applicant vacancy={vacancy} setVacancy={setVacancy}></Desired_Applicant>
+                    <About_Work vacancy={vacancy} setVacancy={setVacancy} ></About_Work>
                     <section >
                         <h5>Дополнительное описание</h5>
 
-                        <div className='part-4'>
+                        {/* <div className='part-4'>
                             <label>Дополнительное описание</label>
-                            <textarea name="vacancy_description" value={commonInfo.vacancy_description} onChange={(e) => handler(e)}></textarea>
-                        </div>
+                            <textarea name="vacancy_description" value={props.company.vacancies[id].vacancy_description} onChange={(e) => handler(e)}></textarea>
+                        </div> */}
                     </section>
                     <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
                 </form>
 
             </div>
-        </div>
+        </div >
     );
 }
 

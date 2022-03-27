@@ -17,7 +17,7 @@ namespace job_search.Models
         public int vacancy_id { get; set; }
 
         [ForeignKey("vacancy_id")]
-        public Vaacancy Vaacancy { get; set; }
+        public Vacancy Vacancy { get; set; }
 
     }
 }

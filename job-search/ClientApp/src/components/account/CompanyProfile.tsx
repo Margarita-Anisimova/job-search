@@ -22,12 +22,11 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
     return (
         <div>
             <div className="user_resumes_container resumeCard">
-                <p> {props.company.fullname}</p>
-                <p>{props.company.city}</p>
-                <p>{props.company.email}</p>
+                <p> {props.company.companyInfo.fullname}</p>
+                <p>{props.company.companyInfo.city}</p>
+                <p>{props.company.companyInfo.email}</p>
                 <NavLink tag={Link} to='/company'>Редактировать</NavLink>
             </div>
-
 
             <NavLink tag={Link} to={'/vacancy/' + props.company.vacancies.length} >Добавить вакансию</NavLink>
             {props.company.vacancies.map((vacancy, i) => {

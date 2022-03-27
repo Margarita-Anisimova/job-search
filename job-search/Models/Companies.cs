@@ -26,8 +26,9 @@ namespace job_search.Models
         public string description { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        [Required]
         public string phone { get; set; }
+
+        public string contact_face { get; set; }
         [Required]
         public string email { get; set; }
 

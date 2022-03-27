@@ -19,32 +19,38 @@ public class CompanyController : Controller
 
     [HttpPost]
     [Produces("application/json", "application/xml")]
-    public void Post([FromBody] Company data)
+    public IActionResult Post([FromBody] Company data)
     {
         this.Context.companies.Add(data);
         this.Context.SaveChanges();
+        var d = this.Context.companies.OrderBy((e) => e.company_id).Last();
+        return new ObjectResult(d.company_id);
+
     }
+
+    [HttpPut]
+    [Produces("application/json", "application/xml")]
+    public void Put([FromBody] Company data)
+    {
+        this.Context.companies.Update(data);
+        this.Context.SaveChanges();
+    }
+
+    public class CompanyResponce
+    {
+        public Company companyInfo { get; set; }
+        public Vacancy[] vacancies { get; set; }
+    }
+
 
     [Route("{user_id}")]
     [HttpGet]
-    public Company Get(int user_id)
+    public CompanyResponce Get(int user_id)
     {
-        // var response = new CompanyResponse();
-        var a = this.Context.companies.Where((company) => company.user_id == user_id);
-        return a.First();
-        // if (a.Count() == 0)
-        // {
-        //     response.Error = true;
-        // }
-        // else if (a.First().password == password)
-        // {
-        //     response.User = a.First();
-        // }
-        // else
-        // {
-        //     response.Error = true;
-        // }
-        // return response;
+        var a = this.Context.companies.Where((company) => company.user_id == user_id).First();
+        var t = this.Context.vacancies.Where((v) => v.company_id == a.company_id).ToArray();
+        var responce = new CompanyResponce() { companyInfo = a, vacancies = t };
+        return responce;
     }
 
 }

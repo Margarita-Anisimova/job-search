@@ -6,44 +6,57 @@ import { AccountType, CompanyType } from '../types';
 
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 function Company(props: { account: AccountType, setCompany: any, company: CompanyType }) {
 
 
-    // const [commonInfo, setCommonInfo] = useState(
-    //     {
-    //         fullname: '', city: '', description: '', phone: '', email: ''
-    //     }
-    // );
-
-
+    const userState = useSelector((state: any) => state.userState.userState)
     function handler(e: any) {
-        props.setCompany({ ...props.company, [e.target.name]: e.target.value });
+        props.setCompany({ ...props.company, companyInfo: { ...props.company.companyInfo, [e.target.name]: e.target.value } });
     }
 
     const commonInfoInputs = [
-        { tag: 'fullname', name: 'Название компании', value: props.company.fullname },
-        { tag: 'city', name: 'Город', value: props.company.city },
-        { tag: 'phone', name: 'Телефон', value: props.company.phone },
-        { tag: 'email', name: 'Электронная почта', value: props.company.email },
+        { tag: 'fullname', name: 'Название компании', value: props.company.companyInfo.fullname, required: true },
+        { tag: 'city', name: 'Город', value: props.company.companyInfo.city, required: true },
+        { tag: 'phone', name: 'Телефон', value: props.company.companyInfo.phone, required: false },
+        { tag: 'contact_face', name: 'Контактное лицо', value: props.company.companyInfo.contact_face, required: false },
+        { tag: 'email', name: 'Электронная почта', value: props.company.companyInfo.email, required: true },
     ]
 
-    // function save() {
-    //     props.setCompany(commonInfo);
-    //     console.log(commonInfo);
-    //     postNewCompany();
-    // }
+    function save() {
+        // props.setCompany(commonInfo);
+        // console.log(commonInfo);
+        if (props.company.companyInfo.company_id === 0) {
+            postNewCompany();
+        } else {
+            putCompany();
+        }
+    }
+
+    async function putCompany() {
+        const response = await fetch('company', {
+            method: 'PUT',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(props.company.companyInfo)
+        })
+    }
 
     async function postNewCompany() {
-        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
-        await fetch('company', {
+        let a = { ...props.company.companyInfo, user_id: userState.user_id }
+        const response = await fetch('company', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ ...commonInfo, user_id: props.account.user_id })
-        });
+            body: JSON.stringify(a)
+        })
+        const data = await response.json();
+        await props.setCompany({ ...props.company, companyInfo: { ...props.company.companyInfo, company_id: data } })
     }
 
     return (
@@ -55,10 +68,10 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
                             <label>Дополнительное описание</label>
-                            <textarea name="description" value={props.company.description} onChange={(e) => handler(e)}></textarea>
+                            <textarea name="description" value={props.company.companyInfo.description} onChange={(e) => handler(e)}></textarea>
                         </div>
                     </section>
-                    <NavLink tag={Link} to="/account">Сохранить</NavLink>
+                    <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
                     {/* <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink> */}
                 </form>
             </div>

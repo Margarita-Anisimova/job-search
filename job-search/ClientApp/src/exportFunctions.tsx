@@ -62,31 +62,33 @@ export function createEmptyWorkExperience(resume_id = 0): WorkExpirienceType {
 }
 
 
-export function createEmptyCompany(): CompanyType {
+export function createEmptyCompany(user_id = 0): CompanyType {
     return {
-        user_id: 0,
-        company_id: 0,
-        fullname: '',
-        city: '',
-        description: '',
-        phone: '',
-        email: '',
+        companyInfo: {
+            user_id: user_id,
+            company_id: 0,
+            fullname: '',
+            city: '',
+            description: '',
+            contact_face: '',
+            phone: '',
+            email: '',
+        },
         vacancies: []
     }
 }
 
 
-export function createEmptyVacancy(): VacancyType {
+export function createEmptyVacancy(vacancy_id = 0, company_id = 0): VacancyType {
     return {
-        vacancy_id: 0,
-        company_id: 0,
-        vacancy_name: '',
+        vacancy_id: vacancy_id,
+        company_id: company_id,
         position: '',
-        profession: '',
+        profession_id: 0,
         work_experience: 'без опыта',
         education_type: 'Среднее',
         salary: '',
-        work_type: 'Гибкий',
+        work_type: [false, false, false, false, false],
         work_address: '',
         responsibilities: '',
         requirements: '',
