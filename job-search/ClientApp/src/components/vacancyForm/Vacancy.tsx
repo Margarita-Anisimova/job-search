@@ -79,22 +79,13 @@ function Vacancy(props: { company: CompanyType, setCompany: any }) {
         <div>
             <h4>Добавление вакансии</h4>
             <div className="vacancy_container">
-
                 <form className="vacancy_form">
-
                     <Desired_Applicant vacancy={vacancy} setVacancy={setVacancy}></Desired_Applicant>
                     <About_Work vacancy={vacancy} setVacancy={setVacancy} ></About_Work>
-                    <section >
-                        <h5>Дополнительное описание</h5>
-
-                        {/* <div className='part-4'>
-                            <label>Дополнительное описание</label>
-                            <textarea name="vacancy_description" value={props.company.vacancies[id].vacancy_description} onChange={(e) => handler(e)}></textarea>
-                        </div> */}
-                    </section>
+                    <div className="button-form">
                     <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
+                    </div>
                 </form>
-
             </div>
         </div >
     );

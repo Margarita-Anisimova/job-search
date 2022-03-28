@@ -19,9 +19,7 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
     const commonInfoInputs = [
         { tag: 'fullname', name: 'Название компании', value: props.company.companyInfo.fullname, required: true },
         { tag: 'city', name: 'Город', value: props.company.companyInfo.city, required: true },
-        { tag: 'phone', name: 'Телефон', value: props.company.companyInfo.phone, required: false },
         { tag: 'contact_face', name: 'Контактное лицо', value: props.company.companyInfo.contact_face, required: false },
-        { tag: 'email', name: 'Электронная почта', value: props.company.companyInfo.email, required: true },
     ]
 
     function save(e) {
@@ -75,12 +73,18 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
                     <section>
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
+                            <label>Электронная почта</label>
+                            <input value={props.company.companyInfo.email} onChange={handler} required type="email" name='email'></input>
+                            <label>Телефон</label>
+                            <input value={props.company.companyInfo.phone} onChange={handler} title='Номер телефона должен состоять из 11 цифр' pattern="[0-9]{11}" type="phoneNumber" name='phone'></input>
+
                             <label>Дополнительное описание</label>
-                            <textarea name="description" value={props.company.companyInfo.description} onChange={(e) => handler(e)}></textarea>
+                            <textarea name="description" value={props.company.companyInfo.description} onChange={(e) => handler(e)} maxLength="200"></textarea>
                         </div>
                     </section>
-                    <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink>
-                    {/* <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink> */}
+                    <div className="button-form">
+                        <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink>
+                    </div>
                 </form>
             </div>
         </div>

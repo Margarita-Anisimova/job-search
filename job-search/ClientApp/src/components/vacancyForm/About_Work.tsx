@@ -14,7 +14,7 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
 
     const postInfoInputs = [
         { tag: 'work_address', name: 'Место работы', value: props.vacancy.work_address, required: true },
-        { tag: 'salary', name: 'Зарплата', value: props.vacancy.salary, required: true }];
+        ];
 
 
     useEffect(() => {
@@ -38,7 +38,8 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
             <h5>О работе</h5>
             <div className='part part-2'>
                 {createTextInputs(postInfoInputs, handler)}
-
+                <label>Зарплата</label>
+                <input value={props.vacancy.salary} onChange={handler} required min='5000' max='1000000000' name='salary' type='number'></input>
                 <label>График работы</label>
                 <div className='chart_block'>
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="0" type='checkbox'></input>Полный рабочий день</label>
@@ -49,10 +50,10 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
                 </div>
 
                 <label>Обязанности</label>
-                <textarea name="responsibilities" value={props.vacancy.responsibilities} onChange={(e) => handler(e)}></textarea>
+                <textarea name="responsibilities" value={props.vacancy.responsibilities} onChange={(e) => handler(e)} required></textarea>
 
                 <label>Требования</label>
-                <textarea name="requirements" value={props.vacancy.requirements} onChange={(e) => handler(e)}></textarea>
+                <textarea name="requirements" value={props.vacancy.requirements} onChange={(e) => handler(e)} required></textarea>
 
 
 

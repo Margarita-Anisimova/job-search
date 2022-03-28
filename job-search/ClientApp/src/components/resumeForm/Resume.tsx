@@ -123,7 +123,9 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
                 <Education resume={props.resume} setResume={props.setResume}></Education>
                 <Skills resumeInfo={props.resume} setResumeInfo={props.setResume}></Skills>
                 {/* <button>Сохранить</button> */}
-                <NavLink onClick={(e) => save(e)} tag={Link} to="/account">Сохранить</NavLink>
+                <div className="button-form">
+                    <NavLink onClick={(e) => save(e)} tag={Link} to="/account">Сохранить</NavLink>
+                </div>
             </form>
         </div >
     );
