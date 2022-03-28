@@ -1,0 +1,19 @@
+.searchItems {
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+    display: none;
+    position: absolute;
+    background-color: rgb(255, 233, 200);
+    width: 100%;
+}
+
+.search_container {
+    position: relative;
+    display: inline-block;
+}
+
+
+/* .searchInput:focus+.searchItems {
+    display: block;
+} */

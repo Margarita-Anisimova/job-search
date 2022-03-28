@@ -25,15 +25,23 @@ function Vacancy(props: { company: CompanyType, setCompany: any }) {
         setVacancy({ ...vacancy, [e.target.name]: e.target.value })
     }
 
-    function save() {
-        let arr = props.company.vacancies.slice()
-        arr[id] = vacancy
-        props.setCompany({ ...props.company, vacancies: arr })
-        if (vacancy.vacancy_id === 0) {
-            postNewVacancy();
+    function save(e: any) {
+        let form = document.querySelectorAll("form")[0]
+        let a = form.checkValidity()
+        if (!a) {
+            form.reportValidity()
+            e.preventDefault()
         } else {
-            putVacancy();
+            let arr = props.company.vacancies.slice()
+            arr[id] = vacancy
+            props.setCompany({ ...props.company, vacancies: arr })
+            if (vacancy.vacancy_id === 0) {
+                postNewVacancy();
+            } else {
+                putVacancy();
+            }
         }
+
     }
 
     async function postNewVacancy() {

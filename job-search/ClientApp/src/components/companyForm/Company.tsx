@@ -24,14 +24,22 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
         { tag: 'email', name: 'Электронная почта', value: props.company.companyInfo.email, required: true },
     ]
 
-    function save() {
+    function save(e) {
         // props.setCompany(commonInfo);
         // console.log(commonInfo);
-        if (props.company.companyInfo.company_id === 0) {
-            postNewCompany();
+        let form = document.querySelectorAll("form")[0]
+        let a = form.checkValidity()
+        if (!a) {
+            form.reportValidity()
+            e.preventDefault()
         } else {
-            putCompany();
+            if (props.company.companyInfo.company_id === 0) {
+                postNewCompany();
+            } else {
+                putCompany();
+            }
         }
+
     }
 
     async function putCompany() {
@@ -71,7 +79,7 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
                             <textarea name="description" value={props.company.companyInfo.description} onChange={(e) => handler(e)}></textarea>
                         </div>
                     </section>
-                    <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
+                    <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink>
                     {/* <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink> */}
                 </form>
             </div>
