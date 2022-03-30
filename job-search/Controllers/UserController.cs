@@ -69,4 +69,12 @@ public class UserController : Controller
 
     }
 
+    [Route("{user_id}")]
+    [HttpGet]
+    public User Get(string user_id)
+    {
+        var a = this.Context.users.Where((user) => user.user_id == Int32.Parse(user_id)).FirstOrDefault();
+        a.password = "";
+        return a;
+    }
 }

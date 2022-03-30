@@ -32,6 +32,9 @@ namespace job_search.Models
 
         public bool ready_move { get; set; }
 
+        public int work_experience { get; set; }
+
+
         public string gender { get; set; }
         public string skills { get; set; }
         [Required]

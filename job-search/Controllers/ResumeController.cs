@@ -18,6 +18,12 @@ public class ResumeController : Controller
         this.Context = db;
     }
 
+    public class ResumeCard
+    {
+        public FullResume resume { set; get; }
+        public User user { set; get; }
+    }
+
     public class FullResume
     {
         public Resume resumeInfo { set; get; }
@@ -31,6 +37,11 @@ public class ResumeController : Controller
     [Produces("application/json", "application/xml")]
     public async void Post([FromBody] FullResume resume)
     {
+        foreach (var ex in resume.workExperience)
+        {
+            resume.resumeInfo.work_experience = 0;
+            resume.resumeInfo.work_experience += Int32.Parse(ex.date_end) - Int32.Parse(ex.date_start);
+        }
         var a = this.Context.resumes.Where((res) => res.resume_id == resume.resumeInfo.resume_id);
         if (a.Count() == 0)
         {
@@ -131,20 +142,66 @@ public class ResumeController : Controller
     [HttpGet]
     public IActionResult Get(int user_id)
     {
-        var result = new FullResume();
+
         var a = this.Context.resumes.Where((resume) => resume.user_id == user_id);
         if (a.Count() == 0)
         {
             return NoContent();
         }
-        result.resumeInfo = a.First();
-        var ed = this.Context.education.Where((education) => education.resume_id == result.resumeInfo.resume_id);
-        var work = this.Context.work_experience.Where((work_experience) => work_experience.resume_id == result.resumeInfo.resume_id);
-        result.education = ed.ToArray();
-        result.workExperience = work.ToArray();
-        result.education.ToList().ForEach((e) => e.Resume = null);
-        result.workExperience.ToList().ForEach((e) => e.Resume = null);
+        var result = new ResumeCard();
+        result.resume = new FullResume();
+        result.resume.resumeInfo = a.First();
+        var ed = this.Context.education.Where((education) => education.resume_id == result.resume.resumeInfo.resume_id);
+        var work = this.Context.work_experience.Where((work_experience) => work_experience.resume_id == result.resume.resumeInfo.resume_id);
+        result.resume.education = ed.ToArray();
+        result.resume.workExperience = work.ToArray();
+        result.resume.education.ToList().ForEach((e) => e.Resume = null);
+        result.resume.workExperience.ToList().ForEach((e) => e.Resume = null);
+        result.user = this.Context.users.Where((user) => user.user_id == user_id).First();
         return new ObjectResult(result);
     }
 
+    [HttpGet]
+    public List<Resume> GetResumeList()
+    {
+        var param = HttpContext.Request.Query;
+        var profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
+
+        var result = this.Context.resumes.Where((resume) => resume.profession_id == profession_id)?.ToList();
+        if (param["city"] != "" && result.Count() != 0)
+            result = result.Where(resume => resume.city == param["city"]).ToList();
+        if (param["education_level"] != "" && result.Count() != 0)
+            result = result.Where(resume => resume.education_level == param["education_level"]).ToList();
+        if (param["salary"] != "" && result.Count() != 0)
+            result = result.Where(resume => Int32.Parse(resume.desired_salary) <= Int32.Parse(param["salary"])).ToList();
+        if (param["work_experience"] != "без опыта" && param["work_experience"] != "" && result.Count() != 0)
+            result = result.Where(resume =>
+            {
+                var t = param["work_experience"].ToString().Split('-');
+                var exp = resume.work_experience;
+                if (resume.work_experience > Int32.Parse(t[0]))
+                    return true;
+                else
+                    return false;
+            }).ToList();
+        if (param["work_type"] != "false,false,false,false,false" && result.Count() != 0)
+            result = result.Where(resume =>
+            {
+                var t = param["work_type"].ToString().Split(',');
+                var exp = resume.work_type.Split(',');
+                for (var i = 0; i < exp.Length; i++)
+                {
+                    if (t[i] == "true" && exp[i] == t[i])
+                        return true;
+                }
+                return false;
+            }).ToList();
+        return result;
+    }
+
+
 }
+
+//var fi = typeof(Resume).GetField(p.Key);
+//             object fieldValue = fi.GetValue(resume);
+//             return fieldValue == p.Value;

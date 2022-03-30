@@ -10,11 +10,11 @@ import Profile from "./Profile";
 import { useSelector } from "react-redux";
 import { createEmptyCompany, createEmptyResume } from '../../exportFunctions'
 
-function Account(props: { resume: ResumeType, setResume: any, account: AccountType, company: CompanyType, setCompany: any, }) {
+function Account(props: { resume: ResumeType, setResume: any, setAccount: any, account: AccountType, company: CompanyType, setCompany: any, }) {
 
 
 
-    type PageType = 'profile' | 'resumeResponses' | 'myResponses';
+    type PageType = 'profile' | 'resumeResponses' | 'myResponses' | 'vacancyCollections' | 'resumeCollections';
     const userState = useSelector((state: any) => state.userState.userState)
     // const [resume, setResume] = useState<ResumeType>(createEmptyResume())
     const navigate = useNavigate();
@@ -24,8 +24,10 @@ function Account(props: { resume: ResumeType, setResume: any, account: AccountTy
 
     useEffect(() => {
         if (userState.user_type === 'applicant' && props.resume.resumeInfo.user_id !== userState.user_id) {
+            // getUser()
             getResume()
         } else if (userState.user_type === 'employer' && props.company.companyInfo.user_id !== userState.user_id) {
+            // getUser()
             getCompany();
         }
         // if (props.account.user_type === 'noRegistered') {
@@ -34,7 +36,7 @@ function Account(props: { resume: ResumeType, setResume: any, account: AccountTy
     })
 
     async function getCompany() {
-        const data: CompanyType = await fetch(`company/${userState.user_id}`)
+        const data = await fetch(`company/${userState.user_id}`)
             .then((response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -44,7 +46,8 @@ function Account(props: { resume: ResumeType, setResume: any, account: AccountTy
                 }
             })
         await fd(data)
-        props.setCompany(data);
+        props.setCompany(data.company);
+        props.setAccount(data.user);
 
     }
 
@@ -86,9 +89,15 @@ function Account(props: { resume: ResumeType, setResume: any, account: AccountTy
                 return <Profile setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
             }
             case 'resumeResponses': {
-                return (<ResumeResponses></ResumeResponses>)
+                return (<ResumeResponses resume={props.resume} company={props.company}></ResumeResponses>)
             }
             case 'myResponses': {
+                return (<MyResponses></MyResponses>)
+            }
+            case 'vacancyCollections': {
+                return (<MyResponses></MyResponses>)
+            }
+            case 'resumeCollections': {
                 return (<MyResponses></MyResponses>)
             }
             default: { break; }
@@ -99,8 +108,11 @@ function Account(props: { resume: ResumeType, setResume: any, account: AccountTy
         <div>
             <div className='accountMenu'>
                 <button onClick={() => setPage('profile')}>Профиль</button>
-                <button onClick={() => setPage('resumeResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
-                {userState.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null}
+                {/* <button onClick={() => setPage('resumeResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
+                {userState.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null} */}
+                {userState.user_type === 'applicant' ?
+                    <button onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button>
+                    : <button onClick={() => setPage('resumeCollections')}>Подборки резюме</button>}
             </div>
             {createPage()}
         </div>

@@ -26,6 +26,7 @@ export type ResumeType = {
         education_level: string;
         gender: 'male' | 'female';
         citizenship: string;
+        work_experience: number;
     }
     education: EducationType[];
     workExperience: WorkExpirienceType[];
