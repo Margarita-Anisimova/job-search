@@ -40,7 +40,7 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
                         <p><b>Резюме</b></p>
-                        {props.resume.resumeInfo.profession_id ?
+                        {props.resume.resumeInfo.user_id == userState.user_id ?
                             <div className="resumeCard">
                                 <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.resumeInfo.desired_position}</p>
                                 <p>{props.resume.resumeInfo.desired_salary}</p>

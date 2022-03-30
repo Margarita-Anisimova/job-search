@@ -36,4 +36,63 @@ public class VacancyController : Controller
         this.Context.SaveChanges();
     }
 
+    [HttpGet]
+    public List<Vacancy> GetVacancyList()
+    {
+        var param = HttpContext.Request.Query;
+        var profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
+
+        var result = this.Context.vacancies.Where((vacancy) => vacancy.profession_id == profession_id)?.ToList();
+        if (param["city"] != "" && result.Count() != 0)
+            result = result
+            .Where(vacancy => this.Context.companies.Where((c) => c.company_id == vacancy.company_id).First().city == param["city"]).ToList();
+        if (param["education_level"] != "" && result.Count() != 0)
+            result = result.Where(vacancy => vacancy.education_type == param["education_level"]).ToList();
+        if (param["salary"] != "" && result.Count() != 0)
+            result = result.Where(vacancy => Int32.Parse(vacancy.salary) >= Int32.Parse(param["salary"])).ToList();
+        if (param["work_experience"] != "" && result.Count() != 0)
+            result = result.Where(vacancy =>
+            {
+
+                var t = param["work_experience"].ToString();
+                var exp = vacancy.work_experience.Split(' ')[0];
+                if (t == exp || exp == "без опыта")
+                    return true;
+                else
+                    return false;
+            }).ToList();
+        if (param["work_type"] != "false,false,false,false,false" && result.Count() != 0)
+            result = result.Where(resume =>
+            {
+                var t = param["work_type"].ToString().Split(',');
+                var exp = resume.work_type.Split(',');
+                for (var i = 0; i < exp.Length; i++)
+                {
+                    if (t[i] == "true" && exp[i] == t[i])
+                        return true;
+                }
+                return false;
+            }).ToList();
+        return result;
+    }
+
+    public class VacancyResponse
+    {
+        public Vacancy vacancy { get; set; }
+        public Company company { get; set; }
+    }
+
+    [Route("{vacancy_id}")]
+    [HttpGet]
+    public IActionResult Get(int vacancy_id)
+    {
+
+        var a = this.Context.vacancies.Where((v) => v.vacancy_id == vacancy_id).First();
+        var company = this.Context.companies.Where((v) => a.company_id == v.company_id).First();
+        var result = new VacancyResponse();
+        result.vacancy = a;
+        result.company = company;
+        return new ObjectResult(result);
+    }
+
 }

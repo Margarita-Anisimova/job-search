@@ -69,6 +69,7 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
         // delete data.password;
         props.setAccount(data)
         dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
+        document.cookie = await `user=` + encodeURIComponent(data.user_id)
         navigate('/');
     }
 

@@ -28,7 +28,8 @@ export function createEmptyResume(user_id = 0): ResumeType {
             city: '',
             citizenship: '',
             education_level: 'Нет образования',
-            gender: 'female'
+            gender: 'female',
+            work_experience: 0,
         },
         education: [],
         workExperience: [createEmptyWorkExperience()],
