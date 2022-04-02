@@ -9,6 +9,8 @@ import { AccountType, ResumeType, CompanyType } from '../types';
 import Profile from "./Profile";
 import { useSelector } from "react-redux";
 import { createEmptyCompany, createEmptyResume } from '../../exportFunctions'
+import VacancyCollections from "./VacancyCollections";
+import ResumeCollections from "./ResumeCollections";
 
 function Account(props: { resume: ResumeType, setResume: any, setAccount: any, account: AccountType, company: CompanyType, setCompany: any, }) {
 
@@ -46,8 +48,7 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 }
             })
         await fd(data)
-        props.setCompany(data.company);
-        props.setAccount(data.user);
+        props.setCompany(data);
 
     }
 
@@ -68,17 +69,18 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 }
             })
         await changeData(data)
-        props.setResume(data);
+        props.setResume(data.resume);
+        props.setAccount(data.user);
 
     }
 
     function changeData(data) {
-        if (data.resumeInfo.profession_id !== 0) {
+        if (data.resume.resumeInfo.profession_id !== 0) {
 
-            data.resumeInfo.work_type = data.resumeInfo.work_type.split(',')
+            data.resume.resumeInfo.work_type = data.resume.resumeInfo.work_type.split(',')
             let t = {}
-            data.resumeInfo.skills.split(',').forEach((e: string) => { t[e] = e })
-            data.resumeInfo.skills = t;
+            data.resume.resumeInfo.skills.split(',').forEach((e: string) => { t[e] = e })
+            data.resume.resumeInfo.skills = t;
         }
 
     }
@@ -95,10 +97,10 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 return (<MyResponses></MyResponses>)
             }
             case 'vacancyCollections': {
-                return (<MyResponses></MyResponses>)
+                return (<VacancyCollections resume={props.resume}></VacancyCollections>)
             }
             case 'resumeCollections': {
-                return (<MyResponses></MyResponses>)
+                return (<ResumeCollections company={props.company}></ResumeCollections>)
             }
             default: { break; }
         }

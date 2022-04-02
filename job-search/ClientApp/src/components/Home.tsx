@@ -27,7 +27,8 @@ export default function Home(props: { accountType: string; pageType: string }) {
     education_level: '',
     salary: '',
     work_experience: '',
-    work_type: [false, false, false, false, false]
+    work_type: [false, false, false, false, false],
+    isFilters: true,
   })
   // useEffect(() => {
   //   getData()
@@ -176,12 +177,12 @@ export default function Home(props: { accountType: string; pageType: string }) {
             :
             vacancies.map((res) => {
               return (
-                <NavLink target="_blank" rel="noopener noreferrer" onClick={(e) => checkUser(e)} tag={Link} to={"/vacancycard/" + res.vacancy_id} >
+                <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
                   <div className="card__container">
                     <p className='card__subtitle'>{res.position}</p>
                     <p className='card__subtitle'>{res.work_address}</p>
                     <p className='card__desc'>Опыт {res.work_experience}</p>
-                    <p className='card__address'>{res.desired_salary} </p>
+                    <p className='card__address'>{res.salary} </p>
                   </div>
                 </NavLink>
               )
