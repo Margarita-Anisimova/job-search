@@ -165,15 +165,18 @@ public class ResumeController : Controller
     public List<Resume> GetResumeList()
     {
         var param = HttpContext.Request.Query;
-        var profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
+        var profession_id = 0;
+        if (param.Keys.Any((e) => e == "profession"))
+            profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
+        else
+            profession_id = Int32.Parse(param["profession_id"]);
 
         var result = this.Context.resumes.Where((resume) => resume.profession_id == profession_id)?.ToList();
         if (param["city"] != "" && result.Count() != 0)
             result = result.Where(resume => resume.city == param["city"]).ToList();
         if (param["education_level"] != "" && result.Count() != 0)
             result = result.Where(resume => resume.education_level == param["education_level"]).ToList();
-        if (param["salary"] != "" && result.Count() != 0)
-            result = result.Where(resume => Int32.Parse(resume.desired_salary) <= Int32.Parse(param["salary"])).ToList();
+
         if (param["work_experience"] != "без опыта" && param["work_experience"] != "" && result.Count() != 0)
             result = result.Where(resume =>
             {
@@ -184,18 +187,24 @@ public class ResumeController : Controller
                 else
                     return false;
             }).ToList();
-        if (param["work_type"] != "false,false,false,false,false" && result.Count() != 0)
-            result = result.Where(resume =>
-            {
-                var t = param["work_type"].ToString().Split(',');
-                var exp = resume.work_type.Split(',');
-                for (var i = 0; i < exp.Length; i++)
+        if (param["isFilters"] == true)
+        {
+            if (param["salary"] != "" && result.Count() != 0)
+                result = result.Where(resume => Int32.Parse(resume.desired_salary) <= Int32.Parse(param["salary"])).ToList();
+            if (param["work_type"] != "false,false,false,false,false" && result.Count() != 0)
+                result = result.Where(resume =>
                 {
-                    if (t[i] == "true" && exp[i] == t[i])
-                        return true;
-                }
-                return false;
-            }).ToList();
+                    var t = param["work_type"].ToString().Split(',');
+                    var exp = resume.work_type.Split(',');
+                    for (var i = 0; i < exp.Length; i++)
+                    {
+                        if (t[i] == "true" && exp[i] == t[i])
+                            return true;
+                    }
+                    return false;
+                }).ToList();
+        }
+
         return result;
     }
 
