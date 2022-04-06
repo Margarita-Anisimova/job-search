@@ -12,6 +12,7 @@ import { createEmptyCompany, createEmptyResume, createEmptyAccount } from '../..
 import VacancyCollections from "./VacancyCollections";
 import ResumeCollections from "./ResumeCollections";
 import { changeUser } from "../../app/userStateReducer";
+import "../../custom.css"
 
 function Account(props: { resume: ResumeType, setResume: any, setAccount: any, account: AccountType, company: CompanyType, setCompany: any, }) {
 
@@ -112,16 +113,16 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
     }
 
     return (
-        <div>
+        <div className="container">
             <div className='accountMenu'>
-                <button onClick={() => setPage('profile')}>Профиль</button>
+                <button className="light__button" onClick={() => setPage('profile')}>Профиль</button>
                 {/* <button onClick={() => setPage('resumeResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
                 {userState.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null} */}
                 {
                     userState.user_type === 'applicant' ?
-                        props.resume.resumeInfo.city ? <button onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
+                        props.resume.resumeInfo.city ? <button className="light__button" onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
                         :
-                        props.company.vacancies.length ? <button onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
+                        props.company.vacancies.length ? <button className="light__button" onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
             </div>
             {createPage()}
         </div>

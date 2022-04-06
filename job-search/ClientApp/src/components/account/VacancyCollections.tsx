@@ -15,7 +15,7 @@ function VacancyCollections(props: { resume: ResumeType }) {
     const userState = useSelector((state: any) => state.userState.userState)
     useEffect(() => {
         if (vacancies.length === 0) {
-            getVacancy()
+            getVacancy(filters)
         }
     })
 
@@ -31,7 +31,7 @@ function VacancyCollections(props: { resume: ResumeType }) {
         isFilters: false,
     }
 
-    async function getVacancy() {
+    async function getVacancy(filters) {
         let str = `vacancy/?`
         Object.keys(filters).forEach(key => { str += `${key}=${filters[key]}&` })
         const response = await fetch(str);
@@ -47,7 +47,7 @@ function VacancyCollections(props: { resume: ResumeType }) {
                         return (
                             <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
                                 <div className="card__container">
-                                    <p className='card__subtitle'>{res.position}</p>
+                                    <p className='card__title'>{res.position}</p>
                                     <p className='card__subtitle'>{res.work_address}</p>
                                     <p className='card__desc'>Опыт {res.work_experience}</p>
                                     <p className='card__address'>{res.desired_salary} </p>

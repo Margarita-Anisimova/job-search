@@ -73,7 +73,7 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
                     <section>
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
-                            <label>Электронная почта</label>
+                            <label><div>Электронная почта<span className="red">*</span></div></label>
                             <input value={props.company.companyInfo.email} onChange={handler} required type="email" name='email'></input>
                             <label>Телефон</label>
                             <input value={props.company.companyInfo.phone} onChange={handler} title='Номер телефона должен состоять из 11 цифр' pattern="[0-9]{11}" type="phoneNumber" name='phone'></input>

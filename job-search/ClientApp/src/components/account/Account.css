@@ -1,13 +1,29 @@
 .accountMenu {
     display: flex;
     flex-direction: row;
-    margin: 5vh 0 0 5vw;
+    margin: 5vh 0 0 0;
 }
 
 .mainInfo {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+}
+
+.username {
+    font-size: 1.75rem;
+}
+
+.profile_sect-title {
+    font-size: 1.5rem;
+    margin-top: 30px;
+}
+
+.vacancyInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-bottom: 20px;
 }
 
 .editProfile {
@@ -20,7 +36,7 @@
 }
 
 .pofile_container {
-    margin: 5vh 0 0 5vw;
+    margin: 5vh 0 0 0;
 }
 
 p {
@@ -37,7 +53,7 @@ p {
 }
 
 .user_resumes_container {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .resumeButtons {
@@ -53,7 +69,8 @@ p {
 
 .resumeCard,
 .responseCard {
-    border: 2px black solid;
+    border: 1px #999999 solid;
+    border-radius: 10px;
     padding: 10px;
     width: 50%;
 }
@@ -82,4 +99,36 @@ p {
 .container1 {
     display: flex;
     flex-direction: row;
+}
+
+.light__button {
+    outline: none;
+	border: 1px solid #999;
+	background-color: transparent;
+    color: #333;
+	border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px 15px;
+}
+
+.light__button-dark {
+    outline: none;
+	border: 2px solid #F88500;
+    color: #000;
+	border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px 15px;
+    background-color: #fff9f3;
+}
+
+.light__button-small {
+	border: 1px solid #F88500;
+    background-color: #fff9f3;
+	border-radius: 5px;
+}
+
+
+.light__button:hover {
+    border-color: #F88500;
+    background-color: #fff9f3;
 }

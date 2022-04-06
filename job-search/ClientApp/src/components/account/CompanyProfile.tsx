@@ -35,20 +35,24 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
 
     return (
         <div>
+            <p className="profile_sect-title">Моя компания</p>
             {props.company.companyInfo.fullname ?
                 <div className="user_resumes_container resumeCard">
-                    <p> {props.company.companyInfo.fullname}</p>
-                    <p>{props.company.companyInfo.city}</p>
-                    <p>{props.company.companyInfo.email}</p>
-                    <NavLink tag={Link} to='/company'>Редактировать</NavLink>
+                    <p className="card__title"> {props.company.companyInfo.fullname}</p>
+                    <p className="card__subtitle">{props.company.companyInfo.city}</p>
+                    <p className="card__desc">{props.company.companyInfo.email}</p>
+                    <button onClick={() => navigate('/company')} className="resumeButton">Редактировать</button>
                 </div>
                 : <NavLink tag={Link} to='/company'>Создать компанию</NavLink>}
+            <div className="vacancyInfo">
+            <p className="profile_sect-title">Мои вакансии</p>
             <NavLink tag={Link} to={'/vacancy/' + props.company.vacancies.length} >Добавить вакансию</NavLink>
+            </div>
             {props.company.vacancies.map((vacancy, i) => {
                 return <div className='resumeCard'>
-                    <p>{vacancy.position}</p>
-                    <p>{vacancy.salary}</p>
-                    <p>{vacancy.work_address}</p>
+                    <p className="card__title">{vacancy.position}</p>
+                    <p className="card__subtitle">{vacancy.work_address}</p>
+                    <p className="card__desc">{vacancy.salary}</p>
                     <button onClick={() => navigate('/vacancy/' + i)} className="resumeButton">Редактировать</button>
                     <button onClick={() => deleteVacansy(vacancy.vacancy_id, i)} className="resumeButton">Удалить</button>
                 </div>

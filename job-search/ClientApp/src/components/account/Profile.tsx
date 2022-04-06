@@ -41,7 +41,7 @@ export default function Profile(props: { account: AccountType, setResume: any, r
             <div className="mainInfo">
                 <img src={img} className='avatar'></img>
                 <div className="userDescription">
-                    <p>{props.account.l_name + ' ' + props.account.f_name}</p>
+                    <p className="username">{props.account.l_name + ' ' + props.account.f_name}</p>
                     <p>{props.account.phoneNumber ? props.account.phoneNumber : null}</p>
                     <p>{props.account.email}</p>
                 </div>
@@ -52,10 +52,11 @@ export default function Profile(props: { account: AccountType, setResume: any, r
                 //вынести в отдельный компанент ????
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
-                        <p><b>Резюме</b></p>
+                        {/* <p><b>Резюме</b></p> */}
+                        <p className="profile_sect-title">Мое резюме</p>
                         {props.resume.resumeInfo.city ?
                             <div className="resumeCard">
-                                <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.resumeInfo.desired_position}</p>
+                                <p style={{ color: '#F88500', fontSize: '20px' }}>{props.resume.resumeInfo.desired_position}</p>
                                 <p>{props.resume.resumeInfo.desired_salary}</p>
 
                                 <div className="resumeButtons">

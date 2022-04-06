@@ -57,7 +57,7 @@ public class VacancyController : Controller
 
                 var t = param["work_experience"].ToString();
                 var exp = vacancy.work_experience.Split(' ')[0];
-                if (t == exp || exp == "без опыта" || Int32.Parse(t) >= Int32.Parse(exp.Split('-')[0]))
+                if (t == exp || exp == "без" || Int32.Parse(t) >= Int32.Parse(exp.Split('-')[0]))
                     return true;
                 else
                     return false;

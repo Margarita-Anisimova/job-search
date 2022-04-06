@@ -52,7 +52,7 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
         <section >
             <h5>Желаемая должность</h5>
             <div className='partition-2'>
-                <label>Профессия</label>
+                <label><label><div>Профессия<span className="red">*</span></div></label></label>
                 {/* <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" /> */}
                 <select required onChange={(e) => handlerSelect(e)} className="professions">
                     {asd.map((e) =>
@@ -64,10 +64,10 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
                 <label>Зарплата</label>
                 <input value={props.resume.resumeInfo.desired_salary} onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
 
-                <label>Переезд</label>
+                <label><div>Переезд<span className="red">*</span></div></label>
                 <div>
                     <div className="move_radio">
-                        <input className="radio_input yes" onChange={(e) => ratiohandler(e)} required id="move_radio-1" type="radio" name="ready_move" value="yes" defaultChecked />
+                        <input className="radio_input yes" onChange={(e) => ratiohandler(e)} required id="move_radio-1" type="radio" name="ready_move" value="yes" />
                         <label htmlFor="move_radio-1">Возможен</label>
                     </div>
                     <div className="move_radio">
@@ -75,7 +75,7 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
                         <label htmlFor="move_radio-2">Невозможен</label>
                     </div>
                 </div>
-                <label>График работы</label>
+                <label><div>График работы<span className="red">*</span></div></label>
                 <div className='chart_block'>
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="0" type='checkbox'></input>Полный рабочий день</label>
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input>Гибкий</label>

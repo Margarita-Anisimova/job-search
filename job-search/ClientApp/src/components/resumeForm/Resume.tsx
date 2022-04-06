@@ -70,6 +70,7 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
             ...props.resume.resumeInfo, user_id: userState.user_id,
             work_type: props.resume.resumeInfo.work_type.join(','),
             skills: Object.keys(props.resume.resumeInfo.skills).join(','),
+            user: null,
         }
         props.setResume({ ...props.resume, education: props.resume.education.filter((e) => e.status != 'delete') })
         //{ resumeInfo: res, education: props.resume.education, workExperience: props.resume.workExperience })
@@ -106,7 +107,7 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
                     </div> */}
 
                     {createTextInputs(commonInfoInputs, handler)}
-                    <label>Пол</label>
+                    <label><div>Пол<span className="red">*</span></div></label>
                     <div>
                         <div className="gender_radio">
                             <input className="radio_input male" onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="male" defaultChecked />

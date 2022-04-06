@@ -38,7 +38,7 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
             <h5>О работе</h5>
             <div className='part part-2'>
                 {createTextInputs(postInfoInputs, handler)}
-                <label>Зарплата</label>
+                <label><div>Зарплата<span className="red">*</span></div></label>
                 <input value={props.vacancy.salary} onChange={handler} required min='5000' max='1000000000' name='salary' type='number'></input>
                 <label>График работы</label>
                 <div className='chart_block'>
@@ -49,15 +49,11 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
                     <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Вахтовая</label>
                 </div>
 
-                <label>Обязанности</label>
-                <textarea name="responsibilities" value={props.vacancy.responsibilities} onChange={(e) => handler(e)} required></textarea>
+                <label><div>Обязанности<span className="red">*</span></div></label>
+                <textarea name="responsibilities" value={props.vacancy.responsibilities} onChange={(e) => handler(e)} required maxLength="200"></textarea>
 
-                <label>Требования</label>
-                <textarea name="requirements" value={props.vacancy.requirements} onChange={(e) => handler(e)} required></textarea>
-
-
-
-
+                <label><div>Требования<span className="red">*</span></div></label>
+                <textarea name="requirements" value={props.vacancy.requirements} onChange={(e) => handler(e)} required maxLength="200"></textarea>
 
             </div>
         </section>

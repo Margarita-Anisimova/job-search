@@ -1,6 +1,8 @@
 .home-title {
     font-size: 30px;
     font-weight: 500;
+    margin-bottom: 30px;
+    color: #333;
 }
 
 .home_container {
@@ -19,8 +21,8 @@
 .search__form {
     color: var(--text);
     font-weight: 400;
-    font-size: 15px;
-    padding: 6px 20px 8px;
+    font-size: 14px;
+    padding: 8px 20px 8px;
     border: 1px solid var(--accent);
 }
 
@@ -77,4 +79,42 @@
     grid-template-columns: 0.5fr 0.8fr 0.5fr 0.8fr;
     grid-template-rows: 1fr 5fr;
     gap: 1em 1.5em;
+}
+
+/* Cards */
+.card__container {
+    border: 1px var(--text-light) solid;
+    border-radius: 5px;
+    width: 30vw;
+    margin: 15px 0 15px 0;
+    padding: 15px;
+    font-size: 17px;
+    color: var(--text);
+}
+
+.card__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.card__subtitle {
+    /* font-family: roboto-wt; */
+    font-weight: 400;
+    color: var(--accent);
+}
+
+.card__desc {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.card__address {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-light);
+}
+
+a {
+    padding: 0;
 }

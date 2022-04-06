@@ -82,7 +82,7 @@ export default function Education(props: { resume: ResumeType, setResume: any })
                 <input onChange={IsEducation} type='checkbox'></input>
                 Нет образования
             </label> */}
-            <label> Уровень образования</label>
+            <label><div>Уровень образования<span className="red">*</span></div></label>
             <select className="edu_level" name='education_level' onChange={(e) => changeEdLevel(e)} value={props.resume.resumeInfo.education_level}>
                 <option>Нет образования</option>
                 <option>Среднее</option>
@@ -101,7 +101,7 @@ export default function Education(props: { resume: ResumeType, setResume: any })
 
                                 {createTextInputs([{ tag: 'institution', name: 'Учебное заведение', value: props.resume.education[i].institution, required: true },
                                 { tag: 'specialization', name: 'Специальность', value: props.resume.education[i].specialization, required: true },], handler)}
-                                <label>Форма обучения</label>
+                                <label><div>Форма обучения<span className="red">*</span></div></label>
                                 <div>
                                     <div className="edForm_radio">
                                         <input className="radio_input" required id="edForm_radio-1" onChange={(e) => handlerRadio(e)} type="radio" name={"education_type " + i} value="full-time" defaultChecked />
@@ -116,7 +116,7 @@ export default function Education(props: { resume: ResumeType, setResume: any })
                                         <label htmlFor="edForm_radio-3">Очно-заочная</label>
                                     </div>
                                 </div>
-                                <label>Год выпуска</label>
+                                <label><div>Год выпуска<span className="red">*</span></div></label>
                                 <div className='data_container'>
                                     <input className='data_input' value={props.resume.education[i].graduation_year} required
                                         onChange={(e) => handler(e)} min={(new Date()).getFullYear() - 80} max={(new Date()).getFullYear()}

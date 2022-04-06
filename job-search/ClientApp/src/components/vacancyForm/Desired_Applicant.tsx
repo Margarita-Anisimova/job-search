@@ -44,7 +44,7 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
         <section>
             <h5>Кого ищете?</h5>
             <div className='part part-1'>
-                <label>Профессия</label>
+                <label><div>Профессия<span className="red">*</span></div></label>
                 <select required onChange={(e) => handlerSelect(e)} className="professions">
                     {asd.map((e) =>
                         <option>{e}</option>
@@ -55,7 +55,7 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
                 <label> Уровень образования</label>
                 {getEducationLevel(props.vacancy.education_level, handler)}
 
-                <label>Стаж работы в сфере</label>
+                <label><div>Стаж работы в сфере<span className="red">*</span></div></label>
                 {getWorkExperience(handler)}
             </div>
         </section>

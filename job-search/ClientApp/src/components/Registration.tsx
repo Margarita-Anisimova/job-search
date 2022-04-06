@@ -11,7 +11,7 @@ import { changeUser } from "../app/userStateReducer";
 function Registration(props: { account: any, setResume: any, setAccount: any; setPageType: any, accountType: string }) {
     const navigate = useNavigate();
     const [formType, setFormType] = useState('authoriz')
-    const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
+    const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phone_number: '' })
     const [code, setcode] = useState('');
 
 
@@ -25,7 +25,7 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
     }
 
     function set_FormType(type: string) {
-        setformInfo({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '' })
+        setformInfo({ email: '', password: '', f_name: '', l_name: '', phone_number: '' })
         setFormType(type)
     }
 
@@ -151,20 +151,20 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
             return (
                 <div>
                     <label className='label_for_input'>
-                        Повторите пароль
+                        <div>Повторите пароль <span className="red">*</span></div>
                         <input onInput={(e) => checkrepeated_password(e)} name='repeated_password' required type="password"></input>
                     </label>
                     <label className='label_for_input'>
-                        Фамилия
+                        <div>Фамилия <span className="red">*</span></div>
                         <input value={formInfo.l_name} onChange={(e) => handler(e)} name='l_name' required type="text"></input>
                     </label>
                     <label className='label_for_input'>
-                        Имя
+                        <div>Имя <span className="red">*</span></div>
                         <input value={formInfo.f_name} onChange={(e) => handler(e)} name='f_name' required type="text"></input>
                     </label>
                     <label className='label_for_input'>
                         Номер телефона
-                        <input value={formInfo.phoneNumber} onChange={(e) => handler(e)} title='Номер телефона должен состоять из 11 цифр' name='phoneNumber' pattern="[0-9]{11}" type="phoneNumber"></input>
+                        <input value={formInfo.phone_number} onChange={(e) => handler(e)} title='Номер телефона должен состоять из 11 цифр' name='phone_number' pattern="[0-9]{11}" type="phoneNumber"></input>
                     </label>
                     <div className="form_radio_btn">
                         <input required id="radio-1" type="radio" name="radio" value="applicant" defaultChecked />
@@ -199,11 +199,11 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
                 <p style={{ color: 'red', display: 'none' }} className='confirmLabel usererrormessage'>Не верный email или пароль</p>
                 <p style={{ color: 'red', display: 'none' }} className='confirmLabel emailerrormessage'>Пользователь с таким email уже есть</p>
                 <label className='label_for_input'>
-                    Email
+                    <div>Email <span className="red">*</span></div>
                     <input value={formInfo.email} onChange={(e) => handler(e)} name='email' required type="email"></input>
                 </label>
                 <label className='label_for_input'>
-                    Пароль
+                    <div>Пароль <span className="red">*</span></div>
                     <input value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}

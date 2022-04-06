@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ListResults from './ListResults';
 import { useState, useEffect } from 'react';
-import './Home.css';
 import '../custom.css';
+import './Home.css';
 import SearchInput from './SearchInput'
 import { getVacancyCards, getResumeCards } from './cardsTemplate'
 import { getEducationLevel, getWorkExperience, getWorkType } from './formElements'
@@ -74,7 +74,7 @@ export default function Home(props: { professionList: any, accountType: string; 
           <label>График работы</label>
           {getWorkType(filters)}
         </div>
-        <button onClick={confirm}>Применить</button>
+        <button className='light__button-dark' onClick={confirm}>Применить</button>
       </div>
     )
   }

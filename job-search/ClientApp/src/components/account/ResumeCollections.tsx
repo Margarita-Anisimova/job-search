@@ -50,14 +50,15 @@ function ResumeCollections(props: { company?: CompanyType }) {
             <div>
                 {props.company.vacancies.map((res) => {
                     return (
-                        <a onClick={() => showResumeCollect(res)}>
+                        // <a onClick={() => showResumeCollect(res)}>
                             <div className="card__container">
-                                <p className='card__subtitle'>{res.position}</p>
+                                <p className='card__title'>{res.position}</p>
                                 <p className='card__subtitle'>{res.work_address}</p>
                                 <p className='card__desc'>Опыт {res.work_experience}</p>
                                 <p className='card__address'>{res.salary} </p>
+                                <button className="light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
                             </div>
-                        </a>
+                        // </a>
                     )
                 })}
             </div>
@@ -68,7 +69,7 @@ function ResumeCollections(props: { company?: CompanyType }) {
                             return (
                                 <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.user_id} >
                                     <div className="card__container">
-                                        <p className='card__subtitle'>{res.desired_position}</p>
+                                        <p className='card__title'>{res.desired_position}</p>
                                         <p className='card__subtitle'>Опыт {res.work_experience}</p>
                                         <p className='card__desc'>Уровень образования {res.education_level}</p>
                                         <p className='card__address'>{res.desired_salary} </p>
