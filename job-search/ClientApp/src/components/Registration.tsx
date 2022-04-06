@@ -57,20 +57,24 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
 
     async function getUser() {
 
-        const data = await fetch(`user/${formInfo.email}/${formInfo.password}`)
+        const data = await fetch(`user/${formInfo.email}/${crypto(formInfo.password)}`)
             .then((response) => {
                 if (response.ok) {
                     return response.json()
 
                 } else if (response.status === 404) {
                     document.querySelectorAll('.usererrormessage')[0].style.display = 'block'
+
                 }
             })
+        if (data) {
+            props.setAccount(data)
+            dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
+            document.cookie = await `user=` + encodeURIComponent(data.user_id)
+            navigate('/');
+        }
         // delete data.password;
-        props.setAccount(data)
-        dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
-        document.cookie = await `user=` + encodeURIComponent(data.user_id)
-        navigate('/');
+
     }
 
     async function confirm() {
@@ -86,6 +90,25 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
 
     }
 
+    function crypto(password) {
+        var result = "";
+        let key = GenerateHexArr(password.length)
+        for (let i = 0; i < password.length; ++i) {
+            result += (parseInt(key[i], 16) ^ parseInt(password[i], 16)).toString(16) + ' ';
+        }
+        let a = key.join(' ');
+        result += a;
+        return result;
+    }
+
+    function GenerateHexArr(length) {
+        let result = [];
+        for (let i = 0; i < length; i++) {
+            result.push((Math.floor(Math.random() * 0xFFF)).toString(16))
+        }
+        return result;
+    }
+
     async function postNewUser() {
         let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
         const response = await fetch('user', {
@@ -94,7 +117,7 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ ...formInfo, user_type: userType.value })
+            body: JSON.stringify({ ...formInfo, password: crypto(formInfo.password), user_type: userType.value })
         })
         const data = await response.json();
         dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))

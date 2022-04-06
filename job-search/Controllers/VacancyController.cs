@@ -40,17 +40,17 @@ public class VacancyController : Controller
     public List<Vacancy> GetVacancyList()
     {
         var param = HttpContext.Request.Query;
-        var profession_id = 0;
-        if (param.Keys.Any((e) => e == "profession"))
-            profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
-        else
-            profession_id = Int32.Parse(param["profession_id"]);
-        var result = this.Context.vacancies.Where((vacancy) => vacancy.profession_id == profession_id)?.ToList();
+        // var profession_id = 0;
+        // if (param.Keys.Any((e) => e == "profession"))
+        //     profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
+        // else
+        //     profession_id = Int32.Parse(param["profession_id"]);
+        var result = this.Context.vacancies.Where((vacancy) => vacancy.profession_id == Int32.Parse(param["profession_id"]))?.ToList();
         if (param["city"] != "" && result.Count() != 0)
             result = result
             .Where(vacancy => this.Context.companies.Where((c) => c.company_id == vacancy.company_id).First().city == param["city"]).ToList();
         if (param["education_level"] != "" && result.Count() != 0)
-            result = result.Where(vacancy => vacancy.education_type == param["education_level"]).ToList();
+            result = result.Where(vacancy => vacancy.education_level == param["education_level"]).ToList();
         if (param["work_experience"] != "" && result.Count() != 0)
             result = result.Where(vacancy =>
             {

@@ -12,7 +12,7 @@ import { useHistory } from 'react-router';
 export default function VacancyCard(props: { resume: ResumeType }) {
 
     const [vacancy, setVacancy] = useState<VacancyType>(createEmptyVacancy())
-
+    const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
     let location = useLocation();
     const id = parseInt(location.pathname.split('/')[2])
     const [company, setCompany] = useState(createEmptyCompany())
@@ -36,9 +36,16 @@ export default function VacancyCard(props: { resume: ResumeType }) {
 
                 }
             })
+        await changeWorkType(data);
         setVacancy(data.vacancy);
         setCompany(data.company);
 
+    }
+
+    function changeWorkType(data) {
+
+        data.vacancy.work_type = data.vacancy.work_type.split(',')
+        data.vacancy.work_type = data.vacancy.work_type.map(e => e === 'true' ? true : false)
     }
 
     return (
@@ -53,20 +60,20 @@ export default function VacancyCard(props: { resume: ResumeType }) {
                 <div className="vacancy_requriments col-md-6">
                     <div className='briefinfo_title'>Обязанности</div>
                     <div className="requirements">
-                        {vacancy.requirements}
+                        {vacancy.responsibilities}
                     </div>
                     <div className='briefinfo_title'>Требования</div>
                     <div className="responsibilities">
-                        {vacancy.responsibilities}
+                        {vacancy.requirements}
                     </div>
                 </div>
                 <div className="col-md-1"></div>
                 <div className="vacancy_brief col-md-5">
                     <div className="borders">
                         <div className='briefinfo_title'>Общие сведения</div>
-                        <div className="education">Уровень образования: {vacancy.education_type}</div>
+                        <div className="education">Уровень образования: {vacancy.education_level}</div>
                         <div className="work_exp">Стаж работы в сфере: {vacancy.work_experience}</div>
-                        <div className="work_type">График работы: {vacancy.work_type}</div>
+                        <div className="work_type">График работы: {vacancy.work_type.map((e, i) => e ? workType[i] + ' ' : '')}</div>
                     </div>
                 </div>
             </div>

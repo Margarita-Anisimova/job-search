@@ -27,7 +27,7 @@ textarea:focus {
 }
 
 .partition-1 {
-    grid-template-rows: repeat(3, 1fr) 2fr;
+    grid-template-rows: repeat(2, 1fr) 2fr;
 }
 
 .partition-mainInfo {

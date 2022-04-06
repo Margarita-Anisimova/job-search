@@ -40,14 +40,14 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
                         <p><b>Резюме</b></p>
-                        {props.resume.resumeInfo.user_id == userState.user_id ?
+                        {props.resume.resumeInfo.city ?
                             <div className="resumeCard">
                                 <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.resumeInfo.desired_position}</p>
                                 <p>{props.resume.resumeInfo.desired_salary}</p>
 
                                 <div className="resumeButtons">
                                     <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
-                                    <button className="resumeButton">Скрыть</button>
+                                    {/* <button className="resumeButton">Скрыть</button> */}
                                 </div>
                             </div>
                             : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>

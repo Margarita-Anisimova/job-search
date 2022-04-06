@@ -37,8 +37,16 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
         props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, profession_id: e.target.selectedIndex } });
     }
 
-    let asd = ['', 'Программист', 'Повар', 'Инженер']
-
+    let asd = ['', "Программист",
+        "Повар",
+        "Инженер",
+        "Бухгалтер",
+        "Сметчик",
+        "Экономист",
+        "Врач",
+        "Преподаватель",
+        "Водитель",
+        "Дизайнер"]
 
     return (
         <section >

@@ -38,19 +38,36 @@ public class CompanyController : Controller
 
     public class CompanyResponce
     {
+        public CompanyFull company { set; get; }
+        public User user { set; get; }
+    }
+
+
+    public class CompanyFull
+    {
         public Company companyInfo { get; set; }
         public Vacancy[] vacancies { get; set; }
     }
 
-
     [Route("{user_id}")]
     [HttpGet]
-    public CompanyResponce Get(int user_id)
+    public IActionResult Get(int user_id)
     {
-        var a = this.Context.companies.Where((company) => company.user_id == user_id).First();
-        var t = this.Context.vacancies.Where((v) => v.company_id == a.company_id).ToArray();
-        var responce = new CompanyResponce() { companyInfo = a, vacancies = t };
-        return responce;
+        var a = this.Context.companies.Where((company) => company.user_id == user_id);
+        var responce = new CompanyResponce();
+        if (a.Count() == 0)
+        {
+            responce.user = this.Context.users.Where((user) => user.user_id == user_id).First();
+            return new ObjectResult(responce);
+        }
+        var t = this.Context.vacancies.Where((v) => v.company_id == a.First().company_id).ToArray();
+        var comp = new CompanyFull();
+        comp.companyInfo = a.First();
+        comp.vacancies = t;
+
+        responce.company = comp;
+        responce.user = this.Context.users.Where((user) => user.user_id == a.First().user_id).First();
+        return new ObjectResult(responce);
     }
 
 }

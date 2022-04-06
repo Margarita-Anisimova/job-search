@@ -6,14 +6,15 @@ import thunk from "redux-thunk";
 
 import userStateReducer from "./userStateReducer.tsx";
 
+
 const appReducer = combineReducers({
     userState: userStateReducer,
 });
 
 const reducers = (state, action) => {
     // if (action.type.includes("INIT")) {
-    //     storage.removeItem("persist:root");
-    //     state = undefined;
+    //     storage.removeItem("professionsList");
+    //     // state = undefined;
     // }
     return appReducer(state, action);
 };

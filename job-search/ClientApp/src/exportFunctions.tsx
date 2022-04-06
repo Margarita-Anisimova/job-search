@@ -87,7 +87,7 @@ export function createEmptyVacancy(vacancy_id = 0, company_id = 0): VacancyType 
         position: '',
         profession_id: 0,
         work_experience: 'без опыта',
-        education_type: 'Среднее',
+        education_level: 'Среднее',
         salary: '',
         work_type: [false, false, false, false, false],
         work_address: '',

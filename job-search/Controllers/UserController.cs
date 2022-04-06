@@ -58,7 +58,7 @@ public class UserController : Controller
     public IActionResult Get(string email, string password)
     {
         var a = this.Context.users.Where((user) => user.email == email);
-        if (a.Count() != 0 && a.First().password == password)
+        if (a.Count() != 0 && CheckPassword(password, a.First().password))
         {
             return new ObjectResult(a.First());
         }
@@ -68,6 +68,26 @@ public class UserController : Controller
         }
 
     }
+    public bool CheckPassword(string password, string passwordFromBase)
+    {
+        var a = password.Split(' ');
+        var b = passwordFromBase.Split(' ');
+        var c = a.Length / 2;
+        var d = a.Length / 2;
+        if (c != d)
+            return false;
+        for (var i = 0; i < c; i++)
+        {
+            var t = Convert.ToInt32(a[i], 16) ^ Convert.ToInt16(a[i + c], 16);
+            var f = Convert.ToInt32(b[i], 16) ^ Convert.ToInt16(b[i + c], 16);
+            if (t != f)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     [Route("{user_id}")]
     [HttpGet]

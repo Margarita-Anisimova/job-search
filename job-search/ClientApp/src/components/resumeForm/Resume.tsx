@@ -98,12 +98,12 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
             <form className='resume_form'>
                 <h5>Основное</h5>
                 <div className='partition-1'>
-                    <label>Дата рождения</label>
+                    {/* <label>Дата рождения</label>
                     <div className='data_container'>
                         <input className='data_input' value={getDataPart(0)} required placeholder='День' onChange={handlerData} min='1' max='12' name='birth_day' type='number'></input>
                         <input className='data_input' value={getDataPart(1)} required placeholder='Месяц' onChange={handlerData} min='1' max='31' name='birth_month' type='number'></input>
                         <input className='data_input' value={getDataPart(2)} required placeholder='Год' onChange={handlerData} min={(new Date()).getFullYear() - 100} max={(new Date()).getFullYear() - 14} name='birth_year' type='number'></input>
-                    </div>
+                    </div> */}
 
                     {createTextInputs(commonInfoInputs, handler)}
                     <label>Пол</label>

@@ -31,7 +31,7 @@ namespace job_search.Models
         public string work_experience { get; set; }
 
 
-        public string education_type { get; set; }
+        public string education_level { get; set; }
 
         [Required]
         public string salary { get; set; }

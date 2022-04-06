@@ -14,6 +14,9 @@ export default function ResumeCard(props: { company: CompanyType }) {
     const id = parseInt(location.pathname.split('/')[2])
     const [resume, setResume] = useState<ResumeType>(createEmptyResume())
     const [account, setAccount] = useState<AccountType>(createEmptyAccount())
+    const [IsContacts, setIsContacts] = useState(false)
+    const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
+    const [profession, setProfession] = useState('')
     // const [button, setButton] = useState('show');
     // const [message, setMessage] = useState("");
     useEffect(() => {
@@ -38,6 +41,7 @@ export default function ResumeCard(props: { company: CompanyType }) {
         await changeData(data)
         setResume(data.resume);
         setAccount(data.user);
+        setProfession(data.profession);
 
     }
 
@@ -45,6 +49,7 @@ export default function ResumeCard(props: { company: CompanyType }) {
         if (data.resume.resumeInfo.profession_id !== 0) {
 
             data.resume.resumeInfo.work_type = data.resume.resumeInfo.work_type.split(',')
+            data.resume.resumeInfo.work_type = data.resume.resumeInfo.work_type.map(e => e === 'true' ? true : false)
             let t = {}
             data.resume.resumeInfo.skills.split(',').forEach((e: string) => { t[e] = e })
             data.resume.resumeInfo.skills = t;
@@ -70,33 +75,41 @@ export default function ResumeCard(props: { company: CompanyType }) {
 
     return (
         <div className="container resumecard__container">
-            <Redirect to='/'></Redirect>
             <div className="resumecard__title row">
                 <div className="resumecard__title-img col-md-2">
                     <img src="https://static.planetminecraft.com/files/avatar/1268532_1.png" />
                 </div>
                 <div className="resumecard__title-maininfo col-md-4">
                     <div className="user_name">{account.f_name + ' ' + account.l_name}</div>
-                    <div className="user_birthday">{resume.resumeInfo.birth_date}</div>
+                    {/* <div className="user_birthday">{resume.resumeInfo.birth_date}</div> */}
                     <div className="user_city">{resume.resumeInfo.city}</div>
                     <div className="user_citizenship"> {'Гражданство ' + resume.resumeInfo.citizenship}</div>
                 </div>
                 <div className="resumecard__title-buttons col-md-3">
                     {/* <button className='button resumecard__btn'>Отправить отклик</button> */}
-                    <button className='resumecard__btn-light'>Показать контакты</button>
+                    <button onClick={() => setIsContacts(true)} className='resumecard__btn-light'>Показать контакты</button>
+                    {IsContacts ?
+                        <div className="resumecard__title-maininfo col-md-4">
+                            {account.phoneNumber ?
+                                <div className="user_name">{account.phoneNumber}</div>
+                                : null}
+                            <div className="user_birthday">{account.email}</div>
+                        </div>
+                        : null}
                 </div>
             </div>
 
             <div className="desired_profession">
-                <div className='desired_profession__name'>Системный администратор</div>
+                <div className='desired_profession__name'>{profession}</div>
                 <div className='desired_profession__salary'>{resume.resumeInfo.desired_salary + 'руб'} </div>
                 <div className='desired_profession__readymove'> Переезд: {+ resume.resumeInfo.ready_move ? 'возможен' : 'не возможен'} </div>
-                <div className='desired_profession__work_type'>График работы:</div>
+                {/* <div className='desired_profession__work_type'>График работы:</div> */}
+                <div className="desired_profession__work_type">График работы: {resume.resumeInfo.work_type.map((e, i) => e ? workType[i] + ' ' : '')}</div>
             </div>
 
             <div className="work_experiences">
                 <h3 className='section_title'>Опыт работы</h3>
-                {resume.workExperience.map((e) => {
+                {resume.workExperience.length ? resume.workExperience.map((e) => {
                     return (
                         <div className="work_exp row">
                             <div className="work-period col-md-3">
@@ -109,13 +122,14 @@ export default function ResumeCard(props: { company: CompanyType }) {
                                 <div className="work_exp-desc">{e.experience_description}</div>
                             </div>
                         </div>)
-                })}
+                })
+                    : <p>Нет опыта работы</p>}
 
             </div>
 
             <div className="educations">
                 <h3 className='section_title'>Образование</h3>
-                {resume.education.map((e) => {
+                {resume.education.length ? resume.education.map((e) => {
                     return (
                         <div className="education row">
                             <div className="edu-period col-md-3">
@@ -124,12 +138,13 @@ export default function ResumeCard(props: { company: CompanyType }) {
                             <div className="edu_description col-md-6">
                                 <div className="edu-institution">{resume.education[0].institution}</div>
                                 <div className="edu-specialization">{resume.education[0].specialization}</div>
-                                <div className="edu-type">Тип обучения: {resume.education[0].education_type}</div>
+                                {/* <div className="edu-type">Тип обучения: {resume.education[0].education_type}</div> */}
                             </div>
 
                         </div>
                     )
-                })}
+                })
+                    : <p>Нет образованния</p>}
 
             </div>
 

@@ -21,6 +21,7 @@ public class ResumeController : Controller
     public class ResumeCard
     {
         public FullResume resume { set; get; }
+
         public User user { set; get; }
     }
 
@@ -144,11 +145,13 @@ public class ResumeController : Controller
     {
 
         var a = this.Context.resumes.Where((resume) => resume.user_id == user_id);
+        var result = new ResumeCard();
         if (a.Count() == 0)
         {
-            return NoContent();
+            result.user = this.Context.users.Where((user) => user.user_id == user_id).First();
+            new ObjectResult(result);
         }
-        var result = new ResumeCard();
+
         result.resume = new FullResume();
         result.resume.resumeInfo = a.First();
         var ed = this.Context.education.Where((education) => education.resume_id == result.resume.resumeInfo.resume_id);
@@ -157,7 +160,7 @@ public class ResumeController : Controller
         result.resume.workExperience = work.ToArray();
         result.resume.education.ToList().ForEach((e) => e.Resume = null);
         result.resume.workExperience.ToList().ForEach((e) => e.Resume = null);
-        result.user = this.Context.users.Where((user) => user.user_id == user_id).First();
+        result.user = this.Context.users.Where((user) => user.user_id == a.First().user_id).First();
         return new ObjectResult(result);
     }
 
@@ -165,13 +168,13 @@ public class ResumeController : Controller
     public List<Resume> GetResumeList()
     {
         var param = HttpContext.Request.Query;
-        var profession_id = 0;
-        if (param.Keys.Any((e) => e == "profession"))
-            profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
-        else
-            profession_id = Int32.Parse(param["profession_id"]);
+        // var profession_id = 0;
+        // if (param.Keys.Any((e) => e == "profession"))
+        //     profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
+        // else
+        //     profession_id = Int32.Parse(param["profession_id"]);
 
-        var result = this.Context.resumes.Where((resume) => resume.profession_id == profession_id)?.ToList();
+        var result = this.Context.resumes.Where((resume) => resume.profession_id == Int32.Parse(param["profession_id"]))?.ToList();
         if (param["city"] != "" && result.Count() != 0)
             result = result.Where(resume => resume.city == param["city"]).ToList();
         if (param["education_level"] != "" && result.Count() != 0)

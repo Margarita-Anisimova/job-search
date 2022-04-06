@@ -8,7 +8,7 @@ import MyResponses from "./myResponses";
 import { AccountType, ResumeType, CompanyType } from '../types';
 import Profile from "./Profile";
 import { useSelector } from "react-redux";
-import { createEmptyCompany, createEmptyResume } from '../../exportFunctions'
+import { createEmptyCompany, createEmptyResume, createEmptyAccount } from '../../exportFunctions'
 import VacancyCollections from "./VacancyCollections";
 import ResumeCollections from "./ResumeCollections";
 
@@ -43,17 +43,18 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 if (response.status === 200) {
                     return response.json()
 
-                } else if (response.status === 204) {
-                    return createEmptyCompany(userState.user_id);
                 }
             })
-        await fd(data)
-        props.setCompany(data);
+        props.setAccount(data.user);
+        if (data.company) {
+            await fd(data)
+            props.setCompany(data.company);
+        }
 
     }
 
-    function fd(data: CompanyType) {
-        for (let e of data.vacancies) {
+    function fd(data) {
+        for (let e of data.company.vacancies) {
             e.work_type = e.work_type.split(',')
         }
     }
@@ -64,13 +65,15 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 if (response.status === 200) {
                     return response.json()
 
-                } else if (response.status === 204) {
-                    return createEmptyResume(userState.user_id);
                 }
             })
-        await changeData(data)
-        props.setResume(data.resume);
         props.setAccount(data.user);
+        if (data.resume) {
+            await changeData(data)
+            props.setResume(data.resume);
+        }
+
+
 
     }
 

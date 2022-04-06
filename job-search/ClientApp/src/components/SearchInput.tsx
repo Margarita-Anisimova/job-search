@@ -2,19 +2,23 @@ import React from "react";
 import { useState } from "react";
 import './SearchInput.css';
 
-export default function SearchInput(props: { className: string, name: string, items: string[], handler: any }) {
+export default function SearchInput(props: { className: string, name: string, items: { profession_id: number, profession: string }[], handler: any }) {
 
     const [searchInput, setSearchInput] = useState('');
-    const [displayItems, setDisplayItems] = useState(props.items);
+    const [displayItems, setDisplayItems] = useState<{ profession_id: number, profession: string }[]>(props.items);
 
     function handler(e: any) {
+        props.handler(0)
         setSearchInput(e.target.value)
-        props.handler(e)
         filterItems(e.target.value)
+        if (displayItems.length == 1) {
+            props.handler(displayItems[0].profession_id)
+        }
+
     }
 
     function filterItems(e) {
-        let r = props.items.filter(item => item.startsWith(e))
+        let r = props.items.filter(item => item.profession.startsWith(e))
         setDisplayItems(r);
     }
 
@@ -26,9 +30,9 @@ export default function SearchInput(props: { className: string, name: string, it
         document.querySelectorAll('.searchItems')[0].style.display = 'none'
     }
 
-    function select(item) {
-        setSearchInput(item)
-        props.handler({ name: props.name, value: item })
+    function select(item: { profession_id: number, profession: string }) {
+        setSearchInput(item.profession)
+        props.handler(item.profession_id)
         // blur()
     }
 
@@ -42,13 +46,13 @@ export default function SearchInput(props: { className: string, name: string, it
                 value={searchInput}
                 onChange={handler}
                 type="text"
-                placeholder="Город"
+                placeholder="Введите профессию"
             />
             <div>
                 <ul className='searchItems'>
                     {displayItems.map((item, i) => {
                         return i < 5 ?
-                            <li onMouseDown={(e) => select(item)}>{item}</li>
+                            <li onMouseDown={(e) => select(item)}>{item.profession}</li>
                             : null
                     })}
                 </ul>

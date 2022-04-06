@@ -41,18 +41,21 @@ function VacancyCollections(props: { resume: ResumeType }) {
 
     return (
         <div>
-            {vacancies.map((res) => {
-                return (
-                    <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
-                        <div className="card__container">
-                            <p className='card__subtitle'>{res.position}</p>
-                            <p className='card__subtitle'>{res.work_address}</p>
-                            <p className='card__desc'>Опыт {res.work_experience}</p>
-                            <p className='card__address'>{res.desired_salary} </p>
-                        </div>
-                    </NavLink>
-                )
-            })}
+            {
+                vacancies.length ?
+                    vacancies.map((res) => {
+                        return (
+                            <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
+                                <div className="card__container">
+                                    <p className='card__subtitle'>{res.position}</p>
+                                    <p className='card__subtitle'>{res.work_address}</p>
+                                    <p className='card__desc'>Опыт {res.work_experience}</p>
+                                    <p className='card__address'>{res.desired_salary} </p>
+                                </div>
+                            </NavLink>
+                        )
+                    })
+                    : <p>Не найдено подходящих вакансий</p>}
         </div >
     );
 }

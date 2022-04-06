@@ -21,13 +21,14 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
 
     return (
         <div>
-            <div className="user_resumes_container resumeCard">
-                <p> {props.company.companyInfo.fullname}</p>
-                <p>{props.company.companyInfo.city}</p>
-                <p>{props.company.companyInfo.email}</p>
-                <NavLink tag={Link} to='/company'>Редактировать</NavLink>
-            </div>
-
+            {props.company.companyInfo.fullname ?
+                <div className="user_resumes_container resumeCard">
+                    <p> {props.company.companyInfo.fullname}</p>
+                    <p>{props.company.companyInfo.city}</p>
+                    <p>{props.company.companyInfo.email}</p>
+                    <NavLink tag={Link} to='/company'>Редактировать</NavLink>
+                </div>
+                : <NavLink tag={Link} to='/company'>Создать компанию</NavLink>}
             <NavLink tag={Link} to={'/vacancy/' + props.company.vacancies.length} >Добавить вакансию</NavLink>
             {props.company.vacancies.map((vacancy, i) => {
                 return <div className='resumeCard'>
@@ -35,7 +36,7 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
                     <p>{vacancy.salary}</p>
                     <p>{vacancy.work_address}</p>
                     <button onClick={() => navigate('/vacancy/' + i)} className="resumeButton">Редактировать</button>
-                    <button onClick={() => deleteVacansy(i)} className="resumeButton">Удалить</button>
+                    {/* <button onClick={() => deleteVacansy(i)} className="resumeButton">Удалить</button> */}
                 </div>
             })}
         </div>

@@ -36,7 +36,7 @@ function ResumeCollections(props: { company?: CompanyType }) {
             const filters = {
                 profession_id: vacancy.profession_id,
                 city: props.company.companyInfo.city,
-                education_level: vacancy.education_type,
+                education_level: vacancy.education_level,
                 salary: vacancy.salary,
                 work_experience: vacancy.work_experience,
                 work_type: vacancy.work_type,
@@ -50,14 +50,14 @@ function ResumeCollections(props: { company?: CompanyType }) {
             <div>
                 {props.company.vacancies.map((res) => {
                     return (
-                        <div onClick={() => showResumeCollect(res)}>
+                        <a onClick={() => showResumeCollect(res)}>
                             <div className="card__container">
                                 <p className='card__subtitle'>{res.position}</p>
                                 <p className='card__subtitle'>{res.work_address}</p>
                                 <p className='card__desc'>Опыт {res.work_experience}</p>
                                 <p className='card__address'>{res.salary} </p>
                             </div>
-                        </div>
+                        </a>
                     )
                 })}
             </div>

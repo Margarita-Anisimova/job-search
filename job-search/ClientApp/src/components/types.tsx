@@ -74,7 +74,7 @@ export type VacancyType = {
     position: string;
     profession_id: number;
     work_experience: string;
-    education_type: string;
+    education_level: string;
     salary: string;
     work_type: boolean[];
     work_address: string;

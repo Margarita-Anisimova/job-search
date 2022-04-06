@@ -15,7 +15,7 @@ import { AccountType, ResumeType, CompanyType } from './components/types';
 
 
 import './custom.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavMenu from './components/NavMenu';
 import Company from './components/companyForm/Company';
 import ResumeCard from './components/ResumeCard';
@@ -28,13 +28,26 @@ function App() {
     const [account, setAccount] = useState<AccountType>(createEmptyAccount())
     const [resume, setResume] = useState<ResumeType>(createEmptyResume())
     const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
+    const [professionList, setProfessionList] = useState<{ profession_id: number, profession: string }[]>([])
+
+    useEffect(() => {
+        if (!professionList.length) {
+            getprofessions()
+        }
+    })
+
+    async function getprofessions() {
+        const response = await fetch(`profession`)
+        const data = await response.json();
+        setProfessionList(data)
+    }
+
 
     return (
-        // <Check></Check> 
         <BrowserRouter>
             <NavMenu account={account} setAccount={setAccount} setPageType={setPageType} />
             <Routes>
-                <Route path='/' element={<Home pageType={pageType} accountType={account.user_type} />} />
+                <Route path='/' element={<Home professionList={professionList} pageType={pageType} accountType={account.user_type} />} />
                 <Route path='/registration' element={<Registration setResume={setResume} account={account} setAccount={setAccount} setPageType={setPageType} accountType={account.user_type} />} />
                 <Route path='/account' element={<Account setAccount={setAccount} setResume={setResume} setCompany={setCompany} account={account} resume={resume} company={company} />} />
                 <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
