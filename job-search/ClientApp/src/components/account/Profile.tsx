@@ -9,8 +9,9 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CompanyProfile from "./CompanyProfile";
 import { useSelector } from "react-redux";
+import { createEmptyCompany, createEmptyResume, createEmptyAccount } from '../../exportFunctions'
 
-export default function Profile(props: { account: AccountType, resume: ResumeType, company: CompanyType, setCompany: any }) {
+export default function Profile(props: { account: AccountType, setResume: any, resume: ResumeType, company: CompanyType, setCompany: any }) {
 
     const navigate = useNavigate();
     // const userState = useSelector((state: any) => state.userState.userState)
@@ -21,6 +22,18 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
 
     const [company, setcompany] = useState(props.company);
 
+    async function deleteResume() {
+
+        const response = await fetch('resume', {
+            method: 'DELETE',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(props.resume.resumeInfo.resume_id)
+        })
+        props.setResume(createEmptyResume())
+    }
 
 
     return (
@@ -47,7 +60,7 @@ export default function Profile(props: { account: AccountType, resume: ResumeTyp
 
                                 <div className="resumeButtons">
                                     <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
-                                    {/* <button className="resumeButton">Скрыть</button> */}
+                                    <button onClick={() => deleteResume()} className="resumeButton">Удалить</button>
                                 </div>
                             </div>
                             : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>

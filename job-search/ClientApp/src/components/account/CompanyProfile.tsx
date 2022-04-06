@@ -13,10 +13,24 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
 
     const navigate = useNavigate();
 
-    function deleteVacansy(i: number) {
+    function updataVacansyList(i: number) {
         let arr = props.company.vacancies.slice();
         arr.splice(i, 1);
         props.setCompany({ ...props.company, vacancies: arr })
+    }
+
+
+    async function deleteVacansy(id, i) {
+
+        const response = await fetch('vacancy', {
+            method: 'DELETE',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(id)
+        })
+        updataVacansyList(i)
     }
 
     return (
@@ -36,7 +50,7 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
                     <p>{vacancy.salary}</p>
                     <p>{vacancy.work_address}</p>
                     <button onClick={() => navigate('/vacancy/' + i)} className="resumeButton">Редактировать</button>
-                    {/* <button onClick={() => deleteVacansy(i)} className="resumeButton">Удалить</button> */}
+                    <button onClick={() => deleteVacansy(vacancy.vacancy_id, i)} className="resumeButton">Удалить</button>
                 </div>
             })}
         </div>

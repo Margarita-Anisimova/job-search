@@ -61,7 +61,7 @@ export default function NavMenu(props: { account: AccountType, setAccount: any; 
 
     function out() {
         props.setAccount({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '', user_type: 'noRegistered' })
-        dispatch(changeUser({ user_id: 0, user_type: 'noRegistered' }))
+        dispatch(changeUser({ user_id: 0, user_type: 'noRegistered', fullemployer: false }))
 
     }
 

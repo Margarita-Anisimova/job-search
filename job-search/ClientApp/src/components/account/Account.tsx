@@ -7,10 +7,11 @@ import "./Account.css"
 import MyResponses from "./myResponses";
 import { AccountType, ResumeType, CompanyType } from '../types';
 import Profile from "./Profile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createEmptyCompany, createEmptyResume, createEmptyAccount } from '../../exportFunctions'
 import VacancyCollections from "./VacancyCollections";
 import ResumeCollections from "./ResumeCollections";
+import { changeUser } from "../../app/userStateReducer";
 
 function Account(props: { resume: ResumeType, setResume: any, setAccount: any, account: AccountType, company: CompanyType, setCompany: any, }) {
 
@@ -22,7 +23,7 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
     const navigate = useNavigate();
 
     const [page, setPage] = useState<PageType>('profile');
-
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (userState.user_type === 'applicant' && props.resume.resumeInfo.user_id !== userState.user_id) {
@@ -49,6 +50,7 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
         if (data.company) {
             await fd(data)
             props.setCompany(data.company);
+            dispatch(changeUser({ user_id: userState.user_id, user_type: userState.user_type, fullemployer: true }))
         }
 
     }
@@ -91,7 +93,7 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
     function createPage() {
         switch (page) {
             case 'profile': {
-                return <Profile setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
+                return <Profile setResume={props.setResume} setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
             }
             case 'resumeResponses': {
                 return (<ResumeResponses resume={props.resume} company={props.company}></ResumeResponses>)
@@ -115,9 +117,11 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 <button onClick={() => setPage('profile')}>Профиль</button>
                 {/* <button onClick={() => setPage('resumeResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
                 {userState.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null} */}
-                {userState.user_type === 'applicant' ?
-                    <button onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button>
-                    : <button onClick={() => setPage('resumeCollections')}>Подборки резюме</button>}
+                {
+                    userState.user_type === 'applicant' ?
+                        props.resume.resumeInfo.city ? <button onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
+                        :
+                        props.company.vacancies.length ? <button onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
             </div>
             {createPage()}
         </div>

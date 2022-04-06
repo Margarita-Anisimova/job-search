@@ -6,6 +6,7 @@ import { EducationType, ResumeType, WorkExpirienceType, CompanyType, AccountType
 import { useLocation } from 'react-router-dom';
 import { createEmptyAccount, createEmptyResume } from '../exportFunctions';
 import { Redirect } from 'react-router';
+import { useSelector } from 'react-redux';
 
 
 export default function ResumeCard(props: { company: CompanyType }) {
@@ -72,6 +73,14 @@ export default function ResumeCard(props: { company: CompanyType }) {
             })
         })
     }
+    const userState = useSelector((state: any) => state.userState.userState)
+    function checkUser(e) {
+        if (userState.user_type != 'employer' || !userState.fullemployer) {
+            alert('Контакты доступны только работодателям, создавшим компанию!!!')
+        } else {
+            setIsContacts(true)
+        }
+    }
 
     return (
         <div className="container resumecard__container">
@@ -87,7 +96,7 @@ export default function ResumeCard(props: { company: CompanyType }) {
                 </div>
                 <div className="resumecard__title-buttons col-md-3">
                     {/* <button className='button resumecard__btn'>Отправить отклик</button> */}
-                    <button onClick={() => setIsContacts(true)} className='resumecard__btn-light'>Показать контакты</button>
+                    <button onClick={() => checkUser()} className='resumecard__btn-light'>Показать контакты</button>
                     {IsContacts ?
                         <div className="resumecard__title-maininfo col-md-4">
                             {account.phoneNumber ?

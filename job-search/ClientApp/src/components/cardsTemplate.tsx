@@ -5,18 +5,19 @@ import { NavLink } from "reactstrap";
 
 
 
-function checkUser(e) {
-    const userState = useSelector((state: any) => state.userState.userState)
-    if (userState.user_type != 'employer') {
-        alert('Полные резюме доступны только зарегистрированным работадателям')
-        e.preventDefault()
-    }
-}
+// function checkUser(e) {
+//     const userState = useSelector((state: any) => state.userState.userState)
+//     if (userState.user_type != 'employer') {
+//         alert('Полные резюме доступны только зарегистрированным работадателям')
+//         e.preventDefault()
+//     }
+// }
 
 export function getResumeCards(resumes) {
     return resumes.length ? resumes.map((res) => {
         return (
-            <NavLink target="_blank" rel="noopener noreferrer" onClick={(e) => checkUser(e)} tag={Link} to={"/resumecard/" + res.user_id} >
+            // onClick={(e) => checkUser(e)}
+            <NavLink target="_blank" rel="noopener noreferrer"  tag={Link} to={"/resumecard/" + res.user_id} >
                 <div className="card__container">
                     <p className='card__subtitle'>{res.desired_position}</p>
                     <p className='card__subtitle'>Опыт {res.work_experience}</p>

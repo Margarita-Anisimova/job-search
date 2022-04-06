@@ -141,6 +141,7 @@ public class ResumeController : Controller
 
     [Route("{user_id}")]
     [HttpGet]
+
     public IActionResult Get(int user_id)
     {
 
@@ -149,7 +150,7 @@ public class ResumeController : Controller
         if (a.Count() == 0)
         {
             result.user = this.Context.users.Where((user) => user.user_id == user_id).First();
-            new ObjectResult(result);
+            return new ObjectResult(result);
         }
 
         result.resume = new FullResume();
@@ -211,7 +212,19 @@ public class ResumeController : Controller
         return result;
     }
 
+    [HttpDelete]
 
+    public void Delete([FromBody] int resume_id)
+    {
+        var ed = this.Context.education.Where((res) => res.resume_id == resume_id);
+        var we = this.Context.work_experience.Where((res) => res.resume_id == resume_id);
+        var res = this.Context.resumes.Where((res) => res.resume_id == resume_id).First();
+        this.Context.education.RemoveRange(ed);
+        this.Context.work_experience.RemoveRange(we);
+        this.Context.resumes.Remove(res);
+        this.Context.SaveChanges();
+
+    }
 }
 
 //var fi = typeof(Resume).GetField(p.Key);

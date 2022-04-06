@@ -69,7 +69,7 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
             })
         if (data) {
             props.setAccount(data)
-            dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
+            dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type, fullemployer: false }))
             document.cookie = await `user=` + encodeURIComponent(data.user_id)
             navigate('/');
         }
@@ -120,7 +120,7 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
             body: JSON.stringify({ ...formInfo, password: crypto(formInfo.password), user_type: userType.value })
         })
         const data = await response.json();
-        dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
+        dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type, fullemployer: false }))
         //   props.setAccount({ ...props.account, user_id: data.user_id })
     }
 
@@ -131,7 +131,7 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
             props.setAccount({ ...createEmptyAccount(), ...formInfo, user_type: userType.value })
             props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
             postNewUser();
-            dispatch(changeUser({ user_id: 0, user_type: userType.value }))
+            dispatch(changeUser({ user_id: 0, user_type: userType.value, fullemployer: false }))
             userType.value === "applicant" ?
                 navigate('/resume')
                 : navigate('/company');
