@@ -45,7 +45,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <NavMenu account={account} setAccount={setAccount} setPageType={setPageType} />
+            <NavMenu account={account} setAccount={setAccount} setResume={setResume} setCompany={setCompany} setPageType={setPageType} />
             <Routes>
                 <Route path='/' element={<Home professionList={professionList} pageType={pageType} accountType={account.user_type} />} />
                 <Route path='/registration' element={<Registration setResume={setResume} account={account} setAccount={setAccount} setPageType={setPageType} accountType={account.user_type} />} />
