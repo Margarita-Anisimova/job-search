@@ -91,7 +91,7 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
     function createPage() {
         switch (page) {
             case 'profile': {
-                return <Profile setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
+                return <Profile setResume={props.setResume} setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
             }
             case 'resumeResponses': {
                 return (<ResumeResponses resume={props.resume} company={props.company}></ResumeResponses>)
@@ -115,9 +115,11 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 <button onClick={() => setPage('profile')}>Профиль</button>
                 {/* <button onClick={() => setPage('resumeResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
                 {userState.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null} */}
-                {userState.user_type === 'applicant' ?
-                    <button onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button>
-                    : <button onClick={() => setPage('resumeCollections')}>Подборки резюме</button>}
+                {
+                    userState.user_type === 'applicant' ?
+                        props.resume.resumeInfo.city ? <button onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
+                        :
+                        props.company.vacancies.length ? <button onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
             </div>
             {createPage()}
         </div>

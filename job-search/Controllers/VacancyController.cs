@@ -102,4 +102,14 @@ public class VacancyController : Controller
         return new ObjectResult(result);
     }
 
+    [HttpDelete]
+
+    public void Delete([FromBody] int vacancy_id)
+    {
+        var ed = this.Context.vacancies.Where((res) => res.vacancy_id == vacancy_id).First();
+        this.Context.vacancies.Remove(ed);
+        this.Context.SaveChanges();
+
+    }
+
 }
