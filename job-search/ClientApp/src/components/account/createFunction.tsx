@@ -4,8 +4,8 @@ import React from "react";
 export function createTextInputs(arr: { tag: string, name: string, value: string, required: boolean }[], handlerFunc: any) {
     let a: any[] = []
     arr.map((e) => {
-        // e.required ? a.push(<label><div>{e.name}<span className="red">*</span></div></label>) : a.push(<label>{e.name}</label>);
-        a.push(<label>{e.name}</label>)
+        e.required ? a.push(<label><div>{e.name}<span className="red">*</span></div></label>) : a.push(<label>{e.name}</label>);
+        // a.push(<label>{e.name}</label>)
         //  
         a.push(<input value={e.value} required={e.required} onChange={(element) => handlerFunc(element)} name={e.tag} type='text'></input>)
     })

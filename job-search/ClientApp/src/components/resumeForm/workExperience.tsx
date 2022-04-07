@@ -54,7 +54,7 @@ export default function WorkExperience(props: { resume: ResumeType, setResume: a
                             {createTextInputs([
                                 { tag: 'company', name: 'Компания', value: props.resume.workExperience[i].company, required: true },
                                 { value: props.resume.workExperience[i].post, name: 'Должность', tag: 'post', required: true }], handler)}
-                            <label>Годы работы</label>
+                            <label><div>Годы работы<span className="red">*</span></div></label>
                             <div className='data_container'>
                                 <input className='data_input' value={props.resume.workExperience[i].date_start} required placeholder='Год начала'
                                     onChange={(e) => handler(e)} min={(new Date()).getFullYear() - 80} max={(new Date()).getFullYear()}
