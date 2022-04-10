@@ -6,7 +6,7 @@ export function createEmptyAccount(): AccountType {
         email: '',
         f_name: '',
         l_name: '',
-        phoneNumber: '',
+        phone_number: '',
         user_type: 'noRegistered',
         password: '',
         user_id: 0

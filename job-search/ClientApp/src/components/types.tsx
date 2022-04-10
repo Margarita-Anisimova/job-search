@@ -5,7 +5,7 @@ export type AccountType = {
     email: string;
     f_name: string;
     l_name: string;
-    phoneNumber: string;
+    phone_number: string;
     user_type: string;
 
     password: string;

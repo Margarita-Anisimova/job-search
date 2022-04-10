@@ -30,7 +30,7 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
     }
 
     useEffect(() => {
-        if (props.accountType != 'noRegistered') {
+        if (userState.user_type != 'noRegistered') {
             navigate('/')
         }
         document.querySelectorAll('.usererrormessage')[0].style.display = 'none';

@@ -49,7 +49,7 @@ public class VacancyController : Controller
         if (param["city"] != "" && result.Count() != 0)
             result = result
             .Where(vacancy => this.Context.companies.Where((c) => c.company_id == vacancy.company_id).First().city == param["city"]).ToList();
-        if (param["education_level"] != "" && result.Count() != 0)
+        if (param["education_level"] != "Нет образования" && result.Count() != 0)
             result = result.Where(vacancy => vacancy.education_level == param["education_level"]).ToList();
         if (param["work_experience"] != "" && result.Count() != 0)
             result = result.Where(vacancy =>

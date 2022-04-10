@@ -31,8 +31,8 @@ function ResumeCollections(props: { company?: CompanyType }) {
     }
 
     function showResumeCollect(vacancy) {
-        setStatus(!status)
-        if (status) {
+
+        if (!status) {
             const filters = {
                 profession_id: vacancy.profession_id,
                 city: props.company.companyInfo.city,
@@ -43,6 +43,7 @@ function ResumeCollections(props: { company?: CompanyType }) {
             }
             getResumes(filters)
         }
+        setStatus(!status)
     }
 
     return (
@@ -51,13 +52,13 @@ function ResumeCollections(props: { company?: CompanyType }) {
                 {props.company.vacancies.map((res) => {
                     return (
                         // <a onClick={() => showResumeCollect(res)}>
-                            <div className="card__container">
-                                <p className='card__title'>{res.position}</p>
-                                <p className='card__subtitle'>{res.work_address}</p>
-                                <p className='card__desc'>Опыт {res.work_experience}</p>
-                                <p className='card__address'>{res.salary} </p>
-                                <button className="light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
-                            </div>
+                        <div className="card__container">
+                            <p className='card__title'>{res.position}</p>
+                            <p className='card__subtitle'>{res.work_address}</p>
+                            <p className='card__desc'>Опыт {res.work_experience}</p>
+                            <p className='card__address'>{res.salary} </p>
+                            <button className="light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
+                        </div>
                         // </a>
                     )
                 })}

@@ -6,9 +6,10 @@ import '../custom.css';
 import { AccountType } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUser } from "../app/userStateReducer";
+import { createEmptyAccount, createEmptyResume, createEmptyCompany } from '../exportFunctions';
 
+export default function NavMenu(props: { account: AccountType, setResume: any; setCompany: any; setAccount: any; setPageType: any; }) {
 
-export default function NavMenu(props: { account: AccountType, setAccount: any; setPageType: any; }) {
 
     const userState = useSelector((state: any) => state.userState.userState)
     const dispatch = useDispatch();
@@ -60,7 +61,10 @@ export default function NavMenu(props: { account: AccountType, setAccount: any; 
     }
 
     function out() {
-        props.setAccount({ email: '', password: '', f_name: '', l_name: '', phoneNumber: '', user_type: 'noRegistered' })
+        props.setAccount(createEmptyAccount())
+        props.setResume(createEmptyResume())
+        props.setCompany(createEmptyCompany())
+
         dispatch(changeUser({ user_id: 0, user_type: 'noRegistered', fullemployer: false }))
 
     }

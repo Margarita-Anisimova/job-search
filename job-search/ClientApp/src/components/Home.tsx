@@ -20,7 +20,7 @@ export default function Home(props: { professionList: any, accountType: string; 
   const [filters, setFilters] = useState({
     profession_id: 0,
     city: '',
-    education_level: '',
+    education_level: 'Нет образования',
     salary: '',
     work_experience: '',
     work_type: [false, false, false, false, false],

@@ -42,7 +42,7 @@ export default function Profile(props: { account: AccountType, setResume: any, r
                 <img src={img} className='avatar'></img>
                 <div className="userDescription">
                     <p className="username">{props.account.l_name + ' ' + props.account.f_name}</p>
-                    <p>{props.account.phoneNumber ? props.account.phoneNumber : null}</p>
+                    <p>{props.account.phone_number ? props.account.phone_number : null}</p>
                     <p>{props.account.email}</p>
                 </div>
 

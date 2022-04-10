@@ -99,8 +99,8 @@ export default function ResumeCard(props: { company: CompanyType }) {
                     <button onClick={() => checkUser()} className='resumecard__btn-light'>Показать контакты</button>
                     {IsContacts ?
                         <div className="resumecard__title-maininfo col-md-4">
-                            {account.phoneNumber ?
-                                <div className="user_name">{account.phoneNumber}</div>
+                            {account.phone_number ?
+                                <div className="user_name">{account.phone_number}</div>
                                 : null}
                             <div className="user_birthday">{account.email}</div>
                         </div>

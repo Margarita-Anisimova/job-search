@@ -178,7 +178,7 @@ public class ResumeController : Controller
         var result = this.Context.resumes.Where((resume) => resume.profession_id == Int32.Parse(param["profession_id"]))?.ToList();
         if (param["city"] != "" && result.Count() != 0)
             result = result.Where(resume => resume.city == param["city"]).ToList();
-        if (param["education_level"] != "" && result.Count() != 0)
+        if (param["education_level"] != "Нет образования" && result.Count() != 0)
             result = result.Where(resume => resume.education_level == param["education_level"]).ToList();
 
         if (param["work_experience"] != "без опыта" && param["work_experience"] != "" && result.Count() != 0)
