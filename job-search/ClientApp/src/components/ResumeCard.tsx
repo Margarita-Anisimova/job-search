@@ -6,6 +6,7 @@ import { EducationType, ResumeType, WorkExpirienceType, CompanyType, AccountType
 import { useLocation } from 'react-router-dom';
 import { createEmptyAccount, createEmptyResume } from '../exportFunctions';
 import { Redirect } from 'react-router';
+import img from './account/pgfFnQm.jpg'
 import { useSelector } from 'react-redux';
 
 
@@ -86,7 +87,7 @@ export default function ResumeCard(props: { company: CompanyType }) {
         <div className="container resumecard__container">
             <div className="resumecard__title row">
                 <div className="resumecard__title-img col-md-2">
-                    <img src="https://static.planetminecraft.com/files/avatar/1268532_1.png" />
+                    <img src={img} />
                 </div>
                 <div className="resumecard__title-maininfo col-md-4">
                     <div className="user_name">{account.f_name + ' ' + account.l_name}</div>
