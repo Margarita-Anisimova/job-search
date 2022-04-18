@@ -6,38 +6,37 @@ import { AccountType, CompanyType } from '../types';
 
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCompanyInfo } from "../../app/companyStateReducer";
 
-function Company(props: { account: AccountType, setCompany: any, company: CompanyType }) {
+function Company() {
+    const userState: AccountType = useSelector((state: any) => state.userState.userState)
+    const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
+    const dispatch = useDispatch();
 
-
-    const userState = useSelector((state: any) => state.userState.userState)
     function handler(e: any) {
-        props.setCompany({ ...props.company, companyInfo: { ...props.company.companyInfo, [e.target.name]: e.target.value } });
+        dispatch(changeCompanyInfo({ name: e.target.name, value: e.target.value }))
     }
 
     const commonInfoInputs = [
-        { tag: 'fullname', name: 'Название компании', value: props.company.companyInfo.fullname, required: true },
-        { tag: 'city', name: 'Город', value: props.company.companyInfo.city, required: true },
-        { tag: 'contact_face', name: 'Контактное лицо', value: props.company.companyInfo.contact_face, required: false },
+        { tag: 'fullname', name: 'Название компании', value: companyState.companyInfo.fullname, required: true },
+        { tag: 'city', name: 'Город', value: companyState.companyInfo.city, required: true },
+        { tag: 'contact_face', name: 'Контактное лицо', value: companyState.companyInfo.contact_face, required: false },
     ]
 
-    function save(e) {
-        // props.setCompany(commonInfo);
-        // console.log(commonInfo);
+    function save(e: any) {
         let form = document.querySelectorAll("form")[0]
         let a = form.checkValidity()
         if (!a) {
             form.reportValidity()
             e.preventDefault()
         } else {
-            if (props.company.companyInfo.company_id === 0) {
+            if (companyState.companyInfo.company_id === 0) {
                 postNewCompany();
             } else {
                 putCompany();
             }
         }
-
     }
 
     async function putCompany() {
@@ -47,22 +46,23 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify(props.company.companyInfo)
+            body: JSON.stringify(companyState.companyInfo)
         })
     }
 
     async function postNewCompany() {
-        let a = { ...props.company.companyInfo, user_id: userState.user_id }
-        const response = await fetch('company', {
+        dispatch(changeCompanyInfo({ name: 'user_id', value: userState.user_id }))
+        await fetch('company', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify(a)
+            body: JSON.stringify(companyState.companyInfo)
+        }).then((response) => {
+            const data = response.json();
+            dispatch(changeCompanyInfo({ name: 'company_id', value: data }))
         })
-        const data = await response.json();
-        await props.setCompany({ ...props.company, companyInfo: { ...props.company.companyInfo, company_id: data } })
     }
 
     return (
@@ -74,12 +74,12 @@ function Company(props: { account: AccountType, setCompany: any, company: Compan
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
                             <label><div>Электронная почта<span className="red">*</span></div></label>
-                            <input value={props.company.companyInfo.email} onChange={handler} required type="email" name='email'></input>
+                            <input value={companyState.companyInfo.email} onChange={handler} required type="email" name='email'></input>
                             <label>Телефон</label>
-                            <input value={props.company.companyInfo.phone} onChange={handler} title='Номер телефона должен состоять из 11 цифр' pattern="[0-9]{11}" type="phoneNumber" name='phone'></input>
+                            <input value={companyState.companyInfo.phone} onChange={handler} title='Номер телефона должен состоять из 11 цифр' pattern="[0-9]{11}" type="phoneNumber" name='phone'></input>
 
                             <label>Дополнительное описание</label>
-                            <textarea name="description" value={props.company.companyInfo.description} onChange={(e) => handler(e)} maxLength="200"></textarea>
+                            <textarea name="description" value={companyState.companyInfo.description} onChange={(e) => handler(e)} maxLength={200}></textarea>
                         </div>
                     </section>
                     <div className="button-form">

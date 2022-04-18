@@ -6,14 +6,13 @@ import { createTextInputs, createSelectsContainer } from './createFunction'
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
-import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
+import { AccountType, CompanyType, VacancyType, ResumeType } from '../types';
 import { useSelector } from "react-redux";
 import "./Account.css"
 
-function ResumeCollections(props: { company?: CompanyType }) {
+function ResumeCollections() {
     const navigate = useNavigate();
-
-    const userState = useSelector((state: any) => state.userState.userState)
+    const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
     useEffect(() => {
     })
 
@@ -30,12 +29,12 @@ function ResumeCollections(props: { company?: CompanyType }) {
         setResumes(data);
     }
 
-    function showResumeCollect(vacancy) {
+    function showResumeCollect(vacancy: VacancyType) {
 
         if (!status) {
             const filters = {
                 profession_id: vacancy.profession_id,
-                city: props.company.companyInfo.city,
+                city: companyState.companyInfo.city,
                 education_level: vacancy.education_level,
                 salary: vacancy.salary,
                 work_experience: vacancy.work_experience,
@@ -49,7 +48,7 @@ function ResumeCollections(props: { company?: CompanyType }) {
     return (
         <div className='container1'>
             <div>
-                {props.company.vacancies.map((res) => {
+                {companyState.vacancies.map((res: VacancyType) => {
                     return (
                         // <a onClick={() => showResumeCollect(res)}>
                         <div className="card__container">

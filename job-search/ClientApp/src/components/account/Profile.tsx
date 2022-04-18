@@ -8,42 +8,37 @@ import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CompanyProfile from "./CompanyProfile";
-import { useSelector } from "react-redux";
-import { createEmptyCompany, createEmptyResume, createEmptyAccount } from '../../exportFunctions'
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Profile(props: { account: AccountType, setResume: any, resume: ResumeType, company: CompanyType, setCompany: any }) {
+import { createEmptyCompany, createEmptyResume, createEmptyAccount } from '../../exportFunctions'
+import { deleteResume } from "../baseconnect";
+import { changeResume } from "../../app/resumeStateReducer";
+
+export default function Profile() {
 
     const navigate = useNavigate();
-    // const userState = useSelector((state: any) => state.userState.userState)
-    const userState = useSelector((state: any) => state.userState.userState)
+    const userState: AccountType = useSelector((state: any) => state.userState.userState)
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+
+    const dispatch = useDispatch();
+
     function getAge() {
-        return (new Date()).getFullYear() - parseInt(props.resume.resumeInfo.birth_date.split(':')[2])
+        return (new Date()).getFullYear() - parseInt(resumeState.resumeInfo.birth_date.split(':')[2])
     }
 
-    const [company, setcompany] = useState(props.company);
-
-    async function deleteResume() {
-
-        const response = await fetch('resume', {
-            method: 'DELETE',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: "same-origin",
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify(props.resume.resumeInfo.resume_id)
-        })
-        props.setResume(createEmptyResume())
+    function delResume() {
+        deleteResume(resumeState.resumeInfo.resume_id)
+        dispatch(changeResume({ resumeState: createEmptyResume() }))
     }
-
 
     return (
         <div className='pofile_container'>
             <div className="mainInfo">
                 <img src={img} className='avatar'></img>
                 <div className="userDescription">
-                    <p className="username">{props.account.l_name + ' ' + props.account.f_name}</p>
-                    <p>{props.account.phone_number ? props.account.phone_number : null}</p>
-                    <p>{props.account.email}</p>
+                    <p className="username">{userState.l_name + ' ' + userState.f_name}</p>
+                    <p>{userState.phone_number ? userState.phone_number : null}</p>
+                    <p>{userState.email}</p>
                 </div>
 
                 <NavLink tag={Link} to='/accountInfo'> Редактировать профиль</NavLink>
@@ -52,56 +47,21 @@ export default function Profile(props: { account: AccountType, setResume: any, r
                 //вынести в отдельный компанент ????
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
-                        {/* <p><b>Резюме</b></p> */}
                         <p className="profile_sect-title">Мое резюме</p>
-                        {props.resume.resumeInfo.city ?
+                        {resumeState.resumeInfo.city ?
                             <div className="resumeCard">
-                                <p style={{ color: '#F88500', fontSize: '20px' }}>{props.resume.resumeInfo.desired_position}</p>
-                                <p>{props.resume.resumeInfo.desired_salary}</p>
+                                <p style={{ color: '#F88500', fontSize: '20px' }}>{resumeState.resumeInfo.desired_position}</p>
+                                <p>{resumeState.resumeInfo.desired_salary}</p>
 
                                 <div className="resumeButtons">
                                     <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
-                                    <button onClick={() => deleteResume()} className="resumeButton">Удалить</button>
+                                    <button onClick={() => delResume()} className="resumeButton">Удалить</button>
                                 </div>
                             </div>
                             : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
                         }
                     </div>
-                    : <CompanyProfile setCompany={props.setCompany} company={props.company}></CompanyProfile>}
-            {/* {props.account.user_type != 'employer' ?
-                <div className="user_resumes_container">
-                <p><b>Резюме</b></p>
-                {props.resume.profession ?
-                    <div className="resumeCard">
-                        <p style={{ color: 'orange', fontSize: '20px' }}>{props.resume.desired_position}</p>
-                        <p>{props.resume.desired_salary}</p>
-
-                        <div className="resumeButtons">
-                            <button className="resumeButton">Редактировать</button>
-                            <button className="resumeButton">Удалить</button>
-                        </div>
-                    </div>
-                    : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
-                }
-                </div>
-                :
-                <div className="user_company">
-                    <p><b>Моя компания</b></p>
-                    {company.fullname ?
-                        <div className="company_card">
-                            <p style={{ color: 'orange', fontSize: '20px' }}>{company.fullname}</p>
-                            <p>{company.city}</p>
-
-                            <div className="resumeButtons">
-                                <button className="resumeButton">Редактировать</button>
-                            </div>
-                        </div>
-                        : <NavLink tag={Link} to='/company'>Создать компанию</NavLink>
-                    }
-
-                </div>
-            } */}
-
+                    : <CompanyProfile></CompanyProfile>}
         </div >
     );
 }

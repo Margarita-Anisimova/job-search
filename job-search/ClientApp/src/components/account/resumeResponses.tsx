@@ -6,7 +6,7 @@ import img from './pgfFnQm.jpg'
 import { AccountType, ResumeType, CompanyType } from '../types';
 import { useSelector } from "react-redux";
 
-export default function ResumeResponses(props: { resume: ResumeType, company: CompanyType }) {
+export default function ResumeResponses() {
 
     type ResponseType = {
         company_id: string;

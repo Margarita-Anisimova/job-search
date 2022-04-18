@@ -13,16 +13,18 @@ import { useNavigate } from 'react-router-dom'
 import { ResumeType } from '../types';
 import { createEmptyResume } from '../../exportFunctions';
 import { createTextInputs, createSelectsContainer } from '../account/createFunction'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeResume, changeResumeProperty } from "../../app/resumeStateReducer";
 
 
 
-function Resume(props: { setResume: any, resume: ResumeType }) {
+function Resume() {
     // добавить обработчики для выборок ????
     const navigate = useNavigate();
-    // const [resumeInfo, setResumeInfo] = useState(props.resume);
-    const userState = useSelector((state: any) => state.userState.userState)
-    //const [birth_date, setbirth_date] = userState.user_type === 'applicant' ? useState(props.resume.resumeInfo.birth_date.split(':')) : useState([''])
+    const userState: AccountType = useSelector((state: any) => state.userState.userState)
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+    //const [birth_date, setbirth_date] = userState.user_type === 'applicant' ? useState(resumeState.resumeInfo.birth_date.split(':')) : useState([''])
+    const dispatch = useDispatch();
 
     useEffect(() => {
 
@@ -30,30 +32,29 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
         //     navigate('/')
         // }
 
-        document.getElementsByClassName(props.resume.resumeInfo.gender)[0].defaultChecked = true;
+        document.getElementsByClassName(resumeState.resumeInfo.gender)[0].defaultChecked = true;
     })
 
     function handler(e: any) {
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, [e.target.name]: e.target.value } });
-
+        dispatch(changeResumeProperty({ propertyName: e.target.name, property: e.target.value }))
     }
 
-    function handlerData(e: any) {
-        let r = props.resume.resumeInfo.birth_date.split(':');
-        switch (e.target.name) {
-            case 'birth_day':
-                r[0] = e.target.value;
-                break
-            case 'birth_year':
-                r[2] = e.target.value;
-                break
-            case 'birth_month':
-                r[1] = e.target.value;
-        }
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, birth_date: r.join(':') } });
-    }
+    // function handlerData(e: any) {
+    //     let r = resumeState.resumeInfo.birth_date.split(':');
+    //     switch (e.target.name) {
+    //         case 'birth_day':
+    //             r[0] = e.target.value;
+    //             break
+    //         case 'birth_year':
+    //             r[2] = e.target.value;
+    //             break
+    //         case 'birth_month':
+    //             r[1] = e.target.value;
+    //     }
+    //     props.setResume({ ...resumeState, resumeInfo: { ...resumeState.resumeInfo, birth_date: r.join(':') } });
+    // }
 
-    function save(e) {
+    function save(e: any) {
         //postNewResume()
         let form = document.querySelectorAll("form")[0]
         let a = form.checkValidity()
@@ -67,32 +68,32 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
 
     async function postNewResume() {
         let res = {
-            ...props.resume.resumeInfo, user_id: userState.user_id,
-            work_type: props.resume.resumeInfo.work_type.join(','),
-            skills: Object.keys(props.resume.resumeInfo.skills).join(','),
+            ...resumeState.resumeInfo, user_id: userState.user_id,
+            work_type: resumeState.resumeInfo.work_type.join(','),
+            skills: Object.keys(resumeState.resumeInfo.skills).join(','),
             user: null,
         }
-        props.setResume({ ...props.resume, education: props.resume.education.filter((e) => e.status != 'delete') })
-        //{ resumeInfo: res, education: props.resume.education, workExperience: props.resume.workExperience })
+        dispatch(changeResume({ resumeState: { ...resumeState, education: resumeState.education.filter((e) => e.status != 'delete') } }))
+
         const response = await fetch('resume', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ resumeInfo: res, education: props.resume.education, workExperience: props.resume.workExperience })
+            body: JSON.stringify({ ...resumeState, resumeInfo: res })
         })
     }
 
 
 
     const commonInfoInputs =
-        [{ tag: 'city', name: 'Город', value: props.resume.resumeInfo.city, required: true },
-        { tag: 'citizenship', name: 'Гражданство', value: props.resume.resumeInfo.citizenship, required: false },]
+        [{ tag: 'city', name: 'Город', value: resumeState.resumeInfo.city, required: true },
+        { tag: 'citizenship', name: 'Гражданство', value: resumeState.resumeInfo.citizenship, required: false },]
 
-    function getDataPart(ind: number): string {
-        return props.resume.resumeInfo.birth_date.split(':')[ind]
-    }
+    // function getDataPart(ind: number): string {
+    //     return resumeState.resumeInfo.birth_date.split(':')[ind]
+    // }
 
     return (
         <div className='resume_container'>
@@ -119,10 +120,10 @@ function Resume(props: { setResume: any, resume: ResumeType }) {
                         </div>
                     </div>
                 </div>
-                <Desired_Position resume={props.resume} setResume={props.setResume}></Desired_Position>
-                <WorkExperience resume={props.resume} setResume={props.setResume}></WorkExperience>
-                <Education resume={props.resume} setResume={props.setResume}></Education>
-                <Skills resumeInfo={props.resume} setResumeInfo={props.setResume}></Skills>
+                <Desired_Position></Desired_Position>
+                <WorkExperience></WorkExperience>
+                <Education></Education>
+                <Skills></Skills>
                 {/* <button>Сохранить</button> */}
                 <div className="button-form">
                     <NavLink onClick={(e) => save(e)} tag={Link} to="/account">Сохранить</NavLink>

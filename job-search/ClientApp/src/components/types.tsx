@@ -7,7 +7,6 @@ export type AccountType = {
     l_name: string;
     phone_number: string;
     user_type: string;
-
     password: string;
 }
 

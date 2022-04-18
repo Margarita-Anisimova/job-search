@@ -11,9 +11,10 @@ import { getResumesByFilters, getVacanciesByFilters } from './baseconnect'
 import { Link } from 'react-router-dom';
 import { NavItem, NavLink } from 'reactstrap';
 import { useSelector } from 'react-redux';
+import { getCookie } from './cookies';
 
 export default function Home(props: { professionList: any, accountType: string; pageType: string }) {
-  const userState = useSelector((state: any) => state.userState.userState)
+  const userState = useSelector((state: any) => state)
   // const city_filter_values = useSelector((state: any) => state.professionsList.professionsList)
   const [isFilters, setFiltersStatus] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
@@ -50,11 +51,8 @@ export default function Home(props: { professionList: any, accountType: string; 
   }
 
   useEffect(() => {
-    let name = 'user'
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    console.log(matches ? decodeURIComponent(matches[1]) : undefined)
+    console.log(getCookie('user_id'))
+    console.log(getCookie('user_type'))
   })
 
   const [resumes, setResumes] = useState([]);

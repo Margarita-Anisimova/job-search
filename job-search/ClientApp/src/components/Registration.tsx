@@ -1,25 +1,22 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import './Registration.css';
 import { useNavigate } from 'react-router-dom'
-import { createEmptyAccount } from '../exportFunctions'
 import { useDispatch, useSelector } from "react-redux";
+import { postNewUser, getUserByEmail } from "./baseconnect";
 import { changeUser } from "../app/userStateReducer";
+import { changeResume } from "../app/resumeStateReducer";
+import { changeCompany } from "../app/companyStateReducer";
+import { CompanyType, ResumeType } from "./types";
 
-function Registration(props: { account: any, setResume: any, setAccount: any; setPageType: any, accountType: string }) {
+function Registration(props: { setPageType: any }) {
     const navigate = useNavigate();
     const [formType, setFormType] = useState('authoriz')
     const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phone_number: '' })
     const [code, setcode] = useState('');
 
-
-    //переменные для локального хранилища
     const userState = useSelector((state: any) => state.userState.userState)
     const dispatch = useDispatch();
-
-
     function handler(e: any) {
         setformInfo({ ...formInfo, [e.target.name]: e.target.value });
     }
@@ -33,13 +30,13 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
         if (userState.user_type != 'noRegistered') {
             navigate('/')
         }
-        document.querySelectorAll('.usererrormessage')[0].style.display = 'none';
-        document.querySelectorAll('.emailerrormessage')[0].style.display = 'none';
+        (document.querySelectorAll('.usererrormessage')[0] as HTMLElement).style.display = 'none';
+        (document.querySelectorAll('.emailerrormessage')[0] as HTMLElement).style.display = 'none';
     })
 
     function checkrepeated_password(e: any) {
         let input = document.getElementsByName('password')[0];
-        if (e.target.value !== input.value) {
+        if (e.target.value !== (input as HTMLInputElement).value) {
             e.target.setCustomValidity('Не соответствует паролю')
         } else {
             e.target.setCustomValidity('')
@@ -48,95 +45,78 @@ function Registration(props: { account: any, setResume: any, setAccount: any; se
 
     function checkForm(e: any) {
         let form = document.querySelectorAll("form")[0]
+        let a = document.querySelectorAll('input[name="radio"]:checked')[0]
+        console.log(form.checkValidity())
         !form.checkValidity()
             ? form.reportValidity()
             : formType === 'registr'
                 ? confirm()
-                : getUser()
+                : authoriz()
     }
 
-    async function getUser() {
+    function authoriz() {
+        getUserByEmail(formInfo.email, formInfo.password).then((data => {
+            document.cookie = `user_id=` + encodeURIComponent(data.user_id)
+            document.cookie = 'user_type=' + encodeURIComponent(data.user_type)
+            let user = data
 
-        const data = await fetch(`user/${formInfo.email}/${crypto(formInfo.password)}`)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
+            if (data.resume) {
+                user = data.user;
+                changeData(data.resume)
+                dispatch(changeResume({ resumeState: data.resume }))
+            }
+            else if (data.company) {
+                user = data.user;
+                changeWorkType(data.company)
+                dispatch(changeCompany({ companyState: data.company }))
+            }
+            dispatch(changeUser({ userState: user }))
+            navigate('/')
+        }))
+    }
 
-                } else if (response.status === 404) {
-                    document.querySelectorAll('.usererrormessage')[0].style.display = 'block'
-
-                }
-            })
-        if (data) {
-            props.setAccount(data)
-            dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type, fullemployer: false }))
-            document.cookie = await `user=` + encodeURIComponent(data.user_id)
-            navigate('/');
+    function changeWorkType(data: CompanyType) {
+        for (let e of data.vacancies) {
+            e.work_type = e.work_type.split(',')
         }
-        // delete data.password;
+    }
 
+    function changeData(resume: ResumeType) {
+        if (resume.resumeInfo.profession_id !== 0) {
+            resume.resumeInfo.work_type = resume.resumeInfo.work_type.split(',')
+            let t = {}
+            resume.resumeInfo.skills.split(',').forEach((e: string) => { t[e] = e })
+            resume.resumeInfo.skills = t;
+        }
     }
 
     async function confirm() {
         const response = await fetch(`code/${formInfo.email}`);
         const codeFromServer = await response.json();
         if (codeFromServer.error) {
-            document.querySelectorAll('.emailerrormessage')[0].style.display = 'block';
+            (document.querySelectorAll('.emailerrormessage')[0] as HTMLElement).style.display = 'block';
         } else {
             setcode(codeFromServer.code);
             setFormType('confirmEmail')
             console.log(codeFromServer.code)
         }
-
     }
 
-    function crypto(password) {
-        var result = "";
-        let key = GenerateHexArr(password.length)
-        for (let i = 0; i < password.length; ++i) {
-            result += (parseInt(key[i], 16) ^ parseInt(password[i], 16)).toString(16) + ' ';
-        }
-        let a = key.join(' ');
-        result += a;
-        return result;
-    }
-
-    function GenerateHexArr(length) {
-        let result = [];
-        for (let i = 0; i < length; i++) {
-            result.push((Math.floor(Math.random() * 0xFFF)).toString(16))
-        }
-        return result;
-    }
-
-    async function postNewUser() {
-        let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
-        const response = await fetch('user', {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: "same-origin",
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ ...formInfo, password: crypto(formInfo.password), user_type: userType.value })
-        })
-        const data = await response.json();
-        dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type, fullemployer: false }))
-        //   props.setAccount({ ...props.account, user_id: data.user_id })
-    }
 
     function chechConfirmCode() {
         let code_input = document.querySelectorAll('.code_input')[0];
         let userType = document.querySelectorAll('input[name="radio"]:checked')[0];
         if (code == code_input.value) {
-            props.setAccount({ ...createEmptyAccount(), ...formInfo, user_type: userType.value })
             props.setPageType(userType.value === "applicant" ? 'vacancies' : 'resumes')
-            postNewUser();
-            dispatch(changeUser({ user_id: 0, user_type: userType.value, fullemployer: false }))
+            postNewUser(formInfo).then((e) => {
+                dispatch(changeUser({ userState: e }))
+            });
+
             userType.value === "applicant" ?
                 navigate('/resume')
                 : navigate('/company');
         } else {
-            document.querySelectorAll('.errormessage')[0].style.display = 'block';
+            (document.querySelectorAll('.errormessage')[0] as HTMLElement).style.display = 'block';
 
         }
     }

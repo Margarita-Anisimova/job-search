@@ -6,35 +6,39 @@ import { createTextInputs, createSelect } from '../account/createFunction'
 import { ResumeType } from '../types';
 import { useEffect } from "react";
 import Select from 'react-select';
+import { useDispatch, useSelector } from "react-redux";
+import { changeResumeProperty } from "../../app/resumeStateReducer";
 
-export default function Desired_Position(props: { resume: ResumeType, setResume: any }) {
-
+export default function Desired_Position() {
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        props.resume.resumeInfo.ready_move
+        resumeState.resumeInfo.ready_move
             ? document.getElementsByClassName('yes')[0].defaultChecked = true
             : document.getElementsByClassName('no')[0].defaultChecked = true
         let a = document.getElementsByName('work_type')
         for (let i = 0; i < a.length; i++) {
-            if (JSON.parse(props.resume.resumeInfo.work_type[i]) === true) {
+            if (JSON.parse(resumeState.resumeInfo.work_type[i]) === true) {
                 a[i].defaultChecked = true;
             }
         }
-        document.getElementsByClassName('professions')[0].selectedIndex = props.resume.resumeInfo.profession_id
+        document.getElementsByClassName('professions')[0].selectedIndex = resumeState.resumeInfo.profession_id
     })
 
     function posthandler(e: any) {
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, [e.target.name]: e.target.value } });
+        dispatch(changeResumeProperty({ propertyName: e.target.name, property: e.target.value }))
     }
 
     function ratiohandler(e: any) {
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, ready_move: !props.resume.resumeInfo.ready_move } });
+        dispatch(changeResumeProperty({ propertyName: 'ready_move', property: e.target.value }))
+        // props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, ready_move: !props.resume.resumeInfo.ready_move } });
     }
 
-    const postInfoInputs = [{ tag: 'desired_position', name: 'Должность', value: props.resume.resumeInfo.desired_position, required: false },]
+    const postInfoInputs = [{ tag: 'desired_position', name: 'Должность', value: resumeState.resumeInfo.desired_position, required: false },]
 
     function handlerSelect(e: any) {
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, profession_id: e.target.selectedIndex } });
+        dispatch(changeResumeProperty({ propertyName: 'profession_id', property: e.target.selectedIndex }))
     }
 
     let asd = ['', "Программист",
@@ -62,7 +66,7 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
 
                 {createTextInputs(postInfoInputs, posthandler)}
                 <label>Зарплата</label>
-                <input value={props.resume.resumeInfo.desired_salary} onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
+                <input value={resumeState.resumeInfo.desired_salary} onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
 
                 <label><div>Переезд<span className="red">*</span></div></label>
                 <div>
@@ -88,8 +92,9 @@ export default function Desired_Position(props: { resume: ResumeType, setResume:
     )
 
     function addTolist(e: any) {
-        let arr = props.resume.resumeInfo.work_type.slice()
+        let arr = resumeState.resumeInfo.work_type.slice()
         arr[e.target.id] = !arr[e.target.id];
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, work_type: arr } });
+        dispatch(changeResumeProperty({ propertyName: 'work_type', property: arr }))
+        // props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, work_type: arr } });
     }
 }

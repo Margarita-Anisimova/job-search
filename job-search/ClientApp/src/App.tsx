@@ -6,7 +6,6 @@ import Registration from './components/Registration';
 import Account from './components/account/Account';
 import Resume from './components/resumeForm/Resume';
 import Vacancy from './components/vacancyForm/Vacancy';
-import { Check } from './components/Check';
 import AccountInfo from './components/account/AccountInfo'
 import './App.css';
 import { createEmptyAccount, createEmptyResume, createEmptyCompany } from './exportFunctions';
@@ -45,11 +44,11 @@ function App() {
 
     return (
         <BrowserRouter>
-            <NavMenu account={account} setAccount={setAccount} setResume={setResume} setCompany={setCompany} setPageType={setPageType} />
+            <NavMenu setPageType={setPageType} />
             <Routes>
                 <Route path='/' element={<Home professionList={professionList} pageType={pageType} accountType={account.user_type} />} />
-                <Route path='/registration' element={<Registration setResume={setResume} account={account} setAccount={setAccount} setPageType={setPageType} accountType={account.user_type} />} />
-                <Route path='/account' element={<Account setAccount={setAccount} setResume={setResume} setCompany={setCompany} account={account} resume={resume} company={company} />} />
+                <Route path='/registration' element={<Registration setPageType={setPageType} />} />
+                <Route path='/account' element={<Account />} />
                 <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
                 <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
                 <Route path='/vacancy/:number' element={<Vacancy company={company} setCompany={setCompany} />} />

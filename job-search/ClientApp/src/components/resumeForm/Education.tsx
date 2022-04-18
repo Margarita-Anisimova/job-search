@@ -7,7 +7,7 @@ import { EducationType } from '../types'
 import { ResumeType } from '../types';
 import { createEmptyEducation } from '../../exportFunctions'
 
-export default function Education(props: { resume: ResumeType, setResume: any }) {
+export default function Education() {
     //нужно ли обновление при скрытии???
     //добавить запрет на добавление если не заполнено 1ы
 

@@ -7,11 +7,15 @@ import { AccountType } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUser } from "../app/userStateReducer";
 import { createEmptyAccount, createEmptyResume, createEmptyCompany } from '../exportFunctions';
+import { changeResume } from '../app/resumeStateReducer';
+import { changeCompany } from '../app/companyStateReducer';
+import { useEffect } from 'react';
 
-export default function NavMenu(props: { account: AccountType, setResume: any; setCompany: any; setAccount: any; setPageType: any; }) {
+export default function NavMenu(props: { setPageType: any; }) {
 
 
     const userState = useSelector((state: any) => state.userState.userState)
+    let a = useSelector((state: any) => state)
     const dispatch = useDispatch();
 
     function nuvButton() {
@@ -61,12 +65,11 @@ export default function NavMenu(props: { account: AccountType, setResume: any; s
     }
 
     function out() {
-        props.setAccount(createEmptyAccount())
-        props.setResume(createEmptyResume())
-        props.setCompany(createEmptyCompany())
-
-        dispatch(changeUser({ user_id: 0, user_type: 'noRegistered', fullemployer: false }))
-
+        dispatch(changeUser({ userState: createEmptyAccount() }))
+        dispatch(changeResume({ resumeState: createEmptyResume() }))
+        dispatch(changeCompany({ companyState: createEmptyCompany() }))
+        document.cookie = 'user_id=' + encodeURIComponent(0)
+        document.cookie = 'user_type=' + encodeURIComponent('noRegistered')
     }
 
     return (
