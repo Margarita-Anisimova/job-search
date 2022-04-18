@@ -186,12 +186,12 @@ public class ResumeController : Controller
             {
                 var t = param["work_experience"].ToString().Split('-');
                 var exp = resume.work_experience;
-                if (resume.work_experience > Int32.Parse(t[0]))
+                if (resume.work_experience >= Int32.Parse(t[0]))
                     return true;
                 else
                     return false;
             }).ToList();
-        if (param["isFilters"] == true)
+        if (param["isFilters"] == "true")
         {
             if (param["salary"] != "" && result.Count() != 0)
                 result = result.Where(resume => Int32.Parse(resume.desired_salary) <= Int32.Parse(param["salary"])).ToList();

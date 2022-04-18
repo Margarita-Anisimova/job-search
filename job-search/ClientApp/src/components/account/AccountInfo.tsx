@@ -50,7 +50,7 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
 
 
     const contacts = [{ tag: 'email', name: 'Email', value: props.account.email, required: true },
-    { tag: 'phone_number', name: 'Номер телефона', value: props.account.phone_number },]
+    { tag: 'phone_number', name: 'Номер телефона', value: props.account.phone_number, required: false },]
 
 
     async function putChange() {
