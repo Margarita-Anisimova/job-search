@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./Account.css"
-import img from './pgfFnQm.jpg'
+import img from './noavatar.svg'
 import { useNavigate } from 'react-router-dom'
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { NavItem, NavLink } from 'reactstrap';
@@ -56,10 +56,13 @@ export default function Profile(props: { account: AccountType, setResume: any, r
                         <p className="profile_sect-title">Мое резюме</p>
                         {props.resume.resumeInfo.city ?
                             <div className="resumeCard">
-                                <p style={{ color: '#F88500', fontSize: '20px' }}>{props.resume.resumeInfo.desired_position}</p>
-                                <p>{props.resume.resumeInfo.desired_salary}</p>
+                                <div className="card_maininfo">
+                                    <p className='card__title'>{props.resume.resumeInfo.desired_position}</p>
+                                    <p className='card__subtitle'>{props.resume.resumeInfo.desired_salary} руб.</p>
+                                    <p className='card__desc'>Уровень образования: {props.resume.resumeInfo.education_level}</p>
+                                </div>
 
-                                <div className="resumeButtons">
+                                <div className="card_buttons">
                                     <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
                                     <button onClick={() => deleteResume()} className="resumeButton">Удалить</button>
                                 </div>

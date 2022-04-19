@@ -7,6 +7,8 @@ import { VacancyType, ResumeType, CompanyType } from './types';
 import { useLocation } from 'react-router-dom';
 import { createEmptyVacancy, createEmptyCompany } from '../exportFunctions';
 import { useHistory } from 'react-router';
+import callimg from './call.svg'
+import mailimg from './mail.svg'
 // import { VacancyType, ResumesType } from './types'
 
 export default function VacancyCard(props: { resume: ResumeType }) {
@@ -85,8 +87,16 @@ export default function VacancyCard(props: { resume: ResumeType }) {
 
             <div className="vacancy_contact">
                 <div className='contact_title'>Контактная информация</div>
-                <p className="phone">{company.email}</p>
-                {company.phone ? <p className="email"> {company.phone}</p> : null}
+                <div className="contact_mail">
+                    <img src={mailimg} alt="" />
+                    <p className="email">{company.email}</p>
+                </div>
+                {company.phone ? 
+                    <div className="contact_phone">
+                        <img src={callimg} alt="" />
+                        <p className="phone"> {company.phone}</p> 
+                    </div>
+                : null}
             </div>
 
 

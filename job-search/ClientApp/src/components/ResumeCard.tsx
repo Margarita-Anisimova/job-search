@@ -6,7 +6,7 @@ import { EducationType, ResumeType, WorkExpirienceType, CompanyType, AccountType
 import { useLocation } from 'react-router-dom';
 import { createEmptyAccount, createEmptyResume } from '../exportFunctions';
 import { Redirect } from 'react-router';
-import img from './account/pgfFnQm.jpg'
+import img from './account/noavatar.svg'
 import { useSelector } from 'react-redux';
 
 
@@ -110,7 +110,7 @@ export default function ResumeCard(props: { company: CompanyType }) {
             </div>
 
             <div className="desired_profession">
-                <div className='desired_profession__name'>{profession}</div>
+                <div className='desired_profession__name'>{resume.resumeInfo.desired_position}</div>
                 <div className='desired_profession__salary'>{resume.resumeInfo.desired_salary + 'руб'} </div>
                 <div className='desired_profession__readymove'> Переезд: {+ resume.resumeInfo.ready_move ? 'возможен' : 'не возможен'} </div>
                 {/* <div className='desired_profession__work_type'>График работы:</div> */}

@@ -38,9 +38,11 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
             <p className="profile_sect-title">Моя компания</p>
             {props.company.companyInfo.fullname ?
                 <div className="user_resumes_container resumeCard">
-                    <p className="card__title"> {props.company.companyInfo.fullname}</p>
-                    <p className="card__subtitle">{props.company.companyInfo.city}</p>
-                    <p className="card__desc">{props.company.companyInfo.email}</p>
+                    <div className="card_maininfo">
+                        <p className="card__title"> {props.company.companyInfo.fullname}</p>
+                        <p className="card__subtitle">{props.company.companyInfo.city}</p>
+                        <p className="card__desc">{props.company.companyInfo.email}</p>
+                    </div>
                     <button onClick={() => navigate('/company')} className="resumeButton">Редактировать</button>
                 </div>
                 : <NavLink tag={Link} to='/company'>Создать компанию</NavLink>}
@@ -50,11 +52,15 @@ export default function CompanyProfile(props: { company: CompanyType, setCompany
             </div>
             {props.company.vacancies.map((vacancy, i) => {
                 return <div className='resumeCard'>
-                    <p className="card__title">{vacancy.position}</p>
-                    <p className="card__subtitle">{vacancy.work_address}</p>
-                    <p className="card__desc">{vacancy.salary}</p>
-                    <button onClick={() => navigate('/vacancy/' + i)} className="resumeButton">Редактировать</button>
-                    <button onClick={() => deleteVacansy(vacancy.vacancy_id, i)} className="resumeButton">Удалить</button>
+                    <div className="card_maininfo">
+                        <p className="card__title">{vacancy.position}</p>
+                        <p className="card__subtitle">{vacancy.salary} руб.</p>
+                        <p className="card__desc">{vacancy.work_address}</p>
+                    </div>
+                    <div className="card_buttons">
+                        <button onClick={() => navigate('/vacancy/' + i)} className="resumeButton">Редактировать</button>
+                        <button onClick={() => deleteVacansy(vacancy.vacancy_id, i)} className="resumeButton">Удалить</button>
+                    </div>
                 </div>
             })}
         </div>

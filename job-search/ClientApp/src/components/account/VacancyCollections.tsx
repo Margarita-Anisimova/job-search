@@ -47,10 +47,12 @@ function VacancyCollections(props: { resume: ResumeType }) {
                         return (
                             <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
                                 <div className="card__container">
-                                    <p className='card__title'>{res.position}</p>
-                                    <p className='card__subtitle'>{res.work_address}</p>
-                                    <p className='card__desc'>Опыт {res.work_experience}</p>
-                                    <p className='card__address'>{res.salary} </p>
+                                    <div className="card_header">
+                                        <p className='card__title'>{res.position}</p>
+                                        <p className='card__subtitle'>{res.salary} руб.</p>
+                                    </div>
+                                    <p className='card__desc'>Опыт: {res.work_experience}</p>
+                                    <p className='card__address'>{res.work_address} </p>
                                 </div>
                             </NavLink>
                         )

@@ -91,3 +91,11 @@
 .vacancy_contact {
     padding-bottom: 40px;
 }
+
+.contact_mail, .contact_phone {
+    display: flex;
+}
+
+.phone, .email {
+    margin-left: 15px;
+}

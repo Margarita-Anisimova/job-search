@@ -44,12 +44,12 @@ p {
 }
 
 .avatar {
-    border: 2px black solid;
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
     border-radius: 100px;
     margin-right: 50px;
+
 }
 
 .user_resumes_container {
@@ -62,17 +62,29 @@ p {
 }
 
 .resumeButton {
-    margin: 10px 5px;
-    border-radius: 10px;
+    margin: 5px 5px;
+    border-radius: 5px;
     padding: 5px 10px;
+    border: 1px solid #999;
 }
 
 .resumeCard,
 .responseCard {
     border: 1px #999999 solid;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     width: 50%;
+}
+
+.resumeCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card_buttons {
+    display: flex;
+    flex-direction: column;
 }
 
 .responseCard {
@@ -107,13 +119,13 @@ p {
 	background-color: transparent;
     color: #333;
 	border-radius: 5px;
-    margin-left: 10px;
+    margin-right: 10px;
     padding: 5px 15px;
 }
 
 .light__button-dark {
     outline: none;
-	border: 2px solid #F88500;
+	border: 1px solid #F88500;
     color: #000;
 	border-radius: 5px;
     margin-left: 10px;
@@ -125,6 +137,12 @@ p {
 	border: 1px solid #F88500;
     background-color: #fff9f3;
 	border-radius: 5px;
+    padding: 3px 10px;
+    position: absolute;
+    right: 16px;
+    bottom: 18px;
+    font-size: 14px;
+    color: #666;
 }
 
 

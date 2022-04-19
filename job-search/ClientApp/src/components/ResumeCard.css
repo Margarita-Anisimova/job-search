@@ -43,6 +43,10 @@
     margin-top: 20px;
 }
 
+.resumecard__btn-light:hover {
+    border: 1px solid var(--accent);
+}
+
 .resumecard__title::after {
     content: '';
 	width: 100%;

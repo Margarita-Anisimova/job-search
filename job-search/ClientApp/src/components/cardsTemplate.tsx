@@ -20,10 +20,12 @@ export function getResumeCards(resumes) {
             // onClick={(e) => checkUser(e)}
             <NavLink target="_blank" rel="noopener noreferrer"  tag={Link} to={"/resumecard/" + res.user_id} >
                 <div className="card__container">
-                    <p className='card__title'>{res.desired_position}</p>
-                    <p className='card__subtitle'>Опыт: {res.work_experience}</p>
+                    <div className="card_header">
+                        <p className='card__title'>{res.desired_position}</p>
+                        <p className='card__subtitle'>{res.desired_salary} руб.</p>
+                    </div>
                     <p className='card__desc'>Уровень образования: {res.education_level}</p>
-                    <p className='card__address'>{res.desired_salary} </p>
+                    <p className='card__address'>Опыт: {res.work_experience}</p>
                 </div>
             </NavLink>
         )
@@ -38,10 +40,12 @@ export function getVacancyCards(vacancies) {
         return (
             <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
                 <div className="card__container">
-                    <p className='card__title'>{res.position}</p>
-                    <p className='card__subtitle'>{res.work_address}</p>
+                    <div className="card_header">
+                        <p className='card__title'>{res.position}</p>
+                        <p className='card__subtitle'>{res.salary} руб.</p>
+                    </div>
                     <p className='card__desc'>Опыт: {res.work_experience}</p>
-                    <p className='card__address'>{res.salary} </p>
+                    <p className='card__address'>{res.work_address} </p>
                 </div>
             </NavLink>
         )

@@ -40,7 +40,7 @@ code {
 	--regular-text: 16px;
 	--small-text: 14px;
 	--lineheight: 1.75;
-	--userfont: raleway-wt, sans-serif;
+	/* --userfont: raleway-wt, sans-serif; */
 	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
 	--radius: 5px;
 	--radius-style: 5px 5px;
@@ -56,7 +56,7 @@ code {
 
 /* FONTS LOAD SECTION */
 
-@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-300.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 300; font-style: normal; }
+/* @font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-300.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 300; font-style: normal; }
 @font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-500.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 500; font-style: normal; }
 @font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-600.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 600; font-style: normal; }
 @font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-700.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 700; font-style: normal; }
@@ -66,7 +66,7 @@ code {
 
 @font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-300.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 300; font-style: normal; }
 @font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-500.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 500; font-style: normal; }
-@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-700.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 700; font-style: normal; }
+@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-700.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 700; font-style: normal; } */
 
 /* GENERAL CSS SETTINGS */
 
