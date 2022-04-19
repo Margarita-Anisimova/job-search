@@ -13,11 +13,12 @@ import VacancyCollections from "./VacancyCollections";
 import ResumeCollections from "./ResumeCollections";
 import { changeUser } from "../../app/userStateReducer";
 import "../../custom.css"
+import VacancyResponses from "../VacancyResponses";
 
 function Account() {
 
 
-    type PageType = 'profile' | 'resumeResponses' | 'myResponses' | 'vacancyCollections' | 'resumeCollections';
+    type PageType = 'profile' | 'resumeResponses' | 'myResponses' | 'vacancyCollections' | 'resumeCollections' | 'vacancyResponses';
     const userState: AccountType = useSelector((state: any) => state.userState.userState)
     const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
     const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
@@ -31,9 +32,12 @@ function Account() {
             case 'profile': {
                 return <Profile></Profile >
             }
-            // case 'resumeResponses': {
-            //     return (<ResumeResponses></ResumeResponses>)
-            // }
+            case 'resumeResponses': {
+                return (<ResumeResponses></ResumeResponses>)
+            }
+            case 'vacancyResponses': {
+                return (<VacancyResponses></VacancyResponses>)
+            }
             // case 'myResponses': {
             //     return (<MyResponses></MyResponses>)
             // }

@@ -10,8 +10,8 @@ import img from './account/pgfFnQm.jpg'
 import { useSelector } from 'react-redux';
 
 
-export default function ResumeCard(props: { company: CompanyType }) {
-
+export default function ResumeCard() {
+    const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
     let location = useLocation();
     const id = parseInt(location.pathname.split('/')[2])
     const [resume, setResume] = useState<ResumeType>(createEmptyResume())
@@ -19,8 +19,8 @@ export default function ResumeCard(props: { company: CompanyType }) {
     const [IsContacts, setIsContacts] = useState(false)
     const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
     const [profession, setProfession] = useState('')
-    // const [button, setButton] = useState('show');
-    // const [message, setMessage] = useState("");
+    const [button, setButton] = useState('start');
+    const [message, setMessage] = useState("");
     useEffect(() => {
         window.history.pushState(null, document.title, window.location.href);
         window.addEventListener('popstate', function (event) {
@@ -59,6 +59,7 @@ export default function ResumeCard(props: { company: CompanyType }) {
 
     }
 
+
     async function sentResponse() {
         // setButton('sented')
         const response = await fetch('responseToResume', {
@@ -68,15 +69,16 @@ export default function ResumeCard(props: { company: CompanyType }) {
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify({
-                company_id: props.company.companyInfo.company_id,
+                company_id: companyState.companyInfo.company_id,
                 resume_id: resume.resumeInfo.resume_id,
-                // message: message
+                message: message,
+                status: null,
             })
         })
     }
-    const userState = useSelector((state: any) => state.userState.userState)
-    function checkUser(e) {
-        if (userState.user_type != 'employer' || !userState.fullemployer) {
+
+    function checkUser() {
+        if (!companyState.companyInfo.fullname) {
             alert('Контакты доступны только работодателям, создавшим компанию!!!')
         } else {
             setIsContacts(true)
@@ -165,13 +167,24 @@ export default function ResumeCard(props: { company: CompanyType }) {
 
                 </div>
             </div>
-            {/* {button == 'message' ?
-                <textarea placeholder='Введите сообщение для соискателя'></textarea>
-                : null}
-            <button onClick={() => button == 'show' ? setButton('message') : sentResponse()} disabled={button == 'sented'} className='button resumecard__btn'>{button != 'sented' ? 'Отправить отклик' : 'Отклик отправлен'}</button> */}
-
+            {createResponseField()}
         </div >
 
     );
+
+    function createResponseField() {
+        if (companyState.companyInfo.fullname) {
+            return (
+                <div>
+                    {button == 'start'
+                        ? <textarea value={message} onChange={(e) => setMessage(e.target.value)} minLength={30} placeholder='Введите сообщение для соискателя'></textarea>
+                        : null}
+                    <button onClick={() => sentResponse()} disabled={button == 'sented'} className='button resumecard__btn'>
+                        {button != 'sented' ? 'Отправить отклик' : 'Отклик отправлен'}
+                    </button>
+                </div>)
+        } else
+            return null;
+    }
 }
 

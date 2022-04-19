@@ -24,9 +24,9 @@ function App() {
 
     // const [accountType, setAccountType] = useState('noRegistered')
     const [pageType, setPageType] = useState('vacancies')
-    const [account, setAccount] = useState<AccountType>(createEmptyAccount())
-    const [resume, setResume] = useState<ResumeType>(createEmptyResume())
-    const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
+    // const [account, setAccount] = useState<AccountType>(createEmptyAccount())
+    // const [resume, setResume] = useState<ResumeType>(createEmptyResume())
+    // const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
     const [professionList, setProfessionList] = useState<{ profession_id: number, profession: string }[]>([])
 
     useEffect(() => {
@@ -46,16 +46,16 @@ function App() {
         <BrowserRouter>
             <NavMenu setPageType={setPageType} />
             <Routes>
-                <Route path='/' element={<Home professionList={professionList} pageType={pageType} accountType={account.user_type} />} />
+                <Route path='/' element={<Home professionList={professionList} pageType={pageType} />} />
                 <Route path='/registration' element={<Registration setPageType={setPageType} />} />
                 <Route path='/account' element={<Account />} />
-                <Route path='/accountInfo' element={<AccountInfo setResume={setResume} setAccount={setAccount} account={account} resume={resume} />} />
-                <Route path='/resume' element={<Resume setResume={setResume} resume={resume} />} />
-                <Route path='/vacancy/:number' element={<Vacancy company={company} setCompany={setCompany} />} />
-                <Route path='/company' element={<Company account={account} company={company} setCompany={setCompany} />} />
+                <Route path='/accountInfo' element={<AccountInfo />} />
+                <Route path='/resume' element={<Resume />} />
+                <Route path='/vacancy/:number' element={<Vacancy />} />
+                <Route path='/company' element={<Company />} />
 
-                <Route path='/resumecard/:number' element={<ResumeCard company={company} />} />
-                <Route path='/vacancycard/:number' element={<VacancyCard resume={resume} />} />
+                <Route path='/resumecard/:number' element={<ResumeCard />} />
+                <Route path='/vacancycard/:number' element={<VacancyCard />} />
 
 
 

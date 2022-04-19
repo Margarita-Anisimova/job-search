@@ -13,8 +13,8 @@ import { NavItem, NavLink } from 'reactstrap';
 import { useSelector } from 'react-redux';
 import { getCookie } from './cookies';
 
-export default function Home(props: { professionList: any, accountType: string; pageType: string }) {
-  const userState = useSelector((state: any) => state)
+export default function Home(props: { professionList: any, pageType: string }) {
+  const userState = useSelector((state: any) => state.userState.userState)
   // const city_filter_values = useSelector((state: any) => state.professionsList.professionsList)
   const [isFilters, setFiltersStatus] = useState(false);
   const [isSearch, setIsSearch] = useState(false);

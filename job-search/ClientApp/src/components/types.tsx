@@ -11,26 +11,27 @@ export type AccountType = {
 }
 
 export type ResumeType = {
-    resumeInfo: {
-        user_id: number;
-        resume_id: number;
-        birth_date: string;
-        desired_position: string;
-        desired_salary: string;
-        work_type: boolean[];
-        ready_move: boolean;
-        skills: {};
-        profession_id: number;
-        city: string;
-        education_level: string;
-        gender: 'male' | 'female';
-        citizenship: string;
-        work_experience: number;
-    }
+    resumeInfo: ResumeInfoType;
     education: EducationType[];
     workExperience: WorkExpirienceType[];
 }
 
+export type ResumeInfoType = {
+    user_id: number;
+    resume_id: number;
+    birth_date: string;
+    desired_position: string;
+    desired_salary: string;
+    work_type: boolean[];
+    ready_move: boolean;
+    skills: {};
+    profession_id: number;
+    city: string;
+    education_level: string;
+    gender: 'male' | 'female';
+    citizenship: string;
+    work_experience: number;
+}
 
 export type EducationType = {
     education_id: number;
@@ -54,18 +55,21 @@ export type WorkExpirienceType = {
 }
 
 export type CompanyType = {
-    companyInfo: {
-        user_id: number;
-        company_id: number;
-        fullname: string;
-        city: string;
-        description: string;
-        contact_face: string;
-        phone: string;
-        email: string;
-    }
-    vacancies: VacancyType[]
+    companyInfo: CompanyInfoType;
+    vacancies: VacancyType[];
 }
+
+export type CompanyInfoType = {
+    user_id: number;
+    company_id: number;
+    fullname: string;
+    city: string;
+    description: string;
+    contact_face: string;
+    phone: string;
+    email: string;
+}
+
 
 export type VacancyType = {
     vacancy_id: number;

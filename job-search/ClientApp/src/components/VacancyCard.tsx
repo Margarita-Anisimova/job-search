@@ -7,15 +7,17 @@ import { VacancyType, ResumeType, CompanyType } from './types';
 import { useLocation } from 'react-router-dom';
 import { createEmptyVacancy, createEmptyCompany } from '../exportFunctions';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 // import { VacancyType, ResumesType } from './types'
 
-export default function VacancyCard(props: { resume: ResumeType }) {
-
+export default function VacancyCard() {
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
     const [vacancy, setVacancy] = useState<VacancyType>(createEmptyVacancy())
     const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
     let location = useLocation();
     const id = parseInt(location.pathname.split('/')[2])
     const [company, setCompany] = useState(createEmptyCompany())
+    const [responseStatus, setResponseStatus] = useState(false)
 
     useEffect(() => {
         window.history.pushState(null, document.title, window.location.href);
@@ -46,6 +48,22 @@ export default function VacancyCard(props: { resume: ResumeType }) {
 
         data.vacancy.work_type = data.vacancy.work_type.split(',')
         data.vacancy.work_type = data.vacancy.work_type.map(e => e === 'true' ? true : false)
+    }
+
+    async function sendResponse() {
+        const response = await fetch('responseToVacancy', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({
+                vacancy_id: vacancy.vacancy_id,
+                resume_id: resumeState.resumeInfo.resume_id,
+                message: '',
+                response: null,
+            })
+        })
     }
 
     return (
@@ -89,8 +107,10 @@ export default function VacancyCard(props: { resume: ResumeType }) {
                 {company.phone ? <p className="email"> {company.phone}</p> : null}
             </div>
 
-
-            {/* <button className='button resumecard__btn'>Отправить отклик</button> */}
+            {responseStatus ?
+                <p>Отклик отправлен</p>
+                :
+                <button onClick={sendResponse} className='button resumecard__btn'>Отправить отклик</button>}
         </div >
 
     );

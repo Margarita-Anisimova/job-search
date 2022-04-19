@@ -5,14 +5,22 @@ import './skills.css';
 import { createTextInputs, createSelect } from '../account/createFunction'
 import { EducationType } from '../types'
 import { ResumeType } from '../types';
+import { useDispatch, useSelector } from "react-redux";
+import { changeResumeProperty, addSkill, deleteSkill } from "../../app/resumeStateReducer";
 
-export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: any }) {
+export default function Skills() {
+
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+    const dispatch = useDispatch();
+
 
     function addItem(e: any) {
-        let arr = {}
-        Object.assign(arr, props.resumeInfo.resumeInfo.skills);
-        arr[e.value] = e.value
-        props.setResumeInfo({ ...props.resumeInfo, resumeInfo: { ...props.resumeInfo.resumeInfo, skills: arr } });
+        // let arr = {}
+        // Object.assign(arr, resumeState.resumeInfo.skills);
+        // arr[e.value] = e.value
+        // props.setResumeInfo({ ...resumeState, resumeInfo: { ...resumeState.resumeInfo, skills: arr } });
+
+        dispatch(addSkill({ name: e.value }))
 
     }
 
@@ -25,10 +33,12 @@ export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: a
     }
 
     function delSkill(e: any) {
-        let arr = {}
-        Object.assign(arr, props.resumeInfo.resumeInfo.skills);
-        delete arr[e.target.innerText]
-        props.setResumeInfo({ ...props.resumeInfo, resumeInfo: { ...props.resumeInfo.resumeInfo, skills: arr } });
+        // let arr = {}
+        // Object.assign(arr, resumeState.resumeInfo.skills);
+        // delete arr[e.target.innerText]
+        // props.setResumeInfo({ ...resumeState, resumeInfo: { ...resumeState.resumeInfo, skills: arr } });
+
+        dispatch(deleteSkill({ name: e.target.innerText }))
     }
 
     return (
@@ -36,7 +46,7 @@ export default function Skills(props: { resumeInfo: ResumeType, setResumeInfo: a
             <h5>Профессиональные навыки</h5>
 
             <div className='slected_skills_container'>
-                {Object.keys(props.resumeInfo.resumeInfo.skills).map((e, i) =>
+                {Object.keys(resumeState.resumeInfo.skills).map((e, i) =>
                     <span id={i.toString()} onDoubleClick={(e) => delSkill(e)} className="skillItem">
                         {e}
                     </span>

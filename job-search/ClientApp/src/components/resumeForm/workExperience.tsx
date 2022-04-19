@@ -6,36 +6,49 @@ import { createTextInputs, createSelectsContainer } from '../account/createFunct
 import { WorkExpirienceType } from '../types'
 import { ResumeType } from '../types';
 import { createEmptyWorkExperience } from '../../exportFunctions'
+import { useDispatch, useSelector } from "react-redux";
+import { addEdWork, changeEdWorkProperty, deleteAllEdWork } from "../../app/resumeStateReducer";
 
-export default function WorkExperience(props: { resume: ResumeType, setResume: any }) {
+export default function WorkExperience() {
+
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+    const dispatch = useDispatch();
 
     const [hasWorkExpirience, sethasWorkExpirience] = useState(true)
 
     function handler(e: any) {
-        let arr = props.resume.workExperience.slice()
+        //  let arr = resumeState.workExperience.slice()
         let id = e.target.parentElement.id || e.target.parentElement.parentElement.id
-        arr[id].status = 'modify'
-        arr[id][e.target.name] = e.target.value;
-        props.setResume({ ...props.resume, workExperience: arr });
+        // arr[id].status = 'modify'
+        // arr[id][e.target.name] = e.target.value;
+        // props.setResume({ ...resumeState, workExperience: arr });
+
+        dispatch(changeEdWorkProperty({ propName: 'workExperience', index: id, propertyName: e.target.name, property: e.target.value }))
     }
 
     function addExpirience() {
-        let arr = props.resume.workExperience.slice();
-        arr.push(createEmptyWorkExperience(props.resume.resumeInfo.resume_id))
-        props.setResume({ ...props.resume, workExperience: arr });
+        // let arr = resumeState.workExperience.slice();
+        // arr.push(createEmptyWorkExperience(resumeState.resumeInfo.resume_id))
+        // props.setResume({ ...resumeState, workExperience: arr });
+
+        dispatch(addEdWork({ propName: 'workExperience', resume_id: resumeState.resumeInfo.resume_id }))
     }
 
     function deleteItem(i: number) {
-        let arr = props.resume.workExperience.slice()
-        arr[i].status = 'delete'
-        props.setResume({ ...props.resume, workExperience: arr });
+        // let arr = resumeState.workExperience.slice()
+        // arr[i].status = 'delete'
+        // props.setResume({ ...resumeState, workExperience: arr });
+
+        dispatch(changeEdWorkProperty({ propName: 'workExperience', index: i, propertyName: 'status', property: 'delete' }))
     }
     function IsWorkExperience() {
         sethasWorkExpirience(!hasWorkExpirience)
         if (!hasWorkExpirience) {
-            props.setResume({ ...props.resume, workExperience: [createEmptyWorkExperience(props.resume.resumeInfo.resume_id)] });
+            dispatch(addEdWork({ propName: 'workExperience', resume_id: resumeState.resumeInfo.resume_id }))
+            // props.setResume({ ...resumeState, workExperience: [createEmptyWorkExperience(resumeState.resumeInfo.resume_id)] });
         } else {
-            props.setResume({ ...props.resume, workExperience: [] });
+            dispatch(deleteAllEdWork({ propName: 'workExperience' }))
+            // props.setResume({ ...resumeState, workExperience: [] });
         }
     }
 
@@ -48,23 +61,23 @@ export default function WorkExperience(props: { resume: ResumeType, setResume: a
             </label>
             {hasWorkExpirience ?
                 <div>
-                    {props.resume.workExperience.map((e, i) =>
+                    {resumeState.workExperience.map((e, i) =>
                         <div id={i.toString()} className='partition-3'>
                             {i != 0 ? <button type="button" onClick={() => deleteItem(i)} className="deleteItemButton">X</button> : null}
                             {createTextInputs([
-                                { tag: 'company', name: 'Компания', value: props.resume.workExperience[i].company, required: true },
-                                { value: props.resume.workExperience[i].post, name: 'Должность', tag: 'post', required: true }], handler)}
+                                { tag: 'company', name: 'Компания', value: resumeState.workExperience[i].company, required: true },
+                                { value: resumeState.workExperience[i].post, name: 'Должность', tag: 'post', required: true }], handler)}
                             <label><div>Годы работы<span className="red">*</span></div></label>
                             <div className='data_container'>
-                                <input className='data_input' value={props.resume.workExperience[i].date_start} required placeholder='Год начала'
+                                <input className='data_input' value={resumeState.workExperience[i].date_start} required placeholder='Год начала'
                                     onChange={(e) => handler(e)} min={(new Date()).getFullYear() - 80} max={(new Date()).getFullYear()}
                                     name='date_start' type='number'></input>
-                                <input className='data_input' value={props.resume.workExperience[i].date_end} required placeholder='Год окончания'
+                                <input className='data_input' value={resumeState.workExperience[i].date_end} required placeholder='Год окончания'
                                     onChange={(e) => handler(e)} min={(new Date()).getFullYear() - 80} max={(new Date()).getFullYear()}
                                     name='date_end' type='number'></input>
                             </div>
                             <label>Достижения <br></br>и обязанности</label>
-                            <textarea onChange={(e) => handler(e)} name="experience_description" value={props.resume.workExperience[i].experience_description} ></textarea>
+                            <textarea onChange={(e) => handler(e)} name="experience_description" value={resumeState.workExperience[i].experience_description} ></textarea>
 
                         </div>
 
