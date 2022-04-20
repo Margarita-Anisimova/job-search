@@ -91,7 +91,7 @@ export default function Home(props: { professionList: any, accountType: string; 
       <section className='search'>
         {/* <input className='search__form search__form--prof' onChange={(e) => filterChanged(e)} name='profession' placeholder='Введите профессию' /> */}
         <SearchInput className='search__form search__form--prof' items={props.professionList} name='profession' handler={professionChanged}></SearchInput>
-        <input className='search__form search__form--city' placeholder='Город' />
+        <input className='search__form search__form--city' name='city' onChange={(e) => filterChanged(e)} value={filters.city} placeholder='Город' />
 
 
 
