@@ -1,7 +1,8 @@
 .footer {
-    background: rgba(148, 133, 133, 0.418);
-    padding: 20px 0 50px 40px;
+    background: #F4F4F4;
+    padding: 20px 0 20px 40px;
     margin-top: 100px;
+    text-align: center;
 }
 
 html {

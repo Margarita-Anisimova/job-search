@@ -33,8 +33,8 @@ ReactDOM.render(
             </PersistGate>
 
             <div className='footer' >
-                <p>Все права защищены.</p>
-                <address>Адресс</address>
+                <p>2022 © Анисимова Маргарита, Кадочникова Марина</p>
+                <address>Екатеринбург</address>
             </div>
         </Provider>
     </React.StrictMode>,
