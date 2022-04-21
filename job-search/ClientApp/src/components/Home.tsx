@@ -13,8 +13,9 @@ import { NavItem, NavLink } from 'reactstrap';
 import { useSelector } from 'react-redux';
 import { getCookie } from './cookies';
 
-export default function Home(props: { professionList: any, pageType: string }) {
+export default function Home(props: { pageType: string }) {
   const userState = useSelector((state: any) => state.userState.userState)
+  const professionState = useSelector((state: any) => state.professionState.professionState)
   // const city_filter_values = useSelector((state: any) => state.professionsList.professionsList)
   const [isFilters, setFiltersStatus] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
@@ -88,7 +89,7 @@ export default function Home(props: { professionList: any, pageType: string }) {
       {/* {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>} */}
       <section className='search'>
         {/* <input className='search__form search__form--prof' onChange={(e) => filterChanged(e)} name='profession' placeholder='Введите профессию' /> */}
-        <SearchInput className='search__form search__form--prof' items={props.professionList} name='profession' handler={professionChanged}></SearchInput>
+        <SearchInput className='search__form search__form--prof' items={professionState} name='profession' handler={professionChanged}></SearchInput>
         <input className='search__form search__form--city' placeholder='Город' />
 
 

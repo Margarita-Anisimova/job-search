@@ -27,26 +27,26 @@ function App() {
     // const [account, setAccount] = useState<AccountType>(createEmptyAccount())
     // const [resume, setResume] = useState<ResumeType>(createEmptyResume())
     // const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
-    const [professionList, setProfessionList] = useState<{ profession_id: number, profession: string }[]>([])
+    // const [professionList, setProfessionList] = useState<{ profession_id: number, profession: string }[]>([])
 
-    useEffect(() => {
-        if (!professionList.length) {
-            getprofessions()
-        }
-    })
+    // useEffect(() => {
+    //     if (!professionList.length) {
+    //         getprofessions()
+    //     }
+    // })
 
-    async function getprofessions() {
-        const response = await fetch(`profession`)
-        const data = await response.json();
-        setProfessionList(data)
-    }
+    // async function getprofessions() {
+    //     const response = await fetch(`profession`)
+    //     const data = await response.json();
+    //     setProfessionList(data)
+    // }
 
 
     return (
         <BrowserRouter>
             <NavMenu setPageType={setPageType} />
             <Routes>
-                <Route path='/' element={<Home professionList={professionList} pageType={pageType} />} />
+                <Route path='/' element={<Home pageType={pageType} />} />
                 <Route path='/registration' element={<Registration setPageType={setPageType} />} />
                 <Route path='/account' element={<Account />} />
                 <Route path='/accountInfo' element={<AccountInfo />} />

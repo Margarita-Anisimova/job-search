@@ -17,10 +17,15 @@ public class ProfessionController : Controller
         this.Context = db;
     }
 
-    [HttpGet]
-    public IEnumerable<Profession_ref> Get()
+    public class professionsList
     {
+        public int id { get; set; }
+        public string name { get; set; }
+    }
 
-        return this.Context.profession_ref;
+    [HttpGet]
+    public IEnumerable<professionsList> Get()
+    {
+        return this.Context.profession_ref.Select((e) => new professionsList() { id = e.profession_id, name = e.profession });
     }
 }

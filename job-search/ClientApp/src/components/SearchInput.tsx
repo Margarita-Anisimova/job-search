@@ -2,37 +2,37 @@ import React from "react";
 import { useState } from "react";
 import './SearchInput.css';
 
-export default function SearchInput(props: { className: string, name: string, items: { profession_id: number, profession: string }[], handler: any }) {
+export default function SearchInput(props: { className: string, name: string, items: { id: number, name: string }[], handler: any }) {
 
     const [searchInput, setSearchInput] = useState('');
-    const [displayItems, setDisplayItems] = useState<{ profession_id: number, profession: string }[]>(props.items);
+    const [displayItems, setDisplayItems] = useState<{ id: number, name: string }[]>(props.items);
 
     function handler(e: any) {
         props.handler(0)
         setSearchInput(e.target.value)
         filterItems(e.target.value)
         if (displayItems.length == 1) {
-            props.handler(displayItems[0].profession_id)
+            props.handler(displayItems[0].id)
         }
 
     }
 
-    function filterItems(e) {
-        let r = props.items.filter(item => item.profession.startsWith(e))
+    function filterItems(e: string) {
+        let r = props.items.filter(item => item.name.startsWith(e))
         setDisplayItems(r);
     }
 
     function focus() {
-        document.querySelectorAll('.searchItems')[0].style.display = 'block'
+        (document.querySelectorAll('.searchItems')[0] as HTMLElement).style.display = 'block'
     }
 
     function blur() {
-        document.querySelectorAll('.searchItems')[0].style.display = 'none'
+        (document.querySelectorAll('.searchItems')[0] as HTMLElement).style.display = 'none'
     }
 
-    function select(item: { profession_id: number, profession: string }) {
-        setSearchInput(item.profession)
-        props.handler(item.profession_id)
+    function select(item: { id: number, name: string }) {
+        setSearchInput(item.name)
+        props.handler(item.id)
         // blur()
     }
 
@@ -52,7 +52,7 @@ export default function SearchInput(props: { className: string, name: string, it
                 <ul className='searchItems'>
                     {displayItems.map((item, i) => {
                         return i < 5 ?
-                            <li onMouseDown={(e) => select(item)}>{item.profession}</li>
+                            <li onMouseDown={(e) => select(item)}>{item.name}</li>
                             : null
                     })}
                 </ul>
