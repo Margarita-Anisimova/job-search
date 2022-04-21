@@ -1,0 +1,158 @@
+/* === DESKTOP FIRST === */
+
+/* xl <= Extra extra large (xxl) */
+@media (max-width : 1400px) {
+    
+}
+
+/* lg <= Extra large (xl) */
+@media (max-width : 1200px) {
+    .card__container {
+        width: 40vw;
+    }
+
+	
+}
+
+/* md <= Large (lg) */
+@media (max-width : 992px) {
+    /* Home */
+    .search__form--prof {
+        min-width: 300px;
+    }
+
+    .filters {
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    }
+
+    /* Cards */
+    .card__container {
+        width: 45vw;
+        margin: 1px 0 12px -1rem;
+    }
+
+    /* VacancyCard */
+    .vacancy_description {
+        font-size: 15px;
+    }
+
+}
+
+/* sm <= Medium (md) */
+@media (max-width : 768px) {
+    /* Home */
+    .home_container {
+        top: 10vh;
+    }
+
+    .search__form--prof {
+        min-width: 200px;
+    }
+
+    .search__form--city {
+        max-width: 160px;
+    }
+
+    .filters {
+        grid-template-columns: 0.5fr 0.8fr;
+        grid-template-rows: 0.1fr 0.1fr 0.8fr 1fr;
+    }
+    .search__form--button {
+        padding: 10px 15px 10px 15px;
+    }
+    /* Cards */
+     .card__container {
+        width: 60vw;
+    }
+
+    /* VacancyCard */
+    .vacancy_brief {
+        margin-top: 20px;
+    }
+	
+}
+
+/* xs <= Small (sm) */
+@media (max-width : 576px) {
+
+	    /* Cards */
+        .card__container {
+            width: 70vw;
+        }
+}
+
+/* xs <= Small (sm) */
+@media (max-width : 515px) {
+
+    .search__form--prof {
+        width: 60vw;
+    }
+    
+    .search__form--city {
+        display: none;
+    }
+
+    /* Cards */
+    .card__container {
+        width: 90vw;
+    }
+}
+
+@media (max-width : 420px) {
+    .filters {
+        grid-template-columns: 1fr 0.3fr;
+    }
+}
+
+@media (max-width : 380px) {
+    .filters {
+        grid-template-columns: 1fr 0.3fr;
+    }
+
+    .search__form--prof {
+        width: 40vw;
+    }
+
+    .search__form--button {
+        font-size: 12px;
+        padding: 10px 10px 10px 10px;
+    }
+
+    /* Cards */
+    .card_header {
+        display: inline;
+    }
+}
+
+
+/* === MOBILE FIRST === */
+
+/* Custom (xs) */
+@media (min-width : 0) {
+
+}
+
+/* Small (sm) */
+@media (min-width : 576px) {
+
+}
+
+/* Medium (md) */
+@media (min-width : 768px) {
+
+}
+
+/* Large (lg) */
+@media (min-width : 992px) {
+
+}
+
+/* Extra large (xl) */
+@media (min-width : 1200px) {
+	
+}
+
+/* Extra extra large (xxl) */
+@media (min-width : 1400px) {
+	
+}

@@ -1,6 +1,6 @@
 .home-title {
-    font-size: 29px;
-    font-weight: 500;
+    font-size: 30px;
+    font-weight: 400;
     margin-bottom: 30px;
     color: #333;
 }
@@ -74,6 +74,7 @@
 
 .filters {
     margin-top: 2em;
+    margin-bottom: 2em;
     font-size: 14px;
     display: grid;
     grid-template-columns: 0.5fr 0.8fr 0.5fr 0.8fr;
