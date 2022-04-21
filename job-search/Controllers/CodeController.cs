@@ -42,7 +42,7 @@ public class CodeController : Controller
             code += rng.Next(1, 10);
         }
         response.Code = code;
-        // SendEmailAsync(email, code);
+        SendEmailAsync(email, code);
         return response;
     }
 
@@ -54,7 +54,7 @@ public class CodeController : Controller
         m.Subject = "Код подтверждения";
         m.Body = $"Код для подтверждения учетной записи: {code}";
         SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-        smtp.Credentials = new NetworkCredential("flashCardsCheckEmail@gmail.com", "lase1029");
+        smtp.Credentials = new NetworkCredential("flashCardsCheckEmail@gmail.com", "Flash123456)");
         smtp.EnableSsl = true;
         await smtp.SendMailAsync(m);
     }
