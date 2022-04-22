@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import './ResumeCard.css';
 import '../custom.css';
+import '../media.css';
 import { EducationType, ResumeType, WorkExpirienceType, CompanyType, AccountType } from './types';
 import { useLocation } from 'react-router-dom';
 import { createEmptyAccount, createEmptyResume } from '../exportFunctions';
@@ -86,10 +87,10 @@ export default function ResumeCard(props: { company: CompanyType }) {
     return (
         <div className="container resumecard__container">
             <div className="resumecard__title row">
-                <div className="resumecard__title-img col-md-2">
+                <div className="resumecard__title-img col-md-3 col-sm-4 col-4">
                     <img src={img} />
                 </div>
-                <div className="resumecard__title-maininfo col-md-4">
+                <div className="resumecard__title-maininfo col-md-6 col-sm-8 col-8">
                     <div className="user_name">{account.f_name + ' ' + account.l_name}</div>
                     {/* <div className="user_birthday">{resume.resumeInfo.birth_date}</div> */}
                     <div className="user_city">{resume.resumeInfo.city}</div>
@@ -122,10 +123,10 @@ export default function ResumeCard(props: { company: CompanyType }) {
                 {resume.workExperience.length ? resume.workExperience.map((e) => {
                     return (
                         <div className="work_exp row">
-                            <div className="work-period col-md-3">
+                            <div className="work-period col-md-3 col-sm-4">
                                 {e.date_start + '-' + e.date_end}
                             </div>
-                            <div className="work_description col-md-6">
+                            <div className="work_description col-md-6 col-sm-8">
                                 <div className="work_exp-post">{e.post}</div>
                                 <div className="work_exp-company">{e.company}</div>
                                 <div className='work_exp-desc_title'>Обязанности и достижения</div>
@@ -142,10 +143,10 @@ export default function ResumeCard(props: { company: CompanyType }) {
                 {resume.education.length ? resume.education.map((e) => {
                     return (
                         <div className="education row">
-                            <div className="edu-period col-md-3">
+                            <div className="edu-period col-md-3 col-sm-4">
                                 Год выпуска: {resume.education[0].graduation_year}
                             </div>
-                            <div className="edu_description col-md-6">
+                            <div className="edu_description col-md-6 col-sm-8">
                                 <div className="edu-institution">{resume.education[0].institution}</div>
                                 <div className="edu-specialization">{resume.education[0].specialization}</div>
                                 {/* <div className="edu-type">Тип обучения: {resume.education[0].education_type}</div> */}

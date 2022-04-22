@@ -7,19 +7,24 @@
 .resumecard__title {
     position: relative;
     padding-bottom: 30px;
+    align-items: center;
+}
+
+.resumecard__title-img {
+    align-self: center;
+    text-align: center;
 }
 
 .resumecard__title-img img {
-    max-width:140px;
-    max-height:140px;
-    scale: 0.5;
+    max-width: 100px;
+    max-height: 100px;
 }
 
 .user_name {
     font-size: 22px;
     font-weight: 600;
     color: var(--text);
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .user_birthday, .user_city {
@@ -118,7 +123,7 @@
 .section_title {
     font-size: 20px;
     font-weight: 700;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .work_exp-post {

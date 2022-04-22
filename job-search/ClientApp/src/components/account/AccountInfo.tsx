@@ -80,7 +80,9 @@ function AccountInfo(props: { setResume: any, setAccount: any, account: AccountT
                         {createTextInputs(contacts, handler)}
                     </div>
                 </section>
+                <div className="button-form">
                 <NavLink onClick={putChange} tag={Link} to="/account">Сохранить</NavLink>
+                </div>
             </form>
         </div >
     );

@@ -16,6 +16,8 @@
 
 .search {
     padding-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .search__form {
@@ -28,11 +30,11 @@
 
 .search__form--prof {
     border-radius: 5px 0 0 5px;
-    min-width: 475px;
+    width: 20vw;
 }
 
 .search__form--city {
-    min-width: 160px;
+    width: 15vw;
     border-left: none;
     border-radius: 0;
 }
