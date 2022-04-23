@@ -24,6 +24,7 @@ public class ResponseToResumeController : Controller
     public void Post([FromBody] ResponseToResume data)
     {
         this.Context.responseToResume.Add(data);
+        this.Context.SaveChanges();
     }
 
     [Route("{resume_id}")]
@@ -35,7 +36,7 @@ public class ResponseToResumeController : Controller
         {
             var a = new CompanyResponse();
             a.response = item;
-            a.company = this.Context.companies.Where((company) => company.user_id == item.company_id).First();
+            a.vacancy = this.Context.vacancies.Where((vacancy) => vacancy.vacancy_id == item.vacancy_id).First();
             return a;
         });
         return result;
@@ -46,11 +47,12 @@ public class ResponseToResumeController : Controller
     public void Delete([FromBody] ResponseToResume response)
     {
         this.Context.responseToResume.Remove(response);
+        this.Context.SaveChanges();
     }
 
     public class CompanyResponse
     {
         public ResponseToResume response { get; set; }
-        public Company company { get; set; }
+        public Vacancy vacancy { get; set; }
     }
 }

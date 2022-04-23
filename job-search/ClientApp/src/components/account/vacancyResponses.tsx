@@ -24,7 +24,7 @@ export default function VacancyResponses() {
         vacancy_id: number;
         resume_id: number;
         message: string;
-        response: boolean;
+        response: string;
     }
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function VacancyResponses() {
         setStatus(!status);
 
     }
-    async function sentResponse(response: ResponseToVacancy, result: boolean, id: number) {
+    async function sentResponse(response: ResponseToVacancy, result: string, id: number) {
         response.response = result;
         await fetch('responseToVacancy', {
             method: 'POST',
@@ -84,8 +84,8 @@ export default function VacancyResponses() {
                                             <p className='card__address'>{res.resume.desired_salary} </p>
                                         </div>
                                     </NavLink>
-                                    <button onClick={() => sentResponse(res.response, true, id)}>Принять</button>
-                                    <button onClick={() => sentResponse(res.response, false, id)}>Отклонить</button>
+                                    <button onClick={() => sentResponse(res.response, 'Принято', id)}>Принять</button>
+                                    <button onClick={() => sentResponse(res.response, 'Отказано', id)}>Отклонить</button>
                                 </div>
 
                             )

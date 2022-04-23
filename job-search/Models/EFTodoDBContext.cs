@@ -23,6 +23,20 @@ namespace job_search
 
         // public DbSet<Company> Companies { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<ResponseToResume>().HasKey(table => new
+            {
+                table.resume_id,
+                table.vacancy_id
+            });
+            builder.Entity<ResponseToVacancy>().HasKey(table => new
+            {
+                table.resume_id,
+                table.vacancy_id
+            });
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=tcp:job-search.database.windows.net,1433;Initial Catalog=job-search1;Persist Security Info=False;User ID=marina;Password=28atifis!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",

@@ -34,6 +34,7 @@ public class ResponseToVacancyController : Controller
             this.Context.responseToVacancy.Add(data);
         else
             this.Context.responseToVacancy.Update(data);
+        this.Context.SaveChanges();
     }
 
     [Route("{vacancy_id}")]
@@ -77,6 +78,7 @@ public class ResponseToVacancyController : Controller
     public void Delete([FromBody] ResponseToVacancy response)
     {
         this.Context.responseToVacancy.Remove(response);
+        this.Context.SaveChanges();
     }
 
     public class VacancyResponse

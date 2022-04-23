@@ -1,6 +1,7 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { NavLink } from "reactstrap";
 import { VacancyType } from "../types";
@@ -8,7 +9,7 @@ import "./Account.css"
 import img from './pgfFnQm.jpg'
 
 export default function myResponses() {
-
+    const resumeState = useSelector((state: any) => state.resumeState.resumeState)
     const [myResponses, setMyResponses] = useState<ResponseForApplicant[]>([])
 
     type ResponseForApplicant = {
@@ -25,6 +26,21 @@ export default function myResponses() {
 
     function changeStatus(response: ResponseToVacancy, id: number) {
         deleteResp(response, id)
+    }
+
+    useEffect(() => {
+        getResponses()
+    })
+
+    async function getResponses() {
+        const data = await fetch(`responseToVacancy/result/${resumeState.resumeInfo.resume_id}`)
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                }
+            })
+        setMyResponses(data);
+
     }
 
     async function deleteResp(e: ResponseToVacancy, id: number) {
@@ -54,7 +70,7 @@ export default function myResponses() {
                             <p className='card__address'>{res.vacancy.salary}</p>
                         </div>
                     </NavLink>
-                    <p>{res.response.response ? 'Принято' : 'Отказано'}</p>
+                    <p>{res.response.response}</p>
 
                     <p>Сообщение</p>
                     <p>{res.response.message}</p>

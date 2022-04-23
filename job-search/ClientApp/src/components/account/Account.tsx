@@ -13,7 +13,7 @@ import VacancyCollections from "./VacancyCollections";
 import ResumeCollections from "./ResumeCollections";
 import { changeUser } from "../../app/userStateReducer";
 import "../../custom.css"
-import VacancyResponses from "../VacancyResponses";
+import VacancyResponses from "./vacancyResponses";
 
 function Account() {
 
@@ -38,9 +38,9 @@ function Account() {
             case 'vacancyResponses': {
                 return (<VacancyResponses></VacancyResponses>)
             }
-            // case 'myResponses': {
-            //     return (<MyResponses></MyResponses>)
-            // }
+            case 'myResponses': {
+                return (<MyResponses></MyResponses>)
+            }
             case 'vacancyCollections': {
                 return (<VacancyCollections></VacancyCollections>)
             }
@@ -55,8 +55,8 @@ function Account() {
         <div className="container">
             <div className='accountMenu'>
                 <button className="light__button" onClick={() => setPage('profile')}>Профиль</button>
-                {/* <button onClick={() => setPage('resumeResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
-                {userState.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null} */}
+                <button className="light__button" onClick={() => userState.user_type === 'applicant' ? setPage('resumeResponses') : setPage('vacancyResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
+                {userState.user_type === 'applicant' ? <button className="light__button" onClick={() => setPage('myResponses')}>Мои отклики</button> : null}
                 {
                     userState.user_type === 'applicant' ?
                         resumeState.resumeInfo.resume_id ? <button className="light__button" onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null

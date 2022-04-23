@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import './VacancyCard.css';
 import '../custom.css';
 import Education from './resumeForm/Education';
-import { VacancyType, ResumeType, CompanyType } from './types';
+import { VacancyType, ResumeType, CompanyType, CompanyInfoType } from './types';
 import { useLocation } from 'react-router-dom';
-import { createEmptyVacancy, createEmptyCompany } from '../exportFunctions';
+import { createEmptyVacancy, createCompanyInfo } from '../exportFunctions';
 import { useHistory } from 'react-router';
 import callimg from './call.svg'
 import mailimg from './mail.svg'
@@ -18,7 +18,7 @@ export default function VacancyCard() {
     const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
     let location = useLocation();
     const id = parseInt(location.pathname.split('/')[2])
-    const [company, setCompany] = useState(createEmptyCompany())
+    const [company, setCompany] = useState<CompanyInfoType>(createCompanyInfo())
     const [responseStatus, setResponseStatus] = useState(false)
 
     useEffect(() => {
@@ -53,6 +53,7 @@ export default function VacancyCard() {
     }
 
     async function sendResponse() {
+        setResponseStatus(true)
         const response = await fetch('responseToVacancy', {
             method: 'POST',
             mode: 'cors',
@@ -63,7 +64,7 @@ export default function VacancyCard() {
                 vacancy_id: vacancy.vacancy_id,
                 resume_id: resumeState.resumeInfo.resume_id,
                 message: '',
-                response: null,
+                response: 'На рассмотрении',
             })
         })
     }
@@ -117,10 +118,7 @@ export default function VacancyCard() {
                     : null}
             </div>
 
-            {responseStatus ?
-                <p>Отклик отправлен</p>
-                :
-                <button onClick={sendResponse} className='button resumecard__btn'>Отправить отклик</button>}
+            <button onClick={sendResponse} disabled={responseStatus} className='button resumecard__btn'>{responseStatus ? 'Отклик отправлен' : 'Отправить отклик'}</button>
         </div >
 
     );

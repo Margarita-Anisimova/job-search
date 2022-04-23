@@ -2,15 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AccountType } from "../components/types";
 import { createEmptyAccount } from "../exportFunctions";
 
-const initialState = { professionState: getPofession() }; // { professionState: [] };
-
-async function getPofession() {
-    let data = await fetch(`profession`)
-        .then((response) => {
-            return response.json()
-        })
-    return data
-}
+const initialState = { professionState: [] }; // { professionState: [] };
 
 export const counterSlice = createSlice({
     name: "professionState",

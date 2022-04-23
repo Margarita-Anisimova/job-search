@@ -9,6 +9,7 @@ import { createEmptyAccount, createEmptyResume } from '../exportFunctions';
 import { Redirect } from 'react-router';
 import img from './account/noavatar.svg'
 import { useSelector } from 'react-redux';
+import ResumeResponseDialog from './ResumeResponseDialog';
 
 
 export default function ResumeCard() {
@@ -20,8 +21,8 @@ export default function ResumeCard() {
     const [IsContacts, setIsContacts] = useState(false)
     const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
     const [profession, setProfession] = useState('')
-    const [button, setButton] = useState('start');
-    const [message, setMessage] = useState("");
+    const [button, setButton] = useState<'start' | 'sented'>('start');
+
     useEffect(() => {
         window.history.pushState(null, document.title, window.location.href);
         window.addEventListener('popstate', function (event) {
@@ -61,21 +62,8 @@ export default function ResumeCard() {
     }
 
 
-    async function sentResponse() {
-        // setButton('sented')
-        const response = await fetch('responseToResume', {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: "same-origin",
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({
-                company_id: companyState.companyInfo.company_id,
-                resume_id: resume.resumeInfo.resume_id,
-                message: message,
-                status: null,
-            })
-        })
+    function openDialog() {
+        let r = document.getElementsByClassName('dialog')[0].showModal();
     }
 
     function checkUser() {
@@ -88,6 +76,7 @@ export default function ResumeCard() {
 
     return (
         <div className="container resumecard__container">
+
             <div className="resumecard__title row">
                 <div className="resumecard__title-img col-md-3 col-sm-4 col-4">
                     <img src={img} />
@@ -169,6 +158,8 @@ export default function ResumeCard() {
                 </div>
             </div>
             {createResponseField()}
+            <ResumeResponseDialog resume={resume} setButton={setButton}></ResumeResponseDialog>
+
         </div >
 
     );
@@ -177,10 +168,11 @@ export default function ResumeCard() {
         if (companyState.companyInfo.fullname) {
             return (
                 <div>
-                    {button == 'start'
-                        ? <textarea value={message} onChange={(e) => setMessage(e.target.value)} minLength={30} placeholder='Введите сообщение для соискателя'></textarea>
-                        : null}
-                    <button onClick={() => sentResponse()} disabled={button == 'sented'} className='button resumecard__btn'>
+                    {/* {button == 'start'
+                        ? 
+                        : null} */}
+
+                    <button onClick={() => openDialog()} disabled={button == 'sented'} className='button resumecard__btn'>
                         {button != 'sented' ? 'Отправить отклик' : 'Отклик отправлен'}
                     </button>
                 </div>)

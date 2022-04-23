@@ -20,6 +20,8 @@ import NavMenu from './components/NavMenu';
 import Company from './components/companyForm/Company';
 import ResumeCard from './components/ResumeCard';
 import VacancyCard from './components/VacancyCard';
+import { useDispatch } from 'react-redux';
+import { changeProfessionList } from './app/professionStateReducer';
 
 function App() {
 
@@ -30,18 +32,20 @@ function App() {
     // const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
     // const [professionList, setProfessionList] = useState<{ profession_id: number, profession: string }[]>([])
 
-    // useEffect(() => {
-    //     if (!professionList.length) {
-    //         getprofessions()
-    //     }
-    // })
-
+    useEffect(() => {
+        getprofessions()
+    })
+    const dispatch = useDispatch();
     // async function getprofessions() {
     //     const response = await fetch(`profession`)
     //     const data = await response.json();
     //     setProfessionList(data)
     // }
-
+    async function getprofessions() {
+        const response = await fetch(`profession`)
+        let data = await response.json()
+        dispatch(changeProfessionList({ professionState: data }))
+    }
 
     return (
         <BrowserRouter>

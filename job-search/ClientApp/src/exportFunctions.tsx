@@ -62,19 +62,23 @@ export function createEmptyWorkExperience(resume_id = 0): WorkExpirienceType {
     }
 }
 
+export function createCompanyInfo(user_id = 0) {
+    return {
+        user_id: user_id,
+        company_id: 0,
+        fullname: '',
+        city: '',
+        description: '',
+        contact_face: '',
+        phone: '',
+        email: '',
+    }
+}
+
 
 export function createEmptyCompany(user_id = 0): CompanyType {
     return {
-        companyInfo: {
-            user_id: user_id,
-            company_id: 0,
-            fullname: '',
-            city: '',
-            description: '',
-            contact_face: '',
-            phone: '',
-            email: '',
-        },
+        companyInfo: createCompanyInfo(user_id),
         vacancies: []
     }
 }

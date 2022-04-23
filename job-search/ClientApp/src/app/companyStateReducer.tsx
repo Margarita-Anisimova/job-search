@@ -9,7 +9,7 @@ export const counterSlice = createSlice({
     initialState: initialState,
     reducers: {
         changeCompany: (state, action) => {
-            state = action.payload.companyState;
+            state.companyState = action.payload.companyState;
         },
         changeCompanyInfo: (state, action) => {
             state.companyState.companyInfo[action.payload.name] = action.payload.value;

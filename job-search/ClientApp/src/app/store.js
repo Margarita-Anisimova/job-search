@@ -27,7 +27,7 @@ const reducers = (state, action) => {
     //     storage.removeItem("persist:root");
     //     state = undefined;
     // }
-    state.professionState = undefined;
+    // state.professionState = undefined;
     if (action.type.includes("PERSIST") && (!getCookie('user_id') || getCookie('user_id') !== state.userState.userState.user_id)) {
         console.log(getCookie('user_id'))
         console.log(state.userState.userState.user_id)

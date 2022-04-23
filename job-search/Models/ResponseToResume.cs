@@ -9,15 +9,15 @@ namespace job_search.Models
     public class ResponseToResume
     {
         [Key]
-        public int company_id { get; set; }
+        public int vacancy_id { get; set; }
 
-        [ForeignKey("user_id")]
-        public Company company { get; set; }
+        [ForeignKey("vacancy_id")]
+        public Vacancy vacancy { get; set; }
 
         [Key]
         public int resume_id { get; set; }
 
-        [ForeignKey("user_id")]
+        [ForeignKey("resume_id")]
         public Resume resume { get; set; }
 
         [Required]

@@ -19,7 +19,7 @@ namespace job_search.Models
         [ForeignKey("vacancy_id")]
         public Vacancy Vacancy { get; set; }
 
-        public bool responce { get; set; }
+        public string response { get; set; }
 
         public string message { get; set; }
         // public bool status { get; set; }

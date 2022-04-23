@@ -50,11 +50,12 @@ export default function SearchInput(props: { className: string, name: string, it
             />
             <div>
                 <ul className='searchItems'>
-                    {displayItems.map((item, i) => {
+                    {displayItems ? displayItems.map((item, i) => {
                         return i < 5 ?
                             <li onMouseDown={(e) => select(item)}>{item.name}</li>
                             : null
-                    })}
+                    })
+                        : null}
                 </ul>
             </div>
 

@@ -4,17 +4,17 @@ import { useState, useEffect } from "react";
 import "./Account.css"
 import img from './pgfFnQm.jpg'
 import { useSelector } from "react-redux";
-import { CompanyInfoType } from "../types";
+import { CompanyInfoType, VacancyType } from "../types";
 
 export default function ResumeResponses() {
 
     type ResumeResponse = {
-        company: CompanyInfoType;
+        vacancy: VacancyType;
         response: ResponseToResume;
     }
 
     type ResponseToResume = {
-        company_id: number;
+        vacancy_id: number;
         resume_id: number;
         message: string;
     }
@@ -61,13 +61,12 @@ export default function ResumeResponses() {
 
             {responses.map((e, id) => {
                 return <div className="responseCard">
-                    <p>{e.company.fullname}</p>
+                    <p>{e.vacancy.position}</p>
                     <p>{e.response.message}</p>
 
                     <div className="resumeButtons">
-                        <button onClick={() => deleteResp(e.response, id)} className="resumeButton">Удалить</button>
+                        <button onClick={() => deleteResp(e.response, id)} className="resumeButton">Просмотрено</button>
                     </div>
-                    <button onClick={() => changeStatus(e.response, id)}>Просмотрено</button>
                 </div>
             })}
         </div>
