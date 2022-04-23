@@ -15,6 +15,7 @@ import { AccountType, ResumeType, CompanyType } from './components/types';
 
 
 import './custom.css'
+import './media.css'
 import { useEffect, useState } from 'react';
 import NavMenu from './components/NavMenu';
 import Company from './components/companyForm/Company';

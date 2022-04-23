@@ -1,6 +1,6 @@
 .home-title {
     font-size: 30px;
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 30px;
     color: #333;
 }
@@ -16,6 +16,8 @@
 
 .search {
     padding-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .search__form {
@@ -28,11 +30,11 @@
 
 .search__form--prof {
     border-radius: 5px 0 0 5px;
-    min-width: 475px;
+    width: 20vw;
 }
 
 .search__form--city {
-    min-width: 160px;
+    width: 15vw;
     border-left: none;
     border-radius: 0;
 }
@@ -74,6 +76,7 @@
 
 .filters {
     margin-top: 2em;
+    margin-bottom: 2em;
     font-size: 14px;
     display: grid;
     grid-template-columns: 0.5fr 0.8fr 0.5fr 0.8fr;

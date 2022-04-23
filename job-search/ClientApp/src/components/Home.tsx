@@ -89,15 +89,16 @@ export default function Home(props: { professionList: any, accountType: string; 
 
       {/* {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>} */}
       <section className='search'>
+        <div className="search_inputs">
         {/* <input className='search__form search__form--prof' onChange={(e) => filterChanged(e)} name='profession' placeholder='Введите профессию' /> */}
-        <SearchInput className='search__form search__form--prof' items={props.professionList} name='profession' handler={professionChanged}></SearchInput>
-        <input className='search__form search__form--city' name='city' onChange={(e) => filterChanged(e)} value={filters.city} placeholder='Город' />
-
-
-
+            <SearchInput className='search__form search__form--prof' items={props.professionList} name='profession' handler={professionChanged}></SearchInput>
+            <input className='search__form search__form--city' name='city' onChange={(e) => filterChanged(e)} value={filters.city} placeholder='Город' />
+        </div>
+        
         <button onClick={confirm} className='button search__form--button'>
           {props.pageType === 'resumes' ? 'Найти резюме' : 'Найти работу'}
         </button>
+      
       </section>
 
       <button onClick={() => setFiltersStatus(!isFilters)} className='btn-filter'>

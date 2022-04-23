@@ -1,0 +1,227 @@
+/* === DESKTOP FIRST === */
+
+/* xl <= Extra extra large (xxl) */
+@media (max-width : 1400px) {
+    
+}
+
+/* lg <= Extra large (xl) */
+@media (max-width : 1200px) {
+    .search__form--prof {
+        width: 30vw;
+    }
+
+    .search__form--city {
+        width: 25vw;
+    }
+
+    .card__container {
+        width: 40vw;
+    }
+
+	
+}
+
+/* md <= Large (lg) */
+@media (max-width : 992px) {
+    /* Home */
+    .search__form--prof {
+        width: 25vw;
+    }
+
+    .search__form--city {
+        width: 20vw;
+    }
+
+    .filters {
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    }
+
+    /* Cards */
+    .card__container {
+        width: 45vw;
+        margin: 1px 0 12px -1rem;
+    }
+
+    /* VacancyCard */
+    .vacancy_description {
+        font-size: 15px;
+    }
+
+}
+
+/* sm <= Medium (md) */
+@media (max-width : 768px) {
+    /* Home */
+    .home_container {
+        top: 10vh;
+    }
+
+    .search_inputs {
+        display: flex;
+    }
+
+    .search__form--prof {
+        width: 30vw;
+    }
+
+    .search__form--city {
+        width: 20vw;
+    }
+
+    .search__form--button {
+        padding: 9px 15px;
+    }
+
+    .filters {
+        grid-template-columns: 0.5fr 0.8fr;
+        grid-template-rows: 0.1fr 0.1fr 0.8fr 1fr;
+    }
+
+    /* Cards */
+     .card__container {
+        width: 60vw;
+    }
+
+    /* VacancyCard */
+    .vacancy_brief {
+        margin-top: 20px;
+    }
+
+    .section_title {
+        font-size: 19px;
+        padding-bottom: 8px;
+    }
+
+
+	
+}
+
+/* xs <= Small (sm) */
+@media (max-width : 576px) {
+        /* Home */
+        .search__form--prof {
+            width: 35vw;
+        }
+    
+        .search__form--city {
+            width: 25vw;
+        }
+
+	    /* Cards */
+        .card__container {
+            width: 70vw;
+        }
+
+        /* Resume */
+        .resumecard__title-img img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .user_name {
+            padding-bottom: 10px;
+        }
+}
+
+/* xs <= Small (sm) */
+@media (max-width : 515px) {
+
+    .search {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search__form--prof {
+        width: 50vw;
+    }
+    
+    .search__form--city {
+        width: 40vw;
+        border-radius: 0 5px 5px 0;
+    }
+
+    .search__form--button {
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    /* Cards */
+    .card__container {
+        width: 90vw;
+    }
+}
+
+@media (max-width : 420px) {
+    .filters {
+
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-gap: 1em;
+    }
+}
+
+@media (max-width : 380px) {
+    /* .filters {
+        grid-template-columns: 1fr 0.3fr;
+    } */
+
+    .search_inputs {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search__form--prof, .search__form--city {
+        width: 90vw;
+        border: 1px solid var(--accent);
+        border-radius: 5px;
+    }
+
+    .search__form--city {
+        margin-top: 10px;
+    }
+
+    .search__form--button {
+        font-size: 12px;
+        padding: 10px 10px 10px 10px;
+    }
+
+    /* Cards */
+    .card_header {
+        display: inline;
+    }
+}
+
+
+/* === MOBILE FIRST === */
+
+/* Custom (xs) */
+@media (min-width : 0) {
+
+}
+
+/* Small (sm) */
+@media (min-width : 576px) {
+
+}
+
+/* Medium (md) */
+@media (min-width : 768px) {
+
+}
+
+/* Large (lg) */
+@media (min-width : 992px) {
+
+}
+
+/* Extra large (xl) */
+@media (min-width : 1200px) {
+	
+}
+
+/* Extra extra large (xxl) */
+@media (min-width : 1400px) {
+	
+}
