@@ -6,18 +6,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace job_search.Models
 {
-    public class SelectedVacancy
+    public class ResponseToVacancy
     {
         [Key]
-        public int user_id { get; set; }
+        public int resume_id { get; set; }
 
-        [ForeignKey("user_id")]
-        public User User { get; set; }
+        [ForeignKey("resume_id")]
+        public Resume Resume { get; set; }
         [Key]
         public int vacancy_id { get; set; }
 
         [ForeignKey("vacancy_id")]
         public Vacancy Vacancy { get; set; }
 
+        public bool responce { get; set; }
+
+        public string message { get; set; }
+        // public bool status { get; set; }
     }
 }

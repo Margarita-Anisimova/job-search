@@ -3,29 +3,31 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./Account.css"
 import img from './pgfFnQm.jpg'
-import { AccountType, ResumeType, CompanyType } from '../types';
 import { useSelector } from "react-redux";
+import { CompanyInfoType } from "../types";
 
-export default function ResumeResponses(props: { resume: ResumeType, company: CompanyType }) {
+export default function ResumeResponses() {
 
-    type ResponseType = {
-        company_id: string;
-        resume_id: string;
-        company: string;
+    type ResumeResponse = {
+        company: CompanyInfoType;
+        response: ResponseToResume;
+    }
+
+    type ResponseToResume = {
+        company_id: number;
+        resume_id: number;
         message: string;
     }
 
-    const [responses, setResponses] = useState<ResponseType[]>([]);
+    const [responses, setResponses] = useState<ResumeResponse[]>([]);
 
-    const userState = useSelector((state: any) => state.userState.userState)
+    const resumeState = useSelector((state: any) => state.resumeState.resumeState)
     useEffect(() => {
-        // getResponses()
+        getResponses()
     })
 
-
-
     async function getResponses() {
-        const data = await fetch(`responseToResume/${userState.user_id}`)
+        const data = await fetch(`responseToResume/${resumeState.resumeInfo.resume_id}`)
             .then((response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -35,33 +37,37 @@ export default function ResumeResponses(props: { resume: ResumeType, company: Co
 
     }
 
-    async function deleteResp(e) {
+    async function deleteResp(e: ResponseToResume, id: number) {
 
         const response = await fetch('responseToResume', {
-            method: 'POST',
+            method: 'DELETE',
             mode: 'cors',
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify(e)
         })
-        const data = await response.json();
-        // dispatch(changeUser({ user_id: data.user_id, user_type: data.user_type }))
-        //   props.setAccount({ ...props.account, user_id: data.user_id })
+        let arr = responses.slice()
+        arr.splice(id, 1);
+        setResponses(arr)
     }
 
+    function changeStatus(response: ResponseToResume, id: number) {
+        deleteResp(response, id)
+    }
 
     return (
         <div className='pofile_container'>
 
-            {responses.map((e) => {
+            {responses.map((e, id) => {
                 return <div className="responseCard">
-                    <p>{e.company}</p>
-                    <p>{e.message}</p>
+                    <p>{e.company.fullname}</p>
+                    <p>{e.response.message}</p>
 
                     <div className="resumeButtons">
-                        <button onClick={(e) => deleteResp(e)} className="resumeButton">Удалить</button>
+                        <button onClick={() => deleteResp(e.response, id)} className="resumeButton">Удалить</button>
                     </div>
+                    <button onClick={() => changeStatus(e.response, id)}>Просмотрено</button>
                 </div>
             })}
         </div>

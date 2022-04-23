@@ -11,14 +11,19 @@ import './Vacancy.css';
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { useLocation } from 'react-router-dom'
 import { createEmptyVacancy } from '../../exportFunctions'
+import { useDispatch, useSelector } from "react-redux";
+import { changeVacancy } from "../../app/companyStateReducer";
 
 
 
-function Vacancy(props: { company: CompanyType, setCompany: any }) {
+function Vacancy() {
+
+    const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
+    const dispatch = useDispatch();
 
     let location = useLocation();
     const id = parseInt(location.pathname.split('/')[2])
-    const [vacancy, setVacancy] = props.company.vacancies[id] ? useState(props.company.vacancies[id]) : useState(createEmptyVacancy(id, props.company.companyInfo.company_id))
+    const [vacancy, setVacancy] = companyState.vacancies[id] ? useState(companyState.vacancies[id]) : useState(createEmptyVacancy(id, companyState.companyInfo.company_id))
     // const [commonInfo, setCommonInfo] = r ? useState<VacancyType>(r) : useState<VacancyType>(createEmptyVacancy());
 
     function handler(e: any) {
@@ -32,9 +37,10 @@ function Vacancy(props: { company: CompanyType, setCompany: any }) {
             form.reportValidity()
             e.preventDefault()
         } else {
-            let arr = props.company.vacancies.slice()
-            arr[id] = vacancy
-            props.setCompany({ ...props.company, vacancies: arr })
+            // let arr = companyState.vacancies.slice()
+            // arr[id] = vacancy
+            // props.setCompany({ ...companyState, vacancies: arr })
+            dispatch(changeVacancy({ index: id, vacancy: vacancy }))
             if (vacancy.vacancy_id === 0) {
                 postNewVacancy();
             } else {
@@ -83,7 +89,7 @@ function Vacancy(props: { company: CompanyType, setCompany: any }) {
                     <Desired_Applicant vacancy={vacancy} setVacancy={setVacancy}></Desired_Applicant>
                     <About_Work vacancy={vacancy} setVacancy={setVacancy} ></About_Work>
                     <div className="button-form">
-                    <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
+                        <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
                     </div>
                 </form>
             </div>

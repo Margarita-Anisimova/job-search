@@ -13,100 +13,39 @@ import VacancyCollections from "./VacancyCollections";
 import ResumeCollections from "./ResumeCollections";
 import { changeUser } from "../../app/userStateReducer";
 import "../../custom.css"
+import VacancyResponses from "../VacancyResponses";
 
-function Account(props: { resume: ResumeType, setResume: any, setAccount: any, account: AccountType, company: CompanyType, setCompany: any, }) {
+function Account() {
 
 
-
-    type PageType = 'profile' | 'resumeResponses' | 'myResponses' | 'vacancyCollections' | 'resumeCollections';
-    const userState = useSelector((state: any) => state.userState.userState)
-    // const [resume, setResume] = useState<ResumeType>(createEmptyResume())
+    type PageType = 'profile' | 'resumeResponses' | 'myResponses' | 'vacancyCollections' | 'resumeCollections' | 'vacancyResponses';
+    const userState: AccountType = useSelector((state: any) => state.userState.userState)
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+    const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
     const navigate = useNavigate();
 
     const [page, setPage] = useState<PageType>('profile');
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (userState.user_type === 'applicant' && props.resume.resumeInfo.user_id !== userState.user_id) {
-            // getUser()
-            getResume()
-        } else if (userState.user_type === 'employer' && props.company.companyInfo.user_id !== userState.user_id) {
-            // getUser()
-            getCompany();
-        }
-        // if (props.account.user_type === 'noRegistered') {
-        //     navigate('/')
-        // }
-    })
-
-    async function getCompany() {
-        const data = await fetch(`company/${userState.user_id}`)
-            .then((response) => {
-                if (response.status === 200) {
-                    return response.json()
-
-                }
-            })
-        props.setAccount(data.user);
-        if (data.company) {
-            await fd(data)
-            props.setCompany(data.company);
-            dispatch(changeUser({ user_id: userState.user_id, user_type: userState.user_type, fullemployer: true }))
-        }
-
-    }
-
-    function fd(data) {
-        for (let e of data.company.vacancies) {
-            e.work_type = e.work_type.split(',')
-        }
-    }
-
-    async function getResume() {
-        const data = await fetch(`resume/${userState.user_id}`)
-            .then((response) => {
-                if (response.status === 200) {
-                    return response.json()
-
-                }
-            })
-        props.setAccount(data.user);
-        if (data.resume) {
-            await changeData(data)
-            props.setResume(data.resume);
-        }
-
-
-
-    }
-
-    function changeData(data) {
-        if (data.resume.resumeInfo.profession_id !== 0) {
-
-            data.resume.resumeInfo.work_type = data.resume.resumeInfo.work_type.split(',')
-            let t = {}
-            data.resume.resumeInfo.skills.split(',').forEach((e: string) => { t[e] = e })
-            data.resume.resumeInfo.skills = t;
-        }
-
-    }
-
     function createPage() {
         switch (page) {
             case 'profile': {
-                return <Profile setResume={props.setResume} setCompany={props.setCompany} account={props.account} resume={props.resume} company={props.company}></Profile >
+                return <Profile></Profile >
             }
             case 'resumeResponses': {
-                return (<ResumeResponses resume={props.resume} company={props.company}></ResumeResponses>)
+                return (<ResumeResponses></ResumeResponses>)
             }
-            case 'myResponses': {
-                return (<MyResponses></MyResponses>)
+            case 'vacancyResponses': {
+                return (<VacancyResponses></VacancyResponses>)
             }
+            // case 'myResponses': {
+            //     return (<MyResponses></MyResponses>)
+            // }
             case 'vacancyCollections': {
-                return (<VacancyCollections resume={props.resume}></VacancyCollections>)
+                return (<VacancyCollections></VacancyCollections>)
             }
             case 'resumeCollections': {
-                return (<ResumeCollections company={props.company}></ResumeCollections>)
+                return (<ResumeCollections></ResumeCollections>)
             }
             default: { break; }
         }
@@ -120,9 +59,9 @@ function Account(props: { resume: ResumeType, setResume: any, setAccount: any, a
                 {userState.user_type === 'applicant' ? <button onClick={() => setPage('myResponses')}>Мои отклики</button> : null} */}
                 {
                     userState.user_type === 'applicant' ?
-                        props.resume.resumeInfo.city ? <button className="light__button" onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
+                        resumeState.resumeInfo.resume_id ? <button className="light__button" onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
                         :
-                        props.company.vacancies.length ? <button className="light__button" onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
+                        companyState.vacancies.length ? <button className="light__button" onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
             </div>
             {createPage()}
         </div>

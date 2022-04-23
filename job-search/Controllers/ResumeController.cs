@@ -36,7 +36,7 @@ public class ResumeController : Controller
 
     [HttpPost]
     [Produces("application/json", "application/xml")]
-    public async void Post([FromBody] FullResume resume)
+    public void Post([FromBody] FullResume resume)
     {
         foreach (var ex in resume.workExperience)
         {
@@ -62,7 +62,7 @@ public class ResumeController : Controller
         }
     }
 
-    public async void Put([FromBody] FullResume resume)
+    public void Put([FromBody] FullResume resume)
     {
         this.Context.resumes.Update(resume.resumeInfo);
 
@@ -166,7 +166,7 @@ public class ResumeController : Controller
     }
 
     [HttpGet]
-    public List<Resume> GetResumeList()
+    public List<Resume> Get()
     {
         var param = HttpContext.Request.Query;
         // var profession_id = 0;

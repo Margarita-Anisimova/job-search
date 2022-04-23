@@ -9,10 +9,11 @@ import { useNavigate } from 'react-router-dom'
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { useSelector } from "react-redux";
 
-function VacancyCollections(props: { resume: ResumeType }) {
+function VacancyCollections() {
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
     const navigate = useNavigate();
 
-    const userState = useSelector((state: any) => state.userState.userState)
+
     useEffect(() => {
         if (vacancies.length === 0) {
             getVacancy(filters)
@@ -22,16 +23,16 @@ function VacancyCollections(props: { resume: ResumeType }) {
     const [vacancies, setVacancies] = useState([]);
 
     const filters = {
-        profession_id: props.resume.resumeInfo.profession_id,
-        city: props.resume.resumeInfo.city,
-        education_level: props.resume.resumeInfo.education_level,
-        salary: props.resume.resumeInfo.desired_salary,
-        work_experience: props.resume.resumeInfo.work_experience,
-        work_type: props.resume.resumeInfo.work_type,
+        profession_id: resumeState.resumeInfo.profession_id,
+        city: resumeState.resumeInfo.city,
+        education_level: resumeState.resumeInfo.education_level,
+        salary: resumeState.resumeInfo.desired_salary,
+        work_experience: resumeState.resumeInfo.work_experience,
+        work_type: resumeState.resumeInfo.work_type,
         isFilters: false,
     }
 
-    async function getVacancy(filters) {
+    async function getVacancy(filters: any) {
         let str = `vacancy/?`
         Object.keys(filters).forEach(key => { str += `${key}=${filters[key]}&` })
         const response = await fetch(str);
@@ -43,7 +44,7 @@ function VacancyCollections(props: { resume: ResumeType }) {
         <div>
             {
                 vacancies.length ?
-                    vacancies.map((res) => {
+                    vacancies.map((res: VacancyType) => {
                         return (
                             <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
                                 <div className="card__container">

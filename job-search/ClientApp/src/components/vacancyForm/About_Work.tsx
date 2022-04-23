@@ -14,7 +14,7 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
 
     const postInfoInputs = [
         { tag: 'work_address', name: 'Место работы', value: props.vacancy.work_address, required: true },
-        ];
+    ];
 
 
     useEffect(() => {

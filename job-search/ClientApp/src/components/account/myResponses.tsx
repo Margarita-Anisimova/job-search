@@ -1,43 +1,64 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { NavLink } from "reactstrap";
+import { VacancyType } from "../types";
 import "./Account.css"
 import img from './pgfFnQm.jpg'
 
 export default function myResponses() {
 
-    const [myResponses, setMyResponses] = useState([{
-        vacancy: {
-            company: 'Компания',
-            name: 'Название',
+    const [myResponses, setMyResponses] = useState<ResponseForApplicant[]>([])
 
-        },
-        result: true,
-        message: 'Будем рады принять вас в свой коллектив'
-    },
-    {
-        vacancy: {
-            company: 'Компания',
-            name: 'Название',
+    type ResponseForApplicant = {
+        vacancy: VacancyType;
+        response: ResponseToVacancy;
+    }
 
-        },
-        result: false,
-        message: ''
-    }])
+    type ResponseToVacancy = {
+        vacancy_id: number;
+        resume_id: number;
+        message: string;
+        response: boolean;
+    }
+
+    function changeStatus(response: ResponseToVacancy, id: number) {
+        deleteResp(response, id)
+    }
+
+    async function deleteResp(e: ResponseToVacancy, id: number) {
+
+        const response = await fetch('responseToVacancy', {
+            method: 'DELETE',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(e)
+        })
+        let arr = myResponses.slice()
+        arr.splice(id, 1);
+        setMyResponses(arr)
+    }
 
     return (
         <div className='myResponses_container'>
-            {myResponses.map((e) => {
+            {myResponses.map((res, id) => {
                 return <div className="responseCard">
-                    <div>
-                        <p>{e.vacancy.company}</p>
-                        <p>{e.vacancy.name}</p>
-                        <div className="result">{e.result ? 'Одобрено' : 'Отказано'}</div>
-                    </div>
+                    <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy.vacancy_id} >
+                        <div className="card__container">
+                            <p className='card__title'>{res.vacancy.position}</p>
+                            <p className='card__subtitle'>{res.vacancy.work_address}</p>
+                            <p className='card__desc'>Опыт {res.vacancy.work_experience}</p>
+                            <p className='card__address'>{res.vacancy.salary}</p>
+                        </div>
+                    </NavLink>
+                    <p>{res.response.response ? 'Принято' : 'Отказано'}</p>
 
-                    <div className="response_message">
-                        {e.message}
-                    </div>
+                    <p>Сообщение</p>
+                    <p>{res.response.message}</p>
+                    <button onClick={() => changeStatus(res.response, id)}>Просмотрено</button>
                 </div>
             })}
         </div>

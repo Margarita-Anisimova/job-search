@@ -6,26 +6,31 @@ import { createTextInputs, createSelectsContainer } from '../account/createFunct
 import { EducationType } from '../types'
 import { ResumeType } from '../types';
 import { createEmptyEducation } from '../../exportFunctions'
+import { useDispatch, useSelector } from "react-redux";
+import { addEdWork, changeEdWorkProperty, changeResumeProperty, deleteAllEdWork } from "../../app/resumeStateReducer";
 
-export default function Education(props: { resume: ResumeType, setResume: any }) {
+export default function Education() {
     //нужно ли обновление при скрытии???
     //добавить запрет на добавление если не заполнено 1ы
+    const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+    const dispatch = useDispatch();
 
-    const [hasEducation, sethasEducation] = props.resume.resumeInfo.education_level === 'Нет образования' ? useState(false) : useState(true)
+    const [hasEducation, sethasEducation] = resumeState.resumeInfo.education_level === 'Нет образования' ? useState(false) : useState(true)
 
     function handler(e: any) {
-        let arr = props.resume.education.slice()
+        // let arr = resumeState.education.slice()
         let id = e.target.parentElement.id || e.target.parentElement.parentElement.id
-        arr[id].status = 'modify'
-        arr[id][e.target.name] = e.target.value;
-        props.setResume({ ...props.resume, education: arr });
+        // arr[id].status = 'modify'
+        // arr[id][e.target.name] = e.target.value;
+        // props.setResume({ ...resumeState, education: arr });
+        dispatch(changeEdWorkProperty({ propName: 'education', index: id, propertyName: e.target.name, property: e.target.value }))
     }
 
     useEffect(() => {
-        for (let i = 0; i < props.resume.education.length; i++) {
+        for (let i = 0; i < resumeState.education.length; i++) {
             let a = document.getElementsByName('education_type ' + i)
             for (let j = 0; j < a.length; j++) {
-                if (a[j].value === props.resume.education[i].education_type) {
+                if (a[j].value === resumeState.education[i].education_type) {
                     a[j].defaultChecked = true;
                     return;
                 }
@@ -36,42 +41,58 @@ export default function Education(props: { resume: ResumeType, setResume: any })
 
     function handlerRadio(e: any) {
         let [name, id] = e.target.name.split(' ');
-        let arr = props.resume.education.slice()
-        arr[id].status = 'modify'
-        arr[id][name] = e.target.value;
-        props.setResume({ ...props.resume, education: arr });
+        // let arr = resumeState.education.slice()
+        // arr[id].status = 'modify'
+        // arr[id][name] = e.target.value;
+        // props.setResume({ ...resumeState, education: arr });
+
+        dispatch(changeEdWorkProperty({ propName: 'education', index: id, propertyName: name, property: e.target.value }))
     }
 
     function addExpirience() {
-        let arr = props.resume.education.slice();
-        arr.push(createEmptyEducation(props.resume.resumeInfo.resume_id))
-        props.setResume({ ...props.resume, education: arr });
+        // let arr = resumeState.education.slice();
+        // arr.push(createEmptyEducation(resumeState.resumeInfo.resume_id))
+        // props.setResume({ ...resumeState, education: arr });
+
+        dispatch(addEdWork({ propName: 'education', resume_id: resumeState.resumeInfo.resume_id }))
     }
 
     function deleteItem(i: number) {
-        let arr = props.resume.education.slice();
-        arr[i].status = 'delete'
-        // arr.splice(i, 1)
-        props.setResume({ ...props.resume, education: arr });
+        // let arr = resumeState.education.slice();
+        // arr[i].status = 'delete'
+        // // arr.splice(i, 1)
+        // props.setResume({ ...resumeState, education: arr });
+
+        dispatch(changeEdWorkProperty({ propName: 'education', index: i, propertyName: 'status', property: 'delete' }))
     }
 
     function changeEdLevel(e) {
-        props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, education_level: e.target.value } });
+        dispatch(changeResumeProperty({ propertyName: 'education_level', property: e.target.value }))
         if (e.target.value === 'Нет образования') {
             sethasEducation(false)
-            props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, education_level: e.target.value }, education: [] });
-        } else if (props.resume.education.length === 0) {
+            dispatch(deleteAllEdWork({ propName: 'education' }))
+            // props.setResume({ ...resumeState, resumeInfo: { ...resumeState.resumeInfo, education_level: e.target.value }, education: [] });
+        } else if (resumeState.education.length === 0) {
             sethasEducation(true)
-            props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, education_level: e.target.value }, education: [createEmptyEducation(props.resume.resumeInfo.resume_id)] });
+            dispatch(addEdWork({ propName: 'education', resume_id: resumeState.resumeInfo.resume_id }))
         }
+
+        // props.setResume({ ...resumeState, resumeInfo: { ...resumeState.resumeInfo, education_level: e.target.value } });
+        // if (e.target.value === 'Нет образования') {
+        //     sethasEducation(false)
+        //     props.setResume({ ...resumeState, resumeInfo: { ...resumeState.resumeInfo, education_level: e.target.value }, education: [] });
+        // } else if (resumeState.education.length === 0) {
+        //     sethasEducation(true)
+        //     props.setResume({ ...resumeState, resumeInfo: { ...resumeState.resumeInfo, education_level: e.target.value }, education: [createEmptyEducation(resumeState.resumeInfo.resume_id)] });
+        // }
     }
 
     // function IsEducation() {
     //     sethasEducation(!hasEducation)
     //     if (!hasEducation) {
-    //         props.setResume({ ...props.resume, education: [createEmptyEducation()] });
+    //         props.setResume({ ...resumeState, education: [createEmptyEducation()] });
     //     } else {
-    //         props.setResume({ ...props.resume, education: [] });
+    //         props.setResume({ ...resumeState, education: [] });
     //     }
     // }
 
@@ -83,7 +104,7 @@ export default function Education(props: { resume: ResumeType, setResume: any })
                 Нет образования
             </label> */}
             <label><div>Уровень образования<span className="red">*</span></div></label>
-            <select className="edu_level" name='education_level' onChange={(e) => changeEdLevel(e)} value={props.resume.resumeInfo.education_level}>
+            <select className="edu_level" name='education_level' onChange={(e) => changeEdLevel(e)} value={resumeState.resumeInfo.education_level}>
                 <option>Нет образования</option>
                 <option>Среднее</option>
                 <option>Незаконченное высшее</option>
@@ -93,14 +114,14 @@ export default function Education(props: { resume: ResumeType, setResume: any })
             {hasEducation ?
                 <div>
 
-                    {props.resume.education.map((e, i) => {
+                    {resumeState.education.map((e, i) => {
                         if (e.status !== 'delete') {
 
                             return (<div id={i.toString()} className='partition-4'>
                                 {i != 0 ? <button type="button" onClick={() => deleteItem(i)} className="deleteItemButton">X</button> : null}
 
-                                {createTextInputs([{ tag: 'institution', name: 'Учебное заведение', value: props.resume.education[i].institution, required: true },
-                                { tag: 'specialization', name: 'Специальность', value: props.resume.education[i].specialization, required: true },], handler)}
+                                {createTextInputs([{ tag: 'institution', name: 'Учебное заведение', value: resumeState.education[i].institution, required: true },
+                                { tag: 'specialization', name: 'Специальность', value: resumeState.education[i].specialization, required: true },], handler)}
                                 <label><div>Форма обучения<span className="red">*</span></div></label>
                                 <div>
                                     <div className="edForm_radio">
@@ -118,7 +139,7 @@ export default function Education(props: { resume: ResumeType, setResume: any })
                                 </div>
                                 <label><div>Год выпуска<span className="red">*</span></div></label>
                                 <div className='data_container'>
-                                    <input className='data_input' value={props.resume.education[i].graduation_year} required
+                                    <input className='data_input' value={resumeState.education[i].graduation_year} required
                                         onChange={(e) => handler(e)} min={(new Date()).getFullYear() - 80} max={(new Date()).getFullYear()}
                                         name='graduation_year' type='number'></input>
                                 </div>
