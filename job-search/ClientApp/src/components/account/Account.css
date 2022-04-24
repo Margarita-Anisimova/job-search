@@ -49,7 +49,6 @@ p {
     object-fit: cover;
     border-radius: 100px;
     margin-right: 50px;
-
 }
 
 .user_resumes_container {
@@ -115,28 +114,28 @@ p {
 
 .light__button {
     outline: none;
-	border: 1px solid #999;
-	background-color: transparent;
+    border: 1px solid #999;
+    background-color: transparent;
     color: #333;
-	border-radius: 5px;
+    border-radius: 5px;
     margin-right: 10px;
     padding: 5px 15px;
 }
 
 .light__button-dark {
     outline: none;
-	border: 1px solid #F88500;
+    border: 1px solid #F88500;
     color: #000;
-	border-radius: 5px;
+    border-radius: 5px;
     margin-left: 10px;
     padding: 5px 15px;
     background-color: #fff9f3;
 }
 
 .light__button-small {
-	border: 1px solid #F88500;
+    border: 1px solid #F88500;
     background-color: #fff9f3;
-	border-radius: 5px;
+    border-radius: 5px;
     padding: 3px 10px;
     position: absolute;
     right: 16px;
@@ -145,8 +144,13 @@ p {
     color: #666;
 }
 
-
 .light__button:hover {
     border-color: #F88500;
     background-color: #fff9f3;
+}
+
+.responseToResume {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
 }

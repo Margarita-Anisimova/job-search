@@ -31,7 +31,6 @@ export default function ResumeCard() {
         if (resume.resumeInfo.resume_id == 0) {
             getResume()
         }
-
     })
 
     async function getResume() {
@@ -63,7 +62,10 @@ export default function ResumeCard() {
 
 
     function openDialog() {
-        let r = document.getElementsByClassName('dialog')[0].showModal();
+        if (companyState.vacancies.length == 0) {
+            alert("Необходимо добавить вакансию")
+        } else
+            document.getElementsByClassName('dialog')[0].showModal();
     }
 
     function checkUser() {
@@ -158,7 +160,7 @@ export default function ResumeCard() {
                 </div>
             </div>
             {createResponseField()}
-            <ResumeResponseDialog resume={resume} setButton={setButton}></ResumeResponseDialog>
+
 
         </div >
 
@@ -175,6 +177,7 @@ export default function ResumeCard() {
                     <button onClick={() => openDialog()} disabled={button == 'sented'} className='button resumecard__btn'>
                         {button != 'sented' ? 'Отправить отклик' : 'Отклик отправлен'}
                     </button>
+                    <ResumeResponseDialog resume={resume} setButton={setButton}></ResumeResponseDialog>
                 </div>)
         } else
             return null;

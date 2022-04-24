@@ -5,6 +5,8 @@ import "./Account.css"
 import img from './pgfFnQm.jpg'
 import { useSelector } from "react-redux";
 import { CompanyInfoType, VacancyType } from "../types";
+import { NavLink } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default function ResumeResponses() {
 
@@ -58,17 +60,17 @@ export default function ResumeResponses() {
 
     return (
         <div className='pofile_container'>
-
-            {responses.map((e, id) => {
-                return <div className="responseCard">
-                    <p>{e.vacancy.position}</p>
+            {responses.map((e, id) =>
+                <div className='responseToResume'>
+                    <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + e.vacancy.vacancy_id} >
+                        <div>
+                            <p> {e.vacancy.position}</p>
+                        </div></NavLink>
                     <p>{e.response.message}</p>
-
                     <div className="resumeButtons">
                         <button onClick={() => deleteResp(e.response, id)} className="resumeButton">Просмотрено</button>
                     </div>
-                </div>
-            })}
+                </div>)}
         </div>
     );
 }

@@ -42,6 +42,13 @@ public class ResponseToResumeController : Controller
         return result;
     }
 
+    [Route("{vacancy_id}/{resume_id}")]
+    [HttpGet]
+    public bool IsResponse(int vacancy_id, int resume_id)
+    {
+        return this.Context.responseToResume.Any(e => e.vacancy_id == vacancy_id && e.resume_id == resume_id);
+    }
+
     [HttpDelete]
     [Produces("application/json", "application/xml")]
     public void Delete([FromBody] ResponseToResume response)
