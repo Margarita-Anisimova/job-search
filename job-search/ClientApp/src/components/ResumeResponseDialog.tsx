@@ -22,10 +22,14 @@ export default function ResumeResponseDialog(props: { resume: ResumeType, setBut
         let form = document.querySelectorAll("form")[0]
         let textarea = document.querySelectorAll("textarea")[0]
         let error = document.querySelectorAll(".errormessage")[0]
-        if (!form.checkValidity())
+        if (!form.checkValidity()) {
             form.reportValidity()
-        if (textarea.value.length < 30)
+            return
+        }
+        if (textarea.value.length < 30) {
             (error as HTMLElement).style.display = "block"
+            return
+        }
         if (vacancyResponse) {
             return
         }
