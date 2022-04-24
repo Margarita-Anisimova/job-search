@@ -21,7 +21,7 @@ export const counterSlice = createSlice({
             state.companyState.vacancies.push(action.payload.vacancy);
         },
         deleteVacansy: (state, action) => {
-            state.companyState.vacancies = state.companyState.vacancies.splice(action.payload.id, 1);
+            state.companyState.vacancies.splice(action.payload.id, 1);
         },
     },
 });

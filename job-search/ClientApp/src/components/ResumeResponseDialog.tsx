@@ -62,7 +62,7 @@ export default function ResumeResponseDialog(props: { resume: ResumeType, setBut
                     X
                 </button>
                 <p>Отклик на резюме</p>
-                <select required onChange={(e) => changeVacancy(e.target.id)}>
+                <select required onChange={(e) => changeVacancy(e.target[e.target.selectedIndex].id)}>
                     {companyState.vacancies.map((e) => {
                         return <option id={e.vacancy_id.toString()}>{e.position}</option>
                     })}

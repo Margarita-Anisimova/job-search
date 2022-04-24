@@ -23,7 +23,7 @@ function Vacancy() {
 
     let location = useLocation();
     const id = parseInt(location.pathname.split('/')[2])
-    const [vacancy, setVacancy] = companyState.vacancies[id] ? useState(companyState.vacancies[id]) : useState(createEmptyVacancy(id, companyState.companyInfo.company_id))
+    const [vacancy, setVacancy] = companyState.vacancies[id] ? useState(companyState.vacancies[id]) : useState(createEmptyVacancy(0, companyState.companyInfo.company_id))
     // const [commonInfo, setCommonInfo] = r ? useState<VacancyType>(r) : useState<VacancyType>(createEmptyVacancy());
 
     function handler(e: any) {
