@@ -105,7 +105,7 @@ export default function Home(props: { pageType: string }) {
       </button>
 
       {isFilters ? getFilters() : null}
-      <section className='search__result'>
+      <section className='search__result col-lg-8 col-md-12'>
         {isSearch ?
           props.pageType === 'resumes' ?
             getResumeCards(resumes)

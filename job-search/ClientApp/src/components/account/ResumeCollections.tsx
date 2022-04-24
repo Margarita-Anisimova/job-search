@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import { AccountType, CompanyType, VacancyType, ResumeType } from '../types';
 import { useSelector } from "react-redux";
 import "./Account.css"
+import { getVacancyCards, getResumeCards } from '../cardsTemplate'
+
 
 function ResumeCollections() {
     const navigate = useNavigate();
@@ -47,27 +49,33 @@ function ResumeCollections() {
 
     return (
         <div className='container1'>
-            <div>
-                {companyState.vacancies.map((res: VacancyType) => {
+            <div className="search__result col-lg-5">
+                <p className="resume__collection-title">Вакансии</p>
+                {companyState.vacancies.map((res) => {
                     return (
                         // <a onClick={() => showResumeCollect(res)}>
-                        <div className="card__container card_sample">
-                            <div className="card_header">
+
+                        <div className="card__container">
+                            <div className="card__header">
                                 <p className='card__title'>{res.position}</p>
                                 <p className='card__subtitle'>{res.salary} руб.</p>
                             </div>
                             <p className='card__desc'>Опыт: {res.work_experience}</p>
                             <p className='card__address'>{res.work_address} </p>
-                            <button className="light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
+                            <button className="light__button light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
                         </div>
+
                         // </a>
                     )
                 })}
             </div>
-            <div>
+            <div className="col-lg-7">
                 {status ?
-                    <div>
-                        {resumes.map((res) => {
+
+                    <div className="search__result">
+                        <p className="resume__collection-title">Подходящие резюме</p>
+                        {getResumeCards(resumes)}
+                        {/* {resumes.map((res) => {
                             return (
                                 <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.user_id} >
                                     <div className="card__container">
@@ -81,7 +89,7 @@ function ResumeCollections() {
                                 </NavLink>
                             )
                         })
-                        }
+                        } */}
                     </div>
                     : null}
             </div>

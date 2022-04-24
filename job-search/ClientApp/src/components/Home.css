@@ -6,8 +6,9 @@
 }
 
 .home_container {
-    position: relative;
-    top: 20vh;
+    /* position: relative;
+    top: 20vh; */
+    margin-top: 100px;
     font-family: var(--userfont);
 }
 
@@ -70,8 +71,13 @@
 /* Vacancy Resume */
 
 .search__result {
-    /* margin-top: 40px; */
-    margin: 40px 0;
+    margin-top: 30px;
+    padding: 0;
+    /* max-width: 100%; */
+}
+
+.search__result a {
+    padding: 0;
 }
 
 .filters {
@@ -84,13 +90,15 @@
     gap: 1em 1.5em;
 }
 
+
+
 /* Cards */
 .card__container {
-    border: 1px var(--text-light) solid;
-    border-radius: 5px;
-    width: 30vw;
-    margin: 15px 0 15px -1rem;
-    padding: 15px;
+    /* border: 1px var(--text-light) solid; */
+    border-radius: 8px;
+    /* width: 40vw; */
+    margin: 30px 0;
+    padding: 20px;
     font-size: 17px;
     color: var(--text);
     position: relative;
@@ -98,10 +106,14 @@
     box-shadow: 0px 0px 50px rgba(209, 209, 209, 0.4);
 }
 
-.card_header {
+.card__header {
     display: flex;
     justify-content: space-between;
     margin: 0;
+}
+
+.card__content {
+    margin-bottom: 15px;
 }
 
 .card__title {
@@ -122,6 +134,13 @@
     font-weight: 400;
 }
 
+.card__shortdescription {
+    line-height: 20px;
+    font-size: 14px;
+    overflow: hidden;
+    max-height: 40px;
+}
+
 .card__address {
     font-size: 15px;
     font-weight: 400;
@@ -137,3 +156,4 @@
 a {
     padding: 0;
 }
+

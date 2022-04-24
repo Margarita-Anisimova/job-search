@@ -133,15 +133,7 @@ p {
 }
 
 .light__button-small {
-    border: 1px solid #F88500;
-    background-color: #fff9f3;
-    border-radius: 5px;
-    padding: 3px 10px;
-    position: absolute;
-    right: 16px;
-    bottom: 18px;
-    font-size: 14px;
-    color: #666;
+    margin-top: 10px;
 }
 
 .light__button:hover {
@@ -149,8 +141,18 @@ p {
     background-color: #fff9f3;
 }
 
-.responseToResume {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 20px;
+
+/* Resume Collection */
+
+.resume__collection-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.card__button-second {
+    background-color: var(--light-bg);
+}
+
+.button__collection {
+    display: none;
 }
