@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { useSelector } from "react-redux";
+import { getVacancyCards, getResumeCards } from '../cardsTemplate'
+
 
 function VacancyCollections(props: { resume: ResumeType }) {
     const navigate = useNavigate();
@@ -40,8 +42,9 @@ function VacancyCollections(props: { resume: ResumeType }) {
     }
 
     return (
-        <div>
-            {
+        <div className='search__result col-lg-8 col-md-12'>
+            {getVacancyCards(vacancies)}
+            {/* {
                 vacancies.length ?
                     vacancies.map((res) => {
                         return (
@@ -57,7 +60,7 @@ function VacancyCollections(props: { resume: ResumeType }) {
                             </NavLink>
                         )
                     })
-                    : <p>Не найдено подходящих вакансий</p>}
+                    : <p>Не найдено подходящих вакансий</p>} */}
         </div >
     );
 }

@@ -17,15 +17,21 @@ import './Home.css';
 export function getResumeCards(resumes) {
     return resumes.length ? resumes.map((res) => {
         return (
-            // onClick={(e) => checkUser(e)}
             <NavLink target="_blank" rel="noopener noreferrer"  tag={Link} to={"/resumecard/" + res.user_id} >
                 <div className="card__container">
-                    <div className="card_header">
+                    <div className="card__header">
                         <p className='card__title'>{res.desired_position}</p>
                         <p className='card__subtitle'>{res.desired_salary} руб.</p>
                     </div>
-                    <p className='card__desc'>Уровень образования: {res.education_level}</p>
-                    <p className='card__address'>Опыт: {res.work_experience}</p>
+
+                    <div className="card__content">
+                        <p className='card__desc'>Уровень образования: {res.education_level}</p>
+                        <p className='card__address'>Стаж работы в сфере: {res.work_experience}</p>
+                        
+                    </div>
+
+                    <button className="card_button light__button">Откликнуться</button>
+                    <button className="card_button light__button">Показать контакты</button>
                 </div>
             </NavLink>
         )
@@ -40,12 +46,21 @@ export function getVacancyCards(vacancies) {
         return (
             <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
                 <div className="card__container">
-                    <div className="card_header">
+                    <div className="card__header">
                         <p className='card__title'>{res.position}</p>
                         <p className='card__subtitle'>{res.salary} руб.</p>
                     </div>
-                    <p className='card__desc'>Опыт: {res.work_experience}</p>
-                    <p className='card__address'>{res.work_address} </p>
+
+                    <div className="card__content">
+                        <p className='card__desc'>Уровень образования: {res.education_level}</p>
+                        <p className='card__desc'>Опыт: {res.work_experience}</p>
+                        <p className='card__desc card__shortdescription'>{res.responsibilities}</p>
+                        <p className='card__address'>{res.work_address} </p>
+                    </div>
+                    <button className="light__button card__button-main">Откликнуться</button>
+                    <button className="light__button card__button-second">Показать контакты</button>
+                    <button className="light__button button__collection">Показать резюме</button>
+                   
                 </div>
             </NavLink>
         )

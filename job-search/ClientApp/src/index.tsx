@@ -11,6 +11,9 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "./app/store";
 import './App.css';
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+</style>
 
 // import "./libs/bootstrap/css/bootstrap-reboot.min.css";
 // import "./libs/bootstrap/css/bootstrap-grid.min.css";
@@ -32,10 +35,10 @@ ReactDOM.render(
                 </div>
             </PersistGate>
 
-            <div className='footer' >
-                <p>Все права защищены.</p>
-                <address>Адресс</address>
-            </div>
+            <footer className='footer' >
+                <p>2022 © Анисимова Маргарита, Кадочникова Марина</p>
+                <address>Екатеринбург</address>
+            </footer>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root'));

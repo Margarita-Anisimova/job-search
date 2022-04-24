@@ -1,5 +1,6 @@
 .resumecard__container {
     margin-top: 50px;
+    color: var(--text);
     /* background-color: aqua; */
 }
 /* top */
@@ -7,32 +8,35 @@
 .resumecard__title {
     position: relative;
     padding-bottom: 30px;
-    align-items: center;
 }
 
 .resumecard__title-img {
-    align-self: center;
-    text-align: center;
+    /* align-self: center;
+    text-align: center; */
+    /* width: 160px;
+    height: 160px; */
 }
 
-.resumecard__title-img img {
-    max-width: 100px;
-    max-height: 100px;
-}
+/* .resumecard__title-img img {
+    width: 160px;
+    height: 160px;
+} */
 
 .user_name {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
     color: var(--text);
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
-.user_birthday, .user_city {
-    padding-bottom: 10px;
+.user_city, .user_citizenship {
+    padding-bottom: 7px;
 }
 
 .resumecard__btn {
     padding: 10px 40px;
+    margin-bottom: 15px;
+    width: 100%;
 }
 
 .resumecard__btn-light {
@@ -45,11 +49,18 @@
     font-weight: 400;
     font-size: 14px;
     text-decoration: none;
-    margin-top: 20px;
+    width: 100%;
+    /* margin-top: 20px; */
 }
 
 .resumecard__btn-light:hover {
     border: 1px solid var(--accent);
+}
+
+.resumecard__contactinfo {
+    font-size: 18px;
+    color: var(--text);
+    padding-top: 15px;
 }
 
 .resumecard__title::after {
@@ -90,14 +101,14 @@
     font-size: 20px;
     color: var(--text);
     font-weight: 600;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 .desired_profession__readymove,
 .desired_profession__work_type {
     font-size: 16px;
     font-weight: 400;
-    padding-bottom: 10px;
+    padding-bottom: 6px;
 }
 
 .desired_profession__work_type {
@@ -122,15 +133,19 @@
 
 .section_title {
     font-size: 20px;
-    font-weight: 700;
-    padding-bottom: 20px;
+    font-weight: 600;
+    padding-bottom: 25px;
+}
+
+.work_exp {
+    font-size: 16px;
 }
 
 .work_exp-post {
     font-size: 18px;
     font-weight: 500;
     color: var(--text);
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
 
 .work_exp-company {
@@ -141,7 +156,7 @@
 .work_exp-desc_title {
     font-size: 16px;
     padding-bottom: 10px;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 /* Education */
@@ -165,7 +180,7 @@
     font-size: 18px;
     font-weight: 500;
     color: var(--text);
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
 
 .edu-specialization {
@@ -179,5 +194,8 @@
 
 .skills {
     padding-top: 30px;
-    padding-bottom: 60px;
+}
+
+.skill {
+    font-size: 19px;
 }

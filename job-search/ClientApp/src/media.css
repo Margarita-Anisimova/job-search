@@ -2,6 +2,12 @@
 
 /* xl <= Extra extra large (xxl) */
 @media (max-width : 1400px) {
+    .user_name {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text);
+        padding-bottom: 20px;
+    }
     
 }
 
@@ -15,9 +21,12 @@
         width: 25vw;
     }
 
-    .card__container {
-        width: 40vw;
+    /* Resume full information */
+    .resumecard__title-img img {
+        width: 130px;
+        height: 130px;
     }
+
 
 	
 }
@@ -39,8 +48,8 @@
 
     /* Cards */
     .card__container {
-        width: 45vw;
-        margin: 1px 0 12px -1rem;
+        /* width: 45vw; */
+        /* margin: 1px 0 12px -1rem; */
     }
 
     /* VacancyCard */
@@ -54,7 +63,7 @@
 @media (max-width : 768px) {
     /* Home */
     .home_container {
-        top: 10vh;
+        /* top: 10vh; */
     }
 
     .search_inputs {
@@ -79,8 +88,12 @@
     }
 
     /* Cards */
-     .card__container {
-        width: 60vw;
+    .card__shortdescription {
+        display: none;
+    }
+
+    .search__result {
+        margin-left: 0;
     }
 
     /* VacancyCard */
@@ -93,6 +106,10 @@
         padding-bottom: 8px;
     }
 
+    /* Resume full information */
+    .resumecard__title-buttons {
+        margin-top: 15px;
+    }
 
 	
 }
@@ -108,20 +125,14 @@
             width: 25vw;
         }
 
-	    /* Cards */
-        .card__container {
-            width: 70vw;
+        .search__result {
+            margin-left: 0;
         }
 
-        /* Resume */
-        .resumecard__title-img img {
-            max-width: 100px;
-            max-height: 100px;
-        }
+	    /* Resume full information */
+        
 
-        .user_name {
-            padding-bottom: 10px;
-        }
+
 }
 
 /* xs <= Small (sm) */
@@ -148,8 +159,14 @@
     }
 
     /* Cards */
-    .card__container {
-        width: 90vw;
+    .card__header {
+        display: block;
+        /* width: 90vw; */
+    }
+
+    .card_button {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
 
@@ -160,6 +177,22 @@
         grid-template-rows: 1fr 1fr;
         grid-gap: 1em;
     }
+
+    /* Resume full information */
+    .resumecard__title-img img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .user_name {
+        font-size: 20px;
+
+        padding-bottom: 10px;
+    }
+
+
+    
+    
 }
 
 @media (max-width : 380px) {
@@ -170,10 +203,11 @@
     .search_inputs {
         display: flex;
         flex-direction: column;
+        min-width: 100%;
     }
 
     .search__form--prof, .search__form--city {
-        width: 90vw;
+        min-width: 100%;
         border: 1px solid var(--accent);
         border-radius: 5px;
     }

@@ -1,3 +1,4 @@
+
 :root {
 	--accent: #F88500;
 
@@ -18,7 +19,7 @@
 	--regular-text: 16px;
 	--small-text: 14px;
 	--lineheight: 1.75;
-	/* --userfont: raleway-wt, sans-serif; */
+	--userfont: 'Open Sans', sans-serif;;
 	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
 	--radius: 5px;
 	--radius-style: 5px 5px;
@@ -32,20 +33,6 @@
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { --bs-gutter-x: .625rem; }
 .row, .row > * { --bs-gutter-x: 1.25rem; }
 
-/* FONTS LOAD SECTION */
-
-/* @font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-300.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 300; font-style: normal; }
-@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-500.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 500; font-style: normal; }
-@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-600.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 600; font-style: normal; }
-@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-700.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 700; font-style: normal; }
-@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-800.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 800; font-style: normal; }
-@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-900.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 900; font-style: normal; }
-@font-face { src: url("./fonts/raleway/raleway-v22-cyrillic-regular.woff2") format("woff2"); font-family: "raleway-wt"; font-weight: 400; font-style: normal; }
-
-@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-300.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 300; font-style: normal; }
-@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-500.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 500; font-style: normal; }
-@font-face { src: url("./fonts/roboto/roboto-v29-cyrillic-700.woff2") format("woff2"); font-family: "roboto-wt"; font-weight: 700; font-style: normal; } */
-
 /* GENERAL CSS SETTINGS */
 
 ::placeholder { color: #666; }
@@ -55,9 +42,14 @@ input, textarea { outline: none; }
 input:required:valid, textarea:required:valid { border-color: green; } */
 
 .button {
+	box-sizing: border-box;
+	background-size: 300% 100%;
 	outline: none;
 	border: none;
 	background-color: var(--accent);
+	/* background-image: linear-gradient(to right, #F88500, #FF9200, #FFA100, #DF7800);  
+	box-shadow: 0 5px 15px rgba(242, 97, 103, .4); */
+
 	color: #fff;
 	border-radius: 5px;
 	display: inline-block;
@@ -67,6 +59,18 @@ input:required:valid, textarea:required:valid { border-color: green; } */
 	position: relative;
 	letter-spacing: .25px;
 	text-decoration: none;
+	transition: all .4s ease-in-out;
+}
+
+.button:hover {
+	background-position: 100% 0;
+
+
+}
+
+.button:focus {
+	outline: none;
+
 }
 
 .button-form {
@@ -79,6 +83,8 @@ input:required:valid, textarea:required:valid { border-color: green; } */
 	font-size: 14px;
 	position: relative;
 	letter-spacing: .25px;
+
+	transition: all .4s ease-in-out;
 }
 
 .button-form:hover {
