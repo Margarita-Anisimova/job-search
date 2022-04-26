@@ -22,10 +22,13 @@ export default function ResumeResponses() {
     }
 
     const [responses, setResponses] = useState<ResumeResponse[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const resumeState = useSelector((state: any) => state.resumeState.resumeState)
     useEffect(() => {
-        getResponses()
+        if (!loading)
+            getResponses()
+        setLoading(true)
     })
 
     async function getResponses() {

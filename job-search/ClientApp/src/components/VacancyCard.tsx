@@ -29,8 +29,17 @@ export default function VacancyCard() {
         if (vacancy.vacancy_id == 0) {
             getVacancy()
         }
+        if (!responseStatus) {
+            chaeckuresResponse()
+        }
 
     })
+
+    async function chaeckuresResponse() {
+        const response = await fetch(`responseToVacancy/${vacancy.vacancy_id}/${resumeState.resumeInfo.resume_id}`)
+        let data = await response.json()
+        setResponseStatus(data)
+    }
 
     async function getVacancy() {
         const data = await fetch(`vacancy/${id}`)

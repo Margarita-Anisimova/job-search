@@ -8,7 +8,7 @@ import { VacancyType } from "../types";
 import "./Account.css"
 import img from './pgfFnQm.jpg'
 
-export default function myResponses() {
+export default function MyResponses() {
     const resumeState = useSelector((state: any) => state.resumeState.resumeState)
     const [myResponses, setMyResponses] = useState<ResponseForApplicant[]>([])
 
@@ -21,19 +21,23 @@ export default function myResponses() {
         vacancy_id: number;
         resume_id: number;
         message: string;
-        response: boolean;
+        response: string;
     }
+
+    const [loading, setLoading] = useState(false);
 
     function changeStatus(response: ResponseToVacancy, id: number) {
         deleteResp(response, id)
     }
 
     useEffect(() => {
-        getResponses()
+        if (!loading)
+            getResponses()
+        setLoading(true)
     })
 
     async function getResponses() {
-        const data = await fetch(`responseToVacancy/result/${resumeState.resumeInfo.resume_id}`)
+        const data = await fetch(`ResponseToVacancy/result/${resumeState.resumeInfo.resume_id}`)
             .then((response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -44,8 +48,8 @@ export default function myResponses() {
     }
 
     async function deleteResp(e: ResponseToVacancy, id: number) {
-
-        const response = await fetch('responseToVacancy', {
+        delete e.vacancy
+        const response = await fetch('ResponseToVacancy', {
             method: 'DELETE',
             mode: 'cors',
             cache: 'no-cache',
@@ -72,9 +76,10 @@ export default function myResponses() {
                     </NavLink>
                     <p>{res.response.response}</p>
 
-                    <p>Сообщение</p>
                     <p>{res.response.message}</p>
-                    <button onClick={() => changeStatus(res.response, id)}>Просмотрено</button>
+                    {res.response.response !== 'На рассмотрении'
+                        ? <button onClick={() => deleteResp(res.response, id)}>Просмотрено</button>
+                        : null}
                 </div>
             })}
         </div>

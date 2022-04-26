@@ -37,11 +37,19 @@ public class ResponseToVacancyController : Controller
         this.Context.SaveChanges();
     }
 
+    [Route("{vacancy_id}/{resume_id}")]
+    [HttpGet]
+    public bool IsResponse(int vacancy_id, int resume_id)
+    {
+        return this.Context.responseToVacancy.Any(e => e.vacancy_id == vacancy_id && e.resume_id == resume_id);
+    }
+
+
     [Route("{vacancy_id}")]
     [HttpGet]
     public IEnumerable<VacancyResponse> Get(int vacancy_id)
     {
-        var list = this.Context.responseToVacancy.Where((response) => response.vacancy_id == vacancy_id).ToList();
+        var list = this.Context.responseToVacancy.Where((response) => response.vacancy_id == vacancy_id && response.response == "На рассмотрении").ToList();
         var result = list.Select((item) =>
         {
             var a = new VacancyResponse();

@@ -14,6 +14,13 @@ export default function VacancyResponses() {
 
     const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
     const [status, setStatus] = useState(false);
+    let resumeId = 0;
+    const [response, setResponse] = useState<ResponseToVacancy>({
+        vacancy_id: 0,
+        resume_id: 0,
+        message: '',
+        response: ''
+    })
 
     type ResumeResponse = {
         resume: ResumeInfoType;
@@ -42,8 +49,8 @@ export default function VacancyResponses() {
         setStatus(!status);
 
     }
-    async function sentResponse(response: ResponseToVacancy, result: string, id: number) {
-        response.response = result;
+    async function sentResponse() {
+        document.getElementsByClassName('dialog')[0].close()
         await fetch('responseToVacancy', {
             method: 'POST',
             mode: 'cors',
@@ -53,8 +60,14 @@ export default function VacancyResponses() {
             body: JSON.stringify(response)
         })
         let arr = responses.slice()
-        arr.splice(id, 1);
+        arr.splice(resumeId, 1);
         setResponses(arr)
+    }
+
+    function openDialog(result: string, id: number, resp: ResponseToVacancy) {
+        resumeId = id
+        setResponse({ ...resp, response: result })
+        document.getElementsByClassName('dialog')[0].showModal();
     }
 
     return (
@@ -84,8 +97,8 @@ export default function VacancyResponses() {
                                             <p className='card__address'>{res.resume.desired_salary} </p>
                                         </div>
                                     </NavLink>
-                                    <button onClick={() => sentResponse(res.response, 'Принято', id)}>Принять</button>
-                                    <button onClick={() => sentResponse(res.response, 'Отказано', id)}>Отклонить</button>
+                                    <button onClick={() => openDialog('Принято', id, res.response)}>Принять</button>
+                                    <button onClick={() => openDialog('Отказано', id, res.response)}>Отклонить</button>
                                 </div>
 
                             )
@@ -94,6 +107,16 @@ export default function VacancyResponses() {
                     </div>
                     : null}
             </div>
-        </div>
+            <dialog className="dialog">
+                <button type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()} className='button resumecard__btn closebutton'>
+                    X
+                </button>
+                <p>Ваше сообщение:</p>
+                <textarea value={response.message} onChange={(e) => setResponse({ ...response, message: e.target.value })} placeholder='Введите сообщение для соискателя'></textarea>
+                <button type="button" onClick={() => sentResponse()} className='button resumecard__btn'>
+                    Отправить
+                </button>
+            </dialog>
+        </div >
     );
 }

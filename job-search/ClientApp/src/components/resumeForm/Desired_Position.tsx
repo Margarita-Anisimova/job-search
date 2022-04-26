@@ -31,7 +31,7 @@ export default function Desired_Position() {
     }
 
     function ratiohandler(e: any) {
-        dispatch(changeResumeProperty({ propertyName: 'ready_move', property: e.target.value }))
+        dispatch(changeResumeProperty({ propertyName: 'ready_move', property: e.target.value == 'yes' }))
         // props.setResume({ ...props.resume, resumeInfo: { ...props.resume.resumeInfo, ready_move: !props.resume.resumeInfo.ready_move } });
     }
 

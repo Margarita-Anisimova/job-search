@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import ResumeResponses from "./resumeResponses";
 import "./Account.css"
-import MyResponses from "./myResponses";
 import { AccountType, ResumeType, CompanyType } from '../types';
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +13,7 @@ import ResumeCollections from "./ResumeCollections";
 import { changeUser } from "../../app/userStateReducer";
 import "../../custom.css"
 import VacancyResponses from "./vacancyResponses";
+import MyResponses from "./myResponses";
 
 function Account() {
 
