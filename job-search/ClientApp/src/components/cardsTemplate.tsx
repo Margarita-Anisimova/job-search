@@ -31,8 +31,8 @@ export function getResumeCards(resumes) {
 
                     </div>
 
-                    <button className="card_button light__button">Откликнуться</button>
-                    <button className="card_button light__button">Показать контакты</button>
+                    {/* <button className="card_button light__button">Откликнуться</button>
+                    <button className="card_button light__button">Показать контакты</button> */}
                 </div>
             </NavLink>
         )
@@ -58,9 +58,9 @@ export function getVacancyCards(vacancies: VacancyType[]) {
                         <p className='card__desc card__shortdescription'>{res.responsibilities}</p>
                         <p className='card__address'>{res.work_address} </p>
                     </div>
-                    <button className="light__button card__button-main">Откликнуться</button>
+                    {/* <button className="light__button card__button-main">Откликнуться</button>
                     <button className="light__button card__button-second">Показать контакты</button>
-                    <button className="light__button button__collection">Показать резюме</button>
+                    <button className="light__button button__collection">Показать резюме</button> */}
 
                 </div>
             </NavLink>

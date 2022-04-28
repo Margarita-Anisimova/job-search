@@ -90,7 +90,8 @@ export default function ResumeCard() {
                     <div className="user_citizenship"> {'Гражданство ' + resume.resumeInfo.citizenship}</div>
                 </div>
                 <div className="resumecard__title-buttons col-lg-3 col-md-4">
-                    <button className='button resumecard__btn'>Отправить отклик</button>
+                    {createResponseField()}
+                    {/* <button className='button resumecard__btn'>Отправить отклик</button> */}
                     <button onClick={() => checkUser()} className='resumecard__btn-light'>Показать контакты</button>
                     {IsContacts ?
                         <div className="resumecard__contactinfo">
@@ -160,8 +161,11 @@ export default function ResumeCard() {
 
                 </div>
             </div>
-            {createResponseField()}
-
+            <div className="row">
+                <div className="col-lg-3 col-md-4">
+                    {createResponseField()}
+                </div>
+            </div>
 
         </div >
 

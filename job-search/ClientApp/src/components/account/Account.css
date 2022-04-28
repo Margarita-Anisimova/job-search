@@ -1,13 +1,14 @@
 .accountMenu {
     display: flex;
     flex-direction: row;
-    margin: 5vh 0 0 0;
+    margin: 5vh 0 5vh 0;
 }
 
 .mainInfo {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    margin-bottom: 30px;
 }
 
 .username {
@@ -16,13 +17,13 @@
 
 .profile_sect-title {
     font-size: 1.5rem;
-    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .vacancyInfo {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: baseline;
     margin-bottom: 20px;
 }
 
@@ -35,9 +36,9 @@
     color: orange;
 }
 
-.pofile_container {
+/* .pofile_container {
     margin: 5vh 0 0 0;
-}
+} */
 
 p {
     margin: 5px;
@@ -52,7 +53,7 @@ p {
 }
 
 .user_resumes_container {
-    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .resumeButtons {
@@ -65,10 +66,14 @@ p {
     border-radius: 5px;
     padding: 5px 10px;
     border: 1px solid #999;
+    background-color: transparent;
 }
 
-.resumeCard,
-.responseCard {
+.resumeButton:hover {
+    border: 1px solid #333;
+}
+
+.resumeCard {
     border: 1px #999999 solid;
     border-radius: 10px;
     padding: 20px;
@@ -79,6 +84,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin-bottom: 20px;
 }
 
 .card_buttons {
@@ -86,19 +92,42 @@ p {
     flex-direction: column;
 }
 
+/* Мои отклики */
 .responseCard {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between; */
+    width: 100%;
+    display: flex;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 3vh;
     justify-content: space-between;
 }
 
 .myResponses_container {
-    margin: 5vh 0 0 5vw;
+    /* margin: 5vh 0 0 5vw;
     display: grid;
-    gap: 20px;
+    gap: 20px; */
+    width: 60%;
 }
 
+.myResponses_message {
+    min-width: 35%;
+}
+
+.myResponses_status p{
+    font-weight: 600;
+}
+
+.myResponses_status {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 .result {
     border: 2px orange solid;
     padding: 5px;
@@ -136,6 +165,8 @@ p {
     margin-top: 10px;
 }
 
+
+
 .light__button:hover {
     border-color: #F88500;
     background-color: #fff9f3;
@@ -156,3 +187,6 @@ p {
 .button__collection {
     display: none;
 }
+
+
+/* Мои отклики */

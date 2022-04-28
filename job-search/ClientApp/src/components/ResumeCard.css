@@ -206,4 +206,66 @@
 
 .skill {
     font-size: 19px;
+    margin-bottom: 50px;
+}
+
+/* Response Form */
+.dialog {
+    border-radius: 10px;
+    min-width: calc(100%/2);
+    border: none;
+    padding: 2em;
+}
+.responseForm {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.responseForm p {
+    margin: 0;
+}
+
+.responseForm_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 17px;
+
+}
+
+.closebutton {
+    padding: 5px;
+    color: var(--text);
+    font-size: 18px;
+    background-color: transparent;
+}
+
+.response__title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.response_choiceVacancy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.select_vacancy {
+    border-radius: 5px;
+    padding: 6px;
+    width: 55%;
+}
+
+.response_message {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.message {
+    width: 55%;
+    min-height: 150px;
 }

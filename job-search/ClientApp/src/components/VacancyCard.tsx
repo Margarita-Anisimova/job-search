@@ -127,7 +127,12 @@ export default function VacancyCard() {
                     : null}
             </div>
 
-            <button onClick={sendResponse} disabled={responseStatus} className='button resumecard__btn'>{responseStatus ? 'Отклик отправлен' : 'Отправить отклик'}</button>
+            <div className="row">
+                <div className="col-lg-3 col-md-4">
+                    <button onClick={sendResponse} disabled={responseStatus} className='button resumecard__btn'>{responseStatus ? 'Отклик отправлен' : 'Отправить отклик'}</button>
+                </div>
+            </div>
+
         </div >
 
     );

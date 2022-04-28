@@ -12,7 +12,8 @@
     box-shadow: 0 0 15px rgb(165, 162, 162);
     padding: 30px;
     padding-top: 50px;
-    background-color: rgb(255, 233, 193);
+    /* background-color: rgb(255, 233, 193); */
+    box-shadow: 0px 10px 60px #A6A6A6;
 }
 
 .set_registr {
@@ -24,24 +25,31 @@
 }
 
 .submit_button {
-    color: rgb(255, 255, 255);
+    color: #fff;
+    border: none;
     width: 100%;
     text-align: center;
     border-radius: 5px;
-    background: orange;
+    background-color: #F88500;
+    padding: 8px 5px;
 }
 
 .label_for_input {
-    margin: 10px 0;
+    padding: 10px 0;
     display: flex;
     flex-direction: column;
+    margin: 0;
 }
 
 .form_radio_btn {
     display: inline-block;
-    margin: 5px 5px;
+    /* margin: 5px 5px; */
 }
 
+.form_radio_btn:last-child {
+    padding-left: 5px;
+   
+}
 .form_radio_btn input[type=radio] {
     display: none;
 }
@@ -58,9 +66,15 @@
 }
 
 .form_radio_btn input[type=radio]:checked+label {
-    background: orange;
+    background-color: #FFFBF6;
+    border: 1px solid #F88500 ;
 }
 
+.btn_checktype {
+    display: flex;
+    width: 100%;
+    padding: 12px 0;
+}
 
 /* .form_radio_btn input[type=radio]:disabled+label {
     background: #efefef;
@@ -86,7 +100,7 @@
 }
 
 .registrForm_title_but input[type=radio]:checked+label {
-    background-color: rgb(255, 233, 193);
+    background-color: #fff;
 }
 
 
@@ -129,13 +143,18 @@
     width: 100%;
     height: 100%;
     padding: 20px;
-    background: rgba(241, 231, 212, 0.877);
+    /* background: rgba(241, 231, 212, 0.877); */
+    background-color: rgb(230 230 230 / 88%);
 }
 
 .code_confirm_button {
     margin-top: 20px;
     border-radius: 5px;
-    background: rgb(235, 194, 82);
+    background: #F88500;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .confirmLabel {

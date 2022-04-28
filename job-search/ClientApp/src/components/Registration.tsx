@@ -146,14 +146,16 @@ function Registration(props: { setPageType: any }) {
                         Номер телефона
                         <input value={formInfo.phone_number} onChange={(e) => handler(e)} title='Номер телефона должен состоять из 11 цифр' name='phone_number' pattern="[0-9]{11}" type="phoneNumber"></input>
                     </label>
-                    <div className="form_radio_btn">
-                        <input required id="radio-1" type="radio" name="radio" value="applicant" defaultChecked />
-                        <label htmlFor="radio-1">Ищу работу</label>
-                    </div>
+                    <div className="btn_checktype">
+                        <div className="form_radio_btn">
+                            <input required id="radio-1" type="radio" name="radio" value="applicant" defaultChecked />
+                            <label htmlFor="radio-1">Ищу работу</label>
+                        </div>
 
-                    <div className="form_radio_btn">
-                        <input required id="radio-2" type="radio" name="radio" value="employer" />
-                        <label htmlFor="radio-2">Ищу сотрудников</label>
+                        <div className="form_radio_btn">
+                            <input required id="radio-2" type="radio" name="radio" value="employer" />
+                            <label htmlFor="radio-2">Ищу сотрудников</label>
+                        </div>
                     </div>
                 </div>
             )

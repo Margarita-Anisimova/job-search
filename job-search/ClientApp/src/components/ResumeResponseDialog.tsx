@@ -62,20 +62,32 @@ export default function ResumeResponseDialog(props: { resume: ResumeType, setBut
     return (
         <dialog className="dialog">
             <form className='responseForm'>
-                <button type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()} className='button resumecard__btn closebutton'>
+                <div className="responseForm_header">
+                    <p>Отклик на резюме</p>
+                    <button className='button closebutton' type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()}>
                     X
-                </button>
-                <p>Отклик на резюме</p>
-                <select required onChange={(e) => changeVacancy(e.target[e.target.selectedIndex].id)}>
-                    {companyState.vacancies.map((e) => {
-                        return <option id={e.vacancy_id.toString()}>{e.position}</option>
-                    })}
-                </select>
+                    </button>
+                </div>
+                
+                
                 {vacancyResponse ? <p style={{ color: 'red' }}>На эту вакансию уже отправлен отклик</p> : null}
-                <p>Сопроводительное письмо</p>
-                <p style={{ color: 'red', display: 'none' }} className='errormessage'>Должно быть не менее 30 символов</p>
-                <textarea title='Должно быть не менее 30 символов' required value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Введите сообщение для соискателя'></textarea>
-                <button type="button" onClick={() => sentResponse()} className='button resumecard__btn'>
+                <div className="response_choiceVacancy">
+                <p>По вакансии</p>
+                    <select className='select_vacancy' required onChange={(e) => changeVacancy(e.target[e.target.selectedIndex].id)}>
+                        {companyState.vacancies.map((e) => {
+                            return <option id={e.vacancy_id.toString()}>{e.position}</option>
+                        })}
+                    </select>
+                </div>
+                
+                
+                <div className="response_message">
+                    <p>Сопроводительное письмо</p>
+                    <p style={{ color: 'red', display: 'none' }} className='errormessage'>Должно быть не менее 30 символов</p>
+                    <textarea className='message' title='Должно быть не менее 30 символов' required value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Введите сообщение для соискателя'></textarea>
+                </div>
+                
+                <button type="button" onClick={() => sentResponse()} className='button'>
                     Отправить отклик
                 </button>
             </form>
