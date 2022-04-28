@@ -156,3 +156,33 @@ p {
 .button__collection {
     display: none;
 }
+
+.deleteItemButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 50px;
+}
+
+.imageContainer {
+    position: relative;
+}
+
+.loadText {
+    margin-right: 50px;
+    width: 160px;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    align-items: center;
+    background-color: rgba(129, 127, 127, 0.36);
+    text-align: center;
+    border-radius: 100px;
+    display: none;
+    z-index: 10;
+}
+
+.imageContainer:hover .loadText {
+    display: flex;
+    justify-content: center;
+}

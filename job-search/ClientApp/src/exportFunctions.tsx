@@ -9,7 +9,7 @@ export function createEmptyAccount(): AccountType {
         phone_number: '',
         user_type: 'noRegistered',
         password: '',
-        user_id: 0
+        user_id: 0,
     }
 }
 //'noRegistered',employer

@@ -44,6 +44,5 @@ namespace job_search.Models
 
         public string education_level { get; set; }
 
-
     }
 }
