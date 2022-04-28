@@ -10,6 +10,7 @@ import { createEmptyAccount, createEmptyResume, createEmptyCompany } from '../ex
 import { changeResume } from '../app/resumeStateReducer';
 import { changeCompany } from '../app/companyStateReducer';
 import { useEffect } from 'react';
+import { useState } from 'react';
 
 export default function NavMenu(props: { setPageType: any; }) {
 
@@ -18,19 +19,25 @@ export default function NavMenu(props: { setPageType: any; }) {
     let a = useSelector((state: any) => state)
     const dispatch = useDispatch();
 
+    const [isActive, setActive] = useState(false);
+
     function nuvButton() {
 
         return (
             <div className='navigate'>
                 <div className='container'>
-                    <div className='row'>
-                        <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
+                    <div className={isActive ? 'row nav_menu_active nav_menu': 'row nav_menu'}>
                         <div className='sections_container'>
-                            <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
-                            <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
+                            <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
+                            <div className="search_type">
+                                <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
+                                <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
+                            </div>
                         </div>
                         {createNavigateItems()}
+
                     </div>
+
                 </div>
             </div>
         )
@@ -42,9 +49,11 @@ export default function NavMenu(props: { setPageType: any; }) {
         if (userState.user_type === 'noRegistered') {
             return (
                 <div className='reg_container'>
+
                     <NavLink className='navigate_item' tag={Link} to="/registration">Вход</NavLink>
-                    {/* <NavLink className='navigate_item' tag={Link} to="/registration">Регистрация</NavLink> */}
-                </div>)
+                    <NavLink className='navigate_item' tag={Link} to="/registration">Регистрация</NavLink>
+                </div>
+                )
         } else {
             return (
                 <div className='reg_container'>
@@ -60,6 +69,8 @@ export default function NavMenu(props: { setPageType: any; }) {
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
 
                     <NavLink className='navigate_item' onClick={out} to='/' tag={Link} >Выход</NavLink>
+                    
+
                 </div>)
         }
     }
@@ -74,6 +85,7 @@ export default function NavMenu(props: { setPageType: any; }) {
 
     return (
         <div className="menu">
+            <button onClick={()=>setActive(!isActive)} className={isActive ? 'menu_toggle_active': 'menu_toggle'}></button>
             {nuvButton()}
         </div>
 

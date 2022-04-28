@@ -9,6 +9,9 @@
         padding-bottom: 20px;
     }
     
+    .menu_toggle {
+        display: none;
+    }
 }
 
 /* lg <= Extra large (xl) */
@@ -47,10 +50,6 @@
     }
 
     /* Cards */
-    .card__container {
-        /* width: 45vw; */
-        /* margin: 1px 0 12px -1rem; */
-    }
 
     /* VacancyCard */
     .vacancy_description {
@@ -61,6 +60,50 @@
 
 /* sm <= Medium (md) */
 @media (max-width : 768px) {
+
+    /* Nav */
+
+    .navigate {
+        min-height: 60px;
+    }
+    .menu_toggle {
+        /* display: flex; */
+        display: block !important;
+
+    }
+
+    .nav_menu {
+        height: 100vh;
+        justify-content: flex-start !important;
+        position: absolute;
+        right: 0;
+        top: 0;
+        flex-direction: column;
+        background-color: #fff;
+        padding: 50px 50px 20px 20px;
+        z-index: 1;
+		visibility: hidden;
+		opacity: 0;
+        box-shadow: -60px 0px 150px rgba(0, 0, 0, 0.25);
+    }
+
+    .sections_container {
+        flex-direction: column;
+
+    }
+
+    .search_type {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .reg_container {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+
     /* Home */
     .home_container {
         /* top: 10vh; */
@@ -127,12 +170,7 @@
 
         .search__result {
             margin-left: 0;
-        }
-
-	    /* Resume full information */
-        
-
-
+        }    
 }
 
 /* xs <= Small (sm) */
