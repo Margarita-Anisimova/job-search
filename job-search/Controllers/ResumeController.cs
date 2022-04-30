@@ -23,6 +23,7 @@ public class ResumeController : Controller
         public FullResume resume { set; get; }
 
         public User user { set; get; }
+        public string image { get; set; }
     }
 
     public class FullResume
@@ -164,6 +165,8 @@ public class ResumeController : Controller
         result.resume.education.ToList().ForEach((e) => e.Resume = null);
         result.resume.workExperience.ToList().ForEach((e) => e.Resume = null);
         result.user = this.Context.users.Where((user) => user.user_id == a.First().user_id).First();
+        var d = this.Context.image.Where((r) => r.user_id == user_id).First();
+        result.image = Convert.ToBase64String(d.image);
         return new ObjectResult(result);
     }
 

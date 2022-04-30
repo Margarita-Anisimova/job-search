@@ -20,6 +20,7 @@ namespace job_search
         public DbSet<ResponseToResume> responseToResume { get; set; }
         public DbSet<ResponseToVacancy> responseToVacancy { get; set; }
         // public DbSet<Education_ref> education_ref { get; set; }
+        public DbSet<Image> image { get; set; }
 
         // public DbSet<Company> Companies { get; set; }
 

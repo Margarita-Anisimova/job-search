@@ -33,6 +33,9 @@ export default function ResumeCard() {
         }
     })
 
+    const [ing, setIng] = useState<string | ArrayBuffer | null>(img)
+
+
     async function getResume() {
         const data = await fetch(`resume/${id}`)
             .then((response) => {
@@ -44,6 +47,7 @@ export default function ResumeCard() {
         await changeData(data)
         setResume(data.resume);
         setAccount(data.user);
+        setIng("data:image/jpeg;base64," + data.image);
         setProfession(data.profession);
 
     }
@@ -81,7 +85,7 @@ export default function ResumeCard() {
 
             <div className="resumecard__title row">
                 <div className="resumecard__title-img col-lg-2 col-md-3 col-sm-4 col-4">
-                    <img src={img} />
+                    <img src={ing} className='avatar'></img>
                 </div>
                 <div className="resumecard__title-maininfo col-lg-4 col-md-5 col-sm-8 col-8">
                     <div className="user_name">{account.f_name + ' ' + account.l_name}</div>

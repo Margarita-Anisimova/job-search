@@ -36,6 +36,7 @@
     color: orange;
 }
 
+
 /* .pofile_container {
     margin: 5vh 0 0 0;
 } */
@@ -92,7 +93,9 @@ p {
     flex-direction: column;
 }
 
+
 /* Мои отклики */
+
 .responseCard {
     /* display: flex;
     flex-direction: row;
@@ -118,7 +121,7 @@ p {
     min-width: 35%;
 }
 
-.myResponses_status p{
+.myResponses_status p {
     font-weight: 600;
 }
 
@@ -128,6 +131,7 @@ p {
     justify-content: space-between;
     align-items: flex-end;
 }
+
 .result {
     border: 2px orange solid;
     padding: 5px;
@@ -165,8 +169,6 @@ p {
     margin-top: 10px;
 }
 
-
-
 .light__button:hover {
     border-color: #F88500;
     background-color: #fff9f3;
@@ -188,5 +190,32 @@ p {
     display: none;
 }
 
+.deleteItemButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 50px;
+}
 
-/* Мои отклики */
+.imageContainer {
+    position: relative;
+}
+
+.loadText {
+    margin-right: 50px;
+    width: 160px;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    align-items: center;
+    background-color: rgba(129, 127, 127, 0.36);
+    text-align: center;
+    border-radius: 100px;
+    display: none;
+    z-index: 10;
+}
+
+.imageContainer:hover .loadText {
+    display: flex;
+    justify-content: center;
+}
