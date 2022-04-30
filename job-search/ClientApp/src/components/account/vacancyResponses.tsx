@@ -19,7 +19,9 @@ export default function VacancyResponses() {
         vacancy_id: 0,
         resume_id: 0,
         message: '',
-        response: ''
+        response: '',
+        publication_date: '',
+
     })
 
     type ResumeResponse = {
@@ -32,6 +34,7 @@ export default function VacancyResponses() {
         resume_id: number;
         message: string;
         response: string;
+        publication_date: string;
     }
 
     useEffect(() => {
@@ -73,31 +76,31 @@ export default function VacancyResponses() {
     return (
         <div className='container1'>
             <div style={{ margin: '0' }} className="search__result col-lg-6">
-            {companyState.vacancies.map((res: VacancyType) => {
-                return (
+                {companyState.vacancies.map((res: VacancyType) => {
+                    return (
 
-                    <div className="card__container">
+                        <div className="card__container">
                             <div className="card__header">
                                 <p className='card__title'>{res.position}</p>
-                                 <p className='card__subtitle'>{res.salary} руб.</p>
+                                <p className='card__subtitle'>{res.salary} руб.</p>
                             </div>
                             <p className='card__desc'>Опыт: {res.work_experience}</p>
-                            <p className='card__address'>{res.work_address} </p> 
+                            <p className='card__address'>{res.work_address} </p>
                             <button className="light__button light__button-small" onClick={() => status ? setStatus(!status) : getResponses(res.vacancy_id)}>Показать отклики</button>
-                    </div>
-                )
-            })}
+                        </div>
+                    )
+                })}
             </div>
             <div className="col-lg-6">
                 {status ?
                     <div style={{ margin: '0' }} className="search__result">
-                        
+
                         {responses.map((res, id) => {
                             return (
                                 <div>
-                                    <p>{}</p>
+                                    <p>{ }</p>
                                     <div className="card__container">
-                                        <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.resume.user_id} >    
+                                        <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.resume.user_id} >
                                             <p className='card__title'>{res.resume.desired_position}</p>
                                             <p className='card__subtitle'>{res.resume.desired_salary} руб.</p>
                                         </NavLink>
@@ -121,7 +124,7 @@ export default function VacancyResponses() {
                 <div className="responseForm_header">
                     <p>Ответ на отклик</p>
                     <button type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()} className='button closebutton'>
-                    X
+                        X
                     </button>
                 </div>
                 <div className="response_message">

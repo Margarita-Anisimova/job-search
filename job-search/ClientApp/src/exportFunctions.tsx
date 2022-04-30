@@ -72,6 +72,7 @@ export function createCompanyInfo(user_id = 0) {
         contact_face: '',
         phone: '',
         email: '',
+        tin: '',
     }
 }
 

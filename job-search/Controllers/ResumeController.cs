@@ -38,6 +38,7 @@ public class ResumeController : Controller
     [Produces("application/json", "application/xml")]
     public void Post([FromBody] FullResume resume)
     {
+        resume.resumeInfo.publication_date = DateTime.Today.ToString();
         foreach (var ex in resume.workExperience)
         {
             resume.resumeInfo.work_experience = 0;
@@ -64,6 +65,7 @@ public class ResumeController : Controller
 
     public void Put([FromBody] FullResume resume)
     {
+        resume.resumeInfo.publication_date = DateTime.Today.ToString();
         this.Context.resumes.Update(resume.resumeInfo);
 
         foreach (var ed in resume.education)
@@ -216,11 +218,7 @@ public class ResumeController : Controller
 
     public void Delete([FromBody] int resume_id)
     {
-        var ed = this.Context.education.Where((res) => res.resume_id == resume_id);
-        var we = this.Context.work_experience.Where((res) => res.resume_id == resume_id);
         var res = this.Context.resumes.Where((res) => res.resume_id == resume_id).First();
-        this.Context.education.RemoveRange(ed);
-        this.Context.work_experience.RemoveRange(we);
         this.Context.resumes.Remove(res);
         this.Context.SaveChanges();
 

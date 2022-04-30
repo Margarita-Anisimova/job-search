@@ -19,6 +19,7 @@ export default function ResumeResponses() {
         vacancy_id: number;
         resume_id: number;
         message: string;
+        publication_date: string;
     }
 
     const [responses, setResponses] = useState<ResumeResponse[]>([]);
@@ -73,6 +74,7 @@ export default function ResumeResponses() {
                     <div className="resumeButtons">
                         <button onClick={() => deleteResp(e.response, id)} className="resumeButton">Просмотрено</button>
                     </div>
+                    <p className='publication_date'>{e.response.publication_date}</p>
                 </div>)}
         </div>
     );

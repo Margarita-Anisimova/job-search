@@ -6,6 +6,7 @@ using System.Net.Mail;
 using job_search;
 using job_search.Models;
 using Microsoft.AspNetCore.Mvc;
+using ValidationsCollection;
 
 [Route("[controller]")]
 public class CompanyController : Controller
@@ -21,6 +22,10 @@ public class CompanyController : Controller
     [Produces("application/json", "application/xml")]
     public IActionResult Post([FromBody] Company data)
     {
+        if (!Validations.IsValidInnForEntity(data.tin))
+        {
+            return new BadRequestResult();
+        }
         this.Context.companies.Add(data);
         this.Context.SaveChanges();
         var d = this.Context.companies.OrderBy((e) => e.company_id).Last();
@@ -30,10 +35,15 @@ public class CompanyController : Controller
 
     [HttpPut]
     [Produces("application/json", "application/xml")]
-    public void Put([FromBody] Company data)
+    public IActionResult Put([FromBody] Company data)
     {
+        if (!Validations.IsValidInnForEntity(data.tin))
+        {
+            return new BadRequestResult();
+        }
         this.Context.companies.Update(data);
         this.Context.SaveChanges();
+        return new OkResult();
     }
 
     public class CompanyResponce
