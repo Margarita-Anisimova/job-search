@@ -5,7 +5,7 @@ import './Company.css';
 import { AccountType, CompanyType } from '../types';
 
 import { NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { changeCompanyInfo } from "../../app/companyStateReducer";
 
@@ -13,13 +13,14 @@ function Company() {
     const userState: AccountType = useSelector((state: any) => state.userState.userState)
     const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     function handler(e: any) {
         dispatch(changeCompanyInfo({ name: e.target.name, value: e.target.value }))
     }
 
     const commonInfoInputs = [
         { tag: 'fullname', name: 'Название компании', value: companyState.companyInfo.fullname, required: true },
+        { tag: 'tin', name: 'ИНН', value: companyState.companyInfo.tin, required: true },
         { tag: 'city', name: 'Город', value: companyState.companyInfo.city, required: true },
         { tag: 'contact_face', name: 'Контактное лицо', value: companyState.companyInfo.contact_face, required: false },
     ]
@@ -47,6 +48,15 @@ function Company() {
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify(companyState.companyInfo)
+        }).then((response) => {
+            if (response.status === 200) {
+                const data = response.json();
+                navigate('/account')
+            }
+            else if (response.status === 400) {
+                (document.querySelectorAll('.errormessage')[0] as HTMLElement).style.display = 'block';
+            }
+
         })
     }
 
@@ -60,8 +70,15 @@ function Company() {
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify(companyState.companyInfo)
         }).then((response) => {
-            const data = response.json();
-            dispatch(changeCompanyInfo({ name: 'company_id', value: data }))
+            if (response.status === 200) {
+                const data = response.json();
+                dispatch(changeCompanyInfo({ name: 'company_id', value: data }))
+                navigate('/account')
+            }
+            else if (response.status === 400) {
+                (document.querySelectorAll('.errormessage')[0] as HTMLElement).style.display = 'block';
+            }
+
         })
     }
 
@@ -71,6 +88,7 @@ function Company() {
             <div className="company_container">
                 <form className="company_form">
                     <section>
+                        <p style={{ color: 'red', display: 'none' }} className='errormessage'>ИНН не вылидный, проверьте введенные данные</p>
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
                             <label><div>Электронная почта<span className="red">*</span></div></label>
@@ -83,7 +101,8 @@ function Company() {
                         </div>
                     </section>
                     <div className="button-form">
-                        <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink>
+                        {/* <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink> */}
+                        <button type='button' onClick={e => save(e)} >Сохранить</button>
                     </div>
                 </form>
             </div>

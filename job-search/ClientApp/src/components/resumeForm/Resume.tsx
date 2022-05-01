@@ -111,7 +111,7 @@ function Resume() {
                     <label><div>Пол<span className="red">*</span></div></label>
                     <div>
                         <div className="gender_radio">
-                            <input className="radio_input male" onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="male" defaultChecked />
+                            <input className="radio_input male" onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="male" />
                             <label htmlFor="gender_radio-1">Мужской</label>
                         </div>
                         <div className="gender_radio">

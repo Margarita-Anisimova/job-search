@@ -21,6 +21,7 @@ public class VacancyController : Controller
     [Produces("application/json", "application/xml")]
     public IActionResult Post([FromBody] Vacancy data)
     {
+        data.publication_date = DateTime.Today;
         this.Context.vacancies.Add(data);
         this.Context.SaveChanges();
         var d = this.Context.vacancies.OrderBy((e) => e.vacancy_id).Last();
@@ -32,6 +33,7 @@ public class VacancyController : Controller
     [Produces("application/json", "application/xml")]
     public void Put([FromBody] Vacancy data)
     {
+        data.publication_date = DateTime.Today;
         this.Context.vacancies.Update(data);
         this.Context.SaveChanges();
     }

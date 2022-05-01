@@ -44,6 +44,8 @@ namespace job_search.Models
 
         public string education_level { get; set; }
 
-
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime publication_date { get; set; }
     }
 }

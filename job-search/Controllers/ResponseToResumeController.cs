@@ -23,6 +23,7 @@ public class ResponseToResumeController : Controller
     [Produces("application/json", "application/xml")]
     public void Post([FromBody] ResponseToResume data)
     {
+        data.publication_date = DateTime.Today;
         this.Context.responseToResume.Add(data);
         this.Context.SaveChanges();
     }

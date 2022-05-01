@@ -32,8 +32,6 @@ namespace job_search.Models
         [Required]
         public string user_type { get; set; }
 
-
-
         public User(string email, string password, string f_name, string l_name, string phone_number, string user_type)
         {
             this.email = email;

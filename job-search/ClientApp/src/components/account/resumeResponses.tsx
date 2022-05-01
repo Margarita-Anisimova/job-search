@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { CompanyInfoType, VacancyType } from "../types";
 import { NavLink } from "reactstrap";
 import { Link } from "react-router-dom";
+import { getDate } from "../../exportFunctions";
 
 export default function ResumeResponses() {
 
@@ -19,6 +20,7 @@ export default function ResumeResponses() {
         vacancy_id: number;
         resume_id: number;
         message: string;
+        publication_date: string;
     }
 
     const [responses, setResponses] = useState<ResumeResponse[]>([]);
@@ -80,6 +82,7 @@ export default function ResumeResponses() {
                     <div className="myResponses_status">
                         <button onClick={() => deleteResp(e.response, id)} className="light__button light__button-small">Просмотрено</button>
                     </div>
+                    <p className='publication_date'>{getDate(e.response.publication_date)}</p>
                 </div>)}
         </div>
     );

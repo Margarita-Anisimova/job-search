@@ -31,6 +31,8 @@ namespace job_search.Models
         public string contact_face { get; set; }
         [Required]
         public string email { get; set; }
+        [Required]
+        public string tin { get; set; }
 
         public Company(string fullname, string city, string description, string phone, string email, int user_id)
         {

@@ -8,7 +8,7 @@ import { getVacancyCards, getResumeCards } from './cardsTemplate'
 import { getEducationLevel, getWorkExperience, getWorkType } from './formElements'
 import { VacancyType, ResumeType } from './types'
 import { getResumesByFilters, getVacanciesByFilters } from './baseconnect'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavItem, NavLink } from 'reactstrap';
 import { useSelector } from 'react-redux';
 import { getCookie } from './cookies';
@@ -51,10 +51,6 @@ export default function Home(props: { pageType: string }) {
 
   }
 
-  useEffect(() => {
-    console.log(getCookie('user_id'))
-    console.log(getCookie('user_type'))
-  })
 
   const [resumes, setResumes] = useState([]);
   const [vacancies, setVacancies] = useState([]);
@@ -79,11 +75,29 @@ export default function Home(props: { pageType: string }) {
   }
 
   const city_filter_values = ['Екатеринбург', 'Москва'];
+  const navigate = useNavigate();
 
+
+  // useEffect(() => {
+  //   console.log(getCookie('user_id'))
+  //   console.log(getCookie('user_type'))
+  //   let r = document.location.href.split('#access_token=')[1]
+  //   if (r) {
+  //     r = r.split('&')[0]
+  //   }
+  //   if (r) {
+  //     yandex(r)
+  //   }
+  // })
+
+  // async function yandex(r) {
+  //   const response = await fetch(`https://login.yandex.ru/info?format=json&oauth_token=${r}`);
+  //   const userInfo = await response.json();
+  //   let dsf = await userInfo
+  // }
 
   return (
     <div className="home_container container">
-
       <p className="home-title">Работа найдется для каждого</p>
 
       {/* {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>} */}

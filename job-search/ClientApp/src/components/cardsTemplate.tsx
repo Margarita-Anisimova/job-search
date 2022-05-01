@@ -2,8 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { NavLink } from "reactstrap";
+import { getDate } from "../exportFunctions";
 import './Home.css';
-import { VacancyType } from "./types";
+import { ResumeInfoType, VacancyType } from "./types";
 
 
 
@@ -15,7 +16,7 @@ import { VacancyType } from "./types";
 //     }
 // }
 
-export function getResumeCards(resumes) {
+export function getResumeCards(resumes: ResumeInfoType[]) {
     return resumes.length ? resumes.map((res) => {
         return (
             <NavLink style={{ padding: '0' }} target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.user_id} >
@@ -30,7 +31,7 @@ export function getResumeCards(resumes) {
                         <p className='card__address'>Стаж работы в сфере: {res.work_experience}</p>
 
                     </div>
-
+                    <p className='publication_date'>{getDate(res.publication_date)}</p>
                     {/* <button className="card_button light__button">Откликнуться</button>
                     <button className="card_button light__button">Показать контакты</button> */}
                 </div>
@@ -58,6 +59,7 @@ export function getVacancyCards(vacancies: VacancyType[]) {
                         <p className='card__desc card__shortdescription'>{res.responsibilities}</p>
                         <p className='card__address'>{res.work_address} </p>
                     </div>
+                    <p className='publication_date'>{getDate(res.publication_date)}</p>
                     {/* <button className="light__button card__button-main">Откликнуться</button>
                     <button className="light__button card__button-second">Показать контакты</button>
                     <button className="light__button button__collection">Показать резюме</button> */}

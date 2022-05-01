@@ -44,5 +44,10 @@ namespace job_search.Models
         [Required]
         public string requirements { get; set; }
 
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        [Required]
+        public DateTime publication_date { get; set; }
+
     }
 }

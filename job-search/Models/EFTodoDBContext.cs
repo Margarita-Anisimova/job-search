@@ -20,6 +20,7 @@ namespace job_search
         public DbSet<ResponseToResume> responseToResume { get; set; }
         public DbSet<ResponseToVacancy> responseToVacancy { get; set; }
         // public DbSet<Education_ref> education_ref { get; set; }
+        public DbSet<Image> image { get; set; }
 
         // public DbSet<Company> Companies { get; set; }
 
@@ -35,6 +36,18 @@ namespace job_search
                 table.resume_id,
                 table.vacancy_id
             });
+            //     builder.Entity<Vacancy>()
+            //            .Property(e => e.publication_date)
+            //            .HasColumnType("date");
+            //     builder.Entity<ResponseToVacancy>()
+            //             .Property(e => e.publication_date)
+            //             .HasColumnType("date");
+            //     builder.Entity<ResponseToResume>()
+            //             .Property(e => e.publication_date)
+            //             .HasColumnType("date");
+            //     builder.Entity<Resume>()
+            //             .Property(e => e.publication_date)
+            //             .HasColumnType("date");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

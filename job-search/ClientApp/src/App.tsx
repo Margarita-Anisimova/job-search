@@ -27,6 +27,8 @@ function App() {
 
     // const [accountType, setAccountType] = useState('noRegistered')
     const [pageType, setPageType] = useState('vacancies')
+    const [formType, setFormType] = useState('authoriz')
+
     // const [account, setAccount] = useState<AccountType>(createEmptyAccount())
     // const [resume, setResume] = useState<ResumeType>(createEmptyResume())
     // const [company, setCompany] = useState<CompanyType>(createEmptyCompany())
@@ -49,10 +51,10 @@ function App() {
 
     return (
         <BrowserRouter>
-            <NavMenu setPageType={setPageType} />
+            <NavMenu setregitrType={setFormType} setPageType={setPageType} />
             <Routes>
                 <Route path='/' element={<Home pageType={pageType} />} />
-                <Route path='/registration' element={<Registration setPageType={setPageType} />} />
+                <Route path='/registration' element={<Registration formType={formType} setFormType={setFormType} setPageType={setPageType} />} />
                 <Route path='/account' element={<Account />} />
                 <Route path='/accountInfo' element={<AccountInfo />} />
                 <Route path='/resume' element={<Resume />} />

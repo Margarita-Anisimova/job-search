@@ -9,7 +9,7 @@ export function createEmptyAccount(): AccountType {
         phone_number: '',
         user_type: 'noRegistered',
         password: '',
-        user_id: 0
+        user_id: 0,
     }
 }
 //'noRegistered',employer
@@ -30,6 +30,7 @@ export function createEmptyResume(user_id = 0): ResumeType {
             education_level: 'Нет образования',
             gender: 'female',
             work_experience: 0,
+            publication_date: '2020:01:01'
         },
         education: [],
         workExperience: [createEmptyWorkExperience()],
@@ -62,6 +63,10 @@ export function createEmptyWorkExperience(resume_id = 0): WorkExpirienceType {
     }
 }
 
+export function getDate(date: string) {
+    return date.split('T')[0].split('').reverse().join('');
+}
+
 export function createCompanyInfo(user_id = 0) {
     return {
         user_id: user_id,
@@ -72,6 +77,7 @@ export function createCompanyInfo(user_id = 0) {
         contact_face: '',
         phone: '',
         email: '',
+        tin: '',
     }
 }
 
