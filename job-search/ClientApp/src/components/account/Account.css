@@ -4,6 +4,9 @@
     margin: 5vh 0 5vh 0;
 }
 
+.accountMenu button:last-child {
+    margin: 0;
+}
 .mainInfo {
     display: flex;
     flex-direction: row;
@@ -24,7 +27,7 @@
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .editProfile {
@@ -100,7 +103,8 @@ p {
     justify-content: space-between; */
     width: 100%;
     display: flex;
-    border: 1px solid #eee;
+    box-shadow: 0px 0px 50px rgba(209, 209, 209, 0.4);
+
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 3vh;
@@ -114,7 +118,15 @@ p {
     width: 60%;
 }
 
+.myResponse_vacancy {
+    min-width: 35%;
+}
 .myResponses_message {
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    padding: 0 5px;
+
+    max-width: 35%;
     min-width: 35%;
 }
 
@@ -139,6 +151,7 @@ p {
 .container1 {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .light__button {
@@ -149,6 +162,11 @@ p {
     border-radius: 5px;
     margin-right: 10px;
     padding: 5px 15px;
+}
+
+.light__button-active {
+    border-color: #F88500;
+    background-color: #fff9f3;
 }
 
 .light__button-dark {
@@ -174,6 +192,16 @@ p {
 
 
 /* Resume Collection */
+.resume__collection {
+    width: 48%;
+}
+
+.resumes_tovacancy {
+    width: 48%;
+}
+.resumes_tovacancy .nav-link .card__container {
+    min-height: 157px ;
+}
 
 .resume__collection-title {
     font-size: 1.5rem;
@@ -189,4 +217,14 @@ p {
 }
 
 
-/* Мои отклики */
+/* responseToResume */
+.responseToResume_container {
+    /* margin: 5vh 0 0 5vw;
+    display: grid;
+    gap: 20px; */
+    width: 60%;
+}
+.responseToResume {
+    width: 100%;
+    display: flex;
+}

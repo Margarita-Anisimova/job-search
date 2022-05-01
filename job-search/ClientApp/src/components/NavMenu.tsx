@@ -51,7 +51,7 @@ export default function NavMenu(props: { setPageType: any; }) {
                 <div className='reg_container'>
 
                     <NavLink className='navigate_item' tag={Link} to="/registration">Вход</NavLink>
-                    <NavLink className='navigate_item' tag={Link} to="/registration">Регистрация</NavLink>
+                    <NavLink className='navigate_item button' style={{ color: '#fff' }} tag={Link} to="/registration">Регистрация</NavLink>
                 </div>
                 )
         } else {

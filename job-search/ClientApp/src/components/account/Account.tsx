@@ -26,6 +26,7 @@ function Account() {
 
     const [page, setPage] = useState<PageType>('profile');
     const dispatch = useDispatch();
+    const [isActive, setActive] = useState(true);
 
     function createPage() {
         switch (page) {
@@ -54,14 +55,14 @@ function Account() {
     return (
         <div className="container">
             <div className='accountMenu'>
-                <button className="light__button" onClick={() => setPage('profile')}>Профиль</button>
-                <button className="light__button" onClick={() => userState.user_type === 'applicant' ? setPage('resumeResponses') : setPage('vacancyResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
-                {userState.user_type === 'applicant' ? <button className="light__button" onClick={() => setPage('myResponses')}>Мои отклики</button> : null}
+                <button className={page === 'profile' ? "light__button light__button-active" : "light__button"} onClick={() => {setPage('profile'); setActive(!isActive) }}>Профиль</button>
+                <button className={page === 'resumeResponses' || page === 'vacancyResponses' ? "light__button light__button-active" : "light__button"} onClick={() => userState.user_type === 'applicant' ? setPage('resumeResponses') : setPage('vacancyResponses')}>{userState.user_type === 'applicant' ? 'Отклики на резюме' : 'Отклики на вакансии'}</button>
+                {userState.user_type === 'applicant' ? <button className={page === 'myResponses' ? "light__button light__button-active" : "light__button"} onClick={() => setPage('myResponses')}>Мои отклики</button> : null}
                 {
                     userState.user_type === 'applicant' ?
-                        resumeState.resumeInfo.resume_id ? <button className="light__button" onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
+                        resumeState.resumeInfo.resume_id ? <button className={page === 'vacancyCollections' ? "light__button light__button-active" : "light__button"} onClick={() => setPage('vacancyCollections')}>Подборки вакансий</button> : null
                         :
-                        companyState.vacancies.length ? <button className="light__button" onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
+                        companyState.vacancies.length ? <button className={page === 'resumeCollections' ? "light__button light__button-active" : "light__button"} onClick={() => setPage('resumeCollections')}>Подборки резюме</button> : null}
             </div>
             {createPage()}
         </div>

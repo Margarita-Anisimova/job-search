@@ -62,16 +62,23 @@ export default function ResumeResponses() {
     }
 
     return (
-        <div className='pofile_container'>
+        <div className='responseToResume_container'>
             {responses.map((e, id) =>
-                <div className='responseToResume'>
-                    <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + e.vacancy.vacancy_id} >
-                        <div>
-                            <p> {e.vacancy.position}</p>
-                        </div></NavLink>
-                    <p>{e.response.message}</p>
-                    <div className="resumeButtons">
-                        <button onClick={() => deleteResp(e.response, id)} className="resumeButton">Просмотрено</button>
+                <div className='responseToResume responseCard'>
+                    <div className="myResponse_vacancy">
+                        <NavLink style={{ padding: '0' }} target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + e.vacancy.vacancy_id} >
+                                {/* <p> {e.vacancy.position}</p> */}
+
+                                <p className='card__title'>{e.vacancy.position}</p>
+                                <p className='card__subtitle'>{e.vacancy.salary}</p>
+                                <p className='card__address'>{e.vacancy.work_address}</p>
+                        </NavLink>
+                    </div>
+                    <div className="myResponses_message">
+                        <p>{e.response.message}</p>
+                    </div>
+                    <div className="myResponses_status">
+                        <button onClick={() => deleteResp(e.response, id)} className="light__button light__button-small">Просмотрено</button>
                     </div>
                 </div>)}
         </div>

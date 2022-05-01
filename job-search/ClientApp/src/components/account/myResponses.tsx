@@ -68,12 +68,9 @@ export default function MyResponses() {
                 return <div className="responseCard">
                     <div className="myResponse_vacancy">
                         <NavLink style={{ padding: '0' }} target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy.vacancy_id} >
-                            {/* <div className="card__container col-lg-4"> */}
                                 <p className='card__title'>{res.vacancy.position}</p>
                                 <p className='card__subtitle'>{res.vacancy.salary}</p>
-                                {/* <p className='card__desc'>Опыт {res.vacancy.work_experience}</p> */}
                                 <p className='card__address'>{res.vacancy.work_address}</p>
-                            {/* </div> */}
                         </NavLink>
                     </div>
                     <div className="myResponses_message">
@@ -81,9 +78,10 @@ export default function MyResponses() {
                     </div>
 
                     <div className="myResponses_status">
-                        {res.response.response === 'Принято'
-                            ? <p style={{ color: '#00B147' }}>{res.response.response}</p>
-                            : <p style={{ color: '#333' }}>{res.response.response}</p>
+                        {res.response.response === 'Принято' ? 
+                            <p style={{ color: '#00B147' }}>{res.response.response}</p> :
+                            res.response.response === 'Отказано' ?
+                            <p style={{ color: '#E93636' }}>{res.response.response}</p> : <p style={{ color: '#333' }}>{res.response.response}</p>
                         }
                         
 

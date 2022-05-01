@@ -41,7 +41,7 @@ export default function Profile() {
                     <p>{userState.email}</p>
                 </div>
 
-                <NavLink tag={Link} to='/accountInfo'> Редактировать профиль</NavLink>
+                <NavLink style={{ padding: '0' }} tag={Link} to='/accountInfo'> Редактировать профиль</NavLink>
             </div>
             {
                 //вынести в отдельный компанент ????

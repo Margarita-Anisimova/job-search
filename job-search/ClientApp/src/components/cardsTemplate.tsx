@@ -18,7 +18,7 @@ import { VacancyType } from "./types";
 export function getResumeCards(resumes) {
     return resumes.length ? resumes.map((res) => {
         return (
-            <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.user_id} >
+            <NavLink style={{ padding: '0' }} target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.user_id} >
                 <div className="card__container">
                     <div className="card__header">
                         <p className='card__title'>{res.desired_position}</p>
@@ -45,7 +45,7 @@ export function getResumeCards(resumes) {
 export function getVacancyCards(vacancies: VacancyType[]) {
     return vacancies.length ? vacancies.map((res) => {
         return (
-            <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
+            <NavLink style={{ padding: '0' }} target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + res.vacancy_id} >
                 <div className="card__container">
                     <div className="card__header">
                         <p className='card__title'>{res.position}</p>

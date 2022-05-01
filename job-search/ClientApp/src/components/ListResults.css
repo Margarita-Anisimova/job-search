@@ -1,4 +1,4 @@
-.card__container {
+/* .card__container {
     border: 1px var(--text-light) solid;
     border-radius: 5px;
     width: 50vw;
@@ -6,13 +6,13 @@
     padding: 20px;
     font-size: 17px;
     color: var(--text);
-}
+} */
 
 p {
     margin: 5px;
 }
 
-.card__title {
+/* .card__title {
     font-size: 17px;
     font-weight: 700;
 }
@@ -38,4 +38,4 @@ p {
     font-style: 16px;
     padding: 10px 20px;
     margin-top: 15px;
-}
+} */

@@ -49,7 +49,7 @@ function ResumeCollections() {
 
     return (
         <div className='container1'>
-            <div className="search__result col-lg-5">
+            <div className="resume__collection" style={{ padding: '0' }}>
                 <p className="resume__collection-title">Вакансии</p>
                 {companyState.vacancies.map((res) => {
                     return (
@@ -60,7 +60,7 @@ function ResumeCollections() {
                                 <p className='card__title'>{res.position}</p>
                                 <p className='card__subtitle'>{res.salary} руб.</p>
                             </div>
-                            <p className='card__desc'>Опыт: {res.work_experience}</p>
+                            {/* <p className='card__desc'>Опыт: {res.work_experience}</p> */}
                             <p className='card__address'>{res.work_address} </p>
                             <button className="light__button light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
                         </div>
@@ -69,10 +69,10 @@ function ResumeCollections() {
                     )
                 })}
             </div>
-            <div className="col-lg-7">
+            <div className="resumes_tovacancy">
                 {status ?
 
-                    <div className="search__result">
+                    <div >
                         <p className="resume__collection-title">Подходящие резюме</p>
                         {getResumeCards(resumes)}
                         {/* {resumes.map((res) => {

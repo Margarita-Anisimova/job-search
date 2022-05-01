@@ -30,6 +30,10 @@
         height: 130px;
     }
 
+    /* resume responses */
+    .responseToResume_container {
+        width: 70%;
+    }
 
 	
 }
@@ -56,6 +60,28 @@
         font-size: 15px;
     }
 
+    /* resume responses */
+    .responseToResume_container {
+        width: 100%;
+    }
+
+    .resumeCard {
+        width: 80%;
+    }
+
+    /* Resume collections */
+    .container1 {
+        flex-direction: column;
+    }
+
+    .resume__collection, .resumes_tovacancy {
+        width: 75%;
+    }
+
+    .myResponses_container {
+        width: 80%;
+    }
+
 }
 
 /* sm <= Medium (md) */
@@ -76,7 +102,7 @@
         height: 100vh;
         justify-content: flex-start !important;
         position: absolute;
-        right: 0;
+        right: 17px;
         top: 0;
         flex-direction: column;
         background-color: #fff;
@@ -154,6 +180,54 @@
         margin-top: 15px;
     }
 
+    /* Account */
+    .resumeCard {
+        width: 80%;
+    }
+
+    .avatar {
+        width: 140px;
+        height: 140px;
+        /* border-radius: 100px; */
+        margin-right: 30px;
+    }
+
+    /* resume responses */
+    .responseToResume {
+        flex-direction: column;
+    }
+
+    .myResponse_vacancy .nav-link {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .myResponses_message {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+
+        padding: 5px 0;
+        margin: 5px 0;
+        max-width: 100%;
+        min-width: 35%;
+    }
+
+    /* My responses */
+    .myResponses_container {
+        width: 100%;
+    }
+
+    
+    .responseCard {
+        flex-direction: column;
+    }
+    .myResponses_status {
+        flex-direction: row;
+    }
+
 	
 }
 
@@ -170,7 +244,16 @@
 
         .search__result {
             margin-left: 0;
-        }    
+        }  
+        
+        /* Account */
+        .resumeCard {
+            width: 100%;
+        }
+
+        .resume__collection, .resumes_tovacancy {
+            width: 100%;
+        }
 }
 
 /* xs <= Small (sm) */
@@ -206,6 +289,44 @@
         width: 100%;
         margin-bottom: 10px;
     }
+
+    /* Account */
+    .accountMenu {
+        flex-direction: column;
+        align-items: stretch;
+        flex-wrap: wrap;
+        max-height: 120px;
+    }
+
+    .accountMenu button:last-child {
+        margin: 5px;
+    }
+
+    .accountMenu button {
+        max-width: 225px;
+        margin: 5px;
+    }
+
+    .username {
+        line-height: 1.1;
+    }
+
+    .userDescription a {
+        padding: 0;
+    }
+
+    .mainInfo {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .avatar {
+        margin: 0;
+    }
+
+    .userDescription {
+        text-align: center;
+    }
 }
 
 @media (max-width : 420px) {
@@ -224,8 +345,26 @@
 
     .user_name {
         font-size: 20px;
-
         padding-bottom: 10px;
+    }
+
+    .accountMenu {
+        max-height: none;
+        align-items: stretch;
+    }
+
+    .accountMenu button {
+        min-width: 97%;
+    }
+
+    /* Account */
+    .resumeCard {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .card_buttons {
+        flex-direction: row;
     }
 
 

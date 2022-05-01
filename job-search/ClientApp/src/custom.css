@@ -64,8 +64,6 @@ input:required:valid, textarea:required:valid { border-color: green; } */
 
 .button:hover {
 	background-position: 100% 0;
-
-
 }
 
 .button:focus {

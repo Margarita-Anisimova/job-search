@@ -126,7 +126,7 @@ export default function VacancyResponses() {
                 </div>
                 <div className="response_message">
                     <p>Ваше сообщение:</p>
-                    <textarea className='message' value={response.message} onChange={(e) => setResponse({ ...response, message: e.target.value })} placeholder='Введите сообщение для соискателя'></textarea>
+                    <textarea className='message' value={response.message} onChange={(e) => setResponse({ ...response, message: e.target.value })} placeholder='Введите сообщение для соискателя' maxLength={50}></textarea>
                 </div>
                 <button type="button" onClick={() => sentResponse()} className='button resumecard__btn'>
                     Отправить
