@@ -30,7 +30,9 @@ public class ResponseToVacancyController : Controller
     public void Post([FromBody] ResponseToVacancy data)
     {
         var res = this.Context.responseToVacancy.Where((e) => e.resume_id == data.resume_id && e.vacancy_id == data.vacancy_id);
+        data.publication_date = DateTime.Today;
         if (res.Count() == 0)
+
             this.Context.responseToVacancy.Add(data);
         else
             this.Context.responseToVacancy.Update(data);

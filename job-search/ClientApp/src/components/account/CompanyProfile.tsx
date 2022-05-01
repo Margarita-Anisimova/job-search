@@ -26,6 +26,7 @@ export default function CompanyProfile() {
     return (
         <div>
             <p className="profile_sect-title">Моя компания</p>
+            <button onClick={() => navigate('/company')}>Добавить сотрудника</button>
             {companyState.companyInfo.fullname ?
                 <div className="user_resumes_container resumeCard">
                     <div className="card_maininfo">

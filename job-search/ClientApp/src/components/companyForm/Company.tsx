@@ -88,8 +88,8 @@ function Company() {
             <div className="company_container">
                 <form className="company_form">
                     <section>
+                        <p style={{ color: 'red', display: 'none' }} className='errormessage'>ИНН не вылидный, проверьте введенные данные</p>
                         <div className="part">
-                            <p style={{ color: 'red', display: 'none' }} className='confirmLabel usererrormessage'>ИНН не вылидный, проверьте введенные данные</p>
                             {createTextInputs(commonInfoInputs, handler)}
                             <label><div>Электронная почта<span className="red">*</span></div></label>
                             <input value={companyState.companyInfo.email} onChange={handler} required type="email" name='email'></input>
@@ -101,8 +101,8 @@ function Company() {
                         </div>
                     </section>
                     <div className="button-form">
-                        <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink>
-                        <button onClick={e => save(e)} >Сохранить</button>
+                        {/* <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink> */}
+                        <button type='button' onClick={e => save(e)} >Сохранить</button>
                     </div>
                 </form>
             </div>

@@ -22,6 +22,9 @@ namespace job_search.Models
 
         [Required]
         public string message { get; set; }
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime publication_date { get; set; }
 
     }
 }

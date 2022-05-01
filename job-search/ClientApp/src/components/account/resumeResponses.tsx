@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { CompanyInfoType, VacancyType } from "../types";
 import { NavLink } from "reactstrap";
 import { Link } from "react-router-dom";
+import { getDate } from "../../exportFunctions";
 
 export default function ResumeResponses() {
 
@@ -74,7 +75,7 @@ export default function ResumeResponses() {
                     <div className="resumeButtons">
                         <button onClick={() => deleteResp(e.response, id)} className="resumeButton">Просмотрено</button>
                     </div>
-                    <p className='publication_date'>{e.response.publication_date}</p>
+                    <p className='publication_date'>{getDate(e.response.publication_date)}</p>
                 </div>)}
         </div>
     );

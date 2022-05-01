@@ -9,9 +9,9 @@ import { changeResume } from "../app/resumeStateReducer";
 import { changeCompany } from "../app/companyStateReducer";
 import { CompanyType, ResumeType } from "./types";
 
-function Registration(props: { setPageType: any }) {
+function Registration(props: { setPageType: any, setFormType: any, formType: string }) {
     const navigate = useNavigate();
-    const [formType, setFormType] = useState('authoriz')
+    // const [formType, setFormType] = useState(props.regitrType)
     const [formInfo, setformInfo] = useState({ email: '', password: '', f_name: '', l_name: '', phone_number: '' })
     const [code, setcode] = useState('');
 
@@ -23,7 +23,7 @@ function Registration(props: { setPageType: any }) {
 
     function set_FormType(type: string) {
         setformInfo({ email: '', password: '', f_name: '', l_name: '', phone_number: '' })
-        setFormType(type)
+        props.setFormType(type)
     }
 
     useEffect(() => {
@@ -49,7 +49,7 @@ function Registration(props: { setPageType: any }) {
         console.log(form.checkValidity())
         !form.checkValidity()
             ? form.reportValidity()
-            : formType === 'registr'
+            : props.formType === 'registr'
                 ? confirm()
                 : authoriz()
     }
@@ -97,7 +97,7 @@ function Registration(props: { setPageType: any }) {
             (document.querySelectorAll('.emailerrormessage')[0] as HTMLElement).style.display = 'block';
         } else {
             setcode(codeFromServer.code);
-            setFormType('confirmEmail')
+            props.setFormType('confirmEmail')
             console.log(codeFromServer.code)
         }
     }
@@ -122,7 +122,7 @@ function Registration(props: { setPageType: any }) {
     }
 
     function createRegistForm() {
-        if (formType === 'authoriz') {
+        if (props.formType === 'authoriz') {
             return <button className='set_registr' type='button' onClick={() => set_FormType('registr')}>
                 Еще нет аккаунта? Зарегистрироваться
             </button>
@@ -132,7 +132,8 @@ function Registration(props: { setPageType: any }) {
                 <div>
                     <label className='label_for_input'>
                         <div>Повторите пароль <span className="red">*</span></div>
-                        <input onInput={(e) => checkrepeated_password(e)} name='repeated_password' required type="password"></input>
+                        <button type='button' className="password-control" onClick={(e) => show_hide_password(e, 'password-input1')}></button>
+                        <input id="password-input1" onInput={(e) => checkrepeated_password(e)} name='repeated_password' required type="password"></input>
                     </label>
                     <label className='label_for_input'>
                         <div>Фамилия <span className="red">*</span></div>
@@ -163,37 +164,51 @@ function Registration(props: { setPageType: any }) {
 
     }
 
+    function show_hide_password(target, id) {
+        var input = document.getElementById(id);
+        if (input.getAttribute('type') == 'password') {
+            target.target.classList.add('view');
+            input.setAttribute('type', 'text');
+        } else {
+            target.target.classList.remove('view');
+            input.setAttribute('type', 'password');
+        }
+        return false;
+    }
+
     return (
         <div className='register_page'>
             <form className='register_container'>
                 {/* <h3>{formType === 'authoriz' ? 'Вход' : 'Регистрация'}</h3> */}
                 <div className='registrForm_title'>
                     <div className="registrForm_title_but">
-                        <input onClick={() => set_FormType('authoriz')} required id="radio_title-1" type="radio" name="radio_title" value="authoriz" defaultChecked={formType === 'authoriz' ? true : false} />
+                        <input onClick={() => set_FormType('authoriz')} required id="radio_title-1" type="radio" name="radio_title" value="authoriz" checked={props.formType === 'authoriz' ? true : false} />
                         <label htmlFor="radio_title-1">Вход</label>
                     </div>
 
                     <div className="registrForm_title_but">
-                        <input onClick={() => set_FormType('registr')} required id="radio_title-2" type="radio" name="radio_title" value="registr" checked={formType === 'authoriz' ? false : true} />
+                        <input onClick={() => set_FormType('registr')} required id="radio_title-2" type="radio" name="radio_title" value="registr" checked={props.formType === 'authoriz' ? false : true} />
                         <label htmlFor="radio_title-2">Регистрация</label>
                     </div>
                 </div>
                 <p style={{ color: 'red', display: 'none' }} className='confirmLabel usererrormessage'>Не верный email или пароль</p>
                 <p style={{ color: 'red', display: 'none' }} className='confirmLabel emailerrormessage'>Пользователь с таким email уже есть</p>
+                {/* <a href='https://oauth.yandex.ru/authorize?response_type=token&client_id=de71d88895ef4b90992eb38f0e152a25'>Войти через Яндекс</a> */}
                 <label className='label_for_input'>
                     <div>Email <span className="red">*</span></div>
                     <input value={formInfo.email} onChange={(e) => handler(e)} name='email' required type="email"></input>
                 </label>
                 <label className='label_for_input'>
                     <div>Пароль <span className="red">*</span></div>
-                    <input value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
+                    <button type='button' className="password-control" onClick={(e) => show_hide_password(e, 'password-input')}></button>
+                    <input id="password-input" value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}
-                <button onClick={(e) => checkForm(e)} type='button' className='submit_button'>{formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </button>
+                <button onClick={(e) => checkForm(e)} type='button' className='submit_button'>{props.formType === 'authoriz' ? 'Войти' : 'Зарегистрироваться'} </button>
 
-                {formType === 'confirmEmail'
+                {props.formType === 'confirmEmail'
                     ? <div className='confirmEmail'>
-                        <button onClick={(e) => setFormType('registr')} className='back_button' >Назад</button>
+                        <button onClick={(e) => props.setFormType('registr')} className='back_button' >Назад</button>
                         <p className='confirmLabel'>Код подтверждения отправлен на почту</p>
 
                         <input autoFocus className='code_input' placeholder='Введите код'></input>

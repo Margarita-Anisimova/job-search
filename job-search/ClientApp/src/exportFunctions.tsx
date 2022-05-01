@@ -30,6 +30,7 @@ export function createEmptyResume(user_id = 0): ResumeType {
             education_level: 'Нет образования',
             gender: 'female',
             work_experience: 0,
+            publication_date: '2020:01:01'
         },
         education: [],
         workExperience: [createEmptyWorkExperience()],
@@ -60,6 +61,10 @@ export function createEmptyWorkExperience(resume_id = 0): WorkExpirienceType {
         experience_description: '',
         status: 'add'
     }
+}
+
+export function getDate(date: string) {
+    return date.split('T')[0].split('').reverse().join('');
 }
 
 export function createCompanyInfo(user_id = 0) {

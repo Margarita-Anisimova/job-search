@@ -39,6 +39,7 @@
     display: flex;
     flex-direction: column;
     margin: 0;
+    position: relative;
 }
 
 .form_radio_btn {
@@ -48,8 +49,8 @@
 
 .form_radio_btn:last-child {
     padding-left: 5px;
-   
 }
+
 .form_radio_btn input[type=radio] {
     display: none;
 }
@@ -67,7 +68,7 @@
 
 .form_radio_btn input[type=radio]:checked+label {
     background-color: #FFFBF6;
-    border: 1px solid #F88500 ;
+    border: 1px solid #F88500;
 }
 
 .btn_checktype {
@@ -75,6 +76,7 @@
     width: 100%;
     padding: 12px 0;
 }
+
 
 /* .form_radio_btn input[type=radio]:disabled+label {
     background: #efefef;
@@ -162,4 +164,27 @@
     font-size: 16px;
     text-align: center;
     font-weight: bold;
+}
+
+.password-control {
+    position: absolute;
+    right: 5px;
+    bottom: 12px;
+    width: 20px;
+    height: 20px;
+    background-image: url(./view.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+}
+
+.password-control.view {
+    background-image: url(./no-view.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
 }

@@ -39,7 +39,7 @@ public class ResumeController : Controller
     [Produces("application/json", "application/xml")]
     public void Post([FromBody] FullResume resume)
     {
-        resume.resumeInfo.publication_date = DateTime.Today.ToString();
+        resume.resumeInfo.publication_date = DateTime.Today;
         foreach (var ex in resume.workExperience)
         {
             resume.resumeInfo.work_experience = 0;
@@ -66,7 +66,7 @@ public class ResumeController : Controller
 
     public void Put([FromBody] FullResume resume)
     {
-        resume.resumeInfo.publication_date = DateTime.Today.ToString();
+        resume.resumeInfo.publication_date = DateTime.Today;
         this.Context.resumes.Update(resume.resumeInfo);
 
         foreach (var ed in resume.education)
@@ -165,8 +165,9 @@ public class ResumeController : Controller
         result.resume.education.ToList().ForEach((e) => e.Resume = null);
         result.resume.workExperience.ToList().ForEach((e) => e.Resume = null);
         result.user = this.Context.users.Where((user) => user.user_id == a.First().user_id).First();
-        var d = this.Context.image.Where((r) => r.user_id == user_id).First();
-        result.image = Convert.ToBase64String(d.image);
+        var d = this.Context.image.Where((r) => r.user_id == user_id).FirstOrDefault();
+        if (d != null)
+            result.image = Convert.ToBase64String(d.image);
         return new ObjectResult(result);
     }
 

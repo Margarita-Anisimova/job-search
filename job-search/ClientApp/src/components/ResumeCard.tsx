@@ -37,7 +37,7 @@ export default function ResumeCard() {
 
 
     async function getResume() {
-        const data = await fetch(`resume/${id}`)
+        let data = await fetch(`resume/${id}`)
             .then((response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -47,9 +47,9 @@ export default function ResumeCard() {
         await changeData(data)
         setResume(data.resume);
         setAccount(data.user);
-        setIng("data:image/jpeg;base64," + data.image);
-        setProfession(data.profession);
 
+        setIng(data.image ? "data:image/jpeg;base64," + data.image : ing);
+        setProfession(data.profession);
     }
 
     function changeData(data) {

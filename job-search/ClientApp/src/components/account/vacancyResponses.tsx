@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { CompanyType, ResumeInfoType, VacancyType } from "../types";
 import { NavLink } from "reactstrap";
 import { Link } from "react-router-dom";
+import { getDate } from "../../exportFunctions";
 
 export default function VacancyResponses() {
 
@@ -112,6 +113,7 @@ export default function VacancyResponses() {
 
                                         <button className="card_button light__button" onClick={() => openDialog('Принято', id, res.response)}>Принять</button>
                                         <button className="card_button light__button" onClick={() => openDialog('Отказано', id, res.response)}>Отклонить</button>
+                                        <p className='publication_date'>{getDate(res.response.publication_date)}</p>
                                     </div>
                                 </div>
                             )

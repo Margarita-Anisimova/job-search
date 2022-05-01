@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { NavLink } from "reactstrap";
+import { getDate } from "../exportFunctions";
 import './Home.css';
 import { ResumeInfoType, VacancyType } from "./types";
 
@@ -30,7 +31,7 @@ export function getResumeCards(resumes: ResumeInfoType[]) {
                         <p className='card__address'>Стаж работы в сфере: {res.work_experience}</p>
 
                     </div>
-                    <p className='publication_date'>{res.publication_date}</p>
+                    <p className='publication_date'>{getDate(res.publication_date)}</p>
                     {/* <button className="card_button light__button">Откликнуться</button>
                     <button className="card_button light__button">Показать контакты</button> */}
                 </div>
@@ -58,7 +59,7 @@ export function getVacancyCards(vacancies: VacancyType[]) {
                         <p className='card__desc card__shortdescription'>{res.responsibilities}</p>
                         <p className='card__address'>{res.work_address} </p>
                     </div>
-                    <p className='publication_date'>{res.publication_date}</p>
+                    <p className='publication_date'>{getDate(res.publication_date)}</p>
                     {/* <button className="light__button card__button-main">Откликнуться</button>
                     <button className="light__button card__button-second">Показать контакты</button>
                     <button className="light__button button__collection">Показать резюме</button> */}

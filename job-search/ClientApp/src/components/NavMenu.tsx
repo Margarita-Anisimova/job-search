@@ -12,7 +12,7 @@ import { changeCompany } from '../app/companyStateReducer';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export default function NavMenu(props: { setPageType: any; }) {
+export default function NavMenu(props: { setregitrType: any, setPageType: any; }) {
 
 
     const userState = useSelector((state: any) => state.userState.userState)
@@ -26,7 +26,7 @@ export default function NavMenu(props: { setPageType: any; }) {
         return (
             <div className='navigate'>
                 <div className='container'>
-                    <div className={isActive ? 'row nav_menu_active nav_menu': 'row nav_menu'}>
+                    <div className={isActive ? 'row nav_menu_active nav_menu' : 'row nav_menu'}>
                         <div className='sections_container'>
                             <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
                             <div className="search_type">
@@ -50,10 +50,10 @@ export default function NavMenu(props: { setPageType: any; }) {
             return (
                 <div className='reg_container'>
 
-                    <NavLink className='navigate_item' tag={Link} to="/registration">Вход</NavLink>
-                    <NavLink className='navigate_item' tag={Link} to="/registration">Регистрация</NavLink>
+                    <NavLink className='navigate_item' onClick={() => props.setregitrType('authoriz')} tag={Link} to="/registration">Вход</NavLink>
+                    <NavLink className='navigate_item' onClick={() => props.setregitrType('registr')} tag={Link} to="/registration">Регистрация</NavLink>
                 </div>
-                )
+            )
         } else {
             return (
                 <div className='reg_container'>
@@ -69,7 +69,7 @@ export default function NavMenu(props: { setPageType: any; }) {
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
 
                     <NavLink className='navigate_item' onClick={out} to='/' tag={Link} >Выход</NavLink>
-                    
+
 
                 </div>)
         }
@@ -85,7 +85,7 @@ export default function NavMenu(props: { setPageType: any; }) {
 
     return (
         <div className="menu">
-            <button onClick={()=>setActive(!isActive)} className={isActive ? 'menu_toggle_active': 'menu_toggle'}></button>
+            <button onClick={() => setActive(!isActive)} className={isActive ? 'menu_toggle_active' : 'menu_toggle'}></button>
             {nuvButton()}
         </div>
 

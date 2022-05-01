@@ -36,6 +36,18 @@ namespace job_search
                 table.resume_id,
                 table.vacancy_id
             });
+            //     builder.Entity<Vacancy>()
+            //            .Property(e => e.publication_date)
+            //            .HasColumnType("date");
+            //     builder.Entity<ResponseToVacancy>()
+            //             .Property(e => e.publication_date)
+            //             .HasColumnType("date");
+            //     builder.Entity<ResponseToResume>()
+            //             .Property(e => e.publication_date)
+            //             .HasColumnType("date");
+            //     builder.Entity<Resume>()
+            //             .Property(e => e.publication_date)
+            //             .HasColumnType("date");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

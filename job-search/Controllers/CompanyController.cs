@@ -22,9 +22,9 @@ public class CompanyController : Controller
     [Produces("application/json", "application/xml")]
     public IActionResult Post([FromBody] Company data)
     {
-        if (!Validations.IsValidInnForEntity(data.tin))
+        if (!Validations.IsValidInn(data.tin))
         {
-            return new BadRequestResult();
+            return new StatusCodeResult(400);
         }
         this.Context.companies.Add(data);
         this.Context.SaveChanges();
@@ -37,9 +37,9 @@ public class CompanyController : Controller
     [Produces("application/json", "application/xml")]
     public IActionResult Put([FromBody] Company data)
     {
-        if (!Validations.IsValidInnForEntity(data.tin))
+        if (!Validations.IsValidInn(data.tin))
         {
-            return new BadRequestResult();
+            return new StatusCodeResult(400);
         }
         this.Context.companies.Update(data);
         this.Context.SaveChanges();

@@ -67,8 +67,8 @@ public class UserController : Controller
 
     public void Put([FromBody] User data)
     {
+        // data.password = this.Context.users.Where((e) => data.user_id == e.user_id).First().password;
         this.Context.users.Update(data);
-
         this.Context.SaveChanges();
     }
 
@@ -92,7 +92,7 @@ public class UserController : Controller
             {
                 var result = new ResumeCard();
                 result.user = a.First();
-                result.user.password = "";
+                // result.user.password = "";
                 var res = new FullResume();
                 var resumeFromBase = this.Context.resumes.Where((resume) => resume.user_id == result.user.user_id);
                 if (resumeFromBase.Count() != 0)
@@ -112,7 +112,7 @@ public class UserController : Controller
             {
                 var responce = new CompanyResponce();
                 responce.user = a.First();
-                responce.user.password = "";
+                // responce.user.password = "";
                 var companyFromBase = this.Context.companies.Where((company) => company.user_id == responce.user.user_id);
                 if (companyFromBase.Count() != 0)
                 {
