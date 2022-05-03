@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Select from 'react-select';
 import { useDispatch, useSelector } from "react-redux";
 import { changeResumeProperty } from "../../app/resumeStateReducer";
+import img from '../lamp.svg';
 
 export default function Desired_Position() {
     const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
@@ -53,39 +54,63 @@ export default function Desired_Position() {
         "Дизайнер"]
 
     return (
-        <section >
-            <h5>Желаемая должность</h5>
-            <div className='partition-2'>
-                <label><label><div>Профессия<span className="red">*</span></div></label></label>
-                {/* <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" /> */}
-                <select required onChange={(e) => handlerSelect(e)} className="professions">
-                    {asd.map((e) =>
-                        <option>{e}</option>
-                    )}
-                </select>
+        <section className="resume__desPosition">
+            <div className="resume_desPosition_Form">
+                <h5>Желаемая должность</h5>
+                <div className='partition-2'>
+                    <label><label><div>Профессия<span className="red">*</span></div></label></label>
+                    {/* <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" /> */}
+                    <select required onChange={(e) => handlerSelect(e)} className="professions">
+                        {asd.map((e) =>
+                            <option>{e}</option>
+                        )}
+                    </select>
 
-                {createTextInputs(postInfoInputs, posthandler)}
-                <label>Зарплата</label>
-                <input value={resumeState.resumeInfo.desired_salary} onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
+                    {createTextInputs(postInfoInputs, posthandler)}
+                    <label>Зарплата</label>
+                    <input value={resumeState.resumeInfo.desired_salary} onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
 
-                <label><div>Переезд<span className="red">*</span></div></label>
-                <div>
-                    <div className="move_radio">
-                        <input className="radio_input yes" onChange={(e) => ratiohandler(e)} required id="move_radio-1" type="radio" name="ready_move" value="yes" />
-                        <label htmlFor="move_radio-1">Возможен</label>
+                    <label><div>Переезд<span className="red">*</span></div></label>
+                    <div>
+                        <div className="move_radio">
+                            <input className="radio_input yes" onChange={(e) => ratiohandler(e)} required id="move_radio-1" type="radio" name="ready_move" value="yes" />
+                            <label htmlFor="move_radio-1">Возможен</label>
+                        </div>
+                        <div className="move_radio">
+                            <input className="radio_input no" onChange={(e) => ratiohandler(e)} required id="move_radio-2" type="radio" name="ready_move" value="no" />
+                            <label htmlFor="move_radio-2">Невозможен</label>
+                        </div>
                     </div>
-                    <div className="move_radio">
-                        <input className="radio_input no" onChange={(e) => ratiohandler(e)} required id="move_radio-2" type="radio" name="ready_move" value="no" />
-                        <label htmlFor="move_radio-2">Невозможен</label>
+                    <label><div>График работы<span className="red">*</span></div></label>
+                    <div className='chart_block'>
+                        <label> <input onChange={(e) => addTolist(e)} name='work_type' id="0" type='checkbox'></input>Полный рабочий день</label>
+                        <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input>Гибкий</label>
+                        <label> <input onChange={(e) => addTolist(e)} name='work_type' id="2" type='checkbox'></input>Удаленная работа</label>
+                        <label> <input onChange={(e) => addTolist(e)} name='work_type' id="3" type='checkbox'></input>Сменный</label>
+                        <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Вахтовая</label>
                     </div>
                 </div>
-                <label><div>График работы<span className="red">*</span></div></label>
-                <div className='chart_block'>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="0" type='checkbox'></input>Полный рабочий день</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="1" type='checkbox'></input>Гибкий</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="2" type='checkbox'></input>Удаленная работа</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="3" type='checkbox'></input>Сменный</label>
-                    <label> <input onChange={(e) => addTolist(e)} name='work_type' id="4" type='checkbox'></input>Вахтовая</label>
+            </div>
+            <div className="resume_desPosition_Recomendation">
+                <div className="recomendation_header">
+                    <img style={{ paddingRight: '5px' }} src={img} alt="" />
+                    <h6 style={{ fontSize: '1.2rem' }}>Желаемая должность</h6>
+                </div>
+                
+                <p>Например, «PR-менеджер», «Сотрудник службы охраны», «Специалист по защите информации»</p>
+                <p>Можно указать несколько должностей в смежных сферах деятельности</p>
+                <div className="">
+                    <h6 style={{color: '#00B147'}}>Хорошо</h6>
+                    <ul>
+                        <li>«Журналист, автор статей» </li>
+                        <li>«Бухгалтер, кассир»</li>
+                        <li>«Секретарь, помощник руководителя»</li>
+                    </ul>
+                    <h6 style={{color: '#E93636'}}>Плохо</h6>
+                    <ul>
+                        <li>«Дворник, дизайнер, директор»</li>
+                        <li>«Бухгалтер, секретарь, водитель»</li>
+                    </ul>
                 </div>
             </div>
         </section >

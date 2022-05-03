@@ -7,6 +7,8 @@ import { EducationType } from '../types'
 import { ResumeType } from '../types';
 import { useDispatch, useSelector } from "react-redux";
 import { changeResumeProperty, addSkill, deleteSkill } from "../../app/resumeStateReducer";
+import img from '../lamp.svg';
+
 
 export default function Skills() {
 
@@ -42,35 +44,45 @@ export default function Skills() {
     }
 
     return (
-        <section className='skills_container'>
-            <h5>Профессиональные навыки</h5>
+        <section className='resume__skills'>
+            <div className="resume__skills_Form">
+                <h5>Профессиональные навыки</h5>
 
-            <div className='slected_skills_container'>
-                {Object.keys(resumeState.resumeInfo.skills).map((e, i) =>
-                    <span id={i.toString()} onDoubleClick={(e) => delSkill(e)} className="skillItem">
-                        {e}
-                    </span>
-                )}
-            </div>
-
-            {/* <button className='selectionButton' onClick={(e) => setSelection(!selection)} type='button'>Подобрать навык</button> */}
-
-            <input className='inputForSkill' onKeyDown={(e) => keypress(e.keyCode)} type='text'></input>
-
-            {/* {selection ?
-                <div className='selectionWindow'>
-                    <button type="button" onClick={() => close()} className="closeButton">X</button>
-                    <select onChange={(e) => setSkillsList(skillsLib[e.target.value])} className='selectiondatalist' id="list1">
-                        {selectionList.map((e) =>
-                            <option value={e}>{e}</option>
-                        )}
-                    </select>
-                    <div>
-                        {skillsList.map((sk) => <button type="button" value={sk} onClick={(e) => addItem(e.target)}>{sk}</button>)}
-                    </div>
-
+                <div className='slected_skills_container'>
+                    {Object.keys(resumeState.resumeInfo.skills).map((e, i) =>
+                        <span id={i.toString()} onDoubleClick={(e) => delSkill(e)} className="skillItem">
+                            {e}
+                        </span>
+                    )}
                 </div>
-                : null} */}
 
+                {/* <button className='selectionButton' onClick={(e) => setSelection(!selection)} type='button'>Подобрать навык</button> */}
+
+                <input className='inputForSkill' onKeyDown={(e) => keypress(e.keyCode)} type='text'></input>
+
+                {/* {selection ?
+                    <div className='selectionWindow'>
+                        <button type="button" onClick={() => close()} className="closeButton">X</button>
+                        <select onChange={(e) => setSkillsList(skillsLib[e.target.value])} className='selectiondatalist' id="list1">
+                            {selectionList.map((e) =>
+                                <option value={e}>{e}</option>
+                            )}
+                        </select>
+                        <div>
+                            {skillsList.map((sk) => <button type="button" value={sk} onClick={(e) => addItem(e.target)}>{sk}</button>)}
+                        </div>
+
+                    </div>
+                    : null} */}
+            </div>
+            <div className="resume__skills_Recomendations">
+                <div className="recomendation_header">
+                    <img style={{ paddingRight: '5px' }} src={img} alt="" />
+                    <h6 style={{ fontSize: '1.2rem' }}>Профессиональные навыки</h6>
+                </div>
+                <p>Какими программами вы владеете?</p>
+                <p>Какие ваши знания и навыки помогут решать задачи работодателям?</p>
+                
+            </div>
         </section >)
 }

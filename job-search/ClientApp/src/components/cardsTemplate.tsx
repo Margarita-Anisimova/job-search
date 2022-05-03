@@ -27,11 +27,15 @@ export function getResumeCards(resumes: ResumeInfoType[]) {
                     </div>
 
                     <div className="card__content">
-                        <p className='card__desc'>Уровень образования: {res.education_level}</p>
-                        <p className='card__address'>Стаж работы в сфере: {res.work_experience}</p>
+                        <div>
+                            <p className='card__desc'>Уровень образования: {res.education_level}</p>
+                            <p className='card__address'>Стаж работы в сфере: {res.work_experience}</p>
+                        </div>
+                        <p className='publication_date'>{getDate(res.publication_date)}</p>
+                        
 
                     </div>
-                    <p className='publication_date'>{getDate(res.publication_date)}</p>
+                    
                     {/* <button className="card_button light__button">Откликнуться</button>
                     <button className="card_button light__button">Показать контакты</button> */}
                 </div>

@@ -96,30 +96,33 @@ function Resume() {
     // }
 
     return (
-        <div className='resume_container'>
+        <div className='container resume_container'>
             <form className='resume_form'>
-                <h5>Основное</h5>
-                <div className='partition-1'>
-                    {/* <label>Дата рождения</label>
-                    <div className='data_container'>
-                        <input className='data_input' value={getDataPart(0)} required placeholder='День' onChange={handlerData} min='1' max='12' name='birth_day' type='number'></input>
-                        <input className='data_input' value={getDataPart(1)} required placeholder='Месяц' onChange={handlerData} min='1' max='31' name='birth_month' type='number'></input>
-                        <input className='data_input' value={getDataPart(2)} required placeholder='Год' onChange={handlerData} min={(new Date()).getFullYear() - 100} max={(new Date()).getFullYear() - 14} name='birth_year' type='number'></input>
-                    </div> */}
+                <section className="resume__mainInfo">
+                    <h5>Основное</h5>
+                    <div className='partition-1'>
+                        {/* <label>Дата рождения</label>
+                        <div className='data_container'>
+                            <input className='data_input' value={getDataPart(0)} required placeholder='День' onChange={handlerData} min='1' max='12' name='birth_day' type='number'></input>
+                            <input className='data_input' value={getDataPart(1)} required placeholder='Месяц' onChange={handlerData} min='1' max='31' name='birth_month' type='number'></input>
+                            <input className='data_input' value={getDataPart(2)} required placeholder='Год' onChange={handlerData} min={(new Date()).getFullYear() - 100} max={(new Date()).getFullYear() - 14} name='birth_year' type='number'></input>
+                        </div> */}
 
-                    {createTextInputs(commonInfoInputs, handler)}
-                    <label><div>Пол<span className="red">*</span></div></label>
-                    <div>
-                        <div className="gender_radio">
-                            <input className="radio_input male" onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="male" />
-                            <label htmlFor="gender_radio-1">Мужской</label>
-                        </div>
-                        <div className="gender_radio">
-                            <input className="radio_input female" onChange={(e) => handler(e)} required id="gender_radio-2" type="radio" name="gender" value="female" />
-                            <label htmlFor="gender_radio-2">Женский</label>
+                        {createTextInputs(commonInfoInputs, handler)}
+                        <label><div>Пол<span className="red">*</span></div></label>
+                        <div>
+                            <div className="gender_radio">
+                                <input className="radio_input male" onChange={(e) => handler(e)} required id="gender_radio-1" type="radio" name="gender" value="male" />
+                                <label htmlFor="gender_radio-1">Мужской</label>
+                            </div>
+                            <div className="gender_radio">
+                                <input className="radio_input female" onChange={(e) => handler(e)} required id="gender_radio-2" type="radio" name="gender" value="female" />
+                                <label htmlFor="gender_radio-2">Женский</label>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
+                
                 <Desired_Position></Desired_Position>
                 <WorkExperience></WorkExperience>
                 <Education></Education>
