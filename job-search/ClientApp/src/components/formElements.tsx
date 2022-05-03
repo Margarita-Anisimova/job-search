@@ -8,10 +8,10 @@ export function getEducationLevel(value, onChange) {
     return (
         <select onChange={(e) => onChange(e)} value={value} className="edu_level" name='education_level'>
             <option>Нет образования</option>
-            <option>Среднее</option>
-            <option>Незаконченное высшее</option>
-            <option>Высшее</option>
+            <option>Основное общее</option>
+            <option>Среднее общее</option>
             <option>Среднее профессиональное</option>
+            <option>Высшее образование</option>
         </select>
     )
 }

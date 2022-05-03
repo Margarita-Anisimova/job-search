@@ -8,11 +8,12 @@ import { useEffect } from "react";
 import Select from 'react-select';
 import { useDispatch, useSelector } from "react-redux";
 import { changeResumeProperty } from "../../app/resumeStateReducer";
+import SearchInput from "../SearchInput";
 
 export default function Desired_Position() {
     const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
     const dispatch = useDispatch();
-
+    const professionState = useSelector((state: any) => state.professionState.professionState)
     useEffect(() => {
         resumeState.resumeInfo.ready_move
             ? document.getElementsByClassName('yes')[0].defaultChecked = true
@@ -37,20 +38,21 @@ export default function Desired_Position() {
 
     const postInfoInputs = [{ tag: 'desired_position', name: 'Должность', value: resumeState.resumeInfo.desired_position, required: false },]
 
-    function handlerSelect(e: any) {
-        dispatch(changeResumeProperty({ propertyName: 'profession_id', property: e.target.selectedIndex }))
+    function professionChanged(e: number) {
+        dispatch(changeResumeProperty({ propertyName: 'profession_id', property: e }))
     }
 
-    let asd = ['', "Программист",
-        "Повар",
-        "Инженер",
-        "Бухгалтер",
-        "Сметчик",
-        "Экономист",
-        "Врач",
-        "Преподаватель",
-        "Водитель",
-        "Дизайнер"]
+
+    // let asd = ['', "Программист",
+    //     "Повар",
+    //     "Инженер",
+    //     "Бухгалтер",
+    //     "Сметчик",
+    //     "Экономист",
+    //     "Врач",
+    //     "Преподаватель",
+    //     "Водитель",
+    //     "Дизайнер"]
 
     return (
         <section >
@@ -58,11 +60,12 @@ export default function Desired_Position() {
             <div className='partition-2'>
                 <label><label><div>Профессия<span className="red">*</span></div></label></label>
                 {/* <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" /> */}
-                <select required onChange={(e) => handlerSelect(e)} className="professions">
+                <SearchInput text="Введите профессию" className='professions' items={professionState} name='profession' handler={professionChanged}></SearchInput>
+                {/* <select required onChange={(e) => handlerSelect(e)} className="professions">
                     {asd.map((e) =>
                         <option>{e}</option>
                     )}
-                </select>
+                </select> */}
 
                 {createTextInputs(postInfoInputs, posthandler)}
                 <label>Зарплата</label>

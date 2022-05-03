@@ -69,6 +69,9 @@ function Registration(props: { setPageType: any, setFormType: any, formType: str
                 user = data.user;
                 changeWorkType(data.company)
                 dispatch(changeCompany({ companyState: data.company }))
+            } else {
+                dispatch(changeUser({ userState: user }))
+                navigate('/adminVacancies')
             }
             dispatch(changeUser({ userState: user }))
             navigate('/')

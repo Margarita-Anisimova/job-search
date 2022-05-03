@@ -5,12 +5,14 @@ import { createTextInputs, createSelect } from '../account/createFunction';
 import { AccountType, ResumeType, CompanyType, VacancyType } from '../types';
 import { getEducationLevel, getWorkExperience, getWorkType } from '../formElements'
 import SearchInput from '../SearchInput'
+import { useSelector } from "react-redux";
 
 export default function Desired_Applicant(props: { vacancy: VacancyType, setVacancy: any }) {
 
     function handler(e: any) {
         props.setVacancy({ ...props.vacancy, [e.target.name]: e.target.value });
     }
+    const professionState = useSelector((state: any) => state.professionState.professionState)
 
     useEffect(() => {
         let a = document.getElementsByName('work_experience')
@@ -22,19 +24,19 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
         }
     })
 
-    let asd = ['', "Программист",
-        "Повар",
-        "Инженер",
-        "Бухгалтер",
-        "Сметчик",
-        "Экономист",
-        "Врач",
-        "Преподаватель",
-        "Водитель",
-        "Дизайнер"]
+    // let asd = ['', "Программист",
+    //     "Повар",
+    //     "Инженер",
+    //     "Бухгалтер",
+    //     "Сметчик",
+    //     "Экономист",
+    //     "Врач",
+    //     "Преподаватель",
+    //     "Водитель",
+    //     "Дизайнер"]
 
-    function handlerSelect(e: any) {
-        props.setVacancy({ ...props.vacancy, profession_id: e.target.selectedIndex });
+    function professionChanged(e: number) {
+        props.setVacancy({ ...props.vacancy, profession_id: e });
     }
 
     const postInfoInputs = [
@@ -45,11 +47,12 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
             <h5>Кого ищете?</h5>
             <div className='part part-1'>
                 <label><div>Профессия<span className="red">*</span></div></label>
-                <select required onChange={(e) => handlerSelect(e)} className="professions">
+                <SearchInput text="Введите профессию" className='professions' items={professionState} name='profession' handler={professionChanged}></SearchInput>
+                {/* <select required onChange={(e) => handlerSelect(e)} className="professions">
                     {asd.map((e) =>
                         <option>{e}</option>
                     )}
-                </select>
+                </select> */}
 
                 {createTextInputs(postInfoInputs, handler)}
                 <label> Уровень образования</label>

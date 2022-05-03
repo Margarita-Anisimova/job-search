@@ -123,7 +123,8 @@ export default function Profile() {
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
                         <p className="profile_sect-title">Мое резюме</p>
-                        {resumeState.resumeInfo.city ?
+                        {resumeState.resumeInfo.status === false ? <p>Заблокировано, необходимо внести изменения</p> : null}
+                        {resumeState.resumeInfo.desired_position ?
                             <div className="resumeCard">
                                 <div className="card_maininfo">
                                     <p className='card__title'>{resumeState.resumeInfo.desired_position}</p>

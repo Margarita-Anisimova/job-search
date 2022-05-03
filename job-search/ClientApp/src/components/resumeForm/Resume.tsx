@@ -15,6 +15,7 @@ import { createEmptyResume } from '../../exportFunctions';
 import { createTextInputs, createSelectsContainer } from '../account/createFunction'
 import { useDispatch, useSelector } from "react-redux";
 import { changeResume, changeResumeProperty } from "../../app/resumeStateReducer";
+import SearchInput from "../SearchInput";
 
 
 
@@ -62,7 +63,11 @@ function Resume() {
             form.reportValidity()
             e.preventDefault()
         } else {
-            postNewResume()
+            if (resumeState.resumeInfo.resume_id === 0) {
+                postNewResume();
+            } else {
+                putResume();
+            }
         }
     }
 
@@ -72,8 +77,9 @@ function Resume() {
             work_type: resumeState.resumeInfo.work_type.join(','),
             skills: Object.keys(resumeState.resumeInfo.skills).join(','),
             user: null,
+            status: "add"
         }
-        dispatch(changeResume({ resumeState: { ...resumeState, education: resumeState.education.filter((e) => e.status != 'delete') } }))
+        dispatch(changeResume({ resumeState: { ...resumeState, resumeInfo: { ...resumeState.resumeInfo, status: "add" }, education: resumeState.education.filter((e) => e.status != 'delete') } }))
 
         const response = await fetch('resume', {
             method: 'POST',
@@ -85,16 +91,37 @@ function Resume() {
         })
     }
 
+    async function putResume() {
+        let res = {
+            ...resumeState.resumeInfo, user_id: userState.user_id,
+            work_type: resumeState.resumeInfo.work_type.join(','),
+            skills: Object.keys(resumeState.resumeInfo.skills).join(','),
+            user: null,
+        }
+        dispatch(changeResume({ resumeState: { ...resumeState, education: resumeState.education.filter((e) => e.status != 'delete') } }))
+        const response = await fetch('resume', {
+            method: 'PUT',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ ...resumeState, resumeInfo: res })
+        })
+    }
 
+
+    function cityChanged(value: number) {
+        dispatch(changeResumeProperty({ propertyName: 'city_id', property: value }))
+    }
 
     const commonInfoInputs =
-        [{ tag: 'city', name: 'Город', value: resumeState.resumeInfo.city, required: true },
-        { tag: 'citizenship', name: 'Гражданство', value: resumeState.resumeInfo.citizenship, required: false },]
+        // [{ tag: 'city', name: 'Город', value: resumeState.resumeInfo.city, required: true },
+        [{ tag: 'citizenship', name: 'Гражданство', value: resumeState.resumeInfo.citizenship, required: false },]
 
     // function getDataPart(ind: number): string {
     //     return resumeState.resumeInfo.birth_date.split(':')[ind]
     // }
-
+    const cityState = useSelector((state: any) => state.cityState.cityState)
     return (
         <div className='resume_container'>
             <form className='resume_form'>
@@ -106,7 +133,7 @@ function Resume() {
                         <input className='data_input' value={getDataPart(1)} required placeholder='Месяц' onChange={handlerData} min='1' max='31' name='birth_month' type='number'></input>
                         <input className='data_input' value={getDataPart(2)} required placeholder='Год' onChange={handlerData} min={(new Date()).getFullYear() - 100} max={(new Date()).getFullYear() - 14} name='birth_year' type='number'></input>
                     </div> */}
-
+                    <SearchInput text="Введите город" className='city' items={cityState} name='city' handler={cityChanged}></SearchInput>
                     {createTextInputs(commonInfoInputs, handler)}
                     <label><div>Пол<span className="red">*</span></div></label>
                     <div>

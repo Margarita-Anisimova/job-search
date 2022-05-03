@@ -40,7 +40,7 @@ function Vacancy() {
             // let arr = companyState.vacancies.slice()
             // arr[id] = vacancy
             // props.setCompany({ ...companyState, vacancies: arr })
-            dispatch(changeVacancy({ index: id, vacancy: vacancy }))
+            dispatch(changeVacancy({ index: id, vacancy: { ...vacancy, status: "add" } }))
             if (vacancy.vacancy_id === 0) {
                 postNewVacancy();
             } else {
@@ -69,6 +69,7 @@ function Vacancy() {
     async function putVacancy() {
         let a = {
             ...vacancy,
+            status: "add",
             work_type: vacancy.work_type.join(','),
         }
         const response = await fetch('vacancy', {

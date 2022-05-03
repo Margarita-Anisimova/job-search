@@ -17,7 +17,7 @@ namespace job_search.Models
         public int company_id { get; set; }
         [ForeignKey("company_id")]
         public Company Company { get; set; }
-
+        public string status { get; set; }
 
         [Required]
         public string position { get; set; }

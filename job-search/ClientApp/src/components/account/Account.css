@@ -264,3 +264,7 @@ p {
     display: flex;
     justify-content: center;
 }
+
+.worker-note {
+    border: 1px solid black;
+}

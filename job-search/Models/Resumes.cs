@@ -17,7 +17,9 @@ namespace job_search.Models
         public int resume_id { get; set; }
 
         [Required]
-        public string city { get; set; }
+        public int city_id { get; set; }
+        [ForeignKey("city_id")]
+        public Cities Cities { get; set; }
 
 
         public string citizenship { get; set; }
@@ -33,8 +35,7 @@ namespace job_search.Models
         public bool ready_move { get; set; }
 
         public int work_experience { get; set; }
-
-
+        public string status { get; set; }
         public string gender { get; set; }
         public string skills { get; set; }
         [Required]
