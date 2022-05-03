@@ -17,4 +17,14 @@
 .company_form {
     display: flex;
     flex-direction: column;
+    width: 40%;
+}
+
+.company_form section {
+    margin-bottom: 40px;
+}
+
+.company_form button {
+    padding: 0.5rem 1rem;
+    width: 40%;
 }

@@ -77,8 +77,6 @@ textarea:focus {
     width: 40%;
 }
 
-
-
 .resume__workExp {
     margin-bottom: 40px;
     display: flex;
@@ -86,15 +84,12 @@ textarea:focus {
     align-items: flex-start;
 }
 
-
 .resume_educations {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 40px;
 }
-
-
 
 textarea {
     resize: none;
@@ -107,8 +102,6 @@ textarea {
 
 
 /* Образование */
-
-
 
 .edu_level {
     /* margin-left: 10px; */
@@ -133,13 +126,7 @@ textarea {
     top: 0;
 }
 
-
-
-
 /* Опыт работы */
-
-
-
 .btn_add {
     border: 1px solid #999;
     border-top: none;

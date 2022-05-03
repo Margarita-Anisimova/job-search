@@ -100,10 +100,10 @@ function Company() {
                             <textarea name="description" value={companyState.companyInfo.description} onChange={(e) => handler(e)} maxLength={200}></textarea>
                         </div>
                     </section>
-                    <div className="button-form">
+                    {/* <div className="button-form"> */}
                         {/* <NavLink onClick={e => save(e)} tag={Link} to="/account">Сохранить</NavLink> */}
-                        <button type='button' onClick={e => save(e)} >Сохранить</button>
-                    </div>
+                        <button className="button-form" type='button' onClick={e => save(e)} >Сохранить</button>
+                    {/* </div> */}
                 </form>
             </div>
         </div>

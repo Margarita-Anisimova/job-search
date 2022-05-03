@@ -59,7 +59,7 @@ input:required:valid, textarea:required:valid { border-color: green; } */
 	position: relative;
 	letter-spacing: .25px;
 	text-decoration: none;
-	transition: all .4s ease-in-out;
+	transition: all .1s ease-in-out;
 }
 
 .button:hover {
@@ -75,14 +75,14 @@ input:required:valid, textarea:required:valid { border-color: green; } */
 	/* margin-top: 30px; */
 	max-width: 20%;
 	background-color: var(--accent);
+	border: none;
 	color: #fff;
 	border-radius: 5px;
 	font-weight: 500;
 	font-size: 14px;
 	position: relative;
 	letter-spacing: .25px;
-
-	transition: all .4s ease-in-out;
+	transition: all .1s ease-in-out;
 }
 
 .button-form:hover {

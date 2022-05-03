@@ -82,17 +82,15 @@ function Vacancy() {
     }
 
     return (
-        <div>
+        <div className="container vacancy_container">
             <h4>Добавление вакансии</h4>
-            <div className="vacancy_container">
-                <form className="vacancy_form">
-                    <Desired_Applicant vacancy={vacancy} setVacancy={setVacancy}></Desired_Applicant>
-                    <About_Work vacancy={vacancy} setVacancy={setVacancy} ></About_Work>
-                    <div className="button-form">
-                        <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
-                    </div>
-                </form>
-            </div>
+            <form className="vacancy_form">
+                <Desired_Applicant vacancy={vacancy} setVacancy={setVacancy}></Desired_Applicant>
+                <About_Work vacancy={vacancy} setVacancy={setVacancy} ></About_Work>
+                <div className="button-form">
+                    <NavLink onClick={save} tag={Link} to="/account">Сохранить</NavLink>
+                </div>
+            </form>
         </div >
     );
 }

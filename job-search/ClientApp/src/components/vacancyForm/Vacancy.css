@@ -7,14 +7,45 @@ textarea {
     resize: vertical;
 }
 
+.vacancy_container {
+    margin-top: 80px;
+}
+
+.vacancy_container h4 {
+    margin-bottom: 40px;
+}
+
 .vacancy_form {
     display: flex;
     flex-direction: column;
 }
 
-.vacancy_container {
+.vacancy_form h5 {
+    margin-bottom: 30px;
+}
+
+.vacancy__desiredApplicant, .vacancy_aboutWork {
+    margin-bottom: 40px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: flex-start;
+
+}
+
+.vacancy_aboutWork_Form, .vacancy__desiredApplicant_form {
+    width: 50%;
+}
+
+.vacancy_aboutWork_Recomentations {
+    width: 40%;
+}
+
+.resume_desPosition_Recomendation p{
+    margin-bottom: 10px;
+}
+
+.recomendation_mainInfo p {
+    margin-bottom: 10px;
 }
 
 
@@ -27,6 +58,10 @@ textarea {
     grid-template-columns: 1fr 2fr;
     gap: 20px;
     /* grid-template-rows: repeat(3, 1fr); */
+}
+
+.part-2 {
+    grid-template-rows: repeat(2, 1fr) repeat(3, 5fr); 
 }
 
 .section {
