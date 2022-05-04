@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import './SearchInput.css';
 
-export default function SearchInput(props: { searchChanged: any, value: string, setValue: any, text: string, className: string, name: string, items: { id: number, name: string }[], handler: any }) {
+export default function SearchInput(props: { home?: boolean, searchChanged: any, value: string, setValue: any, text: string, className: string, name: string, items: { id: number, name: string }[], handler: any }) {
 
     // const [searchInput, setSearchInput] = useState('');
     const [displayItems, setDisplayItems] = useState<{ id: number, name: string }[]>(props.items);
@@ -13,10 +13,6 @@ export default function SearchInput(props: { searchChanged: any, value: string, 
         filterItems(e.target.value)
         if (displayItems.length == 1) {
             props.handler(displayItems[0].id)
-        }
-        if (displayItems.length == 0) {
-            let r = document.getElementsByClassName(props.className)[0]
-            props.searchChanged(document.getElementsByClassName(props.className)[0].value)
         }
 
     }
@@ -31,6 +27,11 @@ export default function SearchInput(props: { searchChanged: any, value: string, 
     }
 
     function blur() {
+        if (displayItems.length == 0) {
+            let r = document.getElementsByClassName(props.className)[0]
+            props.searchChanged(document.getElementsByClassName(props.className)[0].value)
+        }
+
         (document.querySelectorAll('.' + props.name)[0] as HTMLElement).style.display = 'none'
     }
 
@@ -41,8 +42,9 @@ export default function SearchInput(props: { searchChanged: any, value: string, 
     }
 
     return (
-        <div className="search_container">
+        <div className={props.home ? "search_container" : "cont"}>
             <input
+                required
                 name={props.name}
                 onFocus={focus}
                 onBlur={blur}

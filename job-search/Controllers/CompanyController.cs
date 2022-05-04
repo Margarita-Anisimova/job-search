@@ -22,14 +22,15 @@ public class CompanyController : Controller
     [Produces("application/json", "application/xml")]
     public IActionResult Post([FromBody] Company data)
     {
-        if (!Validations.IsValidInn(data.tin))
-        {
-            return new StatusCodeResult(400);
-        }
+        // if (!Validations.IsValidInn(data.tin))
+        // {
+        //     return new StatusCodeResult(400);
+        // }
         this.Context.companies.Add(data);
-        this.Context.user_company.Add(new User_company() { user_id = data.user_id, company_id = data.company_id, main = true });
         this.Context.SaveChanges();
         var d = this.Context.companies.OrderBy((e) => e.company_id).Last();
+        this.Context.user_company.Add(new User_company() { user_id = data.user_id, company_id = d.company_id, main = true });
+        this.Context.SaveChanges();
         return new ObjectResult(d.company_id);
 
     }
@@ -38,10 +39,10 @@ public class CompanyController : Controller
     [Produces("application/json", "application/xml")]
     public IActionResult Put([FromBody] Company data)
     {
-        if (!Validations.IsValidInn(data.tin))
-        {
-            return new StatusCodeResult(400);
-        }
+        // if (!Validations.IsValidInn(data.tin))
+        // {
+        //     return new StatusCodeResult(400);
+        // }
         this.Context.companies.Update(data);
         this.Context.SaveChanges();
         return new OkResult();
@@ -53,22 +54,36 @@ public class CompanyController : Controller
         public User user { set; get; }
     }
 
-    [HttpGet]
     [Route("{company_id}/{user_id}")]
-    public IEnumerable<Worker> Get(int company_id, int user_id)
+    [HttpGet]
+    public IActionResult Get(int company_id, int user_id)
     {
+        var arr = new List<Worker>();
+        var result = new WorkerResponce() { workers = arr, main = false };
         if (this.Context.user_company.Find(user_id).main)
         {
+            result.main = true;
             var t = this.Context.user_company.Where((e) => e.company_id == company_id && e.user_id != user_id);
-            return t.Select(x => new Worker() { user_company = x, worker_email = this.Context.users.Find(x.user_id).email });
+            foreach (var e in t)
+            {
+                var email = this.Context.users.Find(e.user_id);
+                arr.Add(new Worker() { user_id = e.user_id, worker_email = email.email });
+            }
         }
-        return new Worker[0];
+        return new ObjectResult(result);
     }
 
+    public class WorkerResponce
+    {
+        public List<Worker> workers { get; set; }
+        public bool main { get; set; }
+
+    }
     public class Worker
     {
-        public User_company user_company { get; set; }
+        public int user_id { get; set; }
         public string worker_email { get; set; }
+
     }
     public class CompanyFull
     {
@@ -99,9 +114,9 @@ public class CompanyController : Controller
     [Route("deleteWorker")]
     [HttpDelete]
 
-    public void DeleteWorker([FromBody] User_company user_company)
+    public void DeleteWorker([FromBody] int user_id)
     {
-        var ed = this.Context.users.Find(user_company.user_id);
+        var ed = this.Context.users.Find(user_id);
         this.Context.users.Remove(ed);
         this.Context.SaveChanges();
 

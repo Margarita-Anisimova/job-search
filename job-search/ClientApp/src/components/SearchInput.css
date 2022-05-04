@@ -13,6 +13,10 @@
     display: inline-block;
 }
 
+.city_input {
+    width: 100%;
+}
+
 
 /* .searchInput:focus+.searchItems {
     display: block;

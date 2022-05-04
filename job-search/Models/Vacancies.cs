@@ -46,7 +46,6 @@ namespace job_search.Models
 
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
-        [Required]
         public DateTime publication_date { get; set; }
 
     }

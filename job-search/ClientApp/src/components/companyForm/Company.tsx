@@ -87,6 +87,12 @@ function Company() {
         dispatch(changeCompanyInfo({ name: 'city_id', value: value }))
     }
 
+    function searchChanged(value: string) {
+        cityChanged(0)
+        setcity('')
+    }
+    const [city, setcity] = useState('');
+
     return (
         <div>
             <h4 className="title">Карточка компании</h4>
@@ -96,7 +102,8 @@ function Company() {
                         <p style={{ color: 'red', display: 'none' }} className='errormessage'>ИНН не вылидный, проверьте введенные данные</p>
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
-                            <SearchInput text="Введите город" className='city' items={cityState} name='city' handler={cityChanged}></SearchInput>
+                            <label><div>Город<span className="red">*</span></div></label>
+                            <SearchInput value={city} setValue={setcity} searchChanged={searchChanged} text="Введите город" className='city_input' items={cityState} name='city' handler={cityChanged}></SearchInput>
                             <label><div>Электронная почта<span className="red">*</span></div></label>
                             <input value={companyState.companyInfo.email} onChange={handler} required type="email" name='email'></input>
                             <label>Телефон</label>

@@ -93,7 +93,7 @@ function Resume() {
 
     async function putResume() {
         let res = {
-            ...resumeState.resumeInfo, user_id: userState.user_id,
+            ...resumeState.resumeInfo,
             work_type: resumeState.resumeInfo.work_type.join(','),
             skills: Object.keys(resumeState.resumeInfo.skills).join(','),
             user: null,
@@ -122,6 +122,12 @@ function Resume() {
     //     return resumeState.resumeInfo.birth_date.split(':')[ind]
     // }
     const cityState = useSelector((state: any) => state.cityState.cityState)
+
+    function searchChanged(value: string) {
+        cityChanged(0)
+        setcity('')
+    }
+    const [city, setcity] = useState(resumeState.resumeInfo.city_id ? cityState[resumeState.resumeInfo.city_id - 1].name : '');
     return (
         <div className='resume_container'>
             <form className='resume_form'>
@@ -133,7 +139,8 @@ function Resume() {
                         <input className='data_input' value={getDataPart(1)} required placeholder='Месяц' onChange={handlerData} min='1' max='31' name='birth_month' type='number'></input>
                         <input className='data_input' value={getDataPart(2)} required placeholder='Год' onChange={handlerData} min={(new Date()).getFullYear() - 100} max={(new Date()).getFullYear() - 14} name='birth_year' type='number'></input>
                     </div> */}
-                    <SearchInput text="Введите город" className='city' items={cityState} name='city' handler={cityChanged}></SearchInput>
+                    <label><label><div>Город<span className="red">*</span></div></label></label>
+                    <SearchInput value={city} setValue={setcity} searchChanged={searchChanged} text="Введите город" className='city_input' items={cityState} name='city' handler={cityChanged}></SearchInput>
                     {createTextInputs(commonInfoInputs, handler)}
                     <label><div>Пол<span className="red">*</span></div></label>
                     <div>

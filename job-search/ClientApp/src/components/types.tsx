@@ -31,7 +31,7 @@ export type ResumeInfoType = {
     gender: 'male' | 'female';
     citizenship: string;
     work_experience: number;
-    publication_date: string;
+    publication_date: Date;
     status: string;
 }
 
@@ -87,7 +87,7 @@ export type VacancyType = {
     work_address: string;
     responsibilities: string;
     requirements: string;
-    publication_date: string;
+    publication_date: Date;
     status: string;
 }
 

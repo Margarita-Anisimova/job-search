@@ -112,7 +112,7 @@ public class UserController : Controller
                 var result = new ResumeCard();
                 result.user = a.First();
                 var res = new FullResume();
-                var resumeFromBase = this.Context.resumes.Find(result.user.user_id);
+                var resumeFromBase = this.Context.resumes.Where(e => e.user_id == result.user.user_id).FirstOrDefault();
                 if (resumeFromBase is not null)
                 {
                     res.resumeInfo = resumeFromBase;
@@ -130,11 +130,10 @@ public class UserController : Controller
             {
                 var responce = new CompanyResponce();
                 responce.user = a.First();
+                responce.company = new CompanyFull();
                 var user_company = this.Context.user_company.Find(responce.user.user_id);
                 if (user_company is not null)
                 {
-                    responce.company = new CompanyFull();
-
                     responce.company.companyInfo = this.Context.companies.Find(user_company.company_id);
                     var vacancies = this.Context.vacancies.Where((v) => v.company_id == responce.company.companyInfo.company_id).ToArray();
                     responce.company.vacancies = vacancies;

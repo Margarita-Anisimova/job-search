@@ -24,7 +24,7 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
                 a[i].defaultChecked = true;
             }
         }
-        document.getElementsByClassName('professions')[0].selectedIndex = props.vacancy.profession_id
+        // document.getElementsByClassName('professions')[0].selectedIndex = props.vacancy.profession_id
     })
 
     function addTolist(e: any) {

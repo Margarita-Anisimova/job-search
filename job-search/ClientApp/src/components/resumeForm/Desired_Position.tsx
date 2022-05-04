@@ -24,7 +24,7 @@ export default function Desired_Position() {
                 a[i].defaultChecked = true;
             }
         }
-        document.getElementsByClassName('professions')[0].selectedIndex = resumeState.resumeInfo.profession_id
+        // document.getElementsByClassName('professions')[0].selectedIndex = resumeState.resumeInfo.profession_id
     })
 
     function posthandler(e: any) {
@@ -53,6 +53,11 @@ export default function Desired_Position() {
     //     "Преподаватель",
     //     "Водитель",
     //     "Дизайнер"]
+    const [profession, setprofession] = useState(resumeState.resumeInfo.profession_id ? professionState[resumeState.resumeInfo.profession_id - 1].name : '');
+    function searchChanged(value: string) {
+        professionChanged(0)
+        setprofession('');
+    }
 
     return (
         <section >
@@ -60,7 +65,7 @@ export default function Desired_Position() {
             <div className='partition-2'>
                 <label><label><div>Профессия<span className="red">*</span></div></label></label>
                 {/* <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" /> */}
-                <SearchInput text="Введите профессию" className='professions' items={professionState} name='profession' handler={professionChanged}></SearchInput>
+                <SearchInput value={profession} setValue={setprofession} searchChanged={searchChanged} text="Введите профессию" className='profession_input' items={professionState} name='profession' handler={professionChanged}></SearchInput>
                 {/* <select required onChange={(e) => handlerSelect(e)} className="professions">
                     {asd.map((e) =>
                         <option>{e}</option>

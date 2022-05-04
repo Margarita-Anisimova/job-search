@@ -48,6 +48,7 @@ export default function Home(props: { pageType: string }) {
   }
 
   function cityNull(value: string) {
+    setcity(cityState[0].name);
     setFilters({ ...filters, city_id: 1 });
   }
 
@@ -106,8 +107,8 @@ export default function Home(props: { pageType: string }) {
       {/* {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>} */}
       <section className='search'>
         <div className="search_inputs">
-          <SearchInput searchChanged={searchChanged} value={profession} setValue={setprofession} text="Введите профессию" className='search__form search__form--prof' items={professionState} name='profession' handler={professionChanged}></SearchInput>
-          <SearchInput searchChanged={cityNull} value={city} setValue={setcity} text="Введите город" className='search__form search__form--city' items={cityState} name='city' handler={cityChanged}></SearchInput>
+          <SearchInput home={true} value={profession} setValue={setprofession} searchChanged={searchChanged} text="Введите профессию" className='search__form search__form--prof' items={professionState} name='profession' handler={professionChanged}></SearchInput>
+          <SearchInput home={true}  value={city} setValue={setcity} searchChanged={cityNull} text="Введите город" className='search__form search__form--city' items={cityState} name='city' handler={cityChanged}></SearchInput>
           {/* <input className='search__form search__form--city' name='city' onChange={(e) => filterChanged(e)} value={filters.city} placeholder='Город' /> */}
         </div>
 

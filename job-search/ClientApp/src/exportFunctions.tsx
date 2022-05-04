@@ -31,7 +31,7 @@ export function createEmptyResume(user_id = 0): ResumeType {
             education_level: 'Нет образования',
             gender: 'female',
             work_experience: 0,
-            publication_date: '2020:01:01'
+            publication_date: new Date()
         },
         education: [],
         workExperience: [createEmptyWorkExperience()],
@@ -105,7 +105,7 @@ export function createEmptyVacancy(vacancy_id = 0, company_id = 0): VacancyType 
         work_address: '',
         responsibilities: '',
         requirements: '',
-        publication_date: '2202:01:01'
+        publication_date: new Date()
     }
 }
 

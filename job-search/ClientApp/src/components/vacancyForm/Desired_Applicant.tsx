@@ -42,12 +42,19 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
     const postInfoInputs = [
         { tag: 'position', name: 'Должность', value: props.vacancy.position, required: true },]
 
+
+    const [profession, setprofession] = useState(props.vacancy.profession_id ? professionState[props.vacancy.profession_id - 1].name : '');
+    function searchChanged(value: string) {
+        professionChanged(0)
+        setprofession('');
+    }
+
     return (
         <section>
             <h5>Кого ищете?</h5>
             <div className='part part-1'>
                 <label><div>Профессия<span className="red">*</span></div></label>
-                <SearchInput text="Введите профессию" className='professions' items={professionState} name='profession' handler={professionChanged}></SearchInput>
+                <SearchInput value={profession} setValue={setprofession} searchChanged={searchChanged} text="Введите профессию" className='profession_input' items={professionState} name='profession' handler={professionChanged}></SearchInput>
                 {/* <select required onChange={(e) => handlerSelect(e)} className="professions">
                     {asd.map((e) =>
                         <option>{e}</option>

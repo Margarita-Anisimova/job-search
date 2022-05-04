@@ -265,6 +265,7 @@ p {
     justify-content: center;
 }
 
-.worker-note {
+.worker {
     border: 1px solid black;
+    display: inline;
 }
