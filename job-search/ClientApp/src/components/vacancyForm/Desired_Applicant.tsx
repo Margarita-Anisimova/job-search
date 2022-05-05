@@ -7,12 +7,14 @@ import { getEducationLevel, getWorkExperience, getWorkType } from '../formElemen
 import SearchInput from '../SearchInput'
 import img from '../lamp.svg';
 
+import { useSelector } from "react-redux";
 
 export default function Desired_Applicant(props: { vacancy: VacancyType, setVacancy: any }) {
 
     function handler(e: any) {
         props.setVacancy({ ...props.vacancy, [e.target.name]: e.target.value });
     }
+    const professionState = useSelector((state: any) => state.professionState.professionState)
 
     useEffect(() => {
         let a = document.getElementsByName('work_experience')
@@ -24,23 +26,30 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
         }
     })
 
-    let asd = ['', "Программист",
-        "Повар",
-        "Инженер",
-        "Бухгалтер",
-        "Сметчик",
-        "Экономист",
-        "Врач",
-        "Преподаватель",
-        "Водитель",
-        "Дизайнер"]
+    // let asd = ['', "Программист",
+    //     "Повар",
+    //     "Инженер",
+    //     "Бухгалтер",
+    //     "Сметчик",
+    //     "Экономист",
+    //     "Врач",
+    //     "Преподаватель",
+    //     "Водитель",
+    //     "Дизайнер"]
 
-    function handlerSelect(e: any) {
-        props.setVacancy({ ...props.vacancy, profession_id: e.target.selectedIndex });
+    function professionChanged(e: number) {
+        props.setVacancy({ ...props.vacancy, profession_id: e });
     }
 
     const postInfoInputs = [
         { tag: 'position', name: 'Должность', value: props.vacancy.position, required: true },]
+
+
+    const [profession, setprofession] = useState(props.vacancy.profession_id ? professionState[props.vacancy.profession_id - 1].name : '');
+    function searchChanged(value: string) {
+        professionChanged(0)
+        setprofession('');
+    }
 
     return (
         <section className="vacancy__desiredApplicant">
@@ -48,11 +57,7 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
                 <h5>Кого ищете?</h5>
                 <div className='part part-1'>
                     <label><div>Профессия<span className="red">*</span></div></label>
-                    <select required onChange={(e) => handlerSelect(e)} className="professions">
-                        {asd.map((e) =>
-                            <option>{e}</option>
-                        )}
-                    </select>
+                    <SearchInput value={profession} setValue={setprofession} searchChanged={searchChanged} text="Введите профессию" className='profession_input' items={professionState} name='profession' handler={professionChanged}></SearchInput>
 
                     {createTextInputs(postInfoInputs, handler)}
                     <label> Уровень образования</label>
@@ -67,14 +72,14 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
                     <img style={{ paddingRight: '5px' }} src={img} alt="" />
                     <h6 style={{ fontSize: '1.2rem' }}>Желаемая должность</h6>
                 </div>
-                
+
                 <p>Укажите название должности</p>
-                <h6 style={{color: '#00B147'}}>Хорошо</h6>
-                    <ul>
-                        <li>Привычное для резюме и вакансий таких специалистов</li>
-                        <li>Из названия сразу ясно, чем предстоит заниматься</li>
-                        <li>Состоит не более чем из 4 слов</li>
-                    </ul>
+                <h6 style={{ color: '#00B147' }}>Хорошо</h6>
+                <ul>
+                    <li>Привычное для резюме и вакансий таких специалистов</li>
+                    <li>Из названия сразу ясно, чем предстоит заниматься</li>
+                    <li>Состоит не более чем из 4 слов</li>
+                </ul>
                 <div className="">
                     <h6>Например</h6>
                     <ul>
@@ -83,6 +88,7 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
                         <li>Бухгалтер по расчету зарплаты</li>
                     </ul>
                 </div>
+
             </div>
         </section>
     )

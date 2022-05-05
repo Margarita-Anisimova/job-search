@@ -6,6 +6,7 @@ using System.Net.Mail;
 using job_search;
 using job_search.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 [Route("[controller]")]
 public class VacancyController : Controller
@@ -42,15 +43,23 @@ public class VacancyController : Controller
     public List<Vacancy> GetVacancyList()
     {
         var param = HttpContext.Request.Query;
-        // var profession_id = 0;
-        // if (param.Keys.Any((e) => e == "profession"))
-        //     profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
-        // else
-        //     profession_id = Int32.Parse(param["profession_id"]);
-        var result = this.Context.vacancies.Where((vacancy) => vacancy.profession_id == Int32.Parse(param["profession_id"]))?.ToList();
-        if (param["city"] != "" && result.Count() != 0)
+        var result = new List<Vacancy>();
+        if (param["admin"] == "true")
+        {
+            return this.Context.vacancies.Where(res => res.status == "add").ToList();
+        }
+        if (Int32.Parse(param["profession_id"]) != 0)
+            result = this.Context.vacancies.Where((e) => e.profession_id == Int32.Parse(param["profession_id"]) && e.status == "pub").ToList();
+        else
+        {
+            var text = @"SELECT * FROM vacancies WHERE CONTAINS((education_level,work_experience,work_address,responsibilities,requirements,position),'" + param["word"] + @"')";
+            result = this.Context.vacancies.FromSqlRaw(text).ToList();
+        }
+        if (result.Count() != 0)
             result = result
-            .Where(vacancy => this.Context.companies.Where((c) => c.company_id == vacancy.company_id).First().city == param["city"]).ToList();
+            .Where(vacancy => this.Context.companies.Where((c) => c.company_id == vacancy.company_id).First().city_id == Int32.Parse(param["city_id"])).ToList();
+
+
         if (param["education_level"] != "Нет образования" && result.Count() != 0)
             result = result.Where(vacancy => vacancy.education_level == param["education_level"]).ToList();
         if (param["work_experience"] != "" && result.Count() != 0)

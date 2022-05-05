@@ -62,13 +62,21 @@ function Registration(props: { setPageType: any, setFormType: any, formType: str
 
             if (data.resume) {
                 user = data.user;
-                changeData(data.resume)
-                dispatch(changeResume({ resumeState: data.resume }))
+                if (data.resume.resumeInfo) {
+                    changeData(data.resume)
+                    dispatch(changeResume({ resumeState: data.resume }))
+                }
+
             }
             else if (data.company) {
                 user = data.user;
-                changeWorkType(data.company)
-                dispatch(changeCompany({ companyState: data.company }))
+                if (data.company.companyInfo) {
+                    changeWorkType(data.company)
+                    dispatch(changeCompany({ companyState: data.company }))
+                }
+            } else {
+                dispatch(changeUser({ userState: user }))
+                navigate('/adminVacancies')
             }
             dispatch(changeUser({ userState: user }))
             navigate('/')

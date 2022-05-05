@@ -8,6 +8,7 @@ import userStateReducer from "./userStateReducer";
 import resumeStateReducer from "./resumeStateReducer";
 import companyStateReducer from "./companyStateReducer";
 import professionStateReducer from "./professionStateReducer";
+import cityStateReduser from "./cityStateReduser";
 import { getCookie } from "../components/cookies";
 
 
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
     userState: userStateReducer,
     professionState: professionStateReducer,
     companyState: companyStateReducer,
+    cityState: cityStateReduser,
 });
 
 const reducers = (state, action) => {

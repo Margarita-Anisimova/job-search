@@ -26,26 +26,41 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
         return (
             <div className='navigate'>
                 <div className='container'>
-                    <div className={isActive ? 'row nav_menu_active nav_menu' : 'row nav_menu'}>
-                        <div className='sections_container'>
-                            <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
-                            <div className="search_type">
-                                <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
-                                <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
-                            </div>
-                        </div>
-                        {createNavigateItems()}
-
-                    </div>
-
+                    {createNavigateItems1()}
                 </div>
             </div>
         )
     }
+    function createNavigateItems1() {
+        if (userState.user_type === 'admin') {
+            return (<div className={isActive ? 'row nav_menu_active nav_menu' : 'row nav_menu'}>
+                <div className="search_type">
+                    <NavLink className='navigate_item' tag={Link} to="/adminVacancies"> Вакансии</NavLink>
+                    <NavLink className='navigate_item' tag={Link} to="/adminResumes"> Резюме</NavLink>
+                </div>
+                <div className='reg_container'>
+                    <NavLink className='navigate_item' onClick={out} to='/' tag={Link} >Выход</NavLink>
+                </div>
+            </div>)
+        } else
+            return (
+                <div className={isActive ? 'row nav_menu_active nav_menu' : 'row nav_menu'}>
+                    <div className='sections_container'>
 
+                        <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
+                        <div className="search_type">
+                            <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
+                            <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
+                        </div>
+                    </div>
+                    {createNavigateItems()}
 
+                </div>
+            )
+    }
 
     function createNavigateItems() {
+
         if (userState.user_type === 'noRegistered') {
             return (
                 <div className='reg_container'>
@@ -57,17 +72,7 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
         } else {
             return (
                 <div className='reg_container'>
-                    {/*временно, создать кнопку*/}
-                    {/* {props.account.user_type === 'applicant' ?
-                        <NavLink className='navigate_item' tag={Link} to="/resume">Создать резюме</NavLink> :
-                        <span>
-                            <NavLink className='navigate_item' tag={Link} to="/vacancy">Создать вакансию</NavLink>
-                            <NavLink className='navigate_item' tag={Link} to="/company">Создать компанию</NavLink></span>} */}
-
-
-
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
-
                     <NavLink className='navigate_item' onClick={out} to='/' tag={Link} >Выход</NavLink>
 
 

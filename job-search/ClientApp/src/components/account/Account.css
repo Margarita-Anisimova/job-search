@@ -264,3 +264,8 @@ p {
     display: flex;
     justify-content: center;
 }
+
+.worker {
+    border: 1px solid black;
+    display: inline;
+}

@@ -21,7 +21,7 @@ export default function VacancyResponses() {
         resume_id: 0,
         message: '',
         response: '',
-        publication_date: '',
+        publication_date: new Date(),
 
     })
 
@@ -35,7 +35,7 @@ export default function VacancyResponses() {
         resume_id: number;
         message: string;
         response: string;
-        publication_date: string;
+        publication_date: Date;
     }
 
     useEffect(() => {

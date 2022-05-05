@@ -36,7 +36,7 @@ function ResumeCollections() {
         if (!status) {
             const filters = {
                 profession_id: vacancy.profession_id,
-                city: companyState.companyInfo.city,
+                city_id: companyState.companyInfo.city_id,
                 education_level: vacancy.education_level,
                 salary: vacancy.salary,
                 work_experience: vacancy.work_experience,

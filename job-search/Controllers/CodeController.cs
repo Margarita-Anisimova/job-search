@@ -42,7 +42,7 @@ public class CodeController : Controller
             code += rng.Next(1, 10);
         }
         response.Code = code;
-        SendEmailAsync(email, code);
+        // SendEmailAsync(email, code);
         return response;
     }
 

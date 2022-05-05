@@ -25,12 +25,13 @@ export function createEmptyResume(user_id = 0): ResumeType {
             ready_move: true,
             skills: {},
             profession_id: 0,
-            city: '',
+            city_id: 0,
+            status: "add",
             citizenship: '',
             education_level: 'Нет образования',
             gender: 'female',
             work_experience: 0,
-            publication_date: '2020:01:01'
+            publication_date: new Date()
         },
         education: [],
         workExperience: [createEmptyWorkExperience()],
@@ -72,7 +73,7 @@ export function createCompanyInfo(user_id = 0) {
         user_id: user_id,
         company_id: 0,
         fullname: '',
-        city: '',
+        city_id: 0,
         description: '',
         contact_face: '',
         phone: '',
@@ -97,12 +98,14 @@ export function createEmptyVacancy(vacancy_id = 0, company_id = 0): VacancyType 
         position: '',
         profession_id: 0,
         work_experience: 'без опыта',
-        education_level: 'Среднее',
+        education_level: 'Нет образования',
+        status: "add",
         salary: '',
         work_type: [false, false, false, false, false],
         work_address: '',
         responsibilities: '',
         requirements: '',
+        publication_date: new Date()
     }
 }
 

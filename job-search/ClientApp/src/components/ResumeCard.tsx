@@ -4,7 +4,7 @@ import './ResumeCard.css';
 import '../custom.css';
 import '../media.css';
 import { EducationType, ResumeType, WorkExpirienceType, CompanyType, AccountType } from './types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createEmptyAccount, createEmptyResume } from '../exportFunctions';
 import { Redirect } from 'react-router';
 import img from './account/noavatar.svg'
@@ -14,13 +14,13 @@ import ResumeResponseDialog from './ResumeResponseDialog';
 
 export default function ResumeCard() {
     const companyState: CompanyType = useSelector((state: any) => state.companyState.companyState)
+    const userState: AccountType = useSelector((state: any) => state.userState.userState)
     let location = useLocation();
     const id = parseInt(location.pathname.split('/')[2])
     const [resume, setResume] = useState<ResumeType>(createEmptyResume())
     const [account, setAccount] = useState<AccountType>(createEmptyAccount())
     const [IsContacts, setIsContacts] = useState(false)
     const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
-    const [profession, setProfession] = useState('')
     const [button, setButton] = useState<'start' | 'sented'>('start');
 
     useEffect(() => {
@@ -44,22 +44,22 @@ export default function ResumeCard() {
 
                 }
             })
-        await changeData(data)
+        await changeData(data.resume)
         setResume(data.resume);
         setAccount(data.user);
 
         setIng(data.image ? "data:image/jpeg;base64," + data.image : ing);
-        setProfession(data.profession);
+        // setProfession(data.profession);
     }
 
-    function changeData(data) {
-        if (data.resume.resumeInfo.profession_id !== 0) {
+    function changeData(data: ResumeType) {
+        if (data.resumeInfo.profession_id !== 0) {
 
-            data.resume.resumeInfo.work_type = data.resume.resumeInfo.work_type.split(',')
-            data.resume.resumeInfo.work_type = data.resume.resumeInfo.work_type.map(e => e === 'true' ? true : false)
+            data.resumeInfo.work_type = data.resumeInfo.work_type.split(',')
+            data.resumeInfo.work_type = data.resumeInfo.work_type.map(e => e === 'true' ? true : false)
             let t = {}
-            data.resume.resumeInfo.skills.split(',').forEach((e: string) => { t[e] = e })
-            data.resume.resumeInfo.skills = t;
+            data.resumeInfo.skills.split(',').forEach((e: string) => { t[e] = e })
+            data.resumeInfo.skills = t;
         }
 
     }
@@ -79,6 +79,25 @@ export default function ResumeCard() {
             setIsContacts(true)
         }
     }
+    const cityState = useSelector((state: any) => state.cityState.cityState)
+
+    const navigate = useNavigate();
+
+    async function changeResumeStatus(status: boolean) {
+        await fetch('admin/resumes', {
+            method: 'PUT',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ id: resume.resumeInfo.resume_id, status: status })
+        }).then((response) => {
+            if (response.status === 200) {
+                navigate('/adminVacancies')
+            }
+        })
+
+    }
 
     return (
         <div className="container resumecard__container">
@@ -90,22 +109,24 @@ export default function ResumeCard() {
                 <div className="resumecard__title-maininfo col-lg-4 col-md-5 col-sm-8 col-8">
                     <div className="user_name">{account.f_name + ' ' + account.l_name}</div>
                     {/* <div className="user_birthday">{resume.resumeInfo.birth_date}</div> */}
-                    <div className="user_city">{resume.resumeInfo.city}</div>
+                    <div className="user_city">{cityState[resume.resumeInfo.city_id].value}</div>
                     <div className="user_citizenship"> {'Гражданство ' + resume.resumeInfo.citizenship}</div>
                 </div>
-                <div className="resumecard__title-buttons col-lg-3 col-md-4">
-                    {createResponseField()}
-                    {/* <button className='button resumecard__btn'>Отправить отклик</button> */}
-                    <button onClick={() => checkUser()} className='resumecard__btn-light'>Показать контакты</button>
-                    {IsContacts ?
-                        <div className="resumecard__contactinfo">
-                            {account.phone_number ?
-                                <div className="resumecard__phone">{account.phone_number}</div>
-                                : null}
-                            <div className="resumecard__email">{account.email}</div>
-                        </div>
-                        : null}
-                </div>
+                {userState.user_type !== 'admin' ?
+                    <div className="resumecard__title-buttons col-lg-3 col-md-4">
+                        {/* {createResponseField()} */}
+                        {/* <button className='button resumecard__btn'>Отправить отклик</button> */}
+                        <button onClick={() => checkUser()} className='resumecard__btn-light'>Показать контакты</button>
+                        {IsContacts ?
+                            <div className="resumecard__contactinfo">
+                                {account.phone_number ?
+                                    <div className="resumecard__phone">{account.phone_number}</div>
+                                    : null}
+                                <div className="resumecard__email">{account.email}</div>
+                            </div>
+                            : null}
+                    </div>
+                    : null}
             </div>
 
             <div className="desired_profession">
@@ -166,14 +187,21 @@ export default function ResumeCard() {
                 </div>
             </div>
             <div className="row">
-                <div className="col-lg-3 col-md-4">
-                    {createResponseField()}
-                </div>
+                {userState.user_type !== 'admin' ?
+                    <div className="col-lg-3 col-md-4">
+                        {createResponseField()}
+                    </div>
+                    :
+                    <div className="row">
+                        <button onClick={(e) => changeResumeStatus(true)} className="block-button">Опубликовать</button>
+                        <button onClick={(e) => changeResumeStatus(false)} className="block-button">Заблокировать</button>
+                    </div>}
             </div>
-
         </div >
 
     );
+
+
 
     function createResponseField() {
         if (companyState.companyInfo.fullname) {

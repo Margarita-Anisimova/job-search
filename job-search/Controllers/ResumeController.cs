@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using Fissoft.EntityFramework.Fts;
 using job_search;
 using job_search.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ public class ResumeController : Controller
     public ResumeController(EFTodoDBContext db)
     {
         this.Context = db;
+        DbInterceptors.Init();
     }
 
     public class ResumeCard
@@ -64,11 +66,17 @@ public class ResumeController : Controller
         }
     }
 
+    [HttpPut]
+    [Produces("application/json", "application/xml")]
     public void Put([FromBody] FullResume resume)
     {
         resume.resumeInfo.publication_date = DateTime.Today;
+        foreach (var ex in resume.workExperience)
+        {
+            resume.resumeInfo.work_experience = 0;
+            resume.resumeInfo.work_experience += Int32.Parse(ex.date_end) - Int32.Parse(ex.date_start);
+        }
         this.Context.resumes.Update(resume.resumeInfo);
-
         foreach (var ed in resume.education)
         {
             switch (ed.status)
@@ -111,33 +119,6 @@ public class ResumeController : Controller
                     }
             }
         }
-        // var toDelete = educationsInBase.ToList().Where(e =>
-        //         !resume.education.ToList().Any(e1 => e1.education_id == e.education_id));
-        // this.Context.education.RemoveRange(toDelete);
-        // var toAdd = resume.education.ToList().Where(e =>
-        //         !educationsInBase.ToList().Any(e1 => e1.education_id == e.education_id));
-        // this.Context.education.AddRange(toAdd);
-        // var toUpdate = resume.education.ToList().Where(e =>
-        //        educationsInBase.ToList().Any(e1 => e1.education_id == e.education_id));
-        // this.Context.education.UpdateRange(toUpdate);
-
-        // var work_experienceInBase = this.Context.work_experience.Where(
-        //     (work_experience) => work_experience.resume_id == resume.resumeInfo.resume_id);
-        // var toDeletework_experience = work_experienceInBase.Where(e =>
-        //         !resume.workExperience.Any(e1 => e1.work_experience_id == e.work_experience_id)).ToList();
-        // this.Context.work_experience.RemoveRange(toDeletework_experience);
-        // foreach (var work_experience in resume.workExperience)
-        // {
-        //     var a = this.Context.work_experience.Where((ed) => work_experience.work_experience_id == ed.work_experience_id);
-        //     if (a.Count() == 0)
-        //     {
-        //         this.Context.work_experience.Add(work_experience);
-        //     }
-        //     else
-        //     {
-        //         this.Context.work_experience.Update(work_experience);
-        //     }
-        // }
         this.Context.SaveChanges();
     }
 
@@ -147,7 +128,6 @@ public class ResumeController : Controller
 
     public IActionResult Get(int user_id)
     {
-
         var a = this.Context.resumes.Where((resume) => resume.user_id == user_id);
         var result = new ResumeCard();
         if (a.Count() == 0)
@@ -175,15 +155,23 @@ public class ResumeController : Controller
     public List<Resume> Get()
     {
         var param = HttpContext.Request.Query;
-        // var profession_id = 0;
-        // if (param.Keys.Any((e) => e == "profession"))
-        //     profession_id = this.Context.profession_ref.Where((e) => e.profession == param["profession"].ToString()).FirstOrDefault().profession_id;
-        // else
-        //     profession_id = Int32.Parse(param["profession_id"]);
+        var result = new List<Resume>();
+        if (param["admin"] == "true")
+        {
+            return this.Context.resumes.Where(res => res.status == "add").ToList();
+        }
 
-        var result = this.Context.resumes.Where((resume) => resume.profession_id == Int32.Parse(param["profession_id"]))?.ToList();
-        if (param["city"] != "" && result.Count() != 0)
-            result = result.Where(resume => resume.city == param["city"]).ToList();
+        if (Int32.Parse(param["profession_id"]) != 0)
+            result = this.Context.resumes.Where((resume) => resume.profession_id == Int32.Parse(param["profession_id"]) && resume.status == "pub").ToList();
+        else
+        {
+            var text = @"SELECT * FROM resumes WHERE CONTAINS((desired_position, skills, education_level),'" + param["word"] + @"')";
+            result = this.Context.resumes.FromSqlRaw(text).ToList();
+        }
+        if (result.Count() != 0)
+        {
+            result = result.Where(resume => resume.city_id == Int32.Parse(param["city_id"])).ToList();
+        }
         if (param["education_level"] != "Нет образования" && result.Count() != 0)
             result = result.Where(resume => resume.education_level == param["education_level"]).ToList();
 
@@ -200,7 +188,7 @@ public class ResumeController : Controller
         if (param["isFilters"] == "true")
         {
             if (param["salary"] != "" && result.Count() != 0)
-                result = result.Where(resume => Int32.Parse(resume.desired_salary) <= Int32.Parse(param["salary"])).ToList();
+                result = result.Where(resume => Int32.Parse(resume.desired_salary) <= Int32.Parse(param["salary"]))?.ToList();
             if (param["work_type"] != "false,false,false,false,false" && result.Count() != 0)
                 result = result.Where(resume =>
                 {

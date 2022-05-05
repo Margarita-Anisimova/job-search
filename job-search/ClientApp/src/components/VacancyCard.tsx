@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import './VacancyCard.css';
 import '../custom.css';
 import Education from './resumeForm/Education';
-import { VacancyType, ResumeType, CompanyType, CompanyInfoType } from './types';
-import { useLocation } from 'react-router-dom';
+import { VacancyType, ResumeType, CompanyType, CompanyInfoType, AccountType } from './types';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createEmptyVacancy, createCompanyInfo } from '../exportFunctions';
 import { useHistory } from 'react-router';
 import callimg from './call.svg'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 
 export default function VacancyCard() {
     const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
+    const userState: AccountType = useSelector((state: any) => state.userState.userState)
     const [vacancy, setVacancy] = useState<VacancyType>(createEmptyVacancy())
     const workType = ['Полный рабочий день', 'Гибкий', 'Удаленная работа', 'Сменный', 'Вахтовая']
     let location = useLocation();
@@ -78,6 +79,24 @@ export default function VacancyCard() {
         })
     }
 
+    const navigate = useNavigate();
+
+    async function changeVacancyStatus(status: boolean) {
+        await fetch('admin/vacancies', {
+            method: 'PUT',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: "same-origin",
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ id: vacancy.vacancy_id, status: status })
+        }).then((response) => {
+            if (response.status === 200) {
+                navigate('/adminVacancies')
+            }
+        })
+
+    }
+
     return (
         <div className="container vacancycard__container">
             <div className="vacancy_maininfo">
@@ -126,15 +145,21 @@ export default function VacancyCard() {
                     </div>
                     : null}
             </div>
-
-            <div className="row">
-                <div className="col-lg-3 col-md-4">
-                    <button onClick={sendResponse} disabled={responseStatus} className='button resumecard__btn'>{responseStatus ? 'Отклик отправлен' : 'Отправить отклик'}</button>
+            {userState.user_type !== 'admin' ?
+                <div className="row">
+                    <div className="col-lg-3 col-md-4">
+                        <button onClick={sendResponse} disabled={responseStatus} className='button resumecard__btn'>{responseStatus ? 'Отклик отправлен' : 'Отправить отклик'}</button>
+                    </div>
                 </div>
-            </div>
-
+                :
+                <div className="row">
+                    <button onClick={(e) => changeVacancyStatus(true)} className="block-button">Опубликовать</button>
+                    <button onClick={(e) => changeVacancyStatus(false)} className="block-button">Заблокировать</button>
+                </div>}
         </div >
 
     );
+
+
 }
 

@@ -9,11 +9,12 @@ import Select from 'react-select';
 import { useDispatch, useSelector } from "react-redux";
 import { changeResumeProperty } from "../../app/resumeStateReducer";
 import img from '../lamp.svg';
+import SearchInput from "../SearchInput";
 
 export default function Desired_Position() {
     const resumeState: ResumeType = useSelector((state: any) => state.resumeState.resumeState)
     const dispatch = useDispatch();
-
+    const professionState = useSelector((state: any) => state.professionState.professionState)
     useEffect(() => {
         resumeState.resumeInfo.ready_move
             ? document.getElementsByClassName('yes')[0].defaultChecked = true
@@ -24,7 +25,7 @@ export default function Desired_Position() {
                 a[i].defaultChecked = true;
             }
         }
-        document.getElementsByClassName('professions')[0].selectedIndex = resumeState.resumeInfo.profession_id
+        // document.getElementsByClassName('professions')[0].selectedIndex = resumeState.resumeInfo.profession_id
     })
 
     function posthandler(e: any) {
@@ -38,20 +39,26 @@ export default function Desired_Position() {
 
     const postInfoInputs = [{ tag: 'desired_position', name: 'Должность', value: resumeState.resumeInfo.desired_position, required: false },]
 
-    function handlerSelect(e: any) {
-        dispatch(changeResumeProperty({ propertyName: 'profession_id', property: e.target.selectedIndex }))
+    function professionChanged(e: number) {
+        dispatch(changeResumeProperty({ propertyName: 'profession_id', property: e }))
     }
 
-    let asd = ['', "Программист",
-        "Повар",
-        "Инженер",
-        "Бухгалтер",
-        "Сметчик",
-        "Экономист",
-        "Врач",
-        "Преподаватель",
-        "Водитель",
-        "Дизайнер"]
+
+    // let asd = ['', "Программист",
+    //     "Повар",
+    //     "Инженер",
+    //     "Бухгалтер",
+    //     "Сметчик",
+    //     "Экономист",
+    //     "Врач",
+    //     "Преподаватель",
+    //     "Водитель",
+    //     "Дизайнер"]
+    const [profession, setprofession] = useState(resumeState.resumeInfo.profession_id ? professionState[resumeState.resumeInfo.profession_id - 1].name : '');
+    function searchChanged(value: string) {
+        professionChanged(0)
+        setprofession('');
+    }
 
     return (
         <section className="resume__desPosition">
@@ -59,13 +66,7 @@ export default function Desired_Position() {
                 <h5>Желаемая должность</h5>
                 <div className='partition-2'>
                     <label><label><div>Профессия<span className="red">*</span></div></label></label>
-                    {/* <input onChange={(e) => handlerSelect(e)} name="profession" list="professions" /> */}
-                    <select required onChange={(e) => handlerSelect(e)} className="professions">
-                        {asd.map((e) =>
-                            <option>{e}</option>
-                        )}
-                    </select>
-
+                    <SearchInput value={profession} setValue={setprofession} searchChanged={searchChanged} text="Введите профессию" className='profession_input' items={professionState} name='profession' handler={professionChanged}></SearchInput>
                     {createTextInputs(postInfoInputs, posthandler)}
                     <label>Зарплата</label>
                     <input value={resumeState.resumeInfo.desired_salary} onChange={posthandler} min='5000' max='1000000000' name='desired_salary' type='number'></input>
@@ -96,17 +97,17 @@ export default function Desired_Position() {
                     <img style={{ paddingRight: '5px' }} src={img} alt="" />
                     <h6 style={{ fontSize: '1.2rem' }}>Желаемая должность</h6>
                 </div>
-                
+
                 <p>Например, «PR-менеджер», «Сотрудник службы охраны», «Специалист по защите информации»</p>
                 <p>Можно указать несколько должностей в смежных сферах деятельности</p>
                 <div className="">
-                    <h6 style={{color: '#00B147'}}>Хорошо</h6>
+                    <h6 style={{ color: '#00B147' }}>Хорошо</h6>
                     <ul>
                         <li>«Журналист, автор статей» </li>
                         <li>«Бухгалтер, кассир»</li>
                         <li>«Секретарь, помощник руководителя»</li>
                     </ul>
-                    <h6 style={{color: '#E93636'}}>Плохо</h6>
+                    <h6 style={{ color: '#E93636' }}>Плохо</h6>
                     <ul>
                         <li>«Дворник, дизайнер, директор»</li>
                         <li>«Бухгалтер, секретарь, водитель»</li>

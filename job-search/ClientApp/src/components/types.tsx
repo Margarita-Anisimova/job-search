@@ -26,12 +26,13 @@ export type ResumeInfoType = {
     ready_move: boolean;
     skills: {};
     profession_id: number;
-    city: string;
+    city_id: number;
     education_level: string;
     gender: 'male' | 'female';
     citizenship: string;
     work_experience: number;
-    publication_date: string;
+    publication_date: Date;
+    status: string;
 }
 
 export type EducationType = {
@@ -64,7 +65,7 @@ export type CompanyInfoType = {
     user_id: number;
     company_id: number;
     fullname: string;
-    city: string;
+    city_id: number;
     description: string;
     contact_face: string;
     phone: string;
@@ -86,7 +87,8 @@ export type VacancyType = {
     work_address: string;
     responsibilities: string;
     requirements: string;
-    publication_date: string;
+    publication_date: Date;
+    status: string;
 }
 
 

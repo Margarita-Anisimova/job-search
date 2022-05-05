@@ -20,7 +20,7 @@ export default function ResumeResponses() {
         vacancy_id: number;
         resume_id: number;
         message: string;
-        publication_date: string;
+        publication_date: Date;
     }
 
     const [responses, setResponses] = useState<ResumeResponse[]>([]);
@@ -69,11 +69,11 @@ export default function ResumeResponses() {
                 <div className='responseToResume responseCard'>
                     <div className="myResponse_vacancy">
                         <NavLink style={{ padding: '0' }} target="_blank" rel="noopener noreferrer" tag={Link} to={"/vacancycard/" + e.vacancy.vacancy_id} >
-                                {/* <p> {e.vacancy.position}</p> */}
+                            {/* <p> {e.vacancy.position}</p> */}
 
-                                <p className='card__title'>{e.vacancy.position}</p>
-                                <p className='card__subtitle'>{e.vacancy.salary}</p>
-                                <p className='card__address'>{e.vacancy.work_address}</p>
+                            <p className='card__title'>{e.vacancy.position}</p>
+                            <p className='card__subtitle'>{e.vacancy.salary}</p>
+                            <p className='card__address'>{e.vacancy.work_address}</p>
                         </NavLink>
                     </div>
                     <div className="myResponses_message">

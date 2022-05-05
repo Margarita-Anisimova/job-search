@@ -8,6 +8,7 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { changeCompanyInfo } from "../../app/companyStateReducer";
+import SearchInput from "../SearchInput";
 
 function Company() {
     const userState: AccountType = useSelector((state: any) => state.userState.userState)
@@ -17,11 +18,12 @@ function Company() {
     function handler(e: any) {
         dispatch(changeCompanyInfo({ name: e.target.name, value: e.target.value }))
     }
+    const cityState = useSelector((state: any) => state.cityState.cityState)
 
     const commonInfoInputs = [
         { tag: 'fullname', name: 'Название компании', value: companyState.companyInfo.fullname, required: true },
         { tag: 'tin', name: 'ИНН', value: companyState.companyInfo.tin, required: true },
-        { tag: 'city', name: 'Город', value: companyState.companyInfo.city, required: true },
+        // { tag: 'city_id', name: 'Город', value: companyState.companyInfo.city_id, required: true },
         { tag: 'contact_face', name: 'Контактное лицо', value: companyState.companyInfo.contact_face, required: false },
     ]
 
@@ -81,6 +83,15 @@ function Company() {
 
         })
     }
+    function cityChanged(value: number) {
+        dispatch(changeCompanyInfo({ name: 'city_id', value: value }))
+    }
+
+    function searchChanged(value: string) {
+        cityChanged(0)
+        setcity('')
+    }
+    const [city, setcity] = useState('');
 
     return (
         <div>
@@ -91,6 +102,8 @@ function Company() {
                         <p style={{ color: 'red', display: 'none' }} className='errormessage'>ИНН не вылидный, проверьте введенные данные</p>
                         <div className="part">
                             {createTextInputs(commonInfoInputs, handler)}
+                            <label><div>Город<span className="red">*</span></div></label>
+                            <SearchInput value={city} setValue={setcity} searchChanged={searchChanged} text="Введите город" className='city_input' items={cityState} name='city' handler={cityChanged}></SearchInput>
                             <label><div>Электронная почта<span className="red">*</span></div></label>
                             <input value={companyState.companyInfo.email} onChange={handler} required type="email" name='email'></input>
                             <label>Телефон</label>

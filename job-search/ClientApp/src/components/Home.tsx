@@ -1,35 +1,35 @@
 import * as React from 'react';
-import ListResults from './ListResults';
 import { useState, useEffect } from 'react';
 import '../custom.css';
 import './Home.css';
 import SearchInput from './SearchInput'
 import { getVacancyCards, getResumeCards } from './cardsTemplate'
 import { getEducationLevel, getWorkExperience, getWorkType } from './formElements'
-import { VacancyType, ResumeType } from './types'
 import { getResumesByFilters, getVacanciesByFilters } from './baseconnect'
-import { Link, useNavigate } from 'react-router-dom';
-import { NavItem, NavLink } from 'reactstrap';
 import { useSelector } from 'react-redux';
-import { getCookie } from './cookies';
 
 export default function Home(props: { pageType: string }) {
-  const userState = useSelector((state: any) => state.userState.userState)
-  const professionState = useSelector((state: any) => state.professionState.professionState)
-  // const city_filter_values = useSelector((state: any) => state.professionsList.professionsList)
-  const [isFilters, setFiltersStatus] = useState(false);
-  const [isSearch, setIsSearch] = useState(false);
-  const [filters, setFilters] = useState({
+  const defaultFilter = {
     profession_id: 0,
-    city: '',
+    word: '',
+    city_id: 1,
     education_level: 'Нет образования',
     salary: '',
     work_experience: '',
     work_type: [false, false, false, false, false],
     isFilters: true,
-  })
+  }
 
-  function filterChanged(e) {
+  const userState = useSelector((state: any) => state.userState.userState)
+  const professionState = useSelector((state: any) => state.professionState.professionState)
+  const cityState = useSelector((state: any) => state.cityState.cityState)
+  const [isFilters, setFiltersStatus] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const [filters, setFilters] = useState(defaultFilter)
+
+
+
+  function filterChanged(e: any) {
     let a = e.target || e
     setFilters({ ...filters, [a.name]: a.value })
   }
@@ -38,17 +38,36 @@ export default function Home(props: { pageType: string }) {
     setFilters({ ...filters, profession_id: value })
   }
 
+  function cityChanged(value: number) {
+    setFilters({ ...filters, city_id: value })
+  }
+
+  function searchChanged(value: string) {
+    setFilters({ ...filters, profession_id: 0 })
+    setFilters({ ...filters, word: value })
+  }
+
+  function cityNull(value: string) {
+    setcity(cityState[0].name);
+    setFilters({ ...filters, city_id: 1 });
+  }
+
   function confirm() {
-    if (filters.profession_id != 0) {
+    // if (filters.city_id == 0) {
+    //   setFilters({ ...filters, city_id: 1 });
+    // }
+    let inputsearch = (document.querySelectorAll('.search__form--prof')[0] as HTMLInputElement).value;
+    // if (filters.profession_id == 0) {
+    //   setFilters({ ...filters, word: inputsearch })
+    // }
+    if (inputsearch) {
       setIsSearch(true);
       if (props.pageType === 'resumes') {
         getResumesByFilters(filters, setResumes)
       } else {
         getVacanciesByFilters(filters, setVacancies)
       }
-
     }
-
   }
 
 
@@ -74,28 +93,13 @@ export default function Home(props: { pageType: string }) {
     )
   }
 
-  const city_filter_values = ['Екатеринбург', 'Москва'];
-  const navigate = useNavigate();
+  function openFilters() {
+    setFiltersStatus(!isFilters);
+    setFilters(defaultFilter);
+  }
 
-
-  // useEffect(() => {
-  //   console.log(getCookie('user_id'))
-  //   console.log(getCookie('user_type'))
-  //   let r = document.location.href.split('#access_token=')[1]
-  //   if (r) {
-  //     r = r.split('&')[0]
-  //   }
-  //   if (r) {
-  //     yandex(r)
-  //   }
-  // })
-
-  // async function yandex(r) {
-  //   const response = await fetch(`https://login.yandex.ru/info?format=json&oauth_token=${r}`);
-  //   const userInfo = await response.json();
-  //   let dsf = await userInfo
-  // }
-
+  const [city, setcity] = useState('');
+  const [profession, setprofession] = useState('');
   return (
     <div className="home_container container">
       <p className="home-title">Работа найдется для каждого</p>
@@ -103,9 +107,9 @@ export default function Home(props: { pageType: string }) {
       {/* {data.loading ? <div>Загрузка</div> : <div>{data.collection[0].f_name}</div>} */}
       <section className='search'>
         <div className="search_inputs">
-          {/* <input className='search__form search__form--prof' onChange={(e) => filterChanged(e)} name='profession' placeholder='Введите профессию' /> */}
-          <SearchInput className='search__form search__form--prof' items={professionState} name='profession' handler={professionChanged}></SearchInput>
-          <input className='search__form search__form--city' name='city' onChange={(e) => filterChanged(e)} value={filters.city} placeholder='Город' />
+          <SearchInput home={true} value={profession} setValue={setprofession} searchChanged={searchChanged} text="Введите профессию" className='search__form search__form--prof' items={professionState} name='profession' handler={professionChanged}></SearchInput>
+          <SearchInput home={true}  value={city} setValue={setcity} searchChanged={cityNull} text="Введите город" className='search__form search__form--city' items={cityState} name='city' handler={cityChanged}></SearchInput>
+          {/* <input className='search__form search__form--city' name='city' onChange={(e) => filterChanged(e)} value={filters.city} placeholder='Город' /> */}
         </div>
 
         <button onClick={confirm} className='button search__form--button'>
@@ -114,7 +118,7 @@ export default function Home(props: { pageType: string }) {
 
       </section>
 
-      <button onClick={() => setFiltersStatus(!isFilters)} className='btn-filter'>
+      <button onClick={openFilters} className='btn-filter'>
         Фильтры
       </button>
 

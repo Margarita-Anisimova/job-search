@@ -20,7 +20,9 @@ namespace job_search.Models
         public string fullname { get; set; }
 
         [Required]
-        public string city { get; set; }
+        public int city_id { get; set; }
+        [ForeignKey("city_id")]
+        public Cities Cities { get; set; }
 
         [Required]
         public string description { get; set; }
@@ -34,10 +36,10 @@ namespace job_search.Models
         [Required]
         public string tin { get; set; }
 
-        public Company(string fullname, string city, string description, string phone, string email, int user_id)
+        public Company(string fullname, int city_id, string description, string phone, string email, int user_id)
         {
             this.fullname = fullname;
-            this.city = city;
+            this.city_id = city_id;
             this.description = description;
             this.phone = phone;
             this.email = email;

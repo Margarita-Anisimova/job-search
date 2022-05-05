@@ -19,6 +19,9 @@ namespace job_search
         public DbSet<Profession_ref> profession_ref { get; set; }
         public DbSet<ResponseToResume> responseToResume { get; set; }
         public DbSet<ResponseToVacancy> responseToVacancy { get; set; }
+        public DbSet<User_company> user_company { get; set; }
+        public DbSet<Cities> cities { get; set; }
+
         // public DbSet<Education_ref> education_ref { get; set; }
         public DbSet<Image> image { get; set; }
 

@@ -26,7 +26,7 @@ function VacancyCollections() {
 
     const filters = {
         profession_id: resumeState.resumeInfo.profession_id,
-        city: resumeState.resumeInfo.city,
+        city_id: resumeState.resumeInfo.city_id,
         education_level: resumeState.resumeInfo.education_level,
         salary: resumeState.resumeInfo.desired_salary,
         work_experience: resumeState.resumeInfo.work_experience,
