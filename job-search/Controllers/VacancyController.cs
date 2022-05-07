@@ -91,6 +91,7 @@ public class VacancyController : Controller
                 }).ToList();
 
         }
+        result = result.Where(vacancy => (DateTime.Today - vacancy.publication_date).Days <= 30).ToList();
         return result;
     }
 

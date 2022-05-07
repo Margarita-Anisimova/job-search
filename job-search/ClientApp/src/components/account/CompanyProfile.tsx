@@ -113,6 +113,7 @@ export default function CompanyProfile() {
                 companyState.vacancies.map((vacancy, i) => {
                     return <div className='resumeCard'>
                         {vacancy.status === "del" ? <p>Заблокировано, необходимо внести изменения</p> : null}
+                        {vacancy.status === "dat" ? <p>Устарело, необходимо обновить данные</p> : null}
                         <div className="card_maininfo">
                             <p className="card__title">{vacancy.position}</p>
                             <p className="card__subtitle">{vacancy.salary} руб.</p>

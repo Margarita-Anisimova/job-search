@@ -7,10 +7,12 @@ import { getVacancyCards, getResumeCards } from './cardsTemplate'
 import { getEducationLevel, getWorkExperience, getWorkType } from './formElements'
 import { getResumesByFilters, getVacanciesByFilters } from './baseconnect'
 import { useSelector } from 'react-redux';
+import { getDate } from '../exportFunctions';
+import { ResumeInfoType, ResumeType, VacancyType } from './types';
 
 export default function Home(props: { pageType: string }) {
   const defaultFilter = {
-    profession_id: 0,
+    profession_id: 1,
     word: '',
     city_id: 1,
     education_level: 'Нет образования',
@@ -70,9 +72,8 @@ export default function Home(props: { pageType: string }) {
     }
   }
 
-
-  const [resumes, setResumes] = useState([]);
-  const [vacancies, setVacancies] = useState([]);
+  const [resumes, setResumes] = useState<any[]>([]);
+  const [vacancies, setVacancies] = useState<any[]>([]);
 
   function getFilters() {
     return (
@@ -98,6 +99,42 @@ export default function Home(props: { pageType: string }) {
     setFilters(defaultFilter);
   }
 
+  function compare(a, b, c) {
+    return a < b
+      ? c
+      : a > b
+        ? -c
+        : 0
+  }
+
+  function sorting(e) {
+    let sortedvacancies: any[] = []
+    let sortedresumes: any[] = []
+    if (e.target.value == 'des salary') {
+      if (props.pageType == 'vacancies') {
+        sortedvacancies = vacancies.sort((a: VacancyType, b: VacancyType) => compare(parseInt(a.salary), parseInt(b.salary), 1)).slice()
+      } else {
+        sortedresumes = resumes.sort((a: ResumeInfoType, b: ResumeInfoType) => compare(parseInt(a.desired_salary), parseInt(b.desired_salary), 1)).slice()
+      }
+    } else if (e.target.value == 'asc salary') {
+      if (props.pageType == 'vacancies') {
+        sortedvacancies = vacancies.sort((a: VacancyType, b: VacancyType) => compare(parseInt(a.salary), parseInt(b.salary), -1)).slice()
+      } else {
+        sortedresumes = resumes.sort((a: ResumeInfoType, b: ResumeInfoType) => compare(parseInt(a.desired_salary), parseInt(b.desired_salary), -1)).slice()
+      }
+    } else {
+      if (props.pageType == 'vacancies') {
+        sortedvacancies = vacancies.sort((a: VacancyType, b: VacancyType) => compare(a.publication_date.toString().split('T')[0], b.publication_date.toString().split('T')[0], 1,)).slice()
+      } else {
+        sortedresumes = resumes.sort((a: ResumeInfoType, b: ResumeInfoType) => compare(a.publication_date.toString().split('T')[0], b.publication_date.toString().split('T')[0], 1,)).slice()
+      }
+    }
+
+    props.pageType == 'vacancies'
+      ? setVacancies(sortedvacancies)
+      : setResumes(sortedresumes)
+  }
+
   const [city, setcity] = useState('');
   const [profession, setprofession] = useState('');
   return (
@@ -108,7 +145,7 @@ export default function Home(props: { pageType: string }) {
       <section className='search'>
         <div className="search_inputs">
           <SearchInput home={true} value={profession} setValue={setprofession} searchChanged={searchChanged} text="Введите профессию" className='search__form search__form--prof' items={professionState} name='profession' handler={professionChanged}></SearchInput>
-          <SearchInput home={true}  value={city} setValue={setcity} searchChanged={cityNull} text="Введите город" className='search__form search__form--city' items={cityState} name='city' handler={cityChanged}></SearchInput>
+          <SearchInput home={true} value={city} setValue={setcity} searchChanged={cityNull} text="Введите город" className='search__form search__form--city' items={cityState} name='city' handler={cityChanged}></SearchInput>
           {/* <input className='search__form search__form--city' name='city' onChange={(e) => filterChanged(e)} value={filters.city} placeholder='Город' /> */}
         </div>
 
@@ -117,10 +154,17 @@ export default function Home(props: { pageType: string }) {
         </button>
 
       </section>
-
+      <div className='sorting'>
+        <select className='btn-filter' id='sorted' onChange={(e) => sorting(e)}>
+          <option value='publication_date'>дате</option>
+          <option value='des salary'>убыванию зарплаты</option>
+          <option value='asc salary'>возрастанию зарплаты</option>
+        </select>
+      </div>
       <button onClick={openFilters} className='btn-filter'>
         Фильтры
       </button>
+
 
       {isFilters ? getFilters() : null}
       <section className='search__result col-lg-8 col-md-12'>

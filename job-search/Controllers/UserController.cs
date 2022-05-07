@@ -103,46 +103,26 @@ public class UserController : Controller
         var a = this.Context.users.Where((user) => user.email == email);
         if (a.Count() != 0 && CheckPassword(password, a.First().password))
         {
-            if (a.First().user_type == "admin")
+            switch (a.First().user_type)
             {
-                return new ObjectResult(a.First());
-            }
-            if (a.First().user_type == "applicant")
-            {
-                var result = new ResumeCard();
-                result.user = a.First();
-                var res = new FullResume();
-                var resumeFromBase = this.Context.resumes.Where(e => e.user_id == result.user.user_id).FirstOrDefault();
-                if (resumeFromBase is not null)
-                {
-                    res.resumeInfo = resumeFromBase;
-                    var ed = this.Context.education.Where((education) => education.resume_id == res.resumeInfo.resume_id);
-                    var work = this.Context.work_experience.Where((work_experience) => work_experience.resume_id == res.resumeInfo.resume_id);
-                    res.education = ed.ToArray();
-                    res.workExperience = work.ToArray();
-                    res.education.ToList().ForEach((e) => e.Resume = null);
-                    res.workExperience.ToList().ForEach((e) => e.Resume = null);
-                    result.resume = res;
-                }
-                return new ObjectResult(result);
-            }
-            else if (a.First().user_type == "employer")
-            {
-                var responce = new CompanyResponce();
-                responce.user = a.First();
-                responce.company = new CompanyFull();
-                var user_company = this.Context.user_company.Find(responce.user.user_id);
-                if (user_company is not null)
-                {
-                    responce.company.companyInfo = this.Context.companies.Find(user_company.company_id);
-                    var vacancies = this.Context.vacancies.Where((v) => v.company_id == responce.company.companyInfo.company_id).ToArray();
-                    responce.company.vacancies = vacancies;
-                }
-                return new ObjectResult(responce);
-            }
-            else
-            {
-                return new ObjectResult(a.First());
+                case "admin":
+                    {
+                        return new ObjectResult(a.First());
+                    }
+                case "applicant":
+                    {
+                        var res = GetResume(a.First());
+                        return new ObjectResult(res);
+                    }
+                case "employer":
+                    {
+                        var res = GetCompany(a.First());
+                        return new ObjectResult(res);
+                    }
+                default:
+                    {
+                        return NotFound(); ;
+                    }
             }
         }
         else
@@ -150,6 +130,47 @@ public class UserController : Controller
             return NotFound();
         }
 
+    }
+
+    public ResumeCard GetResume(User a)
+    {
+        var result = new ResumeCard();
+        result.user = a;
+        var res = new FullResume();
+        var resumeFromBase = this.Context.resumes.Where(e => e.user_id == result.user.user_id).FirstOrDefault();
+        if (resumeFromBase is not null)
+        {
+            if ((DateTime.Today - result.resume.resumeInfo.publication_date).Days <= 14)
+            {
+                result.resume.resumeInfo.status = "dat";
+            }
+            res.resumeInfo = resumeFromBase;
+            var ed = this.Context.education.Where((education) => education.resume_id == res.resumeInfo.resume_id);
+            var work = this.Context.work_experience.Where((work_experience) => work_experience.resume_id == res.resumeInfo.resume_id);
+            res.education = ed.ToArray();
+            res.workExperience = work.ToArray();
+            res.education.ToList().ForEach((e) => e.Resume = null);
+            res.workExperience.ToList().ForEach((e) => e.Resume = null);
+            result.resume = res;
+        }
+        return result;
+    }
+
+
+    public CompanyResponce GetCompany(User a)
+    {
+        var responce = new CompanyResponce();
+        responce.user = a;
+        responce.company = new CompanyFull();
+        var user_company = this.Context.user_company.Find(responce.user.user_id);
+        if (user_company is not null)
+        {
+            responce.company.companyInfo = this.Context.companies.Find(user_company.company_id);
+            var vacancies = this.Context.vacancies.Where((v) => v.company_id == responce.company.companyInfo.company_id).ToList();
+            vacancies.ForEach((item) => item.status = (DateTime.Today - item.publication_date).Days <= 14 ? "dat" : item.status);
+            responce.company.vacancies = vacancies.ToArray();
+        }
+        return responce;
     }
     public bool CheckPassword(string password, string passwordFromBase)
     {

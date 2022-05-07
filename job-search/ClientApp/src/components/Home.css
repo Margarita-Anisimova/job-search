@@ -91,13 +91,12 @@
 }
 
 
-
 /* Cards */
+
 .card__container {
     /* border: 1px var(--text-light) solid; */
     border-radius: 8px;
     /* width: 40vw; */
-
     /* margin: 30px 0; */
     margin-bottom: 30px;
     padding: 20px;
@@ -122,7 +121,6 @@
     /* display: flex;
     align-items: flex-end;
     justify-content: space-between; */
-
 }
 
 .card__title {
@@ -166,3 +164,6 @@ a {
     padding: 0;
 }
 
+.sorting::before {
+    content: 'Сортировать по:'
+}
