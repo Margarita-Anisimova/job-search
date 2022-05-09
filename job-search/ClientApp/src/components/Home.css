@@ -99,15 +99,7 @@
 /* Cards */
 
 .card__container {
-<<<<<<< HEAD
-    background-color: #fff;
-    border-radius: 20px;
-=======
-    /* border: 1px var(--text-light) solid; */
     border-radius: 8px;
-    /* width: 40vw; */
-    /* margin: 30px 0; */
->>>>>>> 9ec120e316e8c13f1ec954e16826e6fef1218769
     margin-bottom: 30px;
     padding: 25px;
     font-size: 15px;
@@ -128,19 +120,10 @@
 }
 
 .card__content {
-<<<<<<< HEAD
-    margin-bottom: 10px;
-}
-
-.card__bottom {
-    display: flex;
-    justify-content: space-between;
-=======
     /* margin-bottom: 15px; */
     /* display: flex;
     align-items: flex-end;
     justify-content: space-between; */
->>>>>>> 9ec120e316e8c13f1ec954e16826e6fef1218769
 }
 
 .card__title {
