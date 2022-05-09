@@ -29,11 +29,14 @@ export function getResumeCards(resumes: ResumeInfoType[]) {
                     <div className="card__content">
                         <div>
                             <p className='card__desc'>Уровень образования: {res.education_level}</p>
-                            <p className='card__address'>Стаж работы в сфере: {res.work_experience}</p>
+                            <p className='card__desc'>Стаж работы в сфере: {res.work_experience}</p>
                         </div>
-                        <p className='publication_date'>{getDate(res.publication_date)}</p>
-                        
+                        {/* <p className='publication_date'>{getDate(res.publication_date)}</p> */}
+                    </div>
 
+                    <div className="card__bottom">
+                        <p className='card__address'>{res.skills}</p>
+                        <p className='card__address'>{getDate(res.publication_date)}</p>
                     </div>
                     
                     {/* <button className="card_button light__button">Откликнуться</button>
@@ -59,11 +62,15 @@ export function getVacancyCards(vacancies: VacancyType[]) {
 
                     <div className="card__content">
                         <p className='card__desc'>Уровень образования: {res.education_level}</p>
-                        <p className='card__desc'>Опыт: {res.work_experience}</p>
+                        {/* <p className='card__desc'>Опыт: {res.work_experience}</p> */}
                         <p className='card__desc card__shortdescription'>{res.responsibilities}</p>
-                        <p className='card__address'>{res.work_address} </p>
+                        
                     </div>
-                    <p className='publication_date'>{getDate(res.publication_date)}</p>
+                    <div className="card__bottom">
+                        <p className='card__address'>{res.work_address} </p>
+                        <p className='card__address'>{getDate(res.publication_date)}</p>
+                    </div>
+                    
                     {/* <button className="light__button card__button-main">Откликнуться</button>
                     <button className="light__button card__button-second">Показать контакты</button>
                     <button className="light__button button__collection">Показать резюме</button> */}

@@ -28,10 +28,10 @@ export default function AdminResumes() {
     }
 
     return (
-        <div>
-            {getResumeCards(resumes)}
+        <div className='container admin_section'>
+            <div className="admin_resumes">
+                {getResumeCards(resumes)}
+            </div>
         </div>
-
     );
-
 }

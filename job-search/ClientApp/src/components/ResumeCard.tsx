@@ -193,7 +193,7 @@ export default function ResumeCard() {
                     </div>
                     :
                     <div className="row">
-                        <button onClick={(e) => changeResumeStatus(true)} className="block-button">Опубликовать</button>
+                        <button onClick={(e) => changeResumeStatus(true)} className="block-button block-button--pub">Опубликовать</button>
                         <button onClick={(e) => changeResumeStatus(false)} className="block-button">Заблокировать</button>
                     </div>}
             </div>

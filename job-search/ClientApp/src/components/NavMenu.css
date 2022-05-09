@@ -7,7 +7,7 @@
 .nav_menu {
     display: flex;
     justify-content: space-between;
-
+	align-items: center;
 }
 
 .nav_menu_active {
@@ -60,6 +60,7 @@
 
 .sections_container {
     display: flex;
+	align-items: center;
 }
 
 

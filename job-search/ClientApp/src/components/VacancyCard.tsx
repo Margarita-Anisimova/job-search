@@ -153,7 +153,7 @@ export default function VacancyCard() {
                 </div>
                 :
                 <div className="row">
-                    <button onClick={(e) => changeVacancyStatus(true)} className="block-button">Опубликовать</button>
+                    <button onClick={(e) => changeVacancyStatus(true)} className="block-button block-button--pub">Опубликовать</button>
                     <button onClick={(e) => changeVacancyStatus(false)} className="block-button">Заблокировать</button>
                 </div>}
         </div >

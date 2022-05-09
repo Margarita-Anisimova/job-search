@@ -10,6 +10,7 @@ import { AccountType, CompanyType, VacancyType, ResumeType } from '../types';
 import { useSelector } from "react-redux";
 import "./Account.css"
 import { getVacancyCards, getResumeCards } from '../cardsTemplate'
+import { getDate } from "../../exportFunctions";
 
 
 function ResumeCollections() {
@@ -53,19 +54,22 @@ function ResumeCollections() {
                 <p className="resume__collection-title">Вакансии</p>
                 {companyState.vacancies.map((res) => {
                     return (
-                        // <a onClick={() => showResumeCollect(res)}>
-
                         <div className="card__container">
                             <div className="card__header">
                                 <p className='card__title'>{res.position}</p>
                                 <p className='card__subtitle'>{res.salary} руб.</p>
                             </div>
-                            {/* <p className='card__desc'>Опыт: {res.work_experience}</p> */}
-                            <p className='card__address'>{res.work_address} </p>
-                            <button className="light__button light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
+
+                            <div className="card_maininfo">
+                                <p className='card__desc'>Требуемый уровень образования: {res.education_level} </p>
+                                <p className='card__desc'>Требуемый опыт: {res.work_experience} </p>
+                            </div>
+                            <div className="card__footer">
+                                <button className="light__button light__button-small" onClick={() => showResumeCollect(res)}>Показать резюме</button>
+                                <p className='card__address'>{getDate(res.publication_date)}</p>
+                            </div>
                         </div>
 
-                        // </a>
                     )
                 })}
             </div>
@@ -74,22 +78,34 @@ function ResumeCollections() {
 
                     <div >
                         <p className="resume__collection-title">Подходящие резюме</p>
-                        {getResumeCards(resumes)}
-                        {/* {resumes.map((res) => {
+                        {/* {getResumeCards(resumes)} */}
+                        {resumes.map((res) => {
                             return (
-                                <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.user_id} >
+                                <NavLink style={{ padding: '0' }} target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.user_id} >
                                     <div className="card__container">
-                                        <div className="card_header">
+                                        <div className="card__header">
                                             <p className='card__title'>{res.desired_position}</p>
                                             <p className='card__subtitle'>{res.desired_salary} руб.</p>
                                         </div>
-                                        <p className='card__desc'>Уровень образования: {res.education_level}</p>
-                                        <p className='card__address'>Опыт: {res.work_experience}</p>
+
+                                        <div style={{marginBottom: '26px'}} className="card__content">
+                                            <div>
+                                                <p className='card__desc'>Уровень образования: {res.education_level}</p>
+                                                <p className='card__desc'>Стаж работы в сфере: {res.work_experience}</p>
+                                            </div>
+                                            {/* <p className='publication_date'>{getDate(res.publication_date)}</p> */}
+                                        </div>
+
+                                        <div className="card__bottom">
+                                            <p className='card__address'>{res.skills}</p>
+                                            <p className='card__address'>{getDate(res.publication_date)}</p>
+                                        </div>
+                    
                                     </div>
                                 </NavLink>
                             )
                         })
-                        } */}
+                        }
                     </div>
                     : null}
             </div>

@@ -116,29 +116,31 @@ export default function Profile() {
                     <p>{userState.email}</p>
                 </div>
 
-                <NavLink style={{ padding: '0' }} tag={Link} to='/accountInfo'> Редактировать профиль</NavLink>
+                <NavLink className="account_link" style={{ paddingLeft: '20px' }} tag={Link} to='/accountInfo'> Редактировать профиль</NavLink>
             </div>
             {
                 //вынести в отдельный компанент ????
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
-                        <p className="profile_sect-title">Мое резюме</p>
-                        {resumeState.resumeInfo.status === false ? <p>Заблокировано, необходимо внести изменения</p> : null}
-                        {resumeState.resumeInfo.desired_position ?
-                            <div className="resumeCard">
-                                <div className="card_maininfo">
-                                    <p className='card__title'>{resumeState.resumeInfo.desired_position}</p>
-                                    <p className='card__subtitle'>{resumeState.resumeInfo.desired_salary} руб.</p>
-                                    <p className='card__desc'>Уровень образования: {resumeState.resumeInfo.education_level}</p>
-                                </div>
+                        <div style={{width: "60%"}}>
+                            <p className="profile_sect-title">Мое резюме</p>
+                            {resumeState.resumeInfo.status === false ? <p>Заблокировано, необходимо внести изменения</p> : null}
+                            {resumeState.resumeInfo.desired_position ?
+                                <div className="card__container resumeCard">
+                                    <div className="card_maininfo">
+                                        <p className='card__title'>{resumeState.resumeInfo.desired_position}</p>
+                                        <p className='card__subtitle'>{resumeState.resumeInfo.desired_salary} руб.</p>
+                                        <p className='card__desc'>Уровень образования: {resumeState.resumeInfo.education_level}</p>
+                                    </div>
 
-                                <div className="card_buttons">
-                                    <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
-                                    <button onClick={() => delResume()} className="resumeButton">Удалить</button>
+                                    <div className="card_buttons">
+                                        <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
+                                        <button onClick={() => delResume()} className="resumeButton">Удалить</button>
+                                    </div>
                                 </div>
-                            </div>
-                            : <NavLink tag={Link} to='/resume' >Создать резюме</NavLink>
-                        }
+                                : <NavLink className="account_link" tag={Link} to='/resume' >Создать резюме</NavLink>
+                            }
+                        </div>
                     </div>
                     : <CompanyProfile></CompanyProfile>
             }

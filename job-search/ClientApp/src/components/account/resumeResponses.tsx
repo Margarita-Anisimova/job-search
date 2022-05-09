@@ -80,9 +80,10 @@ export default function ResumeResponses() {
                         <p>{e.response.message}</p>
                     </div>
                     <div className="myResponses_status">
-                        <button onClick={() => deleteResp(e.response, id)} className="light__button light__button-small">Просмотрено</button>
+                        <button style={{margin: '0'}} onClick={() => deleteResp(e.response, id)} className="light__button light__button-small">Просмотрено</button>
+                        <p className='card__address'>{getDate(e.response.publication_date)}</p>
+
                     </div>
-                    <p className='publication_date'>{getDate(e.response.publication_date)}</p>
                 </div>)}
         </div>
     );

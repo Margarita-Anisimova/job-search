@@ -101,6 +101,7 @@ export default function Home(props: { pageType: string }) {
   const [city, setcity] = useState('');
   const [profession, setprofession] = useState('');
   return (
+    <div className="home">
     <div className="home_container container">
       <p className="home-title">Работа найдется для каждого</p>
 
@@ -134,7 +135,7 @@ export default function Home(props: { pageType: string }) {
       </section>
 
     </div >
-
+    </div>
   );
 }
 

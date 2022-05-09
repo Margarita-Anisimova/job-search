@@ -11,6 +11,7 @@ import { changeResume } from '../app/resumeStateReducer';
 import { changeCompany } from '../app/companyStateReducer';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import logo from './logo.svg'
 
 export default function NavMenu(props: { setregitrType: any, setPageType: any; }) {
 
@@ -47,7 +48,9 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
                 <div className={isActive ? 'row nav_menu_active nav_menu' : 'row nav_menu'}>
                     <div className='sections_container'>
 
-                        <NavLink className='navigate_item navigate_home' tag={Link} to="/">Главная</NavLink>
+                        <NavLink className='navigate_item navigate_home' tag={Link} to="/">
+                            <img src={logo} alt="" />
+                        </NavLink>
                         <div className="search_type">
                             <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
                             <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>

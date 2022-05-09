@@ -43,7 +43,7 @@ function VacancyCollections() {
     }
 
     return (
-        <div className='search__result col-lg-8 col-md-12'>
+        <div className='search__result vacancy_collection'>
             {getVacancyCards(vacancies)}
             {/* {
                 vacancies.length ?

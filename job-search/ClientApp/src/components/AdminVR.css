@@ -1,0 +1,28 @@
+.admin_section {
+    margin-top: 80px;
+}
+
+.admin_resumes, .admin_vacancies {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.block-button {
+    border: 1px solid #999;
+    border-radius: 15px;
+    color: #333;
+    margin-right: 15px;
+    font-size: 18px;
+    padding: 8px 16px;
+    transition: all .3s ease-in-out;
+}
+
+.block-button:hover {
+    color: #000;
+    background-color: #f8840033;
+}
+
+.block-button--pub {
+    background-color: #fff;
+    border-color: #F88500;
+}

@@ -77,17 +77,20 @@ export default function CompanyProfile() {
     }
 
     return (
-        <div>
-            <p className="profile_sect-title">Моя компания</p>
-            {main ?
-                <NavLink tag={Link} to='/newEmployee'>Добавить сотрудника</NavLink> : null}
-            <div className="worker_container">
-                {worker.map((worker) => {
-                    return (
-                        <div title="Дважды щелкнике для удаления сотрудника" onDoubleClick={(e) => deleteWorker(worker.user_id)} >
-                            <p className='worker' >{worker.worker_email}</p>
-                        </div>)
-                })}
+        <div className="employer__container">
+            <div style={{width: "60%"}}>
+            <div className="vacancyInfo">
+                <p className="profile_sect-title">Моя компания</p>
+                {main ?
+                    <NavLink className="account_link" tag={Link} to='/newEmployee'>Добавить сотрудника</NavLink> : null}
+                <div className="worker_container">
+                    {worker.map((worker) => {
+                        return (
+                            <div title="Дважды щелкнике для удаления сотрудника" onDoubleClick={(e) => deleteWorker(worker.user_id)} >
+                                <p className='worker' >{worker.worker_email}</p>
+                            </div>)
+                    })}
+                </div>
             </div>
 
 
@@ -99,14 +102,16 @@ export default function CompanyProfile() {
                             <p className="card__subtitle">{cityState[companyState.companyInfo.city_id].value}</p>
                             <p className="card__desc">{companyState.companyInfo.email}</p>
                         </div>
+                        <div className="card_buttons">
                         <button onClick={() => navigate('/company')} className="resumeButton">Редактировать</button>
                         {main ? <button onClick={deleteCompany} className="resumeButton">Удалить</button> : null}
+                        </div>
                     </div>
-                    : <NavLink tag={Link} to='/company'>Создать компанию</NavLink>
+                    : <NavLink className="account_link" tag={Link} to='/company'>Создать компанию</NavLink>
             }
             <div className="vacancyInfo">
                 <p className="profile_sect-title">Мои вакансии</p>
-                <NavLink tag={Link} to={'/vacancy/' + companyState.vacancies.length} >Добавить вакансию</NavLink>
+                <NavLink className="account_link" tag={Link} to={'/vacancy/' + companyState.vacancies.length} >Добавить вакансию</NavLink>
             </div>
 
             {
@@ -115,7 +120,7 @@ export default function CompanyProfile() {
                         {vacancy.status === "del" ? <p>Заблокировано, необходимо внести изменения</p> : null}
                         <div className="card_maininfo">
                             <p className="card__title">{vacancy.position}</p>
-                            <p className="card__subtitle">{vacancy.salary} руб.</p>
+                            <p style={{color: "#333"}} className="card__subtitle">{vacancy.salary} руб.</p>
                             <p className="card__desc">{vacancy.work_address}</p>
                         </div>
                         <div className="card_buttons">
@@ -126,5 +131,6 @@ export default function CompanyProfile() {
                 })
             }
         </div >
+        </div>
     );
 }

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     margin: 5vh 0 5vh 0;
+    justify-content: center;
 }
 
 .accountMenu button:last-child {
@@ -11,8 +12,15 @@
 .mainInfo {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    margin-bottom: 30px;
+    /* align-items: flex-start; */
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.account_link {
+    color: #F88500;
+    font-size: 18px;
+    
 }
 
 .username {
@@ -31,6 +39,10 @@
     /* margin-bottom: 20px; */
 }
 
+.employer__container {
+    display: flex;
+    justify-content: center;
+}
 .editProfile {
     background: transparent;
     text-align: left;
@@ -57,8 +69,13 @@ p {
     margin-right: 50px;
 }
 
+.imageContainer {
+    cursor: pointer;
+}
 .user_resumes_container {
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .resumeButtons {
@@ -79,17 +96,20 @@ p {
 }
 
 .resumeCard {
-    border: 1px #999999 solid;
-    border-radius: 10px;
-    padding: 20px;
-    width: 50%;
-}
-
-.resumeCard {
+    /* border: 1px #999999 solid; */
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
+    box-shadow: 0px 0px 50px rgba(126, 121, 116, 0.27);
+
+    border-radius: 20px;
+    padding: 25px;
+    width: 100%;
+}
+
+.resumeCard {
+    
 }
 
 .card_buttons {
@@ -97,6 +117,11 @@ p {
     flex-direction: column;
 }
 
+.card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 
 /* Мои отклики */
 
@@ -108,10 +133,15 @@ p {
     width: 100%;
     display: flex;
     box-shadow: 0px 0px 50px rgba(209, 209, 209, 0.4);
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 20px;
     margin-bottom: 3vh;
     justify-content: space-between;
+}
+
+.vacancy_collection {
+    width: 60%;
+    margin: 0 auto;
 }
 
 .myResponses_container {
@@ -119,6 +149,7 @@ p {
     display: grid;
     gap: 20px; */
     width: 60%;
+    margin: 0 auto;
 }
 
 .myResponse_vacancy {
@@ -208,7 +239,7 @@ p {
 }
 
 .resume__collection-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 20px;
 }
 
@@ -227,6 +258,10 @@ p {
     margin-right: 50px;
 }
 
+.response__title {
+    font-size: 18px;
+    margin: 0;
+}
 
 /* responseToResume */
 
@@ -235,6 +270,7 @@ p {
     display: grid;
     gap: 20px; */
     width: 60%;
+    margin: 0 auto;
 }
 
 .responseToResume {
@@ -266,6 +302,8 @@ p {
 }
 
 .worker {
-    border: 1px solid black;
+    border: 1px solid #333;
     display: inline;
+    padding: 4px 10px;
+    border-radius: 15px;
 }

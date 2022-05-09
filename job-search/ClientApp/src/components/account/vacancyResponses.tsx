@@ -77,17 +77,24 @@ export default function VacancyResponses() {
     return (
         <div className='container1'>
             <div style={{ margin: '0' }} className="search__result col-lg-6">
+            <p className="resume__collection-title">Вакансии</p>
                 {companyState.vacancies.map((res: VacancyType) => {
                     return (
-
+                        
                         <div className="card__container">
                             <div className="card__header">
                                 <p className='card__title'>{res.position}</p>
-                                <p className='card__subtitle'>{res.salary} руб.</p>
+                                <p style={{color: "#333"}} className='card__subtitle'>{res.salary} руб.</p>
                             </div>
-                            <p className='card__desc'>Опыт: {res.work_experience}</p>
-                            <p className='card__address'>{res.work_address} </p>
-                            <button className="light__button light__button-small" onClick={() => status ? setStatus(!status) : getResponses(res.vacancy_id)}>Показать отклики</button>
+
+                            <div className="card_maininfo">
+                                <p className='card__desc'>Требуемый уровень образования: {res.education_level} </p>
+                                <p className='card__desc'>Требуемый опыт: {res.work_experience} </p>
+                            </div>
+                            <div className="card__footer">
+                                <button className="light__button light__button-small" onClick={() => status ? setStatus(!status) : getResponses(res.vacancy_id)}>Показать отклики</button>
+                                <p className='card__address'>{getDate(res.publication_date)}</p>
+                            </div>
                         </div>
                     )
                 })}
@@ -95,25 +102,29 @@ export default function VacancyResponses() {
             <div className="col-lg-6">
                 {status ?
                     <div style={{ margin: '0' }} className="search__result">
-
+                        <p className="resume__collection-title">Отклики на вакансию</p>
                         {responses.map((res, id) => {
                             return (
                                 <div>
-                                    <p>{ }</p>
                                     <div className="card__container">
-                                        <NavLink target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.resume.user_id} >
+
+                                        <NavLink className="card__header" target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.resume.user_id} >
                                             <p className='card__title'>{res.resume.desired_position}</p>
                                             <p className='card__subtitle'>{res.resume.desired_salary} руб.</p>
                                         </NavLink>
 
-                                        <div className="card__content">
+                                        <div className="card_maininfo">
                                             <p className='card__desc'>Уровень образования: {res.resume.education_level}</p>
-                                            <p className='card__address'>Стаж работы в сфере: {res.resume.work_experience}</p>
+                                            <p className='card__desc'>Стаж работы в сфере: {res.resume.work_experience}</p>
                                         </div>
 
-                                        <button className="card_button light__button" onClick={() => openDialog('Принято', id, res.response)}>Принять</button>
-                                        <button className="card_button light__button" onClick={() => openDialog('Отказано', id, res.response)}>Отклонить</button>
-                                        <p className='publication_date'>{getDate(res.response.publication_date)}</p>
+                                        <div className="card__footer">
+                                            <div>
+                                                <button className="light__button light__button-small" onClick={() => openDialog('Принято', id, res.response)}>Принять</button>
+                                                <button className="light__button light__button-small" onClick={() => openDialog('Отказано', id, res.response)}>Отклонить</button>
+                                            </div>
+                                            <p className='card__address'>{getDate(res.response.publication_date)}</p>
+                                        </div>
                                     </div>
                                 </div>
                             )
@@ -124,7 +135,7 @@ export default function VacancyResponses() {
             </div>
             <dialog className="dialog">
                 <div className="responseForm_header">
-                    <p>Ответ на отклик</p>
+                    <p className="response__title">Ответ на отклик</p>
                     <button type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()} className='button closebutton'>
                         X
                     </button>
@@ -133,7 +144,7 @@ export default function VacancyResponses() {
                     <p>Ваше сообщение:</p>
                     <textarea className='message' value={response.message} onChange={(e) => setResponse({ ...response, message: e.target.value })} placeholder='Введите сообщение для соискателя' maxLength={50}></textarea>
                 </div>
-                <button type="button" onClick={() => sentResponse()} className='button resumecard__btn'>
+                <button style={{marginBottom: "0"}} type="button" onClick={() => sentResponse()} className='button resumecard__btn'>
                     Отправить
                 </button>
             </dialog>

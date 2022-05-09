@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getVacancyCards } from './cardsTemplate';
+import './AdminVR.css';
+
 
 export default function AdminVacancies() {
     const [vacancies, setVacancies] = useState([]);
@@ -28,8 +30,10 @@ export default function AdminVacancies() {
 
 
     return (
-        <div >
-            {getVacancyCards(vacancies)}
+        <div className='container admin_section'>
+            <div className="admin_vacancies">
+                {getVacancyCards(vacancies)}
+            </div>
         </div>
 
     );
