@@ -151,6 +151,15 @@ public class ResumeController : Controller
         return new ObjectResult(result);
     }
 
+    private Dictionary<string, int> Education_level = new Dictionary<string, int>()
+    {
+        {"Нет образования",1},
+        {"Среднее", 2},
+        {"Незаконченное высшее",3},
+        {"Высшее",4},
+        {"Среднее профессиональное", 5}
+    };
+
     [HttpGet]
     public List<Resume> Get()
     {
@@ -173,7 +182,10 @@ public class ResumeController : Controller
             result = result.Where(resume => resume.city_id == Int32.Parse(param["city_id"])).ToList();
         }
         if (param["education_level"] != "Нет образования" && result.Count() != 0)
-            result = result.Where(resume => resume.education_level == param["education_level"]).ToList();
+        {
+            result = result.Where(resume => Education_level[resume.education_level] >= Education_level[param["education_level"]]).ToList();
+        }
+
 
         if (param["work_experience"] != "без опыта" && param["work_experience"] != "" && result.Count() != 0)
             result = result.Where(resume =>
@@ -202,6 +214,7 @@ public class ResumeController : Controller
                     return false;
                 }).ToList();
         }
+        result = result.Where(resume => (DateTime.Today - resume.publication_date).Days <= 30).ToList();
 
         return result;
     }

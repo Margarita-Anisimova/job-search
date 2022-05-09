@@ -65,10 +65,15 @@ export function createEmptyWorkExperience(resume_id = 0): WorkExpirienceType {
 }
 
 export function getDate(date: string) {
+<<<<<<< HEAD
     console.log(date);
     return date.split('T')[0].split('-').reverse().join('-');
 
+=======
+    return date.split('T')[0].split('-').reverse().join('-');
+>>>>>>> 9ec120e316e8c13f1ec954e16826e6fef1218769
 }
+
 
 export function createCompanyInfo(user_id = 0) {
     return {
