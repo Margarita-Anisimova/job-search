@@ -67,6 +67,7 @@ public class UserController : Controller
     {
         public User user { get; set; }
         public int company_id { get; set; }
+        public string role { get; set; }
     }
 
     [Route("newWorker")]
@@ -82,7 +83,7 @@ public class UserController : Controller
         // {
         //     return new StatusCodeResult(400);
         // }
-        this.Context.user_company.Add(new User_company() { user_id = d.user_id, company_id = data.company_id, main = false });
+        this.Context.user_company.Add(new User_company() { user_id = d.user_id, company_id = data.company_id, role = data.role });
         this.Context.SaveChanges();
         return new OkResult();
     }

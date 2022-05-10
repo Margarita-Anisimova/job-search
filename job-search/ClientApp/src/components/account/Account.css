@@ -20,7 +20,6 @@
 .account_link {
     color: #F88500;
     font-size: 18px;
-    
 }
 
 .username {
@@ -43,6 +42,7 @@
     display: flex;
     justify-content: center;
 }
+
 .editProfile {
     background: transparent;
     text-align: left;
@@ -72,6 +72,7 @@ p {
 .imageContainer {
     cursor: pointer;
 }
+
 .user_resumes_container {
     margin-bottom: 30px;
     display: flex;
@@ -102,15 +103,12 @@ p {
     align-items: flex-start;
     margin-bottom: 20px;
     box-shadow: 0px 0px 50px rgba(126, 121, 116, 0.27);
-
     border-radius: 20px;
     padding: 25px;
     width: 100%;
 }
 
-.resumeCard {
-    
-}
+.resumeCard {}
 
 .card_buttons {
     display: flex;
@@ -122,6 +120,7 @@ p {
     justify-content: space-between;
     align-items: flex-end;
 }
+
 
 /* Мои отклики */
 
@@ -263,6 +262,7 @@ p {
     margin: 0;
 }
 
+
 /* responseToResume */
 
 .responseToResume_container {
@@ -299,6 +299,11 @@ p {
 .imageContainer:hover .loadText {
     display: flex;
     justify-content: center;
+}
+
+.worker_container {
+    display: flex;
+    flex-direction: row;
 }
 
 .worker {

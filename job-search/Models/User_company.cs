@@ -19,7 +19,7 @@ namespace job_search.Models
         [ForeignKey("company_id")]
         public Company Company { get; set; }
         [Required]
-        public bool main { get; set; }
+        public string role { get; set; }
 
     }
 }

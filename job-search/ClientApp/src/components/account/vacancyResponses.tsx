@@ -8,6 +8,7 @@ import { CompanyType, ResumeInfoType, VacancyType } from "../types";
 import { NavLink } from "reactstrap";
 import { Link } from "react-router-dom";
 import { getDate } from "../../exportFunctions";
+import { getCookie } from "../cookies";
 
 export default function VacancyResponses() {
 
@@ -73,81 +74,91 @@ export default function VacancyResponses() {
         setResponse({ ...resp, response: result })
         document.getElementsByClassName('dialog')[0].showModal();
     }
+    let a = getCookie('role');
+    function createResult() {
+        return (
+            <div className='container1'>
+                <div style={{ margin: '0' }} className="search__result col-lg-6">
+                    <p className="resume__collection-title">Вакансии</p>
+                    {companyState.vacancies.map((res: VacancyType) => {
+                        return (
 
-    return (
-        <div className='container1'>
-            <div style={{ margin: '0' }} className="search__result col-lg-6">
-            <p className="resume__collection-title">Вакансии</p>
-                {companyState.vacancies.map((res: VacancyType) => {
-                    return (
-                        
-                        <div className="card__container">
-                            <div className="card__header">
-                                <p className='card__title'>{res.position}</p>
-                                <p style={{color: "#333"}} className='card__subtitle'>{res.salary} руб.</p>
+                            <div className="card__container">
+                                <div className="card__header">
+                                    <p className='card__title'>{res.position}</p>
+                                    <p style={{ color: "#333" }} className='card__subtitle'>{res.salary} руб.</p>
+                                </div>
+
+                                <div className="card_maininfo">
+                                    <p className='card__desc'>Требуемый уровень образования: {res.education_level} </p>
+                                    <p className='card__desc'>Требуемый опыт: {res.work_experience} </p>
+                                </div>
+                                <div className="card__footer">
+                                    <button className="light__button light__button-small" onClick={() => status ? setStatus(!status) : getResponses(res.vacancy_id)}>Показать отклики</button>
+                                    <p className='card__address'>{getDate(res.publication_date)}</p>
+                                </div>
                             </div>
+                        )
+                    })}
+                </div>
+                <div className="col-lg-6">
+                    {status ?
+                        <div style={{ margin: '0' }} className="search__result">
+                            <p className="resume__collection-title">Отклики на вакансию</p>
+                            {responses.map((res, id) => {
+                                return (
+                                    <div>
+                                        <div className="card__container">
 
-                            <div className="card_maininfo">
-                                <p className='card__desc'>Требуемый уровень образования: {res.education_level} </p>
-                                <p className='card__desc'>Требуемый опыт: {res.work_experience} </p>
-                            </div>
-                            <div className="card__footer">
-                                <button className="light__button light__button-small" onClick={() => status ? setStatus(!status) : getResponses(res.vacancy_id)}>Показать отклики</button>
-                                <p className='card__address'>{getDate(res.publication_date)}</p>
-                            </div>
-                        </div>
-                    )
-                })}
-            </div>
-            <div className="col-lg-6">
-                {status ?
-                    <div style={{ margin: '0' }} className="search__result">
-                        <p className="resume__collection-title">Отклики на вакансию</p>
-                        {responses.map((res, id) => {
-                            return (
-                                <div>
-                                    <div className="card__container">
+                                            <NavLink className="card__header" target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.resume.user_id} >
+                                                <p className='card__title'>{res.resume.desired_position}</p>
+                                                <p className='card__subtitle'>{res.resume.desired_salary} руб.</p>
+                                            </NavLink>
 
-                                        <NavLink className="card__header" target="_blank" rel="noopener noreferrer" tag={Link} to={"/resumecard/" + res.resume.user_id} >
-                                            <p className='card__title'>{res.resume.desired_position}</p>
-                                            <p className='card__subtitle'>{res.resume.desired_salary} руб.</p>
-                                        </NavLink>
-
-                                        <div className="card_maininfo">
-                                            <p className='card__desc'>Уровень образования: {res.resume.education_level}</p>
-                                            <p className='card__desc'>Стаж работы в сфере: {res.resume.work_experience}</p>
-                                        </div>
-
-                                        <div className="card__footer">
-                                            <div>
-                                                <button className="light__button light__button-small" onClick={() => openDialog('Принято', id, res.response)}>Принять</button>
-                                                <button className="light__button light__button-small" onClick={() => openDialog('Отказано', id, res.response)}>Отклонить</button>
+                                            <div className="card_maininfo">
+                                                <p className='card__desc'>Уровень образования: {res.resume.education_level}</p>
+                                                <p className='card__desc'>Стаж работы в сфере: {res.resume.work_experience}</p>
                                             </div>
-                                            <p className='card__address'>{getDate(res.response.publication_date)}</p>
+
+                                            <div className="card__footer">
+                                                <div>
+                                                    <button className="light__button light__button-small" onClick={() => openDialog('Принято', id, res.response)}>Принять</button>
+                                                    <button className="light__button light__button-small" onClick={() => openDialog('Отказано', id, res.response)}>Отклонить</button>
+                                                </div>
+                                                <p className='card__address'>{getDate(res.response.publication_date)}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                        }
+                                )
+                            })
+                            }
+                        </div>
+                        : null}
+                </div>
+                <dialog className="dialog">
+                    <div className="responseForm_header">
+                        <p className="response__title">Ответ на отклик</p>
+                        <button type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()} className='button closebutton'>
+                            X
+                        </button>
                     </div>
-                    : null}
-            </div>
-            <dialog className="dialog">
-                <div className="responseForm_header">
-                    <p className="response__title">Ответ на отклик</p>
-                    <button type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()} className='button closebutton'>
-                        X
+                    <div className="response_message">
+                        <p>Ваше сообщение:</p>
+                        <textarea className='message' value={response.message} onChange={(e) => setResponse({ ...response, message: e.target.value })} placeholder='Введите сообщение для соискателя' maxLength={50}></textarea>
+                    </div>
+                    <button style={{ marginBottom: "0" }} type="button" onClick={() => sentResponse()} className='button resumecard__btn'>
+                        Отправить
                     </button>
-                </div>
-                <div className="response_message">
-                    <p>Ваше сообщение:</p>
-                    <textarea className='message' value={response.message} onChange={(e) => setResponse({ ...response, message: e.target.value })} placeholder='Введите сообщение для соискателя' maxLength={50}></textarea>
-                </div>
-                <button style={{marginBottom: "0"}} type="button" onClick={() => sentResponse()} className='button resumecard__btn'>
-                    Отправить
-                </button>
-            </dialog>
-        </div >
+                </dialog>
+            </div >
+        )
+
+    }
+
+    return (
+        <div>
+            {a === 'all' || a === 'own' || a.includes('answ') ? createResult() : <div>Недостаточно прав</div>}
+        </div>
+
     );
 }

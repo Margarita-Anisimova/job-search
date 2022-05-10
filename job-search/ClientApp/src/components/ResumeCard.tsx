@@ -10,6 +10,7 @@ import { Redirect } from 'react-router';
 import img from './account/noavatar.svg'
 import { useSelector } from 'react-redux';
 import ResumeResponseDialog from './ResumeResponseDialog';
+import { getCookie } from './cookies';
 
 
 export default function ResumeCard() {
@@ -66,13 +67,18 @@ export default function ResumeCard() {
 
 
     function openDialog() {
+        let a = getCookie('role');
         if (companyState.vacancies.length == 0) {
             alert("Необходимо добавить вакансию")
-        } else
+        } else if (a === 'all' || a === 'own' || a.includes('resp')) {
             document.getElementsByClassName('dialog')[0].showModal();
+        } else {
+            alert('Не достаточно прав!!!')
+        }
     }
 
     function checkUser() {
+
         if (!companyState.companyInfo.fullname) {
             alert('Контакты доступны только работодателям, создавшим компанию!!!')
         } else {

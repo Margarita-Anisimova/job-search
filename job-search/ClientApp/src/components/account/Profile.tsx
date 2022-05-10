@@ -122,29 +122,17 @@ export default function Profile() {
                 //вынести в отдельный компанент ????
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
-<<<<<<< HEAD
-                        <div style={{width: "60%"}}>
+                        <div style={{ width: "60%" }}>
                             <p className="profile_sect-title">Мое резюме</p>
-                            {resumeState.resumeInfo.status === false ? <p>Заблокировано, необходимо внести изменения</p> : null}
+                            {resumeState.resumeInfo.status === "del" ? <p>Заблокировано, необходимо внести изменения</p> : null}
+                            {resumeState.resumeInfo.status === "dat" ? <p>Устарело, необходимо обновить данные</p> : null}
                             {resumeState.resumeInfo.desired_position ?
-                                <div className="card__container resumeCard">
+                                <div className="resumeCard">
                                     <div className="card_maininfo">
                                         <p className='card__title'>{resumeState.resumeInfo.desired_position}</p>
                                         <p className='card__subtitle'>{resumeState.resumeInfo.desired_salary} руб.</p>
                                         <p className='card__desc'>Уровень образования: {resumeState.resumeInfo.education_level}</p>
                                     </div>
-=======
-                        <p className="profile_sect-title">Мое резюме</p>
-                        {resumeState.resumeInfo.status === "del" ? <p>Заблокировано, необходимо внести изменения</p> : null}
-                        {resumeState.resumeInfo.status === "dat" ? <p>Устарело, необходимо обновить данные</p> : null}
-                        {resumeState.resumeInfo.desired_position ?
-                            <div className="resumeCard">
-                                <div className="card_maininfo">
-                                    <p className='card__title'>{resumeState.resumeInfo.desired_position}</p>
-                                    <p className='card__subtitle'>{resumeState.resumeInfo.desired_salary} руб.</p>
-                                    <p className='card__desc'>Уровень образования: {resumeState.resumeInfo.education_level}</p>
-                                </div>
->>>>>>> 9ec120e316e8c13f1ec954e16826e6fef1218769
 
                                     <div className="card_buttons">
                                         <button onClick={() => navigate('/resume')} className="resumeButton">Редактировать</button>
