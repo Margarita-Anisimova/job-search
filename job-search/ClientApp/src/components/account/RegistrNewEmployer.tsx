@@ -45,7 +45,10 @@ export default function RegistrNewEmployer() {
             : authoriz()
     }
 
+    const [role, setRole] = useState([]);
+
     async function authoriz() {
+        let roleq = role.length === 3 ? 'all' : role.join(',')
         let newUser = { ...formInfo, password: crypto(formInfo.password), user_type: 'employer' }
         const response = await fetch('user/newWorker', {
             method: 'POST',
@@ -53,7 +56,7 @@ export default function RegistrNewEmployer() {
             cache: 'no-cache',
             credentials: "same-origin",
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ user: newUser, company_id: companyState.companyInfo.company_id })
+            body: JSON.stringify({ user: newUser, company_id: companyState.companyInfo.company_id, role: roleq })
         }).then((response) => {
             if (response.status === 200) {
                 navigate('/account')
@@ -99,6 +102,32 @@ export default function RegistrNewEmployer() {
         return false;
     }
 
+    function addTolist(e: any) {
+        let a = role.slice()
+        if (e.target.id === '0') {
+            document.getElementsByName('role').forEach(e => e.id != '0' ? e.checked = false : e.checked = true);
+            setRole(['all'])
+            return
+        } else if (a.indexOf('all') !== -1) {
+            document.getElementById('0').checked = false;
+            a.splice(a.indexOf('all'), 1)
+        }
+
+        if (a.indexOf(e.target.value) !== 0) {
+            a.push(e.target.value)
+        } else {
+            a.splice(a.indexOf(e.target.value), 1)
+        }
+        setRole(a)
+    }
+
+    useEffect(() => {
+        if (role.length === 0 && document.getElementById('0').checked) {
+            document.getElementsByName('role').forEach(e => e.id != '0' ? e.checked = false : e.checked = true);
+            setRole(['all'])
+        }
+    })
+
     return (
         <div className='register_page'>
             <form className='register_container'>
@@ -114,6 +143,13 @@ export default function RegistrNewEmployer() {
                     <input id="password-input" value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}
+                <label>Права пользователя</label>
+                <div className='chart_block'>
+                    <label> <input onChange={(e) => addTolist(e)} value='all' defaultChecked name='role' id="0" type='checkbox'></input>Все права</label>
+                    <label> <input onChange={(e) => addTolist(e)} value='add' name='role' id="1" type='checkbox'></input>Добавление вакансий</label>
+                    <label> <input onChange={(e) => addTolist(e)} value='answ' name='role' id="2" type='checkbox'></input>Ответы на отклики</label>
+                    <label> <input onChange={(e) => addTolist(e)} value='resp' name='role' id="3" type='checkbox'></input>Отправка откликов</label>
+                </div>
                 <button onClick={(e) => checkForm(e)} type='button' className='submit_button'>Зарегистрировать сотрудника</button>
             </form>
         </div >

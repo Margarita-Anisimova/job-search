@@ -29,7 +29,7 @@ public class CompanyController : Controller
         this.Context.companies.Add(data);
         this.Context.SaveChanges();
         var d = this.Context.companies.OrderBy((e) => e.company_id).Last();
-        this.Context.user_company.Add(new User_company() { user_id = data.user_id, company_id = d.company_id, main = true });
+        this.Context.user_company.Add(new User_company() { user_id = data.user_id, company_id = d.company_id, role = "own" });
         this.Context.SaveChanges();
         return new ObjectResult(d.company_id);
 
@@ -59,10 +59,10 @@ public class CompanyController : Controller
     public IActionResult Get(int company_id, int user_id)
     {
         var arr = new List<Worker>();
-        var result = new WorkerResponce() { workers = arr, main = false };
-        if (this.Context.user_company.Find(user_id).main)
+        var role = this.Context.user_company.Find(user_id).role;
+        var result = new WorkerResponce() { workers = arr, role = role };
+        if (role == "own")
         {
-            result.main = true;
             var t = this.Context.user_company.Where((e) => e.company_id == company_id && e.user_id != user_id);
             foreach (var e in t)
             {
@@ -76,7 +76,7 @@ public class CompanyController : Controller
     public class WorkerResponce
     {
         public List<Worker> workers { get; set; }
-        public bool main { get; set; }
+        public string role { get; set; }
 
     }
     public class Worker
