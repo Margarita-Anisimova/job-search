@@ -41,20 +41,20 @@ namespace job_search
                 configuration.RootPath = "ClientApp/build";
             });
 
-            // services.AddSwaggerGen(options =>
-            //   {
-            //       options.SwaggerDoc("v1",
-            //           new Microsoft.OpenApi.Models.OpenApiInfo
-            //           {
-            //               Title = "Swagger Demo API",
-            //               Description = "Demo API for showing Swagger",
-            //               Version = "v1"
-            //           });
+            services.AddSwaggerGen(options =>
+              {
+                  options.SwaggerDoc("v1",
+                      new Microsoft.OpenApi.Models.OpenApiInfo
+                      {
+                          Title = "Swagger Demo API",
+                          Description = "Demo API for showing Swagger",
+                          Version = "v1"
+                      });
 
-            //       //   var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            //       //   var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
-            //       //   options.IncludeXmlComments(filePath);
-            //   });
+                  var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                  var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                  options.IncludeXmlComments(filePath);
+              });
 
         }
 
@@ -75,11 +75,11 @@ namespace job_search
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            // app.UseSwagger();
-            // app.UseSwaggerUI(options =>
-            //             {
-            //                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Demo API");
-            //             });
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+                        {
+                            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Demo API");
+                        });
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

@@ -11,6 +11,10 @@
     <nowarn>$(NoWarn);1591</nowarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\1392723\Documents\дипломная работа\job-search\job-search\job-search.xml</DocumentationFile>
+  </PropertyGroup>
+
   <!-- <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\1392723\Documents\дипломная работа\job-search\job-search\job-search.xml</DocumentationFile>
   </PropertyGroup> -->

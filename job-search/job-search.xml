@@ -5,12 +5,13 @@
     </assembly>
     <members>
         <member name="M:UserController.Get(System.String,System.String)">
-             <summary>
-             This is the API which will return a customer based on id
-             </summary>
-             <param name="email">Customer email</param>
-            <param name="password">Customer password</param>
-             <returns>A Customer</returns>
+            <summary>
+            Get Profile data by email and password
+            </summary>
+            <returns>Profile Data</returns>
+            <response code="200">User exists and entered the correct password</response>
+            <response code="404">User not found</response>
+            <response code="400">The password is incorrect</response>
         </member>
     </members>
 </doc>

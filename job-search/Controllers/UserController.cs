@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using job_search;
 using job_search.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("[controller]")]
@@ -96,9 +97,18 @@ public class UserController : Controller
         this.Context.users.Update(data);
         this.Context.SaveChanges();
     }
-
+    /// <summary>
+    /// Get Profile data by email and password
+    /// </summary>
+    /// <returns>Profile Data</returns>
+    /// <response code="200">User exists and entered the correct password</response>
+    /// <response code="404">User not found</response>
+    /// <response code="400">The password is incorrect</response>
     [Route("{email}/{password}")]
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Get(string email, string password)
     {
         var a = this.Context.users.Where((user) => user.email == email);
@@ -133,7 +143,7 @@ public class UserController : Controller
 
     }
 
-    public ResumeCard GetResume(User a)
+    protected ResumeCard GetResume(User a)
     {
         var result = new ResumeCard();
         result.user = a;
@@ -141,10 +151,11 @@ public class UserController : Controller
         var resumeFromBase = this.Context.resumes.Where(e => e.user_id == result.user.user_id).FirstOrDefault();
         if (resumeFromBase is not null)
         {
-            if ((DateTime.Today - result.resume.resumeInfo.publication_date).Days <= 14)
+            if ((DateTime.Today - resumeFromBase.publication_date).Days <= 14)
             {
-                result.resume.resumeInfo.status = "dat";
+                resumeFromBase.status = "dat";
             }
+            resumeFromBase.User = null;
             res.resumeInfo = resumeFromBase;
             var ed = this.Context.education.Where((education) => education.resume_id == res.resumeInfo.resume_id);
             var work = this.Context.work_experience.Where((work_experience) => work_experience.resume_id == res.resumeInfo.resume_id);
@@ -153,12 +164,13 @@ public class UserController : Controller
             res.education.ToList().ForEach((e) => e.Resume = null);
             res.workExperience.ToList().ForEach((e) => e.Resume = null);
             result.resume = res;
+            result.user.password = "";
         }
         return result;
     }
 
 
-    public CompanyResponce GetCompany(User a)
+    protected CompanyResponce GetCompany(User a)
     {
         var responce = new CompanyResponce();
         responce.user = a;
@@ -173,7 +185,7 @@ public class UserController : Controller
         }
         return responce;
     }
-    public bool CheckPassword(string password, string passwordFromBase)
+    protected bool CheckPassword(string password, string passwordFromBase)
     {
         var a = password.Split(' ');
         var b = passwordFromBase.Split(' ');

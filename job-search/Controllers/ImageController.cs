@@ -33,7 +33,7 @@ public class ImageController : Controller
         this.Context.SaveChanges();
     }
 
-    public byte[] ConverToByteArr(string u)
+    protected byte[] ConverToByteArr(string u)
     {
         string base64 = u;
         Byte[] bitmapData = new Byte[base64.Length];
@@ -42,7 +42,7 @@ public class ImageController : Controller
         return bitmapData;
     }
 
-    public static string FixBase64ForImage(string image)
+    protected static string FixBase64ForImage(string image)
     {
         StringBuilder sbText = new StringBuilder(image, image.Length);
         sbText.Replace("\r\n", String.Empty);
