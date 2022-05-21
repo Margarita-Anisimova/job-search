@@ -77,8 +77,6 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
                 <div className='reg_container'>
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
                     <NavLink className='navigate_item' onClick={out} to='/' tag={Link} >Выход</NavLink>
-
-
                 </div>)
         }
     }

@@ -59,6 +59,10 @@
     background-color: var(--accent-dark);
 }
 
+.search_options {
+    display: flex;
+    align-items: center;
+}
 .btn-filter {
     outline: none;
     background-color: #fff;
@@ -86,11 +90,11 @@
 
 .filters {
     margin-top: 2em;
-    margin-bottom: 2em;
-    font-size: 14px;
+    margin-bottom: 1em;
+    font-size: 16px;
     display: grid;
-    grid-template-columns: 0.5fr 0.8fr 0.5fr 0.8fr;
-    grid-template-rows: 1fr 5fr;
+    grid-template-columns: 0.5fr 1fr 0.4fr 1fr;
+    grid-template-rows: 1fr 4fr;
     gap: 1em 1.5em;
 }
 

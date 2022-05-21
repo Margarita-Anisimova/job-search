@@ -130,7 +130,9 @@ export default function RegistrNewEmployer() {
 
     return (
         <div className='register_page'>
-            <form className='register_container'>
+            <form className='register_container registerEmployer_container'>
+                <p className="registerForm_header">Зарегистрировать сотрудника</p>
+                <div className="">
                 <p style={{ color: 'red', display: 'none' }} className='confirmLabel usererrormessage'>Не верный email или пароль</p>
                 <p style={{ color: 'red', display: 'none' }} className='confirmLabel emailerrormessage'>Пользователь с таким email уже есть</p>
                 <label className='label_for_input'>
@@ -143,6 +145,8 @@ export default function RegistrNewEmployer() {
                     <input id="password-input" value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
                 </label>
                 {createRegistForm()}
+                </div>
+                <div className="user_rights">
                 <label>Права пользователя</label>
                 <div className='chart_block'>
                     <label> <input onChange={(e) => addTolist(e)} value='all' defaultChecked name='role' id="0" type='checkbox'></input>Все права</label>
@@ -150,7 +154,8 @@ export default function RegistrNewEmployer() {
                     <label> <input onChange={(e) => addTolist(e)} value='answ' name='role' id="2" type='checkbox'></input>Ответы на отклики</label>
                     <label> <input onChange={(e) => addTolist(e)} value='resp' name='role' id="3" type='checkbox'></input>Отправка откликов</label>
                 </div>
-                <button onClick={(e) => checkForm(e)} type='button' className='submit_button'>Зарегистрировать сотрудника</button>
+                <button style={{marginTop: '15px'}} onClick={(e) => checkForm(e)} type='button' className='submit_button'>Зарегистрировать сотрудника</button>
+                </div>
             </form>
         </div >
     );

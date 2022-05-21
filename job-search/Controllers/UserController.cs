@@ -141,9 +141,9 @@ public class UserController : Controller
         var resumeFromBase = this.Context.resumes.Where(e => e.user_id == result.user.user_id).FirstOrDefault();
         if (resumeFromBase is not null)
         {
-            if ((DateTime.Today - result.resume.resumeInfo.publication_date).Days <= 14)
+            if ((DateTime.Today - resumeFromBase.publication_date).Days <= 14)
             {
-                result.resume.resumeInfo.status = "dat";
+                resumeFromBase.status = "dat";
             }
             res.resumeInfo = resumeFromBase;
             var ed = this.Context.education.Where((education) => education.resume_id == res.resumeInfo.resume_id);

@@ -1,7 +1,7 @@
 .register_page {
     display: flex;
     justify-content: center;
-    margin-top: 10vh;
+    margin-top: 4vh;
 }
 
 .register_container {
@@ -14,6 +14,25 @@
     padding-top: 50px;
     /* background-color: rgb(255, 233, 193); */
     box-shadow: 0px 10px 60px #A6A6A6;
+}
+
+.registerEmployer_container {
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.registerForm_header {
+    position: absolute;
+    left: 136px;
+    top: 20px;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.user_rights {
+    margin-left: 40px;
+
 }
 
 .set_registr {
@@ -168,8 +187,8 @@
 
 .password-control {
     position: absolute;
-    right: 5px;
-    bottom: 12px;
+    right: 10px;
+    bottom: 20px;
     width: 20px;
     height: 20px;
     background-image: url(./view.svg);
