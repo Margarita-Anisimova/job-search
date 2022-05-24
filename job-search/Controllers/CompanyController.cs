@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using job_search;
 using job_search.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ValidationsCollection;
 
@@ -18,14 +19,23 @@ public class CompanyController : Controller
         this.Context = db;
     }
 
+    /// <summary>
+    /// Create new company
+    /// </summary>
+    /// <returns>company_id</returns>
+    /// <response code="200">New company has been created</response>
+    /// <response code="400">Incorrect TIN</response>
+
     [HttpPost]
     [Produces("application/json", "application/xml")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Post([FromBody] Company data)
     {
-        // if (!Validations.IsValidInn(data.tin))
-        // {
-        //     return new StatusCodeResult(400);
-        // }
+        if (!Validations.IsValidInn(data.tin))
+        {
+            return new StatusCodeResult(400);
+        }
         this.Context.companies.Add(data);
         this.Context.SaveChanges();
         var d = this.Context.companies.OrderBy((e) => e.company_id).Last();
@@ -35,14 +45,23 @@ public class CompanyController : Controller
 
     }
 
+    /// <summary>
+    /// Change company
+    /// </summary>
+    /// <returns>Status Code</returns>
+    /// <response code="200">Company info has been changed</response>
+    /// <response code="400">Incorrect TIN</response>
+
     [HttpPut]
     [Produces("application/json", "application/xml")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Put([FromBody] Company data)
     {
-        // if (!Validations.IsValidInn(data.tin))
-        // {
-        //     return new StatusCodeResult(400);
-        // }
+        if (!Validations.IsValidInn(data.tin))
+        {
+            return new StatusCodeResult(400);
+        }
         this.Context.companies.Update(data);
         this.Context.SaveChanges();
         return new OkResult();
@@ -54,8 +73,16 @@ public class CompanyController : Controller
         public User user { set; get; }
     }
 
+    /// <summary>
+    /// Get company
+    /// </summary>
+    /// <returns>Company Data</returns>
+    /// <response code="200">Request is correct</response>
+    /// <response code="404">Company not found</response>
     [Route("{company_id}/{user_id}")]
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Get(int company_id, int user_id)
     {
         var arr = new List<Worker>();
@@ -111,6 +138,11 @@ public class CompanyController : Controller
     //     responce.user = this.Context.users.Where((user) => user.user_id == a.First().user_id).First();
     //     return new ObjectResult(responce);
     // }
+
+    /// <summary>
+    /// Delete worker
+    /// </summary>
+
     [Route("deleteWorker")]
     [HttpDelete]
 
@@ -122,8 +154,11 @@ public class CompanyController : Controller
 
     }
 
-    [HttpDelete]
 
+    /// <summary>
+    /// Delete company
+    /// </summary>
+    [HttpDelete]
     public void Delete([FromBody] int company_id)
     {
         var ed = this.Context.companies.Find(company_id);

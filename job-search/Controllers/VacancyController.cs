@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using job_search;
 using job_search.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,12 @@ public class VacancyController : Controller
         this.Context = db;
     }
 
+
+    /// <summary>
+    /// Create new vacancy
+    /// </summary>
+    /// <returns>vacancy_id</returns>
+    /// <response code="200">New vacancy has been created</response>
     [HttpPost]
     [Produces("application/json", "application/xml")]
     public IActionResult Post([FromBody] Vacancy data)
@@ -30,6 +37,9 @@ public class VacancyController : Controller
 
     }
 
+    /// <summary>
+    /// Change vacancy
+    /// </summary>
     [HttpPut]
     [Produces("application/json", "application/xml")]
     public void Put([FromBody] Vacancy data)
@@ -39,6 +49,13 @@ public class VacancyController : Controller
         this.Context.SaveChanges();
     }
 
+
+
+    /// <summary>
+    /// Get a list of vacancies
+    /// </summary>
+    /// <returns>list of vacancies</returns>
+    /// <response code="200">Request is correct</response>
     [HttpGet]
     public List<Vacancy> GetVacancyList()
     {
@@ -101,8 +118,17 @@ public class VacancyController : Controller
         public Company company { get; set; }
     }
 
+
+    /// <summary>
+    /// Get vacancy by id
+    /// </summary>
+    /// <returns>vacancy data</returns>
+    /// <response code="200">Request is correct</response>
+    /// <response code="404">vacancy not found</response>
     [Route("{vacancy_id}")]
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Get(int vacancy_id)
     {
 
@@ -114,6 +140,9 @@ public class VacancyController : Controller
         return new ObjectResult(result);
     }
 
+    /// <summary>
+    /// Delete vacancy 
+    /// </summary>
     [HttpDelete]
 
     public void Delete([FromBody] int vacancy_id)

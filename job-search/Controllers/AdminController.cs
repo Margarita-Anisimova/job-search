@@ -19,6 +19,12 @@ public class AdminController : Controller
         this.Context = db;
     }
 
+    /// <summary>
+    /// Сhange the vacancy status
+    /// </summary>
+    /// <returns>Status Code</returns>
+    /// <response code="200">Status successfully changed</response>
+
     [Route("vacancies")]
     [HttpPut]
     [Produces("application/json", "application/xml")]
@@ -29,6 +35,12 @@ public class AdminController : Controller
         this.Context.SaveChanges();
         return new OkResult();
     }
+
+    /// <summary>
+    /// Сhange the resume status
+    /// </summary>
+    /// <returns>Status Code</returns>
+    /// <response code="200">Status successfully changed</response>
 
     [Route("resumes")]
     [HttpPut]

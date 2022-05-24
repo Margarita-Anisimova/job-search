@@ -73,7 +73,10 @@ namespace job_search
             }
 
             app.UseHttpsRedirection();
+
+            app.UseDefaultFiles();
             app.UseStaticFiles();
+
             app.UseSpaStaticFiles();
             app.UseSwagger();
             app.UseSwaggerUI(options =>

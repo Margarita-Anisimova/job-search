@@ -54,6 +54,13 @@ public class UserController : Controller
         public Work_Experience[] workExperience { set; get; }
     }
 
+
+    /// <summary>
+    /// Create new user
+    /// </summary>
+    /// <returns>User_id</returns>
+    /// <response code="200">New user has been created</response>
+
     [HttpPost]
     [Produces("application/json", "application/xml")]
     public IActionResult Post([FromBody] User data)
@@ -70,10 +77,18 @@ public class UserController : Controller
         public int company_id { get; set; }
         public string role { get; set; }
     }
+    /// <summary>
+    /// Create new worker
+    /// </summary>
+    /// <returns>Profile Data</returns>
+    /// <response code="200">New employee has been created</response>
+    /// <response code="400">User with email is already exists</response>
 
     [Route("newWorker")]
     [HttpPost]
     [Produces("application/json", "application/xml")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult PostNewWorker([FromBody] Worker data)
     {
         this.Context.users.Add(data.user);

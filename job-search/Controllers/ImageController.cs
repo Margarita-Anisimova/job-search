@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using job_search;
 using job_search.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static ResponseToResumeController;
 
@@ -53,8 +54,17 @@ public class ImageController : Controller
         return sbText.ToString();
     }
 
+    /// <summary>
+    /// Get avatar
+    /// </summary>
+    /// <returns>User Image</returns>
+    /// <response code="200">request is correct</response>
+    /// <response code="404">User not found</response>
+
     [Route("{user_id}")]
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public UserImage Get(int user_id)
     {
 
@@ -71,6 +81,9 @@ public class ImageController : Controller
 
     }
 
+    /// <summary>
+    /// Delete avatar
+    /// </summary>
     [HttpDelete]
     public void Delete([FromBody] int user_id)
     {

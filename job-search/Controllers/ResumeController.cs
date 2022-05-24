@@ -6,6 +6,7 @@ using System.Net.Mail;
 using Fissoft.EntityFramework.Fts;
 using job_search;
 using job_search.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +37,9 @@ public class ResumeController : Controller
     }
 
 
+    /// <summary>
+    /// Create new resume
+    /// </summary>
 
     [HttpPost]
     [Produces("application/json", "application/xml")]
@@ -66,6 +70,9 @@ public class ResumeController : Controller
         }
     }
 
+    /// <summary>
+    /// Change resume
+    /// </summary>
     [HttpPut]
     [Produces("application/json", "application/xml")]
     public void Put([FromBody] FullResume resume)
@@ -123,8 +130,16 @@ public class ResumeController : Controller
     }
 
 
+    /// <summary>
+    /// Get resume
+    /// </summary>
+    /// <returns>Resume Data</returns>
+    /// <response code="200">Request is correct</response>
+    /// <response code="404">User not found</response>
     [Route("{user_id}")]
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
 
     public IActionResult Get(int user_id)
     {
@@ -160,6 +175,12 @@ public class ResumeController : Controller
         {"Среднее профессиональное", 5}
     };
 
+
+    /// <summary>
+    /// Get resume list
+    /// </summary>
+    /// <returns>Resumes Data</returns>
+    /// <response code="200">Request is correct</response>
     [HttpGet]
     public List<Resume> Get()
     {
@@ -219,6 +240,9 @@ public class ResumeController : Controller
         return result;
     }
 
+    /// <summary>
+    /// Delete resume 
+    /// </summary>
     [HttpDelete]
 
     public void Delete([FromBody] int resume_id)

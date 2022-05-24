@@ -4,6 +4,119 @@
         <name>job-search</name>
     </assembly>
     <members>
+        <member name="M:AdminController.PutVacancies(AdminController.Note)">
+            <summary>
+            Сhange the vacancy status
+            </summary>
+            <returns>Status Code</returns>
+            <response code="200">Status successfully changed</response>
+        </member>
+        <member name="M:AdminController.PutResumes(AdminController.Note)">
+            <summary>
+            Сhange the resume status
+            </summary>
+            <returns>Status Code</returns>
+            <response code="200">Status successfully changed</response>
+        </member>
+        <member name="M:CodeController.GetCode(System.String)">
+            <summary>
+            Get a confirmation code
+            </summary>
+            <returns>Confirmation code</returns>
+            <response code="200">The confirmation code has been sent to the mail</response>
+        </member>
+        <member name="M:CompanyController.Post(job_search.Models.Company)">
+            <summary>
+            Create new company
+            </summary>
+            <returns>company_id</returns>
+            <response code="200">New company has been created</response>
+            <response code="400">Incorrect TIN</response>
+        </member>
+        <member name="M:CompanyController.Put(job_search.Models.Company)">
+            <summary>
+            Change company
+            </summary>
+            <returns>Status Code</returns>
+            <response code="200">Company info has been changed</response>
+            <response code="400">Incorrect TIN</response>
+        </member>
+        <member name="M:CompanyController.Get(System.Int32,System.Int32)">
+            <summary>
+            Get company
+            </summary>
+            <returns>Company Data</returns>
+            <response code="200">Request is correct</response>
+            <response code="404">Company not found</response>
+        </member>
+        <member name="M:CompanyController.DeleteWorker(System.Int32)">
+            <summary>
+            Delete worker
+            </summary>
+        </member>
+        <member name="M:CompanyController.Delete(System.Int32)">
+            <summary>
+            Delete company
+            </summary>
+        </member>
+        <member name="M:ImageController.Get(System.Int32)">
+            <summary>
+            Get avatar
+            </summary>
+            <returns>User Image</returns>
+            <response code="200">request is correct</response>
+            <response code="404">User not found</response>
+        </member>
+        <member name="M:ImageController.Delete(System.Int32)">
+            <summary>
+            Delete avatar
+            </summary>
+        </member>
+        <member name="M:ResumeController.Post(ResumeController.FullResume)">
+            <summary>
+            Create new resume
+            </summary>
+        </member>
+        <member name="M:ResumeController.Put(ResumeController.FullResume)">
+            <summary>
+            Change resume
+            </summary>
+        </member>
+        <member name="M:ResumeController.Get(System.Int32)">
+            <summary>
+            Get resume
+            </summary>
+            <returns>Resume Data</returns>
+            <response code="200">Request is correct</response>
+            <response code="404">User not found</response>
+        </member>
+        <member name="M:ResumeController.Get">
+            <summary>
+            Get resume list
+            </summary>
+            <returns>Resumes Data</returns>
+            <response code="200">Request is correct</response>
+        </member>
+        <member name="M:ResumeController.Delete(System.Int32)">
+            <summary>
+            Delete resume 
+            </summary>
+        </member>
+        <member name="M:UserController.Post(job_search.Models.User)">
+            <summary>
+            Create new user
+            </summary>
+            <returns>User_id</returns>
+            <response code="200">New user has been created</response>
+        </member>
+        <member name="M:UserController.PostNewWorker(UserController.Worker)">
+            <summary>
+            Create new worker
+            </summary>
+            <returns>Profile Data</returns>
+            <response code="200">New employee has been created</response>
+            <response code="400">User with email is already exists</response>
+        </member>
         <member name="M:UserController.Get(System.String,System.String)">
             <summary>
             Get Profile data by email and password
@@ -12,6 +125,38 @@
             <response code="200">User exists and entered the correct password</response>
             <response code="404">User not found</response>
             <response code="400">The password is incorrect</response>
+        </member>
+        <member name="M:VacancyController.Post(job_search.Models.Vacancy)">
+            <summary>
+            Create new vacancy
+            </summary>
+            <returns>vacancy_id</returns>
+            <response code="200">New vacancy has been created</response>
+        </member>
+        <member name="M:VacancyController.Put(job_search.Models.Vacancy)">
+            <summary>
+            Change vacancy
+            </summary>
+        </member>
+        <member name="M:VacancyController.GetVacancyList">
+            <summary>
+            Get a list of vacancies
+            </summary>
+            <returns>list of vacancies</returns>
+            <response code="200">Request is correct</response>
+        </member>
+        <member name="M:VacancyController.Get(System.Int32)">
+            <summary>
+            Get vacancy by id
+            </summary>
+            <returns>vacancy data</returns>
+            <response code="200">Request is correct</response>
+            <response code="404">vacancy not found</response>
+        </member>
+        <member name="M:VacancyController.Delete(System.Int32)">
+            <summary>
+            Delete vacancy 
+            </summary>
         </member>
     </members>
 </doc>

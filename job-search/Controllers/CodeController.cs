@@ -23,6 +23,11 @@ public class CodeController : Controller
         public bool Error { get; set; }
     }
 
+    /// <summary>
+    /// Get a confirmation code
+    /// </summary>
+    /// <returns>Confirmation code</returns>
+    /// <response code="200">The confirmation code has been sent to the mail</response>
     [HttpGet]
     [Route("{email}")]
     public CodeResponse GetCode(string email)
@@ -42,7 +47,7 @@ public class CodeController : Controller
             code += rng.Next(1, 10);
         }
         response.Code = code;
-        // SendEmailAsync(email, code);
+        SendEmailAsync(email, code);
         return response;
     }
 
