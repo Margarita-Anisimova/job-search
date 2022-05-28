@@ -2,6 +2,9 @@
 
 /* xl <= Extra extra large (xxl) */
 @media (max-width : 1400px) {
+    .menu_toggle_active  {
+        /* display: none; */
+    }
     .user_name {
         font-size: 24px;
         font-weight: 600;
@@ -33,6 +36,15 @@
     /* resume responses */
     .responseToResume_container {
         width: 70%;
+    }
+
+    /* Emp profile */
+    .user_resume {
+        width: 75%;
+    }
+
+    .vacancy_collection {
+        width: 75%;
     }
 
 	
@@ -82,6 +94,14 @@
         width: 80%;
     }
 
+     /* Emp profile */
+     .user_resume {
+        width: 100%;
+    }
+
+    .vacancy_collection {
+        width: 90%;
+    }
 }
 
 /* sm <= Medium (md) */
@@ -114,8 +134,7 @@
     }
 
     .sections_container {
-        flex-direction: column;
-
+        top: 12px !important;
     }
 
     .search_type {
@@ -132,7 +151,7 @@
 
     /* Home */
     .home_container {
-        /* top: 10vh; */
+        margin-top: 100px;
     }
 
     .search_inputs {
@@ -182,7 +201,7 @@
 
     /* Account */
     .resumeCard {
-        width: 80%;
+        width: 100%;
     }
 
     .avatar {
@@ -197,6 +216,10 @@
         flex-direction: column;
     }
 
+    .myResponse_vacancy .nav-link .card__address {
+        display: none;
+    }
+
     .myResponse_vacancy .nav-link {
         display: flex;
         justify-content: space-between;
@@ -209,8 +232,10 @@
         border-top: 1px solid #eee;
         border-bottom: 1px solid #eee;
 
-        padding: 5px 0;
-        margin: 5px 0;
+        padding: 10px 0;
+        margin-bottom: 16px;
+        margin-top: 6px;
+        /* margin: 5px 0; */
         max-width: 100%;
         min-width: 35%;
     }
@@ -226,6 +251,11 @@
     }
     .myResponses_status {
         flex-direction: row;
+    }
+
+
+    .vacancy_collection {
+        width: 100%;
     }
 
 	
@@ -258,6 +288,11 @@
 
 /* xs <= Small (sm) */
 @media (max-width : 515px) {
+
+    .home-title {
+        margin-bottom: 20px;
+        font-size: 26px;
+    }
 
     .search {
         display: flex;
@@ -318,6 +353,7 @@
     .mainInfo {
         flex-direction: column;
         align-items: center;
+        margin-bottom: 20px;
     }
 
     .avatar {
@@ -335,6 +371,10 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
         grid-gap: 1em;
+    }
+
+    .search__result {
+        margin-top: 30px;
     }
 
     /* Resume full information */
@@ -373,6 +413,15 @@
 }
 
 @media (max-width : 380px) {
+
+    .home_container {
+        margin-top: 80px;
+    }
+
+    .home-title {
+        margin-bottom: 15px;
+        font-size: 24px;
+    }
     /* .filters {
         grid-template-columns: 1fr 0.3fr;
     } */

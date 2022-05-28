@@ -6,6 +6,7 @@
     position: absolute;
     background-color: rgb(255, 233, 200);
     width: 100%;
+    z-index: 100;
 }
 
 .search_container {
@@ -13,8 +14,9 @@
     display: inline-block;
 }
 
-.city_input {
+.city_input, .profession_input {
     width: 100%;
+    height: 100%;
 }
 
 

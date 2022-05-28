@@ -20,8 +20,8 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
     let a = useSelector((state: any) => state)
     const dispatch = useDispatch();
 
-    const [isActive, setActive] = useState(false);
-
+    const [isToggleActive, setToggleActive] = useState(false);
+    
     function nuvButton() {
 
         return (
@@ -34,7 +34,7 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
     }
     function createNavigateItems1() {
         if (userState.user_type === 'admin') {
-            return (<div className={isActive ? 'row nav_menu_active nav_menu' : 'row nav_menu'}>
+            return (<div className= 'row nav_menu'>
                 <div className="search_type">
                     <NavLink className='navigate_item' tag={Link} to="/adminVacancies"> Вакансии</NavLink>
                     <NavLink className='navigate_item' tag={Link} to="/adminResumes"> Резюме</NavLink>
@@ -45,19 +45,19 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
             </div>)
         } else
             return (
-                <div className={isActive ? 'row nav_menu_active nav_menu' : 'row nav_menu'}>
+                <div>
                     <div className='sections_container'>
-
                         <NavLink className='navigate_item navigate_home' tag={Link} to="/">
                             <img src={logo} alt="" />
                         </NavLink>
-                        <div className="search_type">
-                            <NavLink className='navigate_item' onClick={() => props.setPageType('resumes')} tag={Link} to="/"> Работодателям</NavLink>
-                            <NavLink className='navigate_item' onClick={() => props.setPageType('vacancies')} tag={Link} to="/"> Соискателям</NavLink>
-                        </div>
                     </div>
-                    {createNavigateItems()}
-
+                    <div className='row nav_menu'>
+                        <div className="search_type">
+                            <NavLink className='navigate_item' onClick={() => {props.setPageType('resumes'); }} tag={Link} to="/"> Работодателям</NavLink>
+                            <NavLink className='navigate_item' onClick={() => {props.setPageType('vacancies'); }} tag={Link} to="/"> Соискателям</NavLink>
+                        </div>
+                        {createNavigateItems()}
+                    </div>
                 </div>
             )
     }
@@ -68,8 +68,8 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
             return (
                 <div className='reg_container'>
 
-                    <NavLink className='navigate_item' onClick={() => props.setregitrType('authoriz')} tag={Link} to="/registration">Вход</NavLink>
-                    <NavLink className='navigate_item' onClick={() => props.setregitrType('registr')} tag={Link} to="/registration">Регистрация</NavLink>
+                    <NavLink className='navigate_item' onClick={() => {props.setregitrType('authoriz');  }} tag={Link} to="/registration">Вход</NavLink>
+                    <NavLink className='navigate_item' onClick={() => {props.setregitrType('registr'); }} tag={Link} to="/registration">Регистрация</NavLink>
                 </div>
             )
         } else {
@@ -77,8 +77,6 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
                 <div className='reg_container'>
                     <NavLink className='navigate_item' tag={Link} to="/account">Личный кабинет</NavLink>
                     <NavLink className='navigate_item' onClick={out} to='/' tag={Link} >Выход</NavLink>
-
-
                 </div>)
         }
     }
@@ -93,7 +91,7 @@ export default function NavMenu(props: { setregitrType: any, setPageType: any; }
 
     return (
         <div className="menu">
-            <button onClick={() => setActive(!isActive)} className={isActive ? 'menu_toggle_active' : 'menu_toggle'}></button>
+            <button onClick={() => setToggleActive(!isToggleActive)} className={isToggleActive ? 'menu_toggle_active' : 'menu_toggle'}></button>
             {nuvButton()}
         </div>
 

@@ -53,21 +53,21 @@ function AccountInfo() {
     }
 
     return (
-        <div className='resume_container'>
-            <form className='resume_form'>
+        <div className='accountInfo_container container'>
+            <form className='userInfo_form'>
 
                 <section >
-                    <h5>Основная информация</h5>
+                    <h5 style={{marginBottom: '20px'}}>Основная информация</h5>
 
                     <div className='partition-mainInfo'>
                         {createTextInputs(commonInfoInputs, handler)}
                     </div>
-                    <h5>Контактная информация</h5>
+                    <h5 style={{marginBottom: '20px', marginTop: '30px'}}>Контактная информация</h5>
                     <div className='partition-mainInfo'>
                         {createTextInputs(contacts, handler)}
                     </div>
                 </section>
-                <div className="button-form">
+                <div style={{marginTop: '25px', maxWidth: '100%'}} className="button-form">
                     <NavLink onClick={putChange} tag={Link} to="/account">Сохранить</NavLink>
                 </div>
             </form>

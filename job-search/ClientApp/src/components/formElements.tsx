@@ -46,11 +46,11 @@ function addTolist(e: any, obj) {
 export function getWorkType(obj) {
     return (
         <div className='chart_block'>
-            <label> <input onChange={(e) => addTolist(e, obj)} name='work_type' id="0" type='checkbox'></input>Полный рабочий день</label>
-            <label> <input onChange={(e) => addTolist(e, obj)} name='work_type' id="1" type='checkbox'></input>Гибкий</label>
-            <label> <input onChange={(e) => addTolist(e, obj)} name='work_type' id="2" type='checkbox'></input>Удаленная работа</label>
-            <label> <input onChange={(e) => addTolist(e, obj)} name='work_type' id="3" type='checkbox'></input>Сменный</label>
-            <label> <input onChange={(e) => addTolist(e, obj)} name='work_type' id="4" type='checkbox'></input>Вахтовая</label>
+            <input onChange={(e) => addTolist(e, obj)} name='work_type' id="0" type='checkbox'></input><label htmlFor="0">Полный рабочий день</label>
+            <input onChange={(e) => addTolist(e, obj)} name='work_type' id="1" type='checkbox'></input><label htmlFor="1">Гибкий</label>
+            <input onChange={(e) => addTolist(e, obj)} name='work_type' id="2" type='checkbox'></input><label htmlFor="2">Удаленная работа</label>
+            <input onChange={(e) => addTolist(e, obj)} name='work_type' id="3" type='checkbox'></input><label htmlFor="3">Сменный</label>
+            <input onChange={(e) => addTolist(e, obj)} name='work_type' id="4" type='checkbox'></input><label htmlFor="4">Вахтовая</label>
         </div>
     )
 }

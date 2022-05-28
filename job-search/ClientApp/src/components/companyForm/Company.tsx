@@ -100,7 +100,7 @@ function Company() {
                 <form className="company_form">
                     <section>
                         <p style={{ color: 'red', display: 'none' }} className='errormessage'>ИНН не вылидный, проверьте введенные данные</p>
-                        <div className="part">
+                        <div className="partCompany">
                             {createTextInputs(commonInfoInputs, handler)}
                             <label><div>Город<span className="red">*</span></div></label>
                             <SearchInput value={city} setValue={setcity} searchChanged={searchChanged} text="Введите город" className='city_input' items={cityState} name='city' handler={cityChanged}></SearchInput>

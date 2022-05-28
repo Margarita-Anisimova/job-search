@@ -122,7 +122,7 @@ export default function Profile() {
                 //вынести в отдельный компанент ????
                 userState.user_type != 'employer' ?
                     <div className="user_resumes_container">
-                        <div style={{ width: "60%" }}>
+                        <div className="user_resume">
                             <p className="profile_sect-title">Мое резюме</p>
                             {resumeState.resumeInfo.status === "del" ? <p>Заблокировано, необходимо внести изменения</p> : null}
                             {resumeState.resumeInfo.status === "dat" ? <p>Устарело, необходимо обновить данные</p> : null}

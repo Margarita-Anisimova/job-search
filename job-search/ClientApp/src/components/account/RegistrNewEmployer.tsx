@@ -130,27 +130,32 @@ export default function RegistrNewEmployer() {
 
     return (
         <div className='register_page'>
-            <form className='register_container'>
-                <p style={{ color: 'red', display: 'none' }} className='confirmLabel usererrormessage'>Не верный email или пароль</p>
-                <p style={{ color: 'red', display: 'none' }} className='confirmLabel emailerrormessage'>Пользователь с таким email уже есть</p>
-                <label className='label_for_input'>
-                    <div>Email <span className="red">*</span></div>
-                    <input value={formInfo.email} onChange={(e) => handler(e)} name='email' required type="email"></input>
-                </label>
-                <label className='label_for_input'>
-                    <div>Пароль <span className="red">*</span></div>
-                    <button type='button' className="password-control" onClick={(e) => show_hide_password(e, 'password-input')}></button>
-                    <input id="password-input" value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
-                </label>
-                {createRegistForm()}
-                <label>Права пользователя</label>
-                <div className='chart_block'>
-                    <label> <input onChange={(e) => addTolist(e)} value='all' defaultChecked name='role' id="0" type='checkbox'></input>Все права</label>
-                    <label> <input onChange={(e) => addTolist(e)} value='add' name='role' id="1" type='checkbox'></input>Добавление вакансий</label>
-                    <label> <input onChange={(e) => addTolist(e)} value='answ' name='role' id="2" type='checkbox'></input>Ответы на отклики</label>
-                    <label> <input onChange={(e) => addTolist(e)} value='resp' name='role' id="3" type='checkbox'></input>Отправка откликов</label>
+            <form className='register_container registerEmployer_container'>
+                <p className="registerForm_header">Зарегистрировать сотрудника</p>
+                <div>
+                    <p style={{ color: 'red', display: 'none' }} className='confirmLabel usererrormessage'>Не верный email или пароль</p>
+                    <p style={{ color: 'red', display: 'none' }} className='confirmLabel emailerrormessage'>Пользователь с таким email уже есть</p>
+                    <label className='label_for_input'>
+                        <div>Email <span className="red">*</span></div>
+                        <input value={formInfo.email} onChange={(e) => handler(e)} name='email' required type="email"></input>
+                    </label>
+                    <label className='label_for_input'>
+                        <div>Пароль <span className="red">*</span></div>
+                        <button type='button' className="password-control" onClick={(e) => show_hide_password(e, 'password-input')}></button>
+                        <input id="password-input" value={formInfo.password} name='password' onChange={(e) => handler(e)} required type="password"></input>
+                    </label>
+                    {createRegistForm()}
                 </div>
-                <button onClick={(e) => checkForm(e)} type='button' className='submit_button'>Зарегистрировать сотрудника</button>
+                <div className="user_rights">
+                    <label>Права пользователя</label>
+                    <div className='chart_block'>
+                        <input onChange={(e) => addTolist(e)} value='all' defaultChecked name='role' id="0" type='checkbox'></input><label htmlFor="0">Все права</label>
+                        <input onChange={(e) => addTolist(e)} value='add' name='role' id="1" type='checkbox'></input><label htmlFor="1">Добавление вакансий</label> 
+                        <input onChange={(e) => addTolist(e)} value='answ' name='role' id="2" type='checkbox'></input><label htmlFor="2">Ответы на отклики</label> 
+                        <input onChange={(e) => addTolist(e)} value='resp' name='role' id="3" type='checkbox'></input><label htmlFor="3">Отправка откликов</label> 
+                    </div>
+                    <button style={{marginTop: '15px'}} onClick={(e) => checkForm(e)} type='button' className='submit_button'>Зарегистрировать сотрудника</button>
+                </div>
             </form>
         </div >
     );

@@ -14,14 +14,19 @@
     flex-direction: row;
     /* align-items: flex-start; */
     justify-content: center;
-    margin-bottom: 60px;
+    margin-bottom: 45px;
 }
 
 .account_link {
-    color: #F88500;
+    color: #333;
+    text-decoration: underline 1px #333;
     font-size: 18px;
 }
 
+.account_link:hover {
+    color: #F88500;
+    font-size: 18px;
+}
 .username {
     font-size: 1.75rem;
 }
@@ -66,7 +71,7 @@ p {
     height: 160px;
     object-fit: cover;
     border-radius: 100px;
-    margin-right: 50px;
+    margin-right: 35px;
 }
 
 .imageContainer {
@@ -77,6 +82,10 @@ p {
     margin-bottom: 30px;
     display: flex;
     justify-content: center;
+}
+
+.user_resume {
+    width: 60%;
 }
 
 .resumeButtons {
@@ -163,15 +172,12 @@ p {
     min-width: 35%;
 }
 
-.myResponses_status p {
-    font-weight: 600;
-}
 
 .myResponses_status {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .result {
@@ -254,7 +260,7 @@ p {
     position: absolute;
     right: 0;
     top: 0;
-    margin-right: 50px;
+    /* margin-right: 50px; */
 }
 
 .response__title {
@@ -311,4 +317,11 @@ p {
     display: inline;
     padding: 4px 10px;
     border-radius: 15px;
+}
+
+/* AccountInfo */
+.accountInfo_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
 }

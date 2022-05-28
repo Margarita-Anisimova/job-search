@@ -30,9 +30,9 @@ textarea:focus {
     grid-template-rows: repeat(2, 1fr) 2fr;
 }
 
-/* .partition-2 {
-    grid-template-rows: repeat(3, 1fr) 2fr 4fr;
-} */
+.partition-2 {
+    grid-template-rows: repeat(3, 1fr) 1.5fr 4fr;
+}
 
 .partition-3 {
     margin-top: 15px;
@@ -121,9 +121,14 @@ textarea {
 }
 
 .deleteItemButton {
+    display: none;
     position: absolute;
     right: 0;
     top: 0;
+    color: #333;
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
 }
 
 /* Опыт работы */
@@ -168,13 +173,85 @@ textarea {
     border: 6px solid #F88500;
 }
 
+/* CHECKBOX */
+input[type="checkbox"]:checked, 
+input[type="checkbox"]:not(:checked) 
+{
+    position: absolute;
+    left: -9999px;
+}
+
+input[type="checkbox"]:checked + label, 
+input[type="checkbox"]:not(:checked) + label {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    position: relative;
+    padding-left: 28px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:before, 
+input[type="checkbox"]:not(:checked) + label:before{
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #999;
+    background-color: #ffffff;
+    border-radius: 2px;
+}
+
+
+input[type="checkbox"]:checked + label:after{
+    content: "";
+    position: absolute;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:checked + label:after {
+    left: 3px;
+    top: 5px;
+    width: 13px;
+    height: 6px;
+    border-radius: 1px;
+    border-left: 4px solid #F88500;
+    border-bottom: 4px solid #F88500;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+input[type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+}
+
+input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
 .data_container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .data_input {
-    width: 100%;
+    /* width: 100%; */
+    max-width: 30%;
+    margin-right: 10px;
 }
 
 .professions {

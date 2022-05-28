@@ -169,6 +169,11 @@ a {
     padding: 0;
 }
 
+.sorting {
+    margin-bottom: 10px;
+}
+
 .sorting::before {
-    content: 'Сортировать по:'
+    content: 'Сортировать по:';
+    margin-right: 10px;
 }

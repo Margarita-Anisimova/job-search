@@ -3,9 +3,10 @@
     text-align: center;
 }
 
-.part {
+.partCompany {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    grid-template-rows: repeat(6, 1fr) 4fr;
     gap: 20px;
 }
 

@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
 	align-items: center;
+	margin-left: 120px;
 }
 
 .nav_menu_active {
@@ -26,7 +27,7 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	cursor: pointer;
-	top: 3px;
+	top: 5px;
 	right: 30px;
     background-color: transparent;
     border: none;
@@ -54,13 +55,20 @@
     color: var(--text);
 }
 
+.active {
+	color: aqua;
+}
+
+.underline {
+	text-decoration: underline;
+}
 .navigate_item:hover {
     color: var(--accent);
 }
 
-.sections_container {
-    display: flex;
-	align-items: center;
+.sections_container a{
+	padding: 0;
+
 }
 
 
@@ -71,5 +79,10 @@
 
 .accountMenu {
     position: relative;
+}
+
+.sections_container {
+	position: absolute;
+	top: 24px;
 }
 

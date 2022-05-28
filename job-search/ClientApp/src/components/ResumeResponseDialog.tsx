@@ -63,7 +63,7 @@ export default function ResumeResponseDialog(props: { resume: ResumeType, setBut
         <dialog className="dialog">
             <form className='responseForm'>
                 <div className="responseForm_header">
-                    <p>Отклик на резюме</p>
+                    <p style={{fontSize: '22px', fontWeight: '500'}}>Отклик на резюме</p>
                     <button className='button closebutton' type="button" onClick={() => document.getElementsByClassName('dialog')[0].close()}>
                     X
                     </button>
