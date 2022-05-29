@@ -155,16 +155,17 @@ export default function Home(props: { pageType: string }) {
         </button>
 
       </section>
-      <div className='sorting'>
-        <select className='btn-filter' id='sorted' onChange={(e) => sorting(e)}>
-          <option value='publication_date'>дате</option>
-          <option value='des salary'>убыванию зарплаты</option>
-          <option value='asc salary'>возрастанию зарплаты</option>
-        </select>
+      <div className="search_options">
+        <button onClick={openFilters} className='btn-filter'>Фильтры</button>
+        <div className='sorting'>
+          <select style={{marginLeft: '10px'}} className='btn-filter' id='sorted' onChange={(e) => sorting(e)}>
+            <option value='publication_date'>дате</option>
+            <option value='des salary'>убыванию зарплаты</option>
+            <option value='asc salary'>возрастанию зарплаты</option>
+          </select>
+        </div>
       </div>
-      <button onClick={openFilters} className='btn-filter'>
-        Фильтры
-      </button>
+      
 
 
       {isFilters ? getFilters() : null}

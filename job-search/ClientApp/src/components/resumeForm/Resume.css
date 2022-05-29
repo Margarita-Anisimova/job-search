@@ -11,6 +11,11 @@ textarea:focus {
     border-color: #F88500;
 }
 
+input {
+    height: 40px;
+    width: 100%;
+}
+
 .resume_container {
     /* display: flex; */
     margin-top: 80px;

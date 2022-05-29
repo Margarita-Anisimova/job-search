@@ -1,7 +1,7 @@
 .register_page {
     display: flex;
     justify-content: center;
-    margin-top: 10vh;
+    margin-top: 4vh;
 }
 
 .register_container {
@@ -23,7 +23,6 @@
 .registerEmployer_container {
     flex-direction: row;
     align-items: center;
-
 }
 
 .registerForm_header {
@@ -36,7 +35,6 @@
 
 .user_rights {
     margin-left: 40px;
-
 }
 
 .set_registr {

@@ -63,7 +63,7 @@ export default function About_Work(props: { vacancy: VacancyType, setVacancy: an
             <div className="vacancy_aboutWork_Recomentations">
                 <div className="recomendation_header">
                     <img style={{ paddingRight: '5px' }} src={img} alt="" />
-                    <h6 style={{ fontSize: '1.2rem' }}>Краткое описание вакансии</h6>
+                    <h6 style={{ fontSize: '1.2rem' }}>Описание вакансии</h6>
                 </div>
                 
                 {/* <p>Например, «PR-менеджер», «Сотрудник службы охраны», «Специалист по защите информации»</p>

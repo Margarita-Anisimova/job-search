@@ -70,7 +70,7 @@ export default function Desired_Applicant(props: { vacancy: VacancyType, setVaca
             <div className="resume_desPosition_Recomendation">
                 <div className="recomendation_header">
                     <img style={{ paddingRight: '5px' }} src={img} alt="" />
-                    <h6 style={{ fontSize: '1.2rem' }}>Должность</h6>
+                    <h6 style={{ fontSize: '1.2rem' }}>Название должности</h6>
                 </div>
                 <h6 style={{ color: '#00B147' }}>Хорошо</h6>
                 <ul>
